@@ -160,6 +160,14 @@
     <bool name="config_enableWifiDisplay">true</bool>
     <bool name="config_wifiDisplaySupportsProtectedBuffers">true</bool>
 
+    <!-- Default list of files pinned by the Pinner Service -->
+    <string-array translatable="false" name="config_defaultPinnerServiceFiles">
+        <item>"/system/framework/arm/boot-framework.oat"</item>
+        <item>"/system/framework/oat/arm/services.odex"</item>
+        <item>"/system/framework/arm/boot.oat"</item>
+        <item>"/system/framework/arm/boot-core-libart.oat"</item>
+   </string-array>
+
     <!-- Indicate whether the SD card is accessible without removing the battery. -->
     <bool name="config_batterySdCardAccessibility">true</bool>
 
