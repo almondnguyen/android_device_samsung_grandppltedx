@@ -244,6 +244,35 @@ static void onUnsolicitedResponseShim(int unsolResponse, const void *data, size_
 	rilEnv->OnUnsolicitedResponse(unsolResponse, data, datalen);
 }
 
+static void patchMem(void *libHandle) {
+	/*
+	 * MAX_TIMEOUT is used for a call to pthread_cond_timedwait_relative_np.
+	 * The issue is bionic has switched to using absolute timeouts instead of
+	 * relative timeouts, and a maximum time value can cause an overflow in
+	 * the function converting relative to absolute timespecs if unpatched.
+	 *
+	 * By patching this to 0x01FFFFFF from 0x7FFFFFFF, the timeout should
+	 * expire in about a year rather than 68 years, and the RIL should be good
+	 * up until the year 2036 or so.
+	 */
+	uint32_t *MAX_TIMEOUT;
+
+	MAX_TIMEOUT = (uint32_t *)dlsym(libHandle, "MAX_TIMEOUT");
+	if (CC_UNLIKELY(!MAX_TIMEOUT)) {
+		RLOGE("%s: MAX_TIMEOUT could not be found!", __FUNCTION__);
+		return;
+	}
+	RLOGD("%s: MAX_TIMEOUT found at %p!", __FUNCTION__, MAX_TIMEOUT);
+	RLOGD("%s: MAX_TIMEOUT is currently 0x%" PRIX32, __FUNCTION__, *MAX_TIMEOUT);
+	if (CC_LIKELY(*MAX_TIMEOUT == 0x7FFFFFFF)) {
+		*MAX_TIMEOUT = 0x01FFFFFF;
+		RLOGI("%s: MAX_TIMEOUT was changed to 0x0%" PRIX32, __FUNCTION__, *MAX_TIMEOUT);
+	} else {
+		RLOGW("%s: MAX_TIMEOUT was not 0x7FFFFFFF; leaving alone", __FUNCTION__);
+	}
+
+}
+
 const RIL_RadioFunctions* RIL_Init(const struct RIL_Env *env, int argc, char **argv)
 {
 	RIL_RadioFunctions const* (*origRilInit)(const struct RIL_Env *env, int argc, char **argv);
@@ -270,6 +299,9 @@ const RIL_RadioFunctions* RIL_Init(const struct RIL_Env *env, int argc, char **a
 		RLOGE("%s: couldn't find original RIL_Init!\n", __FUNCTION__);
 		goto fail_after_dlopen;
 	}
+
+	// Fix RIL issues by patching memory
+	patchMem(origRil);
 
 	origRilFunctions = origRilInit(&shimmedEnv, argc, argv);
 	if (CC_UNLIKELY(!origRilFunctions)) {
