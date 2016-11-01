@@ -1054,5 +1054,5 @@ on property:ro.bootmode=charger
 
 service lpm /system/bin/lpm
     class sec-charger
+    seclabel u:r:charger:s0
     critical
-
