@@ -18,6 +18,9 @@ DEVICE_PATH := device/samsung/grandppltedx
 VENDOR_PATH := vendor/samsung/grandppltedx
 BOARD_VENDOR := samsung
 
+# Bootanimation
+TARGET_BOOTANIMATION_HALF_RES := true
+
 # device doesn't have /vendor partition
 # yet.
 TARGET_COPY_OUT_VENDOR := system/vendor
