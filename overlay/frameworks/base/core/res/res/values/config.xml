@@ -166,6 +166,8 @@
         <item>"/system/framework/oat/arm/services.odex"</item>
         <item>"/system/framework/arm/boot.oat"</item>
         <item>"/system/framework/arm/boot-core-libart.oat"</item>
+        <item>"/data/dalvik-cache/arm/system@framework@boot.oat"</item>
+        <item>"/data/dalvik-cache/arm/system@framework@services.jar@classes.dex"</item>
    </string-array>
 
     <!-- Indicate whether the SD card is accessible without removing the battery. -->
