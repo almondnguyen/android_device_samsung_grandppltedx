@@ -195,6 +195,13 @@ PRODUCT_COPY_FILES += \
 
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
+# Keylayout config
+KEYLAYOUTS := \
+	$(DEVICE_PATH)/configs/sec_touchscreen.kl
+
+PRODUCT_COPY_FILES += \
+	$(foreach f,$(KEYLAYOUTS),$(f):system/usr/keylayout/$(notdir $(f)))
+
 # Charger
 # Use cm/lineage images if available, aosp ones otherwise
 PRODUCT_PACKAGES += \
