@@ -318,6 +318,10 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 	persist.sys.usb.config=mtp,adb \
 	persist.sys.display.clearMotion=0
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.stagefright.legacyencoder=true \
+    media.stagefright.less-secure=true
+
 # Misc
 PRODUCT_PACKAGES += \
 	librs_jni \
