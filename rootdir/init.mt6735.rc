@@ -1,14 +1,14 @@
 # MTK platform .rc configure
 
 # samsung init forked out
-import /init.samsung.rc
+import /vendor/etc/init/hw/init.samsung.rc
 
 # normal
-import init.project.rc
-import init.xlog.rc
+import /vendor/etc/init/hw/init.project.rc
+import /vendor/etc/init/hw/init.xlog.rc
 
 # init.modem.rc must be the LAST rc file because vold.post_fs_data_done is set in it
-import init.modem.rc
+import /vendor/etc/init/hw/init.modem.rc
 # *** DO NOT import the new rc file after this line ***
 
 on early-init

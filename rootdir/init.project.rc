@@ -1,8 +1,8 @@
 # MTK project .rc configure
 
 import init.carrier.rc
-import init.mt6735.usb.rc
-import init.wifi.rc
+import /vendor/etc/init/hw/init.mt6735.usb.rc
+import /vendor/etc/init/hw/init.wifi.rc
 
 on init
     mkdir /mnt/media_rw/usbotg 0700 media_rw media_rw
