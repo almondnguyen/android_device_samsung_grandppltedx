@@ -498,8 +498,8 @@ on post-fs-data
     chown bluetooth bluetooth /data/@btmtk/dev_cache
     chown bluetooth bluetooth /dev/hid-keyboard
     setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
-    chown bluetooth net_bt_stack ro.bt.bdaddr_path
-    chown radio net_bt_stack /efs/bluetooth/bt_addr
+    chown bluetooth bluetooth ro.bt.bdaddr_path
+    chown radio bluetooth /efs/bluetooth/bt_addr
     chmod 0640 /efs/bluetooth/bt_addr
     chmod 0660 /dev/hid-keyboard
     #Use uinput's default permission
@@ -933,13 +933,13 @@ service netdiag /system/bin/netdiag
 service nvram_daemon /system/bin/nvram_daemon
     class main
     user root
-    group root system radio shell net_bt_stack audio inet
+    group root system radio shell bluetooth audio inet
     oneshot
 
 service meta_tst /system/bin/meta_tst
     class main
     user radio
-    group system radio shell net_bt_stack audio inet
+    group system radio shell bluetooth audio inet
     oneshot
 
 service audio-daemon /system/bin/audiocmdservice_atci
