@@ -1,0 +1,19 @@
+# Copyright (C) 2012 The Android Open Source Project
+#
+# IMPORTANT: Do not create world writable files or directories.
+# This is a common source of Android security bugs.
+#
+
+on post-fs-data
+    mkdir /data/misc/vpnclientd 0770 system system
+
+service vpnclientd /system/bin/vpnclientd
+	socket vpnclientd seqpacket 0600 system system
+	user system
+	group system net_admin inet net_raw
+	disabled
+on property:service.vpnclientd.enable=1
+	start vpnclientd
+on property:service.vpnclientd.enable=0
+	stop vpnclientd
+

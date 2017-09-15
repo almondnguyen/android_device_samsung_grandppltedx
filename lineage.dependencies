@@ -24,6 +24,10 @@
         "target_path": "hardware/ril"
     },
     {
+        "repository": "android_device_generic_armv7-a-neon",
+        "target_path": "device/generic/armv7-a-neon"
+    },
+    {
         "repository": "android_packages_apps_SamsungServiceMode",
         "target_path": "packages/apps/SamsungServiceMode"
     },
