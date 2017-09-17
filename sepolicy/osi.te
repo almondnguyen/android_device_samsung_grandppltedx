@@ -7,7 +7,7 @@ net_domain(osi)
 allow osi fuse:dir { write search create add_name };
 allow osi fuse:file { read write create open getattr };
 allow osi init:unix_stream_socket connectto;
-allow osi mtkrild:unix_stream_socket connectto;
+allow osi rild:unix_stream_socket connectto;
 allow osi property_socket:sock_file write;
 allow osi radio:unix_stream_socket connectto;
 allow osi rild_atci_socket:sock_file write;

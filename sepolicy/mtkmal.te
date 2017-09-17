@@ -19,7 +19,7 @@ init_daemon_domain(mtkmal)
 allow mtkmal socket_device:sock_file write;
 
 # RILD connection
-allow mtkmal mtkrild:unix_stream_socket connectto;
+allow mtkmal rild:unix_stream_socket connectto;
 allow mtkmal rild_mal_socket:sock_file write;
 allow mtkmal rild_mal_at_socket:sock_file write;
 allow mtkmal rild_mal_md2_socket:sock_file write;

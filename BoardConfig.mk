@@ -31,8 +31,8 @@ TARGET_BOARD_PLATFORM := mt6737t
 TARGET_NO_FACTORYIMAGE := true
 TARGET_BOARD_PLATFORM_GPU := mali-T720
 #r7p0
-TARGET_PREFER_32_BIT := true
-TARGET_SUPPORTS_32_BIT_APPS := true
+#TARGET_PREFER_32_BIT := true
+#TARGET_SUPPORTS_32_BIT_APPS := true
 
 # Architecture
 TARGET_ARCH := arm
@@ -92,7 +92,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 #TARGET_USERIMAGES_USE_F2FS := true
 BOARD_SUPPRESS_SECURE_ERASE := true
 #BOARD_CUSTOM_BOOTIMG_MK := device/samsung/grandppltedx/dt/bootimg.mk
-TARGET_PREBUILT_DTB := device/samsung/grandppltedx/dt.img
+#TARGET_PREBUILT_DTB := device/samsung/grandppltedx/dt.img
 #TARGET_SYSTEM_PROP := device/samsung/grandppltedx/system.prop
 #TARGET_RECOVERY_FSTAB := device/samsung/grandppltedx/recovery.fstab
 
@@ -114,7 +114,7 @@ BOARD_DT_SIZE := 485376
 
 
 # Kernel
-TARGET_KMODULES := true
+TARGET_KMODULES := false
 COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
 
 # Disable memcpy opt (for audio libraries)
@@ -204,4 +204,4 @@ TARGET_OTA_ASSERT_DEVICE := grandpplte,grandppltedx,SM-G532G
 #TARGET_RECOVERY_PIXEL_FORMAT := "ABGR_8888"
 
 # Use the non-open-source parts, if they're present
--include vendor/samsung/grandppltedx/BoardConfigVendor.mk
+#-include vendor/samsung/grandppltedx/BoardConfigVendor.mk

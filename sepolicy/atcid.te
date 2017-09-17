@@ -27,7 +27,7 @@ allow atcid property_socket:sock_file write;
 allow atcid ttyGS_device:chr_file { read write ioctl open };
 allow atcid atci_service:unix_stream_socket connectto;
 allow atcid atci_service_socket:sock_file write;
-allow atcid mtkrild:unix_stream_socket connectto;
+allow atcid rild:unix_stream_socket connectto;
 allow atcid rild_atci_socket:sock_file write;
 allow atcid atci_audio_socket:sock_file write;
 allow atcid audiocmdservice_atci:unix_stream_socket connectto;

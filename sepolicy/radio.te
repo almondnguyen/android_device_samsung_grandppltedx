@@ -26,8 +26,8 @@ allow radio zygote:unix_stream_socket { getopt getattr };
 # Date : WK14.36
 # Operation : Migration
 # Purpose : for mtkrild and viarild
-allow radio mtkrild:unix_stream_socket connectto;
-allow radio mtkrildmd2:unix_stream_socket connectto;
+allow radio rild:unix_stream_socket connectto;
+#allow radio mtkrildmd2:unix_stream_socket connectto;
 allow radio statusd:unix_stream_socket connectto;
 
 # Date : WK14.38 2014/09/16
@@ -87,7 +87,7 @@ allow radio persist_service_atci_prop:property_service set;
 # Date : 2014/11/05
 # Operation : IT
 # Purpose : for IMS_RILA connect to rild_ims provided by mtkrild process
-unix_socket_connect(radio, rild_ims, mtkrild)
+unix_socket_connect(radio, rild_ims, rild)
 
 # Purpose : allow to access kpd driver file
 allow radio sysfs_keypad_file:dir { open write };
@@ -135,8 +135,8 @@ allow radio mtk_volte_prop:property_service set;
 # Date : W15.32 2015/08/05
 # Operation : IT
 # Purpose : for VSIM adaptor connect to rild_atci by mtkrild process
-unix_socket_connect(radio, rild_vsim, mtkrild)
-unix_socket_connect(radio, rild_vsim_md2, mtkrild)
+unix_socket_connect(radio, rild_vsim, rild)
+unix_socket_connect(radio, rild_vsim_md2, rild)
 
 # Date : 2015/04/11
 # Operation : VT development

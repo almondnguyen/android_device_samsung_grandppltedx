@@ -64,6 +64,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal/.thermal_policy_00:system/etc/.tp/.thermal_policy_00
 
 # Proprietary blobs dependency on libstlport
-#PRODUCT_PACKAGES +=  libstlport
+PRODUCT_PACKAGES +=  \
+    liboverlay 
 
 #$(call inherit-product-if-exists, vendor/samsung/i9100/i9100-vendor.mk)

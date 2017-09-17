@@ -2,7 +2,7 @@
 allow bluetooth stpbt_device:chr_file rw_file_perms;
 
 # RIL SAP socket access
-allow bluetooth mtkrild:unix_stream_socket connectto;
+allow bluetooth rild:unix_stream_socket connectto;
 
 # NVRAM access
 #============= bluetooth ==============

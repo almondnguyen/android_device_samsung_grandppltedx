@@ -23,7 +23,7 @@ type thermal ,domain;
 
 init_daemon_domain(thermal)
 
-allow thermal mtkrild:unix_stream_socket connectto;
+allow thermal rild:unix_stream_socket connectto;
 allow thermal proc_thermal:dir search;
 allow thermal proc_thermal:file { read write open };
 allow thermal rild_oem_socket:sock_file write;
