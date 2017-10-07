@@ -1,108 +1,75 @@
-#
-# system.prop for Asus ZenFone 3 Max
-#
-
-# Mediatek Chip
-persist.mtk.wcn.combo.chipid=0x321
-service.wcn.driver.ready=no
-service.wcn.coredump.mode=2
-ro.mediatek.chip_ver=S01
-ro.mediatek.platform=MT6737T
-ro.mediatek.version.sdk=4
-ro.mediatek.version.release=
-
-# Telephony
-rild.libpath=/system/lib/mtk-ril.so
+# Ril
+rild.libpath=/system/lib/libril.so
 rild.libargs=-d /dev/ttyC0
-ril.specific.sm_cause=0
-ro.telephony.default_network=9
-persist.radio.multisim.config=dsds
-persist.radio.default.sim=0
-ril.flightmode.poweroffMD=1
-ril.telephony.mode=0
-ril.radiooff.poweroffMD=0
-ro.mtk_enable_md1=1
-ro.mtk_lte_support=1
-ro.telephony.ril_class=MT6735
-ro.telephony.ril.config=fakeiccid
-ro.telephony.sim.count=2
-ril.current.share_modem=2
-persist.radio.fd.counter=150
-persist.radio.fd.off.counter=50
-persist.radio.fd.r8.counter=150
-persist.radio.fd.off.r8.counter=50
 
-ro.mtk_bt_support=1
-ro.mtk_cam_lomo_support=1
-ro.mtk_cam_mfb_support=1
-ro.mtk_cam_vfb=1
-ro.mtk_matv_analog_support=1
-ro.mtk_wapi_support=1
-ro.mtk_wappush_support=1
-
-# WIFI
+# Wifi
 wifi.interface=wlan0
-ro.hardware=mt6737t
-mediatek.wlan.chip=CONSYS_MT6735
-mediatek.wlan.module.postfix=_consys_mt6735
-ro.mediatek.wlan.wsc=1
-ro.mediatek.wlan.p2p=1
-mediatek.wlan.ctia=0
-wifi.tethering.interface=ap0
 wifi.direct.interface=p2p0
 
-# FM
-fmradio.driver.enable=1
+# OpenGL
+ro.opengles.version=196609
+#ro.kernel.qemu.gles=0
+
+# Dalvik
+dalvik.vm.heapgrowthlimit=128m
+dalvik.vm.heapsize=256m
 
 # Audio
 ro.camera.sound.forced=0
 ro.audio.silent=0
 
-# GPS
-ro.mtk_agps_app=1
-ro.mtk_gps_support=1
-ro.mtk_omacp_support=1
-
-# USB
-ro.sys.usb.mtp.whql.enable=0
-ro.sys.usb.storage.type=mtp,adb
-ro.sys.usb.bicr=no
-ro.sys.usb.charging.only=yes
-ro.vold.umsdirtyratio=20
-
-# Power off opt in IPO
-sys.ipo.pwrdncap=2
-
-# Kernel
-ro.zygote.preload.enable=0
-ro.kernel.zio=38,108,105,16
-
-# Display
-ro.sf.lcd_density=320
-qemu.hw.mainkeys=1
-ro.opengles.version=196609
-persist.sys.force_highendgfx=true
+# Temporary enables NAV bar (soft keys)
+qemu.hw.mainkeys=0
 
 # Disable dirty region for Mali
 debug.hwui.render_dirty_regions=false
 
-# Media / DRM
+# Lcd density
+ro.sf.lcd_density=240
+
+# Ril
+ro.telephony.sim.count=2
+ril.current.share_modem=2
+ril.external.md=0
+ril.telephony.mode=0
+persist.radio.fd.counter=15
+persist.radio.fd.off.counter=5
+persist.radio.fd.r8.counter=15
+persist.radio.fd.off.r8.counter=5
+ro.mtk_gemini_support=1
+ro.mtk_enable_md1=1
+ro.mtk_sim_hot_swap=1
+ro.mtk_world_phone=1
+ro.mtk_world_phone_policy=1
+ro.mtk_cta_set=1
+ro.mtk_lte_support=1
+
+# Other things
+ro.mediatek.version.release=alps-mp-m1.mp8.tc10sp
+ro.mediatek.chip_ver=S01
+ro.mediatek.platform=MT6737T
+bgw.current3gband=0
+persist.mtk.wcn.combo.chipid=-1
 drm.service.enabled=true
-ro.mtk_oma_drm_support=1
-ro.mtk_widevine_drm_l3_support=1
+wfd.dummy.enable=1
 
-# Memory TRIM
-ro.sys.fw.use_trim_settings=true
-ro.sys.fw.empty_app_percent=50
-ro.sys.fw.trim_empty_percent=100
-ro.sys.fw.trim_cache_percent=100
-ro.sys.fw.trim_enable_memory=1073741824
 
-# Performance
-ro.mtk_perf_simple_start_win=1
-ro.mtk_perf_fast_start_win=1
-ro.mtk_perf_response_time=1
-dalvik.vm.checkjni=false
+#
+# HWUI_BUILD_PROPERTIES
+#
+ro.hwui.texture_cache_size=24
+ro.hwui.layer_cache_size=16
+ro.hwui.path_cache_size=4
+ro.hwui.texture_cache_flushrate=0.4
+ro.hwui.shape_cache_size=1
+ro.hwui.gradient_cache_size=0.5
+ro.hwui.drop_shadow_cache_size=2
+ro.hwui.r_buffer_cache_size=2
+ro.hwui.text_small_cache_width=512
+ro.hwui.text_small_cache_height=512
+ro.hwui.text_large_cache_width=1024
+ro.hwui.text_large_cache_height=1024
+
 
 #
 # from device/samsung/grandpplte/system.prop
@@ -249,3 +216,34 @@ ro.mtk_ims_support=1
 ro.mtk.volte.enable=1
 ro.mtk_volte_support=1
 persist.dbg.volte_avail_ovr=1
+
+#ro.mediatek.project.path=
+
+#service.wcn.driver.ready=no
+#service.wcn.coredump.mode=0
+ro.com.android.mobiledata=true
+#persist.radio.mobile.data=0,0
+#persist.meta.dumpdata=0
+#ro.build.scafe.version=2016B
+#ro.build.scafe.size=short
+#ro.build.scafe.shot=single
+#ro.build.scafe.cream=white
+#ro.security.vpnpp.ver=1.4
+#ro.security.vpnpp.release=7.0
+#security.mdpp.mass=skmm
+
+#ro.frp.pst=/dev/block/persistent
+#ro.error.receiver.default=com.samsung.receiver.error
+#ro.securestorage.support=true
+#ro.setupwizard.mode=OPTIONAL
+#ro.com.google.gmsversion=6.0_r10
+#ro.build.selinux=1
+persist.sys.dalvik.vm.lib.2=libart.so
+#dalvik.vm.isa.arm.variant=cortex-a53
+#dalvik.vm.isa.arm.features=default
+#ro.config.knox=v30
+#ro.kernel.qemu=0
+#net.bt.name=Android
+#dalvik.vm.stack-trace-file=/data/anr/traces.txt
+#ro.build.version.sdl=2302
+#ro.expect.recovery_id=0x6b603afeea15cd565447043f3c50e8ae1bfe5c90000000000000000000000000

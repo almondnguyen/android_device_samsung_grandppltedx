@@ -1,3 +1,0 @@
-# Fingerprint: ET320 etsd
-type etsd_service,      service_manager_type;
-
