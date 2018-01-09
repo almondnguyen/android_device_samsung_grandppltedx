@@ -303,6 +303,14 @@ const RIL_RadioFunctions* RIL_Init(const struct RIL_Env *env, int argc, char **a
 	// Fix RIL issues by patching memory
 	patchMem(origRil);
 
+	//remove "-c" command line as Samsung's RIL does not understand it - it just barfs instead
+	for (int i = 0; i < argc; i++) {
+		if (!strcmp(argv[i], "-c") && i != argc -1) {	//found it
+			memcpy(argv + i, argv + i + 2, sizeof(char*[argc - i - 2]));
+			argc -= 2;
+		}
+	}
+
 	origRilFunctions = origRilInit(&shimmedEnv, argc, argv);
 	if (CC_UNLIKELY(!origRilFunctions)) {
 		RLOGE("%s: the original RIL_Init derped.\n", __FUNCTION__);
