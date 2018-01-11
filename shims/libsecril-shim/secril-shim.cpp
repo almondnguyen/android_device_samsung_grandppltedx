@@ -51,6 +51,7 @@ static void onRequestShim(int request, void *data, size_t datalen, RIL_Token t)
 		case RIL_REQUEST_DIAL:
 			if (datalen == sizeof(RIL_Dial) && data != NULL) {
 				onRequestDial(request, data, t);
+				RLOGI("%s: got request %s: replied with our implementation!\n", __FUNCTION__, requestToString(request));
 				return;
 			}
 			break;
@@ -176,11 +177,11 @@ static void onRequestCompleteShim(RIL_Token t, RIL_Errno e, void *response, size
 		goto null_token_exit;
 
 	request = pRI->pCI->requestNumber;
-
 	switch (request) {
 		case RIL_REQUEST_GET_SIM_STATUS:
 			/* Remove unused extra elements from RIL_AppStatus */
 			if (response != NULL && responselen == sizeof(RIL_CardStatus_v5_samsung)) {
+				RLOGD("%s: got request %s and shimming response!\n", __FUNCTION__, requestToString(request));
 				onCompleteRequestGetSimStatus(t, e, response);
 				return;
 			}
@@ -188,6 +189,7 @@ static void onRequestCompleteShim(RIL_Token t, RIL_Errno e, void *response, size
 		case RIL_REQUEST_LAST_CALL_FAIL_CAUSE:
 			/* Remove extra element (ignored on pre-M, now crashing the framework) */
 			if (responselen > sizeof(int)) {
+				RLOGD("%s: got request %s and shimming response!\n", __FUNCTION__, requestToString(request));
 				rilEnv->OnRequestComplete(t, e, response, sizeof(int));
 				return;
 			}
@@ -197,6 +199,7 @@ static void onRequestCompleteShim(RIL_Token t, RIL_Errno e, void *response, size
 			/* According to the Samsung RIL, the addresses are the gateways?
 			 * This fixes mobile data. */
 			if (response != NULL && responselen != 0 && (responselen % sizeof(RIL_Data_Call_Response_v6) == 0)) {
+				RLOGD("%s: got request %s and shimming response!\n", __FUNCTION__, requestToString(request));
 				fixupDataCallList(response, responselen);
 				rilEnv->OnRequestComplete(t, e, response, responselen);
 				return;
@@ -206,6 +209,7 @@ static void onRequestCompleteShim(RIL_Token t, RIL_Errno e, void *response, size
 			/* Remove the extra (unused) elements from the operator info, freaking out the framework.
 			 * Formerly, this is know as the mQANElements override. */
 			if (response != NULL && responselen != 0 && (responselen % sizeof(char *) == 0)) {
+				RLOGD("%s: got request %s and shimming response!\n", __FUNCTION__, requestToString(request));
 				onCompleteQueryAvailableNetworks(t, e, response, responselen);
 				return;
 			}
@@ -213,6 +217,7 @@ static void onRequestCompleteShim(RIL_Token t, RIL_Errno e, void *response, size
 		case RIL_REQUEST_SIGNAL_STRENGTH:
 			/* The Samsung RIL reports the signal strength in a strange way... */
 			if (response != NULL && responselen >= sizeof(RIL_SignalStrength_v5)) {
+				RLOGD("%s: got request %s and shimming response!\n", __FUNCTION__, requestToString(request));
 				fixupSignalStrength(response);
 				rilEnv->OnRequestComplete(t, e, response, responselen);
 				return;
