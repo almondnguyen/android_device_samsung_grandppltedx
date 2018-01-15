@@ -82,15 +82,15 @@ void property_override_dual(char const system_prop[],
 }
 
 void init_dual() {
-    property_set("ro.multisim.set_audio_params", "true");
-    property_set("ro.multisim.simslotcount", "2");
-    property_set("persist.radio.multisim.config", "dsds");
+    android::init::property_set("ro.multisim.set_audio_params", "true");
+    android::init::property_set("ro.multisim.simslotcount", "2");
+    android::init::property_set("persist.radio.multisim.config", "dsds");
 }
 
 void init_single() {
-    property_set("ro.multisim.set_audio_params", "true");
-    property_set("ro.multisim.simslotcount", "1");
-    property_set("persist.radio.multisim.config", "none");
+    android::init::property_set("ro.multisim.set_audio_params", "true");
+    android::init::property_set("ro.multisim.simslotcount", "1");
+    android::init::property_set("persist.radio.multisim.config", "none");
 }
 
 void vendor_load_properties() {
