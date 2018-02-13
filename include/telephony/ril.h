@@ -6022,6 +6022,8 @@ typedef struct {
     int authtype;
     char *username;
     char *password;
+    char *roamingProtocol;
+    int imsType;
 } RIL_InitialAttachApn;
 
 typedef struct {
