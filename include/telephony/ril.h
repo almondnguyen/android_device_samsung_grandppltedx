@@ -6416,6 +6416,8 @@ typedef struct {
                                    (None: 0, PAP: 1, CHAP: 2, PAP&CHAP: 3) */
     char *username;             /* the username for APN, or NULL */
     char *password;             /* the password for APN, or NULL */
+    char *roamingProtocol;
+    int imsType;
 } RIL_InitialAttachApn;
 
 typedef struct {
