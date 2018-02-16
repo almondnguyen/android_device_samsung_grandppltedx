@@ -223,3 +223,7 @@ ro.opengles.version=196609
 
 # Display
 debug.hwui.use_buffer_age=false
+
+# Some devices have sdcardfs kernel panicing on 8.0 or above
+# Disable it for the moment
+ro.sys.sdcardfs=0
