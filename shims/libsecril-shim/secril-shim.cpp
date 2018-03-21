@@ -1,10 +1,16 @@
 #include "secril-shim.h"
 
+#define ATOI_NULL_HANDLED(x) (x ? atoi(x) : 0)
+
 /* A copy of the original RIL function table. */
 static const RIL_RadioFunctions *origRilFunctions;
 
 /* A copy of the ril environment passed to RIL_Init. */
 static const struct RIL_Env *rilEnv;
+
+/* Response data for RIL_REQUEST_VOICE_REGISTRATION_STATE */
+static const int VOICE_REGSTATE_SIZE = 15 * sizeof(char *);
+static char *voiceRegStateResponse[VOICE_REGSTATE_SIZE];
 
 static void onRequestDial(int request, void *data, RIL_Token t) {
 	RIL_Dial dial;
@@ -111,6 +117,20 @@ static void onCompleteRequestGetSimStatus(RIL_Token t, RIL_Errno e, void *respon
 	rilEnv->OnRequestComplete(t, e, &v6response, sizeof(RIL_CardStatus_v6));
 }
 
+static void onRequestCompleteVoiceRegistrationState(RIL_Token t, RIL_Errno e, void *response, size_t responselen) {
+	char **resp = (char **) response;
+	char radioTechUmts = '3';
+	memset(voiceRegStateResponse, 0, VOICE_REGSTATE_SIZE);
+	for (int index = 0; index < (int)responselen; index++) {
+		voiceRegStateResponse[index] = resp[index];
+		// Add RADIO_TECH_UMTS because our RIL doesn't provide this here
+		if (index == 3) {
+			voiceRegStateResponse[index] = &radioTechUmts;
+		}
+	}
+	rilEnv->OnRequestComplete(t, e, voiceRegStateResponse, VOICE_REGSTATE_SIZE);
+}
+
 static void fixupDataCallList(void *response, size_t responselen) {
 	RIL_Data_Call_Response_v6 *p_cur = (RIL_Data_Call_Response_v6 *) response;
 	int num = responselen / sizeof(RIL_Data_Call_Response_v6);
@@ -182,6 +202,15 @@ static void onRequestCompleteShim(RIL_Token t, RIL_Errno e, void *response, size
 
 	request = pRI->pCI->requestNumber;
 	switch (request) {
+                case RIL_REQUEST_VOICE_REGISTRATION_STATE:
+                        /* libsecril expects responselen of 60 (bytes) */
+                        /* numstrings (15 * sizeof(char *) = 60) */
+			if (response != NULL && responselen < VOICE_REGSTATE_SIZE) {
+				RLOGD("%s: got request %s and shimming response!\n", __FUNCTION__, requestToString(request));
+				onRequestCompleteVoiceRegistrationState(t, e, response, responselen);
+				return;
+			}
+			break;
 		case RIL_REQUEST_GET_SIM_STATUS:
 			/* Remove unused extra elements from RIL_AppStatus */
 			if (response != NULL && responselen == sizeof(RIL_CardStatus_v5_samsung)) {
