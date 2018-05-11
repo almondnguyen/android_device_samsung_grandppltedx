@@ -119,14 +119,14 @@ static void onCompleteRequestGetSimStatus(RIL_Token t, RIL_Errno e, void *respon
 
 static void onRequestCompleteVoiceRegistrationState(RIL_Token t, RIL_Errno e, void *response, size_t responselen) {
 	char **resp = (char **) response;
-	char radioTechUmts = '3';
+        char radioTechUmts = '3';
 	memset(voiceRegStateResponse, 0, VOICE_REGSTATE_SIZE);
 	for (int index = 0; index < (int)responselen; index++) {
 		voiceRegStateResponse[index] = resp[index];
-		// Add RADIO_TECH_UMTS because our RIL doesn't provide this here
+                // Add RADIO_TECH_UMTS because our RIL doesn't provide this here
 		if (index == 3) {
 			voiceRegStateResponse[index] = &radioTechUmts;
-		}
+                }
 	}
 	rilEnv->OnRequestComplete(t, e, voiceRegStateResponse, VOICE_REGSTATE_SIZE);
 }
