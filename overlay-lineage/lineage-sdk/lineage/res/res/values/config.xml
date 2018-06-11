@@ -79,7 +79,11 @@
          or a single SIM device can have 1 phones/logical modems, but 2 physical slots (one eSIM
          and one pSIM) -->
     <integer name="config_num_physical_slots">2</integer>
-    
+
+    <!-- Indicate whether encryption causes significant performances loss.
+         This MUST NOT be set to true on devices produced in 2016 or later -->
+    <bool name="config_trustLegacyEncryption">true</bool>
+
     <!-- Samsung RIL -->
     <bool name="config_samsung_stk">true</bool>
     <bool name="config_sim_phonebook_batch_operation">false</bool>
