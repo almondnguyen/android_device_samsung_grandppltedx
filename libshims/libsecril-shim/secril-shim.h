@@ -47,9 +47,10 @@ typedef struct
   RIL_PinState  universal_pin_state;             /* applicable to USIM and CSIM: RIL_PINSTATE_xxx */
   int           gsm_umts_subscription_app_index; /* value < RIL_CARD_MAX_APPS, -1 if none */
   int           cdma_subscription_app_index;     /* value < RIL_CARD_MAX_APPS, -1 if none */
+  int           ims_subscription_app_index;      /* value < RIL_CARD_MAX_APPS, -1 if none */
   int           num_applications;                /* value <= RIL_CARD_MAX_APPS */
   RIL_AppStatus_samsung applications[RIL_CARD_MAX_APPS];
-} RIL_CardStatus_v5_samsung;
+} RIL_CardStatus_v6_samsung;
 
 /* TODO: Do we really need to redefine these? They aren't in a header... */
 typedef struct {
