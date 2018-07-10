@@ -183,7 +183,7 @@ static void onRequestShim(int request, void *data, size_t datalen, RIL_Token t)
 
 static void onCompleteRequestGetSimStatus(RIL_Token t, RIL_Errno e, void *response) {
 	/* While at it, upgrade the response to RIL_CardStatus_v6 */
-	RIL_CardStatus_v5_samsung *p_cur = ((RIL_CardStatus_v5_samsung *) response);
+	RIL_CardStatus_v6_samsung *p_cur = (RIL_CardStatus_v6_samsung *) response;
 	RIL_CardStatus_v6 v6response;
 
 	v6response.card_state = p_cur->card_state;
@@ -299,7 +299,7 @@ static void onRequestCompleteShim(RIL_Token t, RIL_Errno e, void *response, size
 			break;
 		case RIL_REQUEST_GET_SIM_STATUS:
 			/* Remove unused extra elements from RIL_AppStatus */
-			if (response != NULL && responselen == sizeof(RIL_CardStatus_v5_samsung)) {
+			if (response != NULL && responselen == sizeof(RIL_CardStatus_v6_samsung)) {
 				RLOGD("%s: got request %s and shimming response!\n", __FUNCTION__, requestToString(request));
 				onCompleteRequestGetSimStatus(t, e, response);
 				return;
