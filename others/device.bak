@@ -1,0 +1,137 @@
+#
+# Copyright (C) 2012 The Android Open-Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+DEVICE_PATH := device/samsung/grandppltedx
+VENDOR_PATH := vendor/samsung/grandppltedx
+
+# Explain: audio policy service is loaded before manager AND NEED IT
+# make fails
+# tempo fix. 
+# TODO: Better solution?
+$(shell (mkdir -p out/target/product/grandppltedx/obj/SHARED_LIBRARIES/libaudiopolicymanager_intermediates))
+$(shell (mkdir -p out/target/product/grandppltedx/obj/lib))
+$(shell (cp device/samsung/grandppltedx/dummy out/target/product/grandppltedx/obj/SHARED_LIBRARIES/libaudiopolicymanager_intermediates/export_includes))
+$(shell (cp vendor/samsung/grandppltedx/proprietary/system/lib/libaudiopolicymanager.so out/target/product/grandppltedx/obj/lib/libaudiopolicymanager.so))
+
+# install-recovery.sh too. is not copied correctly!
+$(shell (mkdir -p out/target/product/grandppltedx/ota_temp/SYSTEM/bin))
+$(shell (cp vendor/samsung/grandppltedx/proprietary/system/bin/install-recovery.sh out/target/product/grandppltedx/ota_temp/SYSTEM/bin/install-recovery.sh))
+
+# Display
+# This device is hdpi.
+PRODUCT_AAPT_CONFIG := normal hdpi
+PRODUCT_AAPT_PREF_CONFIG := xhdpi
+PRODUCT_AAPT_PREBUILT_DPI := xhdpi
+
+TARGET_SCREEN_HEIGHT := 960
+TARGET_SCREEN_WIDTH := 540
+
+# Dalvik heap configurations
+$(call inherit-product-if-exists, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
+
+# Call hwui memory config
+$(call inherit-product-if-exists, frameworks/native/build/phone-xhdpi-2048-hwui-memory.mk)
+
+# Configs
+#-- Audio
+PRODUCT_COPY_FILES += \
+    frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:/system/etc/audio_policy_volumes.xml \
+    frameworks/av/services/audiopolicy/config/default_volume_tables.xml:/system/etc/default_volume_tables.xml \
+    frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:/system/etc/r_submix_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:/system/etc/usb_audio_policy_configuration.xml \
+    $(DEVICE_PATH)/configs/audio/AudioParamOptions.xml:system/etc/audio_param/AudioParamOptions.xml \
+    $(DEVICE_PATH)/configs/audio/audio_policy.conf:system/etc/audio_policy.conf \
+    $(DEVICE_PATH)/configs/audio/audio_effects.conf:system/etc/audio_effects.conf \
+    $(DEVICE_PATH)/configs/audio/audio_device.xml:system/etc/audio_device.xml
+
+#-- Media
+PRODUCT_COPY_FILES += \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml \
+    $(DEVICE_PATH)/configs/media/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
+    $(DEVICE_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml \
+    $(DEVICE_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
+    $(DEVICE_PATH)/configs/media/media_codecs_mediatek_audio.xml:system/etc/media_codecs_mediatek_audio.xml \
+    $(DEVICE_PATH)/configs/media/media_codecs_mediatek_video.xml:system/etc/media_codecs_mediatek_video.xml
+
+# Radio
+#-- Carrier
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/configs/apns-conf.xml:system/etc/apns-conf.xml \
+    $(DEVICE_PATH)/configs/spn-conf.xml:system/etc/spn-conf.xml
+
+#-- Telephony
+SIM_COUNT := 2
+PRODUCT_PROPERTY_OVERRIDES += ro.telephony.sim.count=$(SIM_COUNT)
+PRODUCT_PROPERTY_OVERRIDES += persist.radio.default.sim=0
+PRODUCT_PROPERTY_OVERRIDES += persist.radio.multisim.config=dsds
+
+# Lights
+PRODUCT_PACKAGES += \
+    lights.mt6753
+
+# Wifi
+PRODUCT_PACKAGES += \
+    dhcpcd.conf \
+    hostapd \
+    libwpa_client \
+    wpa_supplicant \
+    wpa_supplicant.conf \
+    lib_driver_cmd_mt66xx
+
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+    $(DEVICE_PATH)/configs/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+    $(DEVICE_PATH)/configs/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
+
+# Root
+#PRODUCT_PACKAGES += \
+#	enableswap.sh \	factory_init.rc \	factory_init.project.rc \	fstab.mt6735 \ init.emdlogger1.rc \	init.mal.rc \	init.modem.rc \	init.mt6735.rc \	init.mt6735.usb.rc \	init.project.rc \	init.rc \	init.recovery.mt6735.rc \	init.rilcommon.rc \	init.rilepdg.rc \	init.rilchip.rc \	init.usb.configfs.rc \	init.usb.rc \	init.volte.rc \	init.wifi.rc \	init.xlog.rc \	meta_init.rc \	meta_init.modem.rc \	meta_init.project.rc \	meta_init.usb.rc \	ueventd.mt6735.rc
+
+# Ramdisk
+PRODUCT_PACKAGES += \
+    enableswap.sh \
+    factory_init.rc \
+	factory_init.project.rc \
+	fstab.mt6735 \
+    init.modem.rc \	
+    init.mt6735.rc \
+	init.mt6735.usb.rc \
+	init.project.rc \
+	init.rilcommon.rc \
+	init.rilepdg.rc \
+	init.rilchip.rc \
+    nit.volte.rc \	
+    init.wifi.rc \	
+	meta_init.rc \
+	meta_init.modem.rc \
+	meta_init.project.rc \
+	meta_init.usb.rc \
+	ueventd.mt6735.rc
+
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    rild.libpath=/system/lib/libsec-ril.so \
+    rild.libpath2=/system/lib/libsec-ril-dsds.so \
+    ro.zygote=zygote32 \
+    persist.sys.usb.config=mtp \    
+    ro.mount.fs=EXT4
+
+# inherit the rest from mt6735-common -b cm-13.0
+$(call inherit-product, device/cyanogen/mt6735-common/mt6735.mk)
+
+# Vendor
+$(call inherit-product-if-exists, vendor/samsung/grandppltedx/grandppltedx-vendor.mk)

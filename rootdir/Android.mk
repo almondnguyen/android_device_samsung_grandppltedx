@@ -1,60 +1,33 @@
-LOCAL_PATH := $(call my-dir)
+LOCAL_PATH:= $(call my-dir)
 
-#include $(CLEAR_VARS)
-#LOCAL_MODULE           := fstab.mt6735
-#LOCAL_MODULE_TAGS      := optional eng
-#LOCAL_MODULE_CLASS     := ETC
-#LOCAL_SRC_FILES        := fstab.mt6735
-#LOCAL_MODULE_PATH      := $(TARGET_ROOT_OUT)
-#include $(BUILD_PREBUILT)
+define add-rootdir-targets
+$(foreach target,$(1), \
+   $(eval include $(CLEAR_VARS)) \
+   $(eval LOCAL_MODULE       := $(target)) \
+   $(eval LOCAL_MODULE_CLASS := ETC) \
+   $(eval LOCAL_SRC_FILES    := $(target)) \
+   $(eval LOCAL_MODULE_PATH  := $(TARGET_ROOT_OUT)) \
+   $(eval include $(BUILD_PREBUILT)))
+endef
 
-
-# Init scripts
-
-#include $(CLEAR_VARS)
-#LOCAL_MODULE           := init.modem.rc
-#LOCAL_MODULE_TAGS      := optional eng
-#LOCAL_MODULE_CLASS     := ETC
-#LOCAL_SRC_FILES        := init.modem.rc
-#LOCAL_MODULE_PATH      := $(TARGET_ROOT_OUT)
-#include $(BUILD_PREBUILT)
-
-#include $(CLEAR_VARS)
-#LOCAL_MODULE           := init.rc
-#LOCAL_MODULE_TAGS      := optional eng
-#LOCAL_MODULE_CLASS     := ETC
-#LOCAL_SRC_FILES        := init.rc
-#LOCAL_MODULE_PATH      := $(TARGET_ROOT_OUT)
-#include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE           := init.wifi.rc
-LOCAL_MODULE_TAGS      := optional eng
-LOCAL_MODULE_CLASS     := ETC
-LOCAL_SRC_FILES        := init.wifi.rc
-LOCAL_MODULE_PATH      := $(TARGET_ROOT_OUT)
-include $(BUILD_PREBUILT)
-
-#include $(CLEAR_VARS)
-#LOCAL_MODULE           := init.mt6735.usb.rc
-#LOCAL_MODULE_TAGS      := optional eng
-#LOCAL_MODULE_CLASS     := ETC
-#LOCAL_SRC_FILES        := init.mt6735.usb.rc
-#LOCAL_MODULE_PATH      := $(TARGET_ROOT_OUT)
-#include $(BUILD_PREBUILT)
-
-#include $(CLEAR_VARS)
-#LOCAL_MODULE           := init.mt6735.rc
-#LOCAL_MODULE_TAGS      := optional eng
-#LOCAL_MODULE_CLASS     := ETC
-#LOCAL_SRC_FILES        := init.mt6735.rc
-#LOCAL_MODULE_PATH      := $(TARGET_ROOT_OUT)
-#include $(BUILD_PREBUILT)
-
-#include $(CLEAR_VARS)
-#LOCAL_MODULE           := ueventd.mt6735.rc
-#LOCAL_MODULE_TAGS      := optional eng
-#LOCAL_MODULE_CLASS     := ETC
-#LOCAL_SRC_FILES        := ueventd.mt6735.rc
-#LOCAL_MODULE_PATH      := $(TARGET_ROOT_OUT)
-#include $(BUILD_PREBUILT)
+$(call add-rootdir-targets, \
+	enableswap.sh \
+	factory_init.rc \
+	factory_init.project.rc \
+	fstab.mt6735 \
+	init.modem.rc \
+	init.mt6735.rc \
+	init.mt6735.usb.rc \
+	init.project.rc \
+	init.recovery.mt6735.rc \
+	init.rilcommon.rc \
+	init.rilepdg.rc \
+	init.rilchip.rc \
+    init.usb.configfs.rc \
+	init.volte.rc \
+	init.wifi.rc \
+	meta_init.rc \
+	meta_init.modem.rc \
+	meta_init.project.rc \
+	meta_init.usb.rc \
+	ueventd.mt6735.rc)

@@ -1,44 +1,21 @@
-# Copyright (c) 2011, Code Aurora Forum. All rights reserved.
-#
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions are
-# met:
-#     * Redistributions of source code must retain the above copyright
-#       notice, this list of conditions and the following disclaimer.
-#     * Redistributions in binary form must reproduce the above
-#       copyright notice, this list of conditions and the following
-#       disclaimer in the documentation and/or other materials provided
-#       with the distribution.
-#     * Neither the name of Code Aurora Forum, Inc. nor the names of its
-#       contributors may be used to endorse or promote products derived
-#       from this software without specific prior written permission.
-#
-# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
-# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
-# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
-# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
-# BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
-# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+         
+/boot 		     emmc		/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/boot          
+/recovery  		 emmc		/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/recovery      flags=display=recovery;backup=1
+/efs	         emmc		/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/EFS      flags=backup=1;display=EFS    
+/nvram	         emmc       /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvram 	flags=backup=1;subpartitionof=/efs
+/nvdata	         emmc       /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvdata 	flags=backup=1;subpartitionof=/efs
+/cache	    	 ext4		/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache         
+/system	         ext4		/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system         
+/data			 ext4		/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata   flags=encryptable=footer   length=-16384
+/misc		     emmc		/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/para 	flags=backup=1;display=misc
+/md1img          emmc		/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/md1img  flags=backup=1;display=modem
+/md1dsp          emmc		/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/md1dsp	flags=backup=1;subpartitionof=/md1img
+/secro		     emmc	    /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/secro
+/proinfo	     emmc	    /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/proinfo
+/preload	     emmc	    /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/hidden
 
-# <src>                                             <mnt_point>	   <type>    <mnt_flags and options>    <fs_mgr_flags>
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvram         /nvram          emmc            defaults             defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/proinfo       /proinfo        emmc            defaults             defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/lk            /bootloader     emmc            defaults             defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/para          /misc           emmc            defaults             defaults
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/boot          /boot           emmc            default              recoveryonly
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/recovery      /recovery       emmc            default              recoveryonly
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/EFS           /efs            ext4            default              recoveryonly
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache         /cache	    ext4            default              recoveryonly
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system        /system         ext4            default              recoveryonly
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata      /data           ext4            default              wait,length=-16384
 
-# FOTA request
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/md1img        /md1img         emmc            defaults              recoveryonly
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/md1dsp        /md1dsp         emmc            defaults              recoveryonly
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/hidden        /preload        ext4            defaults              recoveryonly
+/system_image	         emmc		/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system
 
+/external_sd    auto    /dev/block/mmcblk1p1    /dev/block/mmcblk1    flags=display="External SDcard";storage;wipeingui;removable
+/usbotg        auto    /dev/block/sda1        /dev/block/sda        flags=display="Usb-Otg";storage;removable
