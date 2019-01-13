@@ -14,26 +14,34 @@
 # limitations under the License.
 #
 
+# Define Path
 DEVICE_PATH := device/samsung/grandppltedx
 VENDOR_PATH := vendor/samsung/grandppltedx
+#-- Credit: GearLabs | mt6737-common
+# Because Samsung use their own 'phone structure' (lets just call that)
+# Example: system/bin/macloader | system/lib/libsec-ril.so
+# Others:  -------------------- | system/lib/mtk-ril.so
+# So not inherit mt6737.mk
+MT6737_PATH := device/mediatek/mt6737-common
 
-# Explain: audio policy service is loaded before manager AND NEED IT
-# make fails
+
 # tempo fix. 
+
+#-- audio policy service is loaded before manager AND NEED IT
+# make fails
 # TODO: Better solution?
 $(shell (mkdir -p out/target/product/grandppltedx/obj/SHARED_LIBRARIES/libaudiopolicymanager_intermediates))
 $(shell (mkdir -p out/target/product/grandppltedx/obj/lib))
 $(shell (cp device/samsung/grandppltedx/dummy out/target/product/grandppltedx/obj/SHARED_LIBRARIES/libaudiopolicymanager_intermediates/export_includes))
 $(shell (cp vendor/samsung/grandppltedx/proprietary/system/lib/libaudiopolicymanager.so out/target/product/grandppltedx/obj/lib/libaudiopolicymanager.so))
 
-# install-recovery.sh too. is not copied correctly!
+#-- install-recovery.sh too. is not copied correctly!
 $(shell (mkdir -p out/target/product/grandppltedx/ota_temp/SYSTEM/bin))
 $(shell (cp vendor/samsung/grandppltedx/proprietary/system/bin/install-recovery.sh out/target/product/grandppltedx/ota_temp/SYSTEM/bin/install-recovery.sh))
 
 
-
 # Overlay
-DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
+DEVICE_PACKAGE_OVERLAYS += $(MT6737_PATH)/overlay
 
 # Permissions
 PRODUCT_COPY_FILES += \
