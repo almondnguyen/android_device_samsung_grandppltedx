@@ -84,8 +84,7 @@ BOARD_USES_MTK_AUDIO := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
-BOARD_BLUETOOTH_BDROID_HCILP_INCLUDED := 0
-BOARD_CONNECTIVITY_MODULE := conn_soc
+#BOARD_BLUETOOTH_BDROID_HCILP_INCLUDED := 0
 
 # CMHW
 BOARD_USES_CYANOGEN_HARDWARE := true
@@ -114,12 +113,18 @@ WIFI_DRIVER_STATE_OFF := 0
 
 # Kernel
 BOARD_CUSTOM_BOOTIMG := true
-BOARD_KERNEL_IMAGE_NAME := zImage
+#-- use prebuilt
+USE_PREBUILT_KERNEL := true
 
-TARGET_KERNEL_SOURCE  := kernel/samsung/grandppltedx
-TARGET_KERNEL_CONFIG  := mt6737t-grandpplte-lineage_defconfig
+ifeq ($(USE_PREBUILT_KERNEL),true)
+	TARGET_PREBUILT_KERNEL  := device/samsung/grandppltedx/prebuilt/kernel
+else
+	BOARD_KERNEL_IMAGE_NAME := zImage
+	TARGET_KERNEL_SOURCE    := kernel/samsung/grandppltedx
+	TARGET_KERNEL_CONFIG    := mt6737t-grandpplte-lineage_defconfig
+endif
 
-BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=disabled
 
 BOARD_KERNEL_BASE     := 0x3fffc000
 BOARD_KERNEL_PAGESIZE := 2048
@@ -128,11 +133,14 @@ BOARD_SECOND_OFFSET   := 0x00f04000
 BOARD_TAGS_OFFSET     := 0x0e004000
 BOARD_KERNEL_OFFSET   := 0x00008000
 BOARD_KERNEL_BOARD    := SRPPI01A000KU
+BOARD_DT_SIZE         := 485376
+BOARD_HASH_TYPE       := sha1
 
-BOARD_MKBOOTIMG_ARGS := --base $(BOARD_KERNEL_BASE) --pagesize $(BOARD_KERNEL_PAGESIZE) --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --second_offset $(BOARD_SECOND_OFFSET) --tags_offset $(BOARD_TAGS_OFFSET) --dt $(DEVICE_PATH)/dt.img --board $(BOARD_KERNEL_BOARD)
+
+BOARD_MKBOOTIMG_ARGS := --base $(BOARD_KERNEL_BASE) --pagesize $(BOARD_KERNEL_PAGESIZE) --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --second_offset $(BOARD_SECOND_OFFSET) --tags_offset $(BOARD_TAGS_OFFSET) --dt $(DEVICE_PATH)/dt.img --board $(BOARD_KERNEL_BOARD) --dt_size $(BOARD_DT_SIZE)
 
 # twrp is broken in cm-13.0. use base
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.mt6735
+#TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.mt6735
 
 # GPS
 BOARD_GPS_LIBRARIES := true
@@ -142,6 +150,7 @@ TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 
 # SELinux
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
+BOARD_SECCOMP_POLICY += $(COMMON_PATH)/seccomp
 # testing
 
 # assert

@@ -1,0 +1,48 @@
+#-- j2?
+# Root
+/			u:object_r:rootfs:s0
+
+# Data files
+/adb_keys		u:object_r:adb_keys_file:s0
+/default\.prop		u:object_r:rootfs:s0
+/fstab\..*		u:object_r:rootfs:s0
+/init\..*		u:object_r:rootfs:s0
+/res(/.*)?		u:object_r:rootfs:s0
+/ueventd\..*		u:object_r:rootfs:s0
+
+# Exec
+/charger		u:object_r:rootfs:s0
+/init			u:object_r:init_exec:s0
+/sbin(/.*)?		u:object_r:rootfs:s0
+
+# Empty directories
+/lost\+found		u:object_r:rootfs:s0
+/proc			u:object_r:rootfs:s0
+
+#-- J5(2015)
+# Camera
+/data/cam_socket[0-9]                                u:object_r:camera_socket:s0
+
+# EFS
+/efs/imei(/.*)?                                      u:object_r:imei_efs_file:s0
+
+# Macloader
+/system/bin/macloader                                u:object_r:macloader_exec:s0
+
+# Partitions
+/dev/block/mmcblk0p10                               u:object_r:modem_efs_partition_device:s0
+
+# RIL
+/dev/socket/rild-cas                                 u:object_r:rild_cas_socket:s0
+
+# Vibrator
+/sys/devices/virtual/timed_output/vibrator(/.*)?     u:object_r:vibrator_sysfs_file:s0
+
+# Wifi
+/efs/wifi(/.*)? u:object_r:wifi_efs_file:s0
+
+#-- ks01lte
+# Bluetooth
+/dev/btlock                                             u:object_r:bluetooth_device:s0
+/dev/rfkill                                             u:object_r:bluetooth_device:s0
+/efs/bluetooth(/.*)?                                    u:object_r:bluetooth_efs_file:s0

@@ -1,0 +1,1 @@
+allow init rild_cas_socket:sock_file w_file_perms;
