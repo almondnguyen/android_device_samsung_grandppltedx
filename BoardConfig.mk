@@ -24,6 +24,7 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 PRESENT_TIME_OFFSET_FROM_VSYNC_NS := 0
+BOARD_EGL_CFG := $(DEVICE_PATH)/configs/egl.cfg
 MTK_HWC_SUPPORT := yes
 MTK_HWC_VERSION := 1.4.1
 
@@ -124,7 +125,7 @@ else
 	TARGET_KERNEL_CONFIG    := mt6737t-grandpplte-lineage_defconfig
 endif
 
-BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=disabled
+BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive
 
 BOARD_KERNEL_BASE     := 0x3fffc000
 BOARD_KERNEL_PAGESIZE := 2048
@@ -137,7 +138,7 @@ BOARD_DT_SIZE         := 485376
 BOARD_HASH_TYPE       := sha1
 
 
-BOARD_MKBOOTIMG_ARGS := --base $(BOARD_KERNEL_BASE) --pagesize $(BOARD_KERNEL_PAGESIZE) --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --second_offset $(BOARD_SECOND_OFFSET) --tags_offset $(BOARD_TAGS_OFFSET) --dt $(DEVICE_PATH)/dt.img --board $(BOARD_KERNEL_BOARD) --dt_size $(BOARD_DT_SIZE)
+BOARD_MKBOOTIMG_ARGS := --base $(BOARD_KERNEL_BASE) --pagesize $(BOARD_KERNEL_PAGESIZE) --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --second_offset $(BOARD_SECOND_OFFSET) --tags_offset $(BOARD_TAGS_OFFSET) --dt $(DEVICE_PATH)/dt.img --board $(BOARD_KERNEL_BOARD)
 
 # twrp is broken in cm-13.0. use base
 #TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.mt6735
@@ -149,7 +150,7 @@ BOARD_GPS_LIBRARIES := true
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 
 # SELinux
-BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
+include $(DEVICE_PATH)/sepolicy/sepolicy.mk
 BOARD_SECCOMP_POLICY += $(COMMON_PATH)/seccomp
 # testing
 

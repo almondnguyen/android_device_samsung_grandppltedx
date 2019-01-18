@@ -143,7 +143,6 @@ PRODUCT_PACKAGES += \
     libmtkshim_omx \
     libmtkshim_gps
 
-
 # Radio
 #-- Radio dependencies
 PRODUCT_PACKAGES += \
@@ -228,6 +227,7 @@ PRODUCT_PACKAGES += \
 	meta_init.modem.rc \
 	meta_init.project.rc \
 	meta_init.usb.rc \
+	init.recovery.mt6735.rc \
 	ueventd.mt6735.rc
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
