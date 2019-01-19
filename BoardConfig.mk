@@ -128,7 +128,8 @@ else
 	TARGET_KERNEL_CONFIG    := mt6737t-grandpplte-lineage_defconfig
 endif
 
-BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive
+# FOR TESTING PURPOSE ONLY
+BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=disabled
 
 BOARD_KERNEL_BASE     := 0x3fffc000
 BOARD_KERNEL_PAGESIZE := 2048

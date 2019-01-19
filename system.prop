@@ -62,7 +62,8 @@ persist.dbg.volte_avail_ovr=1
 ro.mtk_ims_support=1
 
 # SELinux
-ro.build.selinux=1
+# DISABLE FOR TESTING PURPOSE ONLY
+#ro.build.selinux=1
 
 # Dalvik / hwui
 persist.sys.dalvik.vm.lib.2=libart.so
