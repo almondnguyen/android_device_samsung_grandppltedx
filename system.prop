@@ -1,66 +1,134 @@
-# Credit: MAD team
+# ro.product.first_api_level indicates the first api level the device has commercially launched on.
+ro.product.first_api_level=23
+
 #
 # system.prop for grandpplte
 #
+
+
+#+ Samsung Build properties
+
+# Platform
+ro.mediatek.chip_ver=S01
+ro.mediatek.platform=MT6737T
+ro.mediatek.version.branch=alps-mp-m1.mp8.tc10sp
+ro.mediatek.version.release=alps-mp-m1.mp8.tc10sp
+ro.mediatek.version.sdk=4
 
 # RIL
 rild.libpath=/system/lib/libsec-ril.so
 rild.libpath2=/system/lib/libsec-ril-dsds.so
 rild.libargs=-d /dev/ttyC0
 
-# Wifi
-wifi.interface=wlan0
-wifi.direct.interface=p2p0
-
-# OpenGL
-ro.opengles.version=196609
-ro.kernel.qemu.gles=0
-
-# Dalvik
-dalvik.vm.heapgrowthlimit=256m
-dalvik.vm.heapsize=512m
-
-# Audio
-ro.camera.sound.forced=0
-ro.audio.silent=0
-persist.af.audio_patch_fm=1
-
-# enable soft keys
-qemu.hw.mainkeys=0
-
-# Disable dirty region for Mali
-debug.hwui.render_dirty_regions=false
-
-# lcd density
-ro.sf.lcd_density=240
-
-# RIL
+ro.telephony.ril_class=MT6735
+ro.telephony.ril.config=fakeiccid
 ro.telephony.sim.count=2
-persist.radio.multisim.config=dsds
+ro.boot.opt_lte_support=1
+ro.mtk_lte_support=1
+ro.mtk_sim_hot_swap=1
+ro.mtk_gemini_support=1
+ro.mediatek.gemini_support=true
+ro.gemini.smart_sim_switch=false
+
 ril.current.share_modem=2
-ril.external.md=0
+ril.first.md=1
+ril.flightmode.poweroffMD=0
 ril.telephony.mode=0
+ril.external.md=0
+ril.specific.sm_cause=0
+
+persist.radio.multisim.config=dsds
+persist.radio.gemini_support=1
 persist.radio.fd.counter=15
 persist.radio.fd.off.counter=5
 persist.radio.fd.r8.counter=15
 persist.radio.fd.off.r8.counter=5
-ro.mtk_gemini_support=1
+persist.radio.sib16_support=0
+
+fmradio.driver.enable=1
+ro.mtk_fm_recording_support=1
+
+# audio
+ro.camera.sound.forced=0
+ro.audio.silent=0
+
+# VoLTE
+ro.mtk.volte.enable=1
+ro.mtk_volte_support=1
+
+persist.dbg.volte_avail_ovr=1
+
+# IMS
+ro.mtk_ims_support=1
+
+# SELinux
+ro.build.selinux=1
+
+# Dalvik / hwui
+persist.sys.dalvik.vm.lib.2=libart.so
+
+dalvik.vm.isa.arm.variant=cortex-a53
+dalvik.vm.isa.arm.features=default
+dalvik.vm.stack-trace-file=/data/anr/traces.txt
+dalvik.vm.heapsize=512m
+dalvik.vm.heapgrowthlimit=256m
+
+# Block
+ro.frp.pst=/dev/block/persistent
+
+# PQ
+ro.mtk_pq_support=2
+
+# Wi-Fi / BT
+wifi.interface=wlan0
+wifi.direct.interface=p2p0
+wifi.tethering.interface=ap0
+
+ro.mtk_wlan_support=1
+ro.mtk_wifi_mcc_support=1
+ro.mediatek.wlan.wsc=1
+ro.mtk_dhcpv6c_wifi=1
+
+mediatek.wlan.chip=CONSYS_MT6735
+mediatek.wlan.module.postfix=_consys_mt6735
+mediatek.wlan.ctia=0
+
+#-
+ro.mtk_bt_support=1
+
+# Tethering
+ro.mtk_tetheringipv6_support=1
+
+# GPS
+ro.mtk_agps_app=1
+ro.mtk_gps_support=1
+
+#+ Other - mix of Samsung and MTK-common
+ro.sf.lcd_density=240
+ro.opengles.version=196609
+
+debug.hwui.render_dirty_regions=false
+
+ro.mtk_world_phone_policy=0
+ro.kernel.zio=38,108,105,16
+ro.sf.hwrotation=0
+ro.mtk_emmc_support=1
+persist.mtk.wcn.combo.chipid=-1
+ro.com.android.mobiledata=true
 ro.mtk_enable_md1=1
 ro.mtk_flight_mode_power_off_md=1
-ro.mtk_sim_hot_swap=1
 ro.mtk_world_phone=1
 ro.mtk_cta_set=1
-ro.mtk_lte_support=1
 ro.mtk_rild_read_imsi=1
+
+persist.af.audio_patch_fm=1
 persist.md.perm.checked=1
 
-# other things
-ro.mediatek.chip_ver=S01
-ro.mediatek.version.release=alps-mp-m0.mp1-V2.39.1_wtk6753.65u.m0_P16
-ro.mediatek.platform=MT6735
+# Test and my screen is cracked.
+qemu.hw.mainkeys=0
+
+# MAD
 bgw.current3gband=0
-ro.sf.hwrotation=0
-persist.mtk.wcn.combo.chipid=-1
 drm.service.enabled=true
 wfd.dummy.enable=1
 persist.sys.display.clearMotion=1
@@ -68,5 +136,3 @@ ro.mtk_clearmotion_support=1
 keyguard.no_require_sim=true
 camera.disable_zsl_mode=1
 persist.debug.wfd.enable=1
-ro.mtk_volte_support=1
-persist.mtk.volte.enable=1

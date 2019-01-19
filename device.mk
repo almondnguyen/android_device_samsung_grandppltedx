@@ -18,16 +18,17 @@
 DEVICE_PATH := device/samsung/grandppltedx
 VENDOR_PATH := vendor/samsung/grandppltedx
 
-#-- Credit: GearLabs | mt6737-common
+#-- Credit: 
+# GearLabs | mt6737-common
+# MAD Team | android_vendor_MAD
+
+# -------------------------------------
 # Because Samsung use their own 'phone structure' (lets just call that)
 # Example: system/bin/macloader | system/lib/libsec-ril.so
 # Others:  -------------------- | system/lib/mtk-ril.so
 # So not inherit mt6737.mk
 MT6737_PATH := device/mediatek/mt6737-common
 
-#-- Credit: MAD Team | android_vendor_mad
-# TODO: Integrate?
-MAD_PATH := vendor/mad
 
 
 # tempo fix. 
@@ -57,7 +58,7 @@ PRODUCT_COPY_FILES += \
 		
 
 # Overlay
-DEVICE_PACKAGE_OVERLAYS += $(MT6737_PATH)/overlay
+DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
 
 # Include permission.mk from MAD
 PRODUCT_COPY_FILES += \
@@ -161,6 +162,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libmtk_symbols
 
+# Recovery
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/configs/recovery.fstab:recovery/root/etc/twrp.fstab
+
+
 # Power
 PRODUCT_PACKAGES += \
     power.default \
@@ -176,6 +182,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     libfmjni \
     FMRadio
+
+# Thermal
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/configs/thermal/.ht120.mtc:system/etc/.tp/.ht120.mtc \
+    $(DEVICE_PATH)/configs/thermal/thermal.conf:system/etc/.tp/thermal.conf \
+    $(DEVICE_PATH)/configs/thermal/thermal.off.conf:system/etc/.tp/thermal.off.conf
 
 # GPS
 PRODUCT_PACKAGES += \
