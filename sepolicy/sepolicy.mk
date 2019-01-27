@@ -23,6 +23,6 @@
 SEPOLICY_PATH := $(call my-dir)
 
 # Credit for MTK Sepolicy: Moto E4 (woods) devs
+# rm MTK policy for wierd interactions
 
-BOARD_SEPOLICY_DIRS := \
-    $(SEPOLICY_PATH)/samsung
+BOARD_SEPOLICY_DIRS := $(SEPOLICY_PATH)/samsung
