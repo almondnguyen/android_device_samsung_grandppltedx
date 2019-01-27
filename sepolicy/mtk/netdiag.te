@@ -1,0 +1,76 @@
+# ==============================================
+# Policy File of /system/bin/netdiag Executable File
+
+# ==============================================
+# Type Declaration
+# ==============================================
+type netdiag_exec , exec_type, file_type;
+type netdiag ,domain;
+
+# ==============================================
+# MTK Policy Rule
+# ==============================================
+init_daemon_domain(netdiag)
+
+# Purpose : for access storage file 
+allow netdiag sdcard_type:dir create_dir_perms;
+allow netdiag sdcard_type:file create_file_perms;
+allow netdiag domain:dir search;
+allow netdiag domain:file { read open };
+allow netdiag net_data_file:file r_file_perms;
+allow netdiag net_data_file:dir search;
+allow netdiag storage_file:dir search;
+allow netdiag storage_file:lnk_file read;
+allow netdiag mnt_user_file:dir search;
+allow netdiag mnt_user_file:lnk_file read;
+allow netdiag platform_app:dir search;
+allow netdiag untrusted_app:dir search;
+allow netdiag mnt_media_rw_file:dir search;
+allow netdiag vfat:dir create_dir_perms;
+allow netdiag vfat:file create_file_perms;
+allow netdiag tmpfs:lnk_file read;
+allow netdiag system_file:file rx_file_perms;
+
+# Purpose : for shell, set uid and gid
+allow netdiag self:capability { net_admin setuid net_raw setgid};
+allow netdiag shell_exec:file rx_file_perms;
+
+#/proc/3523/net/xt_qtaguid/ctrl & /proc
+allow netdiag qtaguid_proc:file r_file_perms;
+
+#access /proc/318/net/psched
+allow netdiag proc_net:file r_file_perms;
+
+# Purpose : for ping
+allow netdiag dnsproxyd_socket:sock_file write;
+allow netdiag fwmarkd_socket:sock_file write;
+allow netdiag netd:unix_stream_socket connectto;
+
+#Purpose : for network log property
+set_prop(netdiag, debug_netlog_prop)
+set_prop(netdiag, persist_mtklog_prop)
+set_prop(netdiag, debug_mtklog_prop)
+
+# Purpose : for service permission
+typeattribute netdiag mlstrustedsubject;
+allow netdiag connectivity_service:service_manager find;
+allow netdiag netstats_service:service_manager find;
+allow netdiag system_server:binder call;
+allow system_server netdiag:fd use;
+allow netdiag servicemanager:binder call;
+binder_use(netdiag)
+
+# Purpose : for socket with MTKLogger
+allow netdiag self:socket_class_set { create_socket_perms };
+allow netdiag self:netlink_route_socket { create_socket_perms nlmsg_read };
+
+# Purpose : for acess /system/bin/toybox, mmc_prop,proc_net and safemode_prop
+allow netdiag device_logging_prop:file { getattr open };
+allow netdiag mmc_prop:file { getattr open };
+allow netdiag proc_net:dir { read open };
+allow netdiag safemode_prop:file { getattr open };
+allow netdiag toolbox_exec:file rx_file_perms;
+
+# purpose: allow netdiag to access storage in new version
+allow netdiag media_rw_data_file:file  { create_file_perms };
+allow netdiag media_rw_data_file:dir { create_dir_perms };

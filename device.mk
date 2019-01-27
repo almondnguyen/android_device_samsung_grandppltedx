@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2012 The Android Open-Source Project
+# Copyright (C) 2018 The Android Open-Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,6 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Define Path
 DEVICE_PATH := device/samsung/grandppltedx
@@ -47,15 +51,7 @@ $(shell (cp device/samsung/grandppltedx/dummy out/target/product/grandppltedx/ob
 
 #-- install-recovery.sh too. is not copied correctly!
 $(shell (mkdir -p out/target/product/grandppltedx/ota_temp/SYSTEM/bin))
-$(shell (cp vendor/samsung/grandppltedx/proprietary/system/bin/install-recovery.sh out/target/product/grandppltedx/ota_temp/SYSTEM/bin/install-recovery.sh))
-
-# using prebuilt kernel
-$(shell (mkdir -p out/target/product/grandppltedx/obj/KERNEL_OBJ/usr))	
-LOCAL_KERNEL := device/samsung/grandppltedx/prebuilt/kernel
-PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel
-
-		
+$(shell (cp vendor/samsung/grandppltedx/proprietary/system/bin/install-recovery.sh out/target/product/grandppltedx/ota_temp/SYSTEM/bin/install-recovery.sh))	
 
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
@@ -100,6 +96,10 @@ TARGET_SCREEN_WIDTH := 540
 PRODUCT_PACKAGES += \
     libion
 
+# Locale
+PRODUCT_DEFAULT_LANGUAGE := en
+PRODUCT_DEFAULT_REGION   := US
+
 #-- Dalvik heap configurations
 $(call inherit-product-if-exists, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
@@ -136,14 +136,6 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/media/media_codecs_mediatek_audio.xml:system/etc/media_codecs_mediatek_audio.xml \
 	$(DEVICE_PATH)/configs/media/media_codecs_mediatek_video.xml:system/etc/media_codecs_mediatek_video.xml
 
-# Shim libraries
-PRODUCT_PACKAGES += \
-    libmtkshim_log \
-    libmtkshim_audio \
-    libmtkshim_ui \
-    libmtkshim_omx \
-    libmtkshim_gps
-
 # Radio
 #-- Radio dependencies
 PRODUCT_PACKAGES += \
@@ -158,30 +150,30 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/carrier/apns-conf.xml:system/etc/apns-conf.xml \
 	$(DEVICE_PATH)/configs/carrier/spn-conf.xml:system/etc/spn-conf.xml
 
-# Mediatek platform
+#-- RIL
+BOARD_PROVIDE_LIBRIL := true
+SIM_COUNT := 2
+
 PRODUCT_PACKAGES += \
-    libmtk_symbols
-
-# Recovery
-PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/configs/recovery.fstab:recovery/root/etc/twrp.fstab
-
-
-# Power
-PRODUCT_PACKAGES += \
-    power.default \
-    power.mt6737t
-
-#-- Telephony
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.telephony.sim.count=2 \
-	persist.radio.default.sim=0 \
-	persist.radio.multisim.config=dsds
+	libril
 
 #-- FM
 PRODUCT_PACKAGES += \
     libfmjni \
     FMRadio
+
+# Mediatek platform
+PRODUCT_PACKAGES += \
+	mtk_symbols
+
+# Recovery
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/configs/recovery.fstab:recovery/root/etc/twrp.fstab
+
+# Power
+PRODUCT_PACKAGES += \
+    power.default \
+    power.mt6737t
 
 # Thermal
 PRODUCT_COPY_FILES += \
@@ -196,10 +188,23 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/configs/agps_profiles_conf2.xml:system/etc/agps_profiles_conf2.xml
 
+# Init
+PRODUCT_PACKAGES += \
+	libinit_grandpplte
+
 # Power
 PRODUCT_PACKAGES += \
     power.default \
     power.mt6737t
+
+# IO Sched
+PRODUCT_PROPERTY_OVERRIDES += \
+    sys.io.scheduler=cfq
+
+
+# Camera
+PRODUCT_PACKAGES += \
+    Snap
 
 # Lights
 PRODUCT_PACKAGES += \
@@ -242,11 +247,21 @@ PRODUCT_PACKAGES += \
 	init.recovery.mt6735.rc \
 	ueventd.mt6735.rc
 
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/rootdir/sbin/busybox:root/sbin/busybox \
+	$(DEVICE_PATH)/rootdir/sbin/sswap:root/sbin/sswap
+
 ADDITIONAL_DEFAULT_PROPERTIES += \
 	rild.libpath=/system/lib/libsec-ril.so \
 	rild.libpath2=/system/lib/libsec-ril-dsds.so \
 	ro.zygote=zygote32 \
-	persist.sys.usb.config=mtp
+	persist.sys.usb.config=mtp \
+	ro.mount.fs=EXT4 \
+	ro.adb.secure=0 \
+	ro.secure=0 \
+	ro.allow.mock.location=0 \
+	ro.debuggable=1 \
+	persist.service.acm.enable=0
 
 # Charger Mode
 PRODUCT_PACKAGES += \

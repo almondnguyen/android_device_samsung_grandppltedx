@@ -1,0 +1,153 @@
+# ==============================================
+# Policy File of /system/binvtservice Executable File
+
+
+# ==============================================
+# Type Declaration
+# ==============================================
+
+type vtservice_exec , exec_type, file_type;
+type vtservice ,domain;
+
+# ==============================================
+# Android Policy Rule
+# ==============================================
+
+# ==============================================
+# NSA Policy Rule
+# ==============================================
+
+# ==============================================
+# MTK Policy Rule
+# ==============================================
+
+init_daemon_domain(vtservice)
+binder_use(vtservice)
+binder_call(vtservice, mediaserver)
+binder_service(vtservice)
+
+# Date : WK15.33
+# Purpose : Add vtservice to support video telephony functionality
+#           3G VT/ViLTE both use this service which will also communication with IMCB/Rild
+allow vtservice vtservice_service:service_manager add;
+unix_socket_connect(vtservice, volte_imsvt1, volte_imcb)
+unix_socket_connect(vtservice, rild_oem, mtkrild)
+allow vtservice mtkrild:unix_stream_socket connectto;
+allow vtservice sdcard_type:dir search;
+allow vtservice sdcard_type:file { read write open };
+allow vtservice radio_service:service_manager find;
+allow vtservice mediaserver_service:service_manager find;
+allow vtservice power_service:service_manager find;
+allow vtservice batterystats_service:service_manager find;
+# Date : 2015/08/13
+# Purpose : for access ccci device
+allow vtservice ccci_device:chr_file { read write open ioctl };
+
+# Purpose : VDEC/VENC device node
+allow vtservice Vcodec_device:chr_file { read write ioctl open };
+
+# Date: 2015/09/22
+# Purpose: for unix domain socket access /dev/socket/volte_vt
+allow vtservice MTK_SMI_device:chr_file { read write ioctl open };
+allow vtservice sysfs:file write;
+allow vtservice volte_vt_socket:dir { read write ioctl open remove_name add_name };
+allow vtservice volte_vt_socket:dir write;
+allow vtservice volte_vt_socket:sock_file { create unlink read write };
+allow vtservice fwmarkd_socket:sock_file write;
+allow vtservice volte_ua:fd use;
+allow vtservice volte_ua:udp_socket connect;
+allow vtservice netd:unix_stream_socket connectto;
+allow vtservice untrusted_app:binder call;
+
+# Date: 2016/06/27
+# This part is for both 3G VT/ViLTE
+# Purpose: add in N migration for access audioflinger etc.
+allow vtservice audioserver_service:service_manager find;
+allow vtservice mnt_user_file:dir search;
+allow vtservice property_socket:sock_file write;
+allow vtservice surfaceflinger:binder call;
+allow vtservice system_data_file:dir write;
+
+# Date: 2016/06/30
+# This part is for both 3G VT/ViLTE
+# Purpose: add in N migration for access SDcard etc.
+allow vtservice audioserver:binder call;
+allow vtservice init:unix_stream_socket connectto;
+allow vtservice mnt_user_file:lnk_file read;
+allow vtservice system_data_file:dir add_name;
+
+# Date: 2016/07/01
+# This part is for both 3G VT/ViLTE
+# Purpose: add in N migration for write SDcard etc.
+file_type_auto_trans(vtservice, system_data_file, vtservice_data_file)
+allow vtservice vtservice_data_file:file { write create open };
+allow vtservice media_rw_data_file:dir { write search create add_name };
+allow vtservice media_rw_data_file:file { write create open };
+
+# Date: 2016/07/26
+# Purpose: add for cleanup thread's AF_UNIX socket
+allow vtservice proc_ged:file { read open };
+allow vtservice system_data_file:dir remove_name;
+
+# Date: 2016/08/11
+# Purpose: add more for AF_UNIX socket using
+allow vtservice system_data_file:dir { open read create };
+allow vtservice system_data_file:sock_file { create open read write unlink };
+
+# ==============================================
+# For socket path between vt_service and volte_ua
+# ==============================================
+allow vtservice volte_ua:udp_socket {read write setopt getattr getopt shutdown};
+allow vtservice self:udp_socket { create bind connect read write setopt getattr getopt shutdown };
+allow vtservice node:udp_socket { node_bind };
+
+# ==============================================
+# For using MDP
+# ==============================================
+allow vtservice  pq_service:service_manager { find };
+allow vtservice pq:binder call;
+
+#============= vtservice ==============
+#for debug dump data
+#=====================================
+allow vtservice pq:fd use;
+allow vtservice storage_file:lnk_file read;
+allow vtservice devmap_device:chr_file read;
+
+allow vtservice devmap_device:chr_file open;
+allow vtservice devmap_device:chr_file ioctl;
+
+#============= vtservice ==============
+#for using surfaceflinger
+#=====================================
+allow vtservice surfaceflinger_service:service_manager find;
+
+#============= vtservice ==============
+#for using camera
+#=====================================
+allow vtservice cameraserver_service:service_manager find;
+allow vtservice cameraserver:binder call;
+allow vtservice cameraserver:fd use;
+
+#============= vtservice ==============
+#Change VTS uid to media
+#=====================================
+allow vtservice mediacodec_service:service_manager find;
+allow vtservice mediacodec:binder call;
+allow vtservice qtaguid_device:chr_file r_file_perms;
+allow vtservice qtaguid_proc:file rw_file_perms;
+allow debuggerd vtservice:fifo_file create_file_perms;
+allow debuggerd vtservice:unix_dgram_socket create_socket_perms;
+allow debuggerd vtservice:unix_stream_socket create_stream_socket_perms;
+allow vtservice priv_app:binder call;
+
+#============= vtservice ==============
+# For loopback mode
+#=====================================
+allow vtservice self:capability net_admin;
+
+#============= vtservice ==============
+# For GED Service
+#=====================================
+allow vtservice debugfs_ged:dir search;
+allow vtservice debugfs_ged:file { write open };

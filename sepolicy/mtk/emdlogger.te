@@ -1,0 +1,101 @@
+# ==============================================
+# Policy File of /system/bin/emdlogger[x] Executable File
+
+# ==============================================
+# Type Declaration
+# ==============================================
+type emdlogger_exec , exec_type, file_type;
+type emdlogger, domain;
+
+# ==============================================
+# MTK Policy Rule
+# ==============================================
+init_daemon_domain(emdlogger)
+
+binder_use(emdlogger)
+binder_service(emdlogger)
+
+#allow emdlogger to set property
+allow emdlogger debug_mdlogger_prop:property_service set;
+allow emdlogger debug_prop:property_service set;
+allow emdlogger persist_mtklog_prop:property_service set;
+allow emdlogger system_radio_prop:property_service set;
+
+# ccci device for internal modem
+allow emdlogger ccci_device:chr_file { rw_file_perms };
+
+# eemcs device for external modem
+allow emdlogger eemcs_device:chr_file { rw_file_perms };
+
+# C2K project SDIO device for external modem ttySDIO2 control port, ttySDIO8 log port
+allow emdlogger ttySDIO_device:chr_file { rw_file_perms };
+
+# C2K project modem device for external modem vmodem start/stop/ioctl modem
+allow emdlogger vmodem_device:chr_file { rw_file_perms };
+
+# usb device ttyGSx for modem logger usb logging
+allow emdlogger ttyGS_device:chr_file { rw_file_perms};
+
+# for modem logging sdcard access
+allow emdlogger sdcard_type:dir { create_dir_perms };
+allow emdlogger sdcard_type:file { create_file_perms };
+
+# modem logger access on /data/mdlog
+allow emdlogger mdlog_data_file:dir { create_dir_perms relabelto };
+allow emdlogger mdlog_data_file:fifo_file { create_file_perms };
+allow emdlogger mdlog_data_file:file { create_file_perms };
+allow emdlogger system_data_file:dir { create_dir_perms relabelfrom};
+
+# modem logger control port access /dev/ttyC1
+allow emdlogger mdlog_device:chr_file { rw_file_perms};
+
+# modem logger socket access
+allow emdlogger property_socket:sock_file write;
+allow emdlogger init:unix_stream_socket connectto;
+allow emdlogger platform_app:unix_stream_socket connectto;
+allow emdlogger shell_exec:file { rx_file_perms };
+allow emdlogger system_file:file execute_no_trans;
+allow emdlogger zygote_exec:file { rx_file_perms };
+
+#modem logger SD logging in factory mode
+allow emdlogger vfat:dir create_dir_perms;
+allow emdlogger vfat:file create_file_perms;
+
+#modem logger permission in storage in android M version
+allow emdlogger log_device:chr_file { write open };
+allow emdlogger mnt_user_file:dir search;
+allow emdlogger mnt_user_file:lnk_file read;
+allow emdlogger storage_file:lnk_file read;
+
+#permission for storage link access in vzw Project
+allow emdlogger mnt_media_rw_file:dir search;
+
+
+#permission for use SELinux API
+#avc: denied { read } for pid=576 comm="emdlogger1" name="selinux_version" dev="rootfs"
+allow emdlogger rootfs:file r_file_perms;
+
+#permission for storage access storage
+allow emdlogger storage_file:dir search;
+allow emdlogger tmpfs:lnk_file read;
+
+#permission for read boot mode
+#avc: denied { open }  path="/sys/devices/virtual/BOOT/BOOT/boot/boot_mode" dev="sysfs"
+allow emdlogger sysfs:file { read open };
+
+# Allow read to sys/kernel/ccci/* files
+allow emdlogger sysfs_ccci:dir search;
+allow emdlogger sysfs_ccci:file r_file_perms;
+
+# Allow read avc: denied { read } for name="mddb" dev="mmcblk0p25" ino=681 
+# scontext=u:r:emdlogger:s0 tcontext=u:object_r:system_file:s0 tclass=dir permissive=0
+allow emdlogger system_file:dir read;
+
+# permission for android N policy
+allow emdlogger security_file:dir search;
+allow emdlogger toolbox_exec:file rx_file_perms;
+
+# purpose: allow emdlogger to access storage in N version
+allow emdlogger media_rw_data_file:file  { create_file_perms };
+allow emdlogger media_rw_data_file:dir { create_dir_perms };
+

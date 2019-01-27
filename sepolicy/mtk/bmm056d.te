@@ -1,0 +1,40 @@
+# ==============================================
+# Policy File of /system/binbmm056d Executable File
+
+
+# ==============================================
+# Type Declaration
+# ==============================================
+
+type bmm056d_exec , exec_type, file_type;
+type bmm056d ,domain;
+
+# ==============================================
+# MTK Policy Rule
+# ==============================================
+
+init_daemon_domain(bmm056d)
+
+# Purpose : M-sensor daemon for access M-sensor driver node
+allow bmm056d msensor_device:chr_file rw_file_perms;
+allow bmm056d gsensor_device:chr_file rw_file_perms;
+allow bmm056d input_device:dir rw_dir_perms;
+allow bmm056d input_device:file rw_file_perms;
+allow bmm056d sensor_data_file:dir create_dir_perms;
+allow bmm056d sensor_data_file:file create_file_perms;
+allow bmm056d system_sensor_data_file:dir create_dir_perms;
+allow bmm056d system_sensor_data_file:file create_file_perms;
+allow bmm056d bmm050_sensor_log_file:file create_file_perms;
+allow bmm056d sysfs:file w_file_perms;
+allow bmm056d sysfs_gsensor_file:dir create_dir_perms;
+allow bmm056d sysfs_gsensor_file:file create_file_perms;
+allow bmm056d sysfs_gsensor_file:lnk_file read;
+allow bmm056d sysfs_msensor_file:dir create_dir_perms;
+allow bmm056d sysfs_msensor_file:file create_file_perms;
+allow bmm056d sysfs_msensor_file:lnk_file read;
+
+# Operate data partation directly, need modify later,e.g. use "data/misc/sensor".
+# for msensor daemon access "data/misc".
+file_type_auto_trans(bmm056d, system_data_file, msensor_data_file)
+allow bmm056d system_data_file:dir create_dir_perms;
+allow bmm056d msensor_data_file:file create_file_perms;

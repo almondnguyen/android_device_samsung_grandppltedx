@@ -1,0 +1,101 @@
+# ==============================================
+# Policy File of /system/bin/mobile_log_d Executable File
+
+# ==============================================
+# Type Declaration
+# ==============================================
+type mobile_log_d_exec , exec_type, file_type;
+type mobile_log_d ,domain;
+
+# ==============================================
+# MTK Policy Rule
+# ==============================================
+init_daemon_domain(mobile_log_d)
+
+#syslog module
+allow mobile_log_d kernel:system syslog_mod;
+
+#GMO project
+dontaudit mobile_log_d untrusted_app:fd use;
+dontaudit mobile_log_d isolated_app:fd use;
+
+#md32(only on 6752&6795)
+allow mobile_log_d sysfs_md32:file { open write };
+allow mobile_log_d sysfs_md32:dir search;
+allow mobile_log_d md32_device:chr_file { read open };
+
+#scp
+allow mobile_log_d sysfs_scp:file { open write };
+allow mobile_log_d sysfs_scp:dir search;
+allow mobile_log_d scp_device:chr_file { read open };
+
+#debug property set
+set_prop(mobile_log_d, debug_prop)
+
+#socket connect and write
+unix_socket_connect(mobile_log_d, logdr, logd);
+
+#capability
+allow mobile_log_d self:capability { setuid setgid chown dac_read_search dac_override fowner fsetid };
+allow mobile_log_d self:capability2 syslog;
+
+#aee mode switch
+allow mobile_log_d system_file:file execute_no_trans;
+
+#shell command
+allow mobile_log_d shell_exec:file rx_file_perms;
+
+#data/misc/mblog
+allow mobile_log_d system_data_file:dir { relabelfrom create_dir_perms };
+allow mobile_log_d logmisc_data_file:dir { relabelto create_dir_perms };
+allow mobile_log_d logmisc_data_file:file create_file_perms;
+
+#data/log_temp
+allow mobile_log_d logtemp_data_file:dir { relabelto create_dir_perms };
+allow mobile_log_d logtemp_data_file:file create_file_perms;
+
+#data/data_tmpfs_log
+allow mobile_log_d data_tmpfs_log_file:dir create_dir_perms;
+allow mobile_log_d data_tmpfs_log_file:file create_file_perms;
+
+#general storage access
+allow mobile_log_d storage_file:dir create_dir_perms;
+allow mobile_log_d storage_file:file create_file_perms;
+allow mobile_log_d storage_file:lnk_file create_file_perms;
+allow mobile_log_d mnt_user_file:dir create_dir_perms;
+allow mobile_log_d mnt_user_file:lnk_file create_file_perms;
+allow mobile_log_d sdcard_type:dir create_dir_perms;
+allow mobile_log_d sdcard_type:file create_file_perms;
+
+#factory mode vfat access
+allow mobile_log_d vfat:dir create_dir_perms;
+allow mobile_log_d vfat:file create_file_perms;
+
+#chiptest mode storage access
+allow mobile_log_d mnt_media_rw_file:dir create_dir_perms;
+allow mobile_log_d mnt_media_rw_file:lnk_file create_file_perms;
+
+#debugfs_tracing access
+allow mobile_log_d debugfs_tracing:dir create_dir_perms;
+allow mobile_log_d debugfs_tracing:file create_file_perms;
+
+#ftrace log property
+set_prop(mobile_log_d, ftrace_log_prop)
+
+#system/bin/toybox for using 'sh' command
+allow mobile_log_d toolbox_exec:file rx_file_perms;
+
+#selinux_version access
+allow mobile_log_d rootfs:file r_file_perms;
+
+#dev/__properties__ access
+allow mobile_log_d device_logging_prop:file { getattr open };
+allow mobile_log_d mmc_prop:file { getattr open };
+allow mobile_log_d safemode_prop:file { getattr open };
+
+#proc/ access
+allow mobile_log_d proc:file r_file_perms;
+
+# purpose: allow MobileLog to access storage in N version
+allow mobile_log_d media_rw_data_file:file  create_file_perms;
+allow mobile_log_d media_rw_data_file:dir create_dir_perms;

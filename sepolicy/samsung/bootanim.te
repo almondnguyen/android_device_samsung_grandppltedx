@@ -1,0 +1,76 @@
+# ==============================================
+# MTK Policy Rule
+# ============
+
+
+# Date : WK14.31
+# Operation : Migration
+# Purpose : For IPC communication
+allow bootanim self:netlink_socket create_socket_perms;
+
+# Date : WK14.32
+# Operation : Migration
+# Purpose : for playing boot tone
+allow bootanim mediaserver:binder {call transfer};
+allow bootanim mediaserver_service:service_manager find;
+
+# Purpose : for playing bootanimation audio
+allow bootanim audioserver:binder {call transfer};
+allow bootanim audioserver_service:service_manager find;
+
+# Date : WK14.37
+# Operation : Migration
+# Purpose : for opetator
+allow bootanim property_socket:sock_file write;
+allow bootanim init:unix_stream_socket connectto;
+allow bootanim custom_file:dir search;
+allow bootanim custom_file:file r_file_perms;
+allow bootanim bootani_prop:property_service set;
+allow bootanim debug_prop:property_service set;
+
+# Date : WK14.46
+# Operation : Migration
+# Purpose : For MTK Emulator HW GPU
+allow bootanim qemu_pipe_device:chr_file rw_file_perms;
+# /data/resource-cache
+allow bootanim resourcecache_data_file:dir search;
+
+# Date : WK16.33
+# Purpose: Allow to access ged for gralloc_extra functions
+allow bootanim proc_ged:file {open read write ioctl getattr};
+
+# ==============================================
+# MTK Policy Rule
+# ============
+
+
+# Date : WK14.31
+# Operation : Migration 
+# Purpose : access to sec mem proc interface. 
+allow bootanim proc_secmem:file { read open};
+
+# Date : WK14.36
+# Operation : Migration 
+# Purpose : for ui
+allow bootanim guiext-server:binder call;
+allow bootanim guiext-server:binder transfer;
+
+# Date : WK16.29
+# Operation : Migration
+# Purpose : for gpu access
+allow bootanim dri_device:chr_file { read write open ioctl };
+# ==============================================
+# MTK Policy Rule
+# ============
+
+# Date : WK14.37
+# Operation : Migration 
+# Purpose : for op
+allow bootanim terservice:binder call;
+
+# Date : WK15.30
+# Operation : Migration
+# Purpose : for device bring up, not to block early migration/sanity
+allow bootanim terservice_service:service_manager find;
+
+

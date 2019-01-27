@@ -1,0 +1,26 @@
+# ==============================================
+# MTK Policy Rule
+# ==============================================
+
+# Date : WK1611
+# Operation : Bugreport UT
+# Purpose : add dumpstate policy rule
+allow dumpstate MtkCodecService:binder call;
+allow dumpstate gatekeeper_service:service_manager find;
+allow dumpstate self:capability sys_admin;
+
+# Date : WK16.33
+# Purpose: Allow to access ged for gralloc_extra functions
+allow dumpstate proc_ged:file {open read write ioctl getattr};
+# ==============================================
+# MTK Policy Rule
+# ==============================================
+
+# Date : WK14.33
+# Operation : Bugreport UT
+# Purpose : add dumpstate policy rule
+allow dumpstate GoogleOtaBinder:binder call;
+allow dumpstate ppl_agent:binder call;
+
+
+

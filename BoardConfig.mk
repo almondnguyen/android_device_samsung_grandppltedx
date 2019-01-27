@@ -26,7 +26,7 @@ TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 PRESENT_TIME_OFFSET_FROM_VSYNC_NS := 0
 BOARD_EGL_CFG := $(DEVICE_PATH)/configs/egl.cfg
 MTK_HWC_SUPPORT := yes
-MTK_HWC_VERSION := 1.4.1
+MTK_HWC_VERSION := 1.5.0
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := mt6737t
@@ -61,10 +61,10 @@ TARGET_CPU_ABI2     := armeabi
 TARGET_CPU_VARIANT  := cortex-a53
 TARGET_CPU_SMP      := true
 
-TARGET_2ND_CPU_ABI      := 
-TARGET_2ND_CPU_ABI2     := 
 TARGET_2ND_ARCH         := 
 TARGET_2ND_ARCH_VARIANT := 
+TARGET_2ND_CPU_ABI      := 
+TARGET_2ND_CPU_ABI2     :=  
 TARGET_2ND_CPU_VARIANT  := 
 
 # Block
@@ -117,19 +117,12 @@ WIFI_DRIVER_STATE_OFF := 0
 
 # Kernel
 BOARD_CUSTOM_BOOTIMG := true
-#-- use prebuilt
-USE_PREBUILT_KERNEL := true
 
-ifeq ($(USE_PREBUILT_KERNEL),true)
-	TARGET_PREBUILT_KERNEL  := device/samsung/grandppltedx/prebuilt/kernel
-else
-	BOARD_KERNEL_IMAGE_NAME := zImage
-	TARGET_KERNEL_SOURCE    := kernel/samsung/grandppltedx
-	TARGET_KERNEL_CONFIG    := mt6737t-grandpplte-lineage_defconfig
-endif
+BOARD_KERNEL_IMAGE_NAME := zImage
+TARGET_KERNEL_SOURCE    := kernel/samsung/grandppltedx
+TARGET_KERNEL_CONFIG    := mt6737t-grandpplte_defconfig
 
-# FOR TESTING PURPOSE ONLY
-BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=disabled
+BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive
 
 BOARD_KERNEL_BASE     := 0x3fffc000
 BOARD_KERNEL_PAGESIZE := 2048
@@ -144,7 +137,9 @@ BOARD_HASH_TYPE       := sha1
 
 BOARD_MKBOOTIMG_ARGS := --base $(BOARD_KERNEL_BASE) --pagesize $(BOARD_KERNEL_PAGESIZE) --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --second_offset $(BOARD_SECOND_OFFSET) --tags_offset $(BOARD_TAGS_OFFSET) --dt $(DEVICE_PATH)/dt.img --board $(BOARD_KERNEL_BOARD)
 
-# twrp
+# Recovery
+# twrp doesnt like me
+
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.mt6735
 #RECOVERY_VARIANT := twrp
 BOARD_HAS_NO_SELECT_BUTTON := true
@@ -191,7 +186,9 @@ TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 # SELinux
 include $(DEVICE_PATH)/sepolicy/sepolicy.mk
 BOARD_SECCOMP_POLICY += $(COMMON_PATH)/seccomp
-# testing
+
+# Misc
+EXTENDED_FONT_FOOTPRINT := true
 
 # assert
 TARGET_OTA_ASSERT_DEVICE := grandpplte,grandppltedx,grandpplteub,grandpplteser

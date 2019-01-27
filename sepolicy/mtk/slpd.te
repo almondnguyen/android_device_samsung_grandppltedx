@@ -1,0 +1,22 @@
+# ==============================================
+# Policy File of /system/bin/slpd Executable File
+
+# ==============================================
+# Type Declaration
+# ==============================================
+type slpd_exec, exec_type, file_type;
+type slpd, domain;
+
+# ==============================================
+# MTK Policy Rule
+# ==============================================
+init_daemon_domain(slpd)
+
+net_domain(slpd)
+
+# mtk_agpsd will send the current SUPL profile to SLPD
+allow slpd mtk_agpsd:unix_dgram_socket sendto;
+# FLPD will send the request command to SLPD for SUPL Location
+# allow slpd flpd:unix_dgram_socket sendto;
+# SLPD will update the SUPL location to FLPD
+allow slpd mtkFlpDaemon:unix_dgram_socket sendto;

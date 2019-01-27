@@ -1,0 +1,67 @@
+# ==============================================
+# Policy File of /system/bin/rilproxy Executable File
+
+
+# ==============================================
+# Type Declaration
+# ==============================================
+
+type rilproxy_exec , exec_type, file_type;
+type rilproxy ,domain, mlstrustedsubject;
+
+
+# ==============================================
+# MTK Policy Rule
+# ==============================================
+
+init_daemon_domain(rilproxy)
+net_domain(rilproxy)
+
+# Access to wake locks
+wakelock_use(rilproxy)
+
+# Rilproxy Bringup Policy
+allow rilproxy init:unix_stream_socket connectto;
+allow rilproxy mtkrild:unix_stream_socket connectto;
+allow rilproxy property_socket:sock_file write;
+allow rilproxy self:capability setuid;
+allow rilproxy socket_device:sock_file write;
+allow rilproxy statusd:unix_stream_socket connectto;
+allow rilproxy radio_prop:property_service set;
+allow rilproxy rild_via_socket:sock_file write;
+allow rilproxy viarild:unix_stream_socket connectto;
+allow rilproxy cdma_prop:property_service set;
+allow rilproxy ril_cdma_report_prop:property_service set;
+allow rilproxy ril_mux_report_case_prop:property_service set;
+allow rilproxy mtk_agpsd:unix_stream_socket connectto;
+allow rilproxy servicemanager:binder call;
+allow servicemanager rilproxy:dir search;
+allow servicemanager rilproxy:file { read open };
+allow servicemanager rilproxy:process getattr;
+allow rilproxy audioserver_service:service_manager find;
+allow rilproxy audioserver:binder call;
+allow rilproxy audioserver:binder transfer;
+allow rilproxy proc:file read;
+allow rilproxy untrusted_app:unix_stream_socket connectto;
+
+# Allow the socket read/write of netd for rilproxy
+allow rilproxy netd_socket:sock_file write;
+allow rilproxy netd_socket:sock_file read;
+# ==============================================
+# Policy File of /system/bin/rilproxy Executable File
+
+# For eMBMS
+typeattribute rilproxy mlstrustedsubject;
+
+# Operator: Allow eMBMS middleware install vzw SDK library
+file_type_auto_trans(rilproxy, system_data_file, embms_library_file);
+allow rilproxy embms_library_file:dir rw_dir_perms;
+allow rilproxy embms_library_file:file create_file_perms;
+
+# For MAL MFI
+allow rilproxy mtkmal:unix_stream_socket connectto;
+allow rilproxy mal_mfi_socket:sock_file { w_file_perms };
+
+# Date : WK16.33
+# Purpose: Allow to access ged for gralloc_extra functions
+allow rilproxy proc_ged:file {open read write ioctl getattr};

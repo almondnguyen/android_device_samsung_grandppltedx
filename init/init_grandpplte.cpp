@@ -63,6 +63,17 @@ void property_override_dual(char const system_prop[],
 	property_override(vendor_prop, value);
 }
 
+void init_dual() {
+    property_set("ro.multisim.set_audio_params", "true");
+    property_set("ro.multisim.simslotcount", "2");
+    property_set("persist.radio.multisim.config", "dsds");
+}
+
+void init_single() {
+    property_set("ro.multisim.set_audio_params", "true");
+    property_set("ro.multisim.simslotcount", "1");
+    property_set("persist.radio.multisim.config", "none");
+}
 
 void vendor_load_properties()
 {
@@ -80,10 +91,12 @@ void vendor_load_properties()
 		if (bootloader.find("G532F") != std::string::npos) {
 			/* F */		
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532F");
+			init_single();
 			} else {
 			/* F/DS */
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532F/DS");
-        	}
+			init_dual();       	
+			}
 
         property_override_dual("ro.product.device", "ro.vendor.product.device", "grandpplteser");
 
@@ -93,10 +106,12 @@ void vendor_load_properties()
 		if (bootloader.find("G532G") != std::string::npos) {
 			/* G */		
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532G");
+			init_single();
 			} else {
 			/* G/DS */
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532G/DS");
-        	}
+			init_dual();       	
+			}
 
         property_override_dual("ro.product.device", "ro.vendor.product.device", "grandppltedx");
 
@@ -106,9 +121,11 @@ void vendor_load_properties()
 		if (bootloader.find("G532M") != std::string::npos) {
 			/* M */		
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532M");
+			init_single();
 			} else {
 			/* M/DS */
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532M/DS");
+			init_dual();
         	}
 
         property_override_dual("ro.product.device", "ro.vendor.product.device", "grandpplteub");

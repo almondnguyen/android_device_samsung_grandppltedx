@@ -1,0 +1,28 @@
+# ==============================================
+# Policy File of /system/bin/thermalloadalgod_exec Executable File
+
+# ==============================================
+# Type Declaration
+# ==============================================
+type thermalloadalgod ,domain;
+type thermalloadalgod_exec , exec_type, file_type;
+
+# ==============================================
+# MTK Policy Rule
+# ==============================================
+init_daemon_domain(thermalloadalgod)
+file_type_auto_trans(thermal_manager, system_data_file, thermal_manager_data_file)
+
+
+# Data : WK14.43
+# Operation : Migration
+# Purpose : thermal algorithm daemon for access driver node
+allow thermalloadalgod input_device:dir { r_dir_perms write };
+allow thermalloadalgod input_device:file r_file_perms;
+
+allow thermalloadalgod thermalloadalgod:netlink_kobject_uevent_socket { write create bind read};
+allow thermalloadalgod thermalloadalgod:netlink_socket { create bind write read};
+
+allow thermalloadalgod thermal_manager_data_file:dir create_dir_perms;
+allow thermalloadalgod thermal_manager_data_file:file create_file_perms;
+allow thermalloadalgod kmsg_device:chr_file write;

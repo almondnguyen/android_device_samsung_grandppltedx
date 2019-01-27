@@ -21,8 +21,8 @@
 # are responsible for having their own logic, for fine-grained control.
 
 SEPOLICY_PATH := $(call my-dir)
-MT6737_PATH   := device/mediatek/mt6737-common
+
+# Credit for MTK Sepolicy: Moto E4 (woods) devs
+
 BOARD_SEPOLICY_DIRS := \
-    $(SEPOLICY_PATH)/mtk \
-    $(SEPOLICY_PATH)/samsung \
-    $(MT6737_PATH)/sepolicy
+    $(SEPOLICY_PATH)/samsung

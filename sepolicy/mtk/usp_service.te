@@ -1,0 +1,19 @@
+# ==============================================
+# MTK Policy Rule
+# ============
+# ==============================================
+# Type Declaration
+# ==============================================
+type usp_service_exec , exec_type, file_type;
+type usp_service ,domain;
+# ==============================================
+# MTK Policy Rule
+# ==============================================
+
+init_daemon_domain(usp_service)
+
+allow usp_service para_block_device:blk_file rw_file_perms;
+allow usp_service proc_lk_env:file rw_file_perms;
+allow usp_service block_device:dir search;
+allow usp_service ccci_device:chr_file rw_file_perms;
+set_prop(usp_service, usp_srv_prop)
