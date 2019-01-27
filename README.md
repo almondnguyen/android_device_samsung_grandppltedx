@@ -2,7 +2,8 @@
 grandpplte device tree
 
 -----
-Current bug: 
-Kernel issue: __aeabi_uldivmod (64-bit div on arm32)
+CURRENT BUG:
+mostly permission stuffs. SEpolicy involved
 
-looking for fixes..
+
+DEVELOPMENT IN PROGRESS. MAY EAT YOUR CAT

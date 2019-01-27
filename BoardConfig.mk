@@ -185,7 +185,7 @@ TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 
 # SELinux
 include $(DEVICE_PATH)/sepolicy/sepolicy.mk
-BOARD_SECCOMP_POLICY += $(COMMON_PATH)/seccomp
+BOARD_SECCOMP_POLICY += $(DEVICE_PATH)/seccomp
 
 # Misc
 EXTENDED_FONT_FOOTPRINT := true
