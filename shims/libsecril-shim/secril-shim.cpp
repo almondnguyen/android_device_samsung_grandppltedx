@@ -81,6 +81,12 @@ static void onRequestShim(int request, void *data, size_t datalen, RIL_Token t)
 			onRequestGetRadioCapability(t);
 			RLOGI("%s: got request %s: replied with our implementation!\n", __FUNCTION__, requestToString(request));
 			return;
+		/* The Samsung RIL doesn't support RIL_REQUEST_SEND_SMS_EXPECT_MORE, reply with RIL_REQUEST_SEND_SMS instead */
+		case RIL_REQUEST_SEND_SMS_EXPECT_MORE:
+			RLOGI("%s: got request %s: replied with %s!", __FUNCTION__,
+				      requestToString(request), requestToString(RIL_REQUEST_SEND_SMS));
+			origRilFunctions->onRequest(RIL_REQUEST_SEND_SMS, data, datalen, t);
+			return;
 		/* The following requests were introduced post-4.3. */
 		case RIL_REQUEST_SIM_TRANSMIT_APDU_BASIC:
 		case RIL_REQUEST_SIM_OPEN_CHANNEL: /* !!! */
