@@ -1,5 +1,6 @@
 # ==============================================
 # Policy File of /system/bin/aee_core_forwarder Executable File
+# Not available
 
 # ==============================================
 # Type Declaration
@@ -10,7 +11,7 @@ type aee_core_forwarder ,domain;
 # ==============================================
 # MTK Policy Rule
 # ==============================================
-init_daemon_domain(aee_core_forwarder)
+#init_daemon_domain(aee_core_forwarder)
 
 #/data/core/zcorexxx.zip
 allow aee_core_forwarder aee_core_data_file:dir relabelto;

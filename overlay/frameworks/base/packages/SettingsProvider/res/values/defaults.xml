@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 /**
- * Copyright (c) 2009, The Android Open Source Project
+ * Copyright (c) 2012, The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,20 @@
  */
 -->
 <resources>
+    <!-- <string name="def_airplane_mode_radios" translatable="false">cell,bluetooth,wifi,nfc,wimax,ant</string> -->
+    <!-- <string name="airplane_mode_toggleable_radios" translatable="false">bluetooth,wifi,nfc,ant</string> -->
 
-    <bool name="def_netstats_enabled">false</bool>
-
-    <integer name="def_lockscreen_sounds_enabled">0</integer>
-
-    <!-- Default for DTMF tones -->
-    <bool name="def_dtmf_tones_enabled">false</bool>
-    <!-- Default for UI touch sounds -->
-    <bool name="def_sound_effects_enabled">false</bool>
+    <!-- 30 seconds for default screen timeout -->
+    <integer name="def_screen_off_timeout">60000</integer>
+    <!-- Set the automatic brightness mode on by default -->
+    <bool name="def_screen_brightness_automatic_mode">false</bool>
+    <!-- Default screen brightness, from 0 to 255. 87 is 34%. -->
+    <integer name="def_screen_brightness">50</integer>
+    
+    <bool name="def_accelerometer_rotation">true</bool>
+    
+    <bool name="def_install_non_market_apps">true</bool>
+    
+    <bool name="def_backup_enabled">false</bool>
 
 </resources>

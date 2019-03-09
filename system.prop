@@ -5,7 +5,6 @@ ro.product.first_api_level=23
 # system.prop for grandpplte
 #
 
-
 #+ Samsung Build properties
 
 # Platform
@@ -63,7 +62,7 @@ ro.mtk_ims_support=1
 
 # SELinux
 # DISABLE FOR TESTING PURPOSE ONLY
-ro.build.selinux=1
+ro.build.selinux=0
 
 # Dalvik / hwui
 persist.sys.dalvik.vm.lib.2=libart.so

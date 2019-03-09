@@ -1,0 +1,84 @@
+# because samsung
+
+# Copyright (C) 2012 The Android Open Source Project
+#
+# IMPORTANT: Do not create world writable files or directories.
+# This is a common source of Android security bugs.
+#
+
+# service can not be overwritten except SPRINT
+# Thus, rilcarrier is imported before common rc, like init.rilchip.rc
+#import /init.rilcarrier.rc
+#import /init.rilchip.rc
+#import /init.rilepdg.rc
+
+# this is /init.rilcommon.rc
+on boot
+
+# for ethernet
+service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+
+# for SmartSwitch
+service dhcpcd_usb0 /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+    
+# for Wi-Fi only models
+on property:ro.radio.noril=yes
+stop ril-daemon
+
+# this is /init.rilchip.rc
+
+# Copyright (C) 2012 The Android Open Source Project
+#
+# IMPORTANT: Do not create world writable files or directories.
+# This is a common source of Android security bugs.
+#
+#on boot
+
+service ril-daemon /system/bin/rild
+    class main
+    socket rild stream 660 root radio
+    socket rild-debug stream 660 radio system
+    socket rild-cas stream 660  casdrm mmb
+    user root
+    group radio cache inet misc audio sdcard_r sdcard_rw log vpn system
+    onrestart restart cpboot-daemon
+
+service ril-daemon1 /system/bin/rild -c 2
+    class main
+    socket rild2 stream 660 root radio
+    socket rild-debug2 stream 660 radio system
+    user root
+    group radio cache inet misc audio sdcard_r sdcard_rw log system
+    disabled
+    onrestart restart cpboot-daemon
+
+on property:persist.sys.cpboot=disable
+    stop ril-daemon
+    stop cpboot-daemon
+
+# This is /init.rilepdg.rc
+
+# Copyright (C) 2012 The Android Open Source Project
+#
+# IMPORTANT: Do not create world writable files or directories.
+# This is a common source of Android security bugs.
+#
+
+on post-fs-data
+    mkdir /data/misc/vpnclientd 0770 system system
+
+service vpnclientd /system/bin/vpnclientd
+	socket vpnclientd seqpacket 0600 system system
+	user system
+	group system net_admin inet net_raw
+	disabled
+on property:service.vpnclientd.enable=1
+	start vpnclientd
+on property:service.vpnclientd.enable=0
+	stop vpnclientd

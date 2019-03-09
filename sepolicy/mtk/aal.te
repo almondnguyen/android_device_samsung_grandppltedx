@@ -1,5 +1,6 @@
 # ==============================================
-# Policy File of /system/binaal Executable File 
+# Policy File of /system/bin/aal Executable File 
+## Not available
 
 # ==============================================
 # Type Declaration
@@ -21,7 +22,7 @@ type aal ,domain;
 # ==============================================
 
 # permissive aal;
-init_daemon_domain(aal)
+#init_daemon_domain(aal)
 # unconfined_domain(aal)
 
 # Date : 2014/09/09 (or WK14.37)

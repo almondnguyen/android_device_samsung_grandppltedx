@@ -16,7 +16,21 @@
 
 DEVICE_PATH := device/samsung/grandppltedx
 
+# assert
+TARGET_OTA_ASSERT_DEVICE := grandpplte,grandppltedx,grandpplteub,grandpplteser
+#                           common    | G532G~G/DS | G532M~M/DS | G532F~F/DS
+
+# CFLAG
+BOARD_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
+BOARD_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
+BOARD_GLOBAL_CFLAGS += -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL
+
+# Headers
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
+
+# Project Configs
+MTK_PROJECT_CONFIG ?= $(DEVICE_PATH)/ProjectConfig.mk
+include $(MTK_PROJECT_CONFIG)
 
 # Display
 USE_OPENGL_RENDERER := true
@@ -26,7 +40,7 @@ TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 PRESENT_TIME_OFFSET_FROM_VSYNC_NS := 0
 BOARD_EGL_CFG := $(DEVICE_PATH)/configs/egl.cfg
 MTK_HWC_SUPPORT := yes
-MTK_HWC_VERSION := 1.5.0
+MTK_HWC_VERSION := 1.4.1
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := mt6737t
@@ -46,11 +60,14 @@ BOARD_USES_MTK_MEDIA_PROFILES := true
 
 TARGET_PROVIDES_LIBLIGHT := true
 
-# Omx
+USE_CAMERA_STUB := true
+
 TARGET_OMX_LEGACY_RESCALING := true
 
 # Backlight
-BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
+# is at is ktd3102-bl (not /class/leds/...)
+# #samsung-troll
+BACKLIGHT_PATH := /sys/devices/ktd3102-bl/backlight/panel/brightness
 
 # Architecture
 # is 32-bit
@@ -71,9 +88,21 @@ TARGET_2ND_CPU_VARIANT  :=
 BOARD_BOOTIMAGE_PARTITION_SIZE        := 16777216
 BOARD_RECOVERYIMAGE_PARTITION_SIZE    := 16777216
 BOARD_SYSTEMIMAGE_PARTITION_SIZE      := 3229614080
-BOARD_USERDATAIMAGE_PARTITION_SIZE    := 3900702720
 BOARD_CACHEIMAGE_PARTITION_SIZE       := 419430400
 BOARD_FLASH_BLOCK_SIZE                := 4096
+
+# seen 16 GB variant (ShaDis)
+# Probably:
+# Dual SIM + 8GB | Single SIM + 16 GB
+# so TODO: add 16gig config
+ifeq ($(TARGET_DEVICE),grandppltedx)
+BOARD_USERDATAIMAGE_PARTITION_SIZE    := 3900702720
+endif
+
+# need /proc/partitions on running machine!
+#ifeq $(TARGET_DEVICE),grandppltedx16)
+#BOARD_USERDATAIMAGE_PARTITION_SIZE    := 3900702720
+#endif
 
 BOARD_USERDATAIMAGES_FILE_SYSTEM_TYPE := ext4 
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE    := ext4
@@ -96,9 +125,15 @@ BOARD_HARDWARE_CLASS += $(DEVICE_PATH)/cmhw
 
 # GPS
 BOARD_GPS_LIBRARIES := true
+BOARD_CONNECTIVITY_MODULE := MT6625
+BOARD_MEDIATEK_USES_GPS := true
 
 # RIL
 BOARD_RIL_CLASS := ../../../device/samsung/grandppltedx/ril
+
+# Power HAL
+TARGET_POWERHAL_VARIANT := mtk
+TARGET_POWERHAL_SET_INTERACTIVE_EXT := $(LOCAL_PATH)/power/power.c
 
 # Wifi
 BOARD_WLAN_DEVICE := MediaTek
@@ -122,7 +157,7 @@ BOARD_KERNEL_IMAGE_NAME := zImage
 TARGET_KERNEL_SOURCE    := kernel/samsung/grandppltedx
 TARGET_KERNEL_CONFIG    := mt6737t-grandpplte_defconfig
 
-BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive androidboot.selinux=disabled
 
 BOARD_KERNEL_BASE     := 0x3fffc000
 BOARD_KERNEL_PAGESIZE := 2048
@@ -135,7 +170,14 @@ BOARD_DT_SIZE         := 485376
 BOARD_HASH_TYPE       := sha1
 
 
-BOARD_MKBOOTIMG_ARGS := --base $(BOARD_KERNEL_BASE) --pagesize $(BOARD_KERNEL_PAGESIZE) --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --second_offset $(BOARD_SECOND_OFFSET) --tags_offset $(BOARD_TAGS_OFFSET) --dt $(DEVICE_PATH)/dt.img --board $(BOARD_KERNEL_BOARD)
+BOARD_MKBOOTIMG_ARGS := --base $(BOARD_KERNEL_BASE) --pagesize $(BOARD_KERNEL_PAGESIZE) --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --second_offset $(BOARD_SECOND_OFFSET) --tags_offset $(BOARD_TAGS_OFFSET) --board $(BOARD_KERNEL_BOARD) 
+# --dt $(DEVICE_PATH)/dt.img
+# --dt $(DEVICE_PATH)/bootimage-dtb
+
+#--- Use custom init.rc
+# Combination of stock bootimg
+# and SEC-common + services
+TARGET_PROVIDES_INIT_RC := true
 
 # Recovery
 # twrp doesnt like me
@@ -147,9 +189,9 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 ifeq ($(RECOVERY_VARIANT), twrp)
 
 #-- common
-#TARGET_RECOVERY_PIXEL_FORMAT := "RGBA_8888"
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBA_8888"
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/mt_usb/musb-hdrc.0.auto/gadget/lun%d/file
-TARGET_RECOVERY_LCD_BACKLIGHT_PATH := \"/sys/class/leds/lcd-backlight/brightness\"
+TARGET_RECOVERY_LCD_BACKLIGHT_PATH := \"/sys/devices/ktd3102-bl/lcd-backlight/brightness\"
 TW_NO_REBOOT_BOOTLOADER := true
 TW_THEME := portrait_hdpi
 TW_CUSTOM_CPU_TEMP_PATH := /sys/devices/virtual/thermal/thermal_zone1/temp
@@ -158,7 +200,7 @@ RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TW_MAX_BRIGHTNESS := 255
 BOARD_SUPPRESS_SECURE_ERASE := true
 TW_INCLUDE_CRYPTO := true
-TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
+TW_BRIGHTNESS_PATH := /sys/devices/ktd3102-bl/lcd-backlight/brightness
 TW_MAX_BRIGHTNESS := 255
 TW_NO_USB_STORAGE := true
 BOARD_USE_FRAMEBUFFER_ALPHA_CHANNEL := true
@@ -177,21 +219,16 @@ TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
 TW_DEFAULT_EXTERNAL_STORAGE := true
 endif
 
-# GPS
-BOARD_GPS_LIBRARIES := true
-
 # system properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 
-# SELinux
+# SEAndroid
 include $(DEVICE_PATH)/sepolicy/sepolicy.mk
 BOARD_SECCOMP_POLICY += $(DEVICE_PATH)/seccomp
 
 # Misc
 EXTENDED_FONT_FOOTPRINT := true
 
-# assert
-TARGET_OTA_ASSERT_DEVICE := grandpplte,grandppltedx,grandpplteub,grandpplteser
 
 # Inherit from mt6735-common
 #FORCE_32_BIT := true

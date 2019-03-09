@@ -1,5 +1,0 @@
-# ==============================================
-# MTK Policy Rule
-# ============
-allow logd logd_prop:property_service set;
-allow logd log_tag_prop:property_service set;

@@ -1,0 +1,114 @@
+#
+# attribute
+#
+
+############ aosp and sec_common #############
+# Tag to domains that container should not access
+attribute untrusteddomain;
+
+# Tag to types that container should not access
+attribute untrusted_type;
+
+# Tag for platform_app type only 
+#changeBySEA : attribute commonplatformappdomain;
+
+# Tag for platform_app type only 
+attribute platformappdomain;
+
+# Tag for system_app type only 
+attribute systemappdomain;
+
+# Tag for trusteddomain 
+attribute trusteddomain;
+
+# Tag for trusteddomain 
+attribute device_domain;
+
+# Tag for trusteddomain 
+attribute system_domain;
+
+# Tag for trusteddomain 
+attribute trusted_app_domain;
+
+# Tag for efs file 
+attribute efs_type;
+
+# Tag for read only filesystem type
+attribute r_fs_type;
+
+# Tag for read/write filesystem type
+attribute rw_fs_type;
+
+# Tag for read/execute filesystem type
+attribute rx_fs_type;
+
+# Tag for socket_file_type
+attribute socket_file_type;
+
+# Tag for library_file_type
+attribute library_file_type;
+
+# Tag for log_file_type
+attribute log_file_type;
+
+# Tag for cache_file_type
+attribute cache_file_type;
+
+# Tag for security_file_type
+attribute security_file_type;
+
+# Tag for misc_rw_file_type
+attribute misc_rw_file_type;
+
+# Allow domains used for untrusted (signed with non-trusted key) apps.
+attribute untrustedappdomain;
+
+# All app private data directories that should be accessable by all apps
+#changeBySEA: this is only app_data_file and not used : attribute app_public_data_type;
+
+# All app data directories
+# only used for the domain which have mlstrustedsubject and privilege, because it includes container app data
+attribute app_data_type;
+
+# For the all of type which were copied by typeof app_data_file macro.
+# this will be used on the mlsconstrain rules.
+attribute app_data_file_type;
+
+# For ashmem tmpfs
+attribute tmpfs_file_type;
+
+# Restrict type.
+attribute trstappdomain_no_read_file;
+attribute trstappdomain_no_write_file;
+attribute trstdomain_no_read_file;
+attribute trstdomain_no_write_file;
+attribute trstdomain_no_set_property;
+attribute trstappdomain_no_rw_device;
+attribute trstdomain_no_rw_device;
+attribute untrustedapp_no_rw_device;
+attribute trstdomain_no_read_fs;
+attribute trstdomain_no_write_fs;
+attribute trstdomain_no_access_subject;
+
+attribute mlsselectedsubject;
+attribute mlsselectedobject;
+
+############ knox_common #############
+# All file types used by the container
+attribute container_file_type;
+
+# common rules for container
+attribute containerdomain;
+
+# Secure storage locations for container service
+attribute container_service_secure_type;
+
+############ qcom_common #############
+
+
+
+############ slsi_common #############
+
+
+
+

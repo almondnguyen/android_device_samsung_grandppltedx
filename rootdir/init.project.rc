@@ -237,15 +237,15 @@ on property:persist.sys.storage_preload=0
     start umount_service
 
 # SSWAP
-service swapon /sbin/sswap -s
-    class core
-    user root
-    group root
-    seclabel u:r:sswap:s0
-    oneshot
+#service swapon /sbin/sswap -s
+#    class core
+#    user root
+#    group root
+#    seclabel u:r:sswap:s0
+#    oneshot
 
 # deferred initcall
-service sec-sh /system/bin/sh /system/etc/init.sec.boot.sh
-    class main
-    user root
-    oneshot
+#service sec-sh /system/bin/sh /system/etc/init.sec.boot.sh
+#    class main
+#    user root
+#    oneshot

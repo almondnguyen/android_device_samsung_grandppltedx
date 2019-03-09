@@ -26,7 +26,7 @@
  */
 
 /* credit: a3y17lte devs (A3 2017) */
-/* currently not support MT because not know codename */
+/* currently not support G532MT | MT/DS because not know codename */
 
 #include <stdlib.h>
 #include <string.h>

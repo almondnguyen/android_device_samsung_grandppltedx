@@ -1,4 +1,4 @@
-LOCAL_PATH:= $(call my-dir)
+LOCAL_PATH := device/samsung/grandppltedx/rootdir
 
 define add-rootdir-targets
 $(foreach target,$(1), \
@@ -11,23 +11,15 @@ $(foreach target,$(1), \
 endef
 
 $(call add-rootdir-targets, \
-	enableswap.sh \
-	factory_init.rc \
-	factory_init.project.rc \
 	fstab.mt6735 \
 	init.modem.rc \
 	init.mt6735.rc \
 	init.mt6735.usb.rc \
 	init.project.rc \
 	init.recovery.mt6735.rc \
-	init.rilcommon.rc \
-	init.rilepdg.rc \
-	init.rilchip.rc \
+	init.ril.rc \
     init.usb.configfs.rc \
 	init.volte.rc \
 	init.wifi.rc \
-	meta_init.rc \
-	meta_init.modem.rc \
-	meta_init.project.rc \
-	meta_init.usb.rc \
 	ueventd.mt6735.rc)
+

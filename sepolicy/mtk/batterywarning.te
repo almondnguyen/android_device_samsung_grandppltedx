@@ -1,6 +1,6 @@
 # ==============================================
 # Policy File of /system/binbatterywarning Executable File 
-
+# Not available
 
 # ==============================================
 # Type Declaration
@@ -21,7 +21,7 @@ type batterywarning ,domain;
 # MTK Policy Rule
 # ==============================================
 
-init_daemon_domain(batterywarning)
+#init_daemon_domain(batterywarning)
 
 # Date : 2014/10/15
 # Operation : Migration

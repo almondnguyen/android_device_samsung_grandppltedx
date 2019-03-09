@@ -16,7 +16,6 @@ genfscon proc /ged u:object_r:proc_ged:s0
 genfscon iso9660 / u:object_r:iso9660:s0
 genfscon rawfs / u:object_r:rawfs:s0
 #genfscon fuseblk / u:object_r:fuseblk:s0
-
 # ==============================================
 # MTK Policy Rule
 # ============

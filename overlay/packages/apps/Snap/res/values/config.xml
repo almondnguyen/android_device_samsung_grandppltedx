@@ -32,5 +32,6 @@
 
     <!-- Force use a specific preview-size
          Example: 1920x1080 -->
-    <string name="preview_size_for_photo">1280x720</string>
+    <string name="preview_size_for_photo">1920x1080</string>
+
 </resources>

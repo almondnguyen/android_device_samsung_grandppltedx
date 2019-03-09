@@ -3,21 +3,11 @@
 # Modified some services (end-of-file)
 
 import init.project.rc
-import /FWUpgradeInit.rc
-import init.xlog.rc
-import init.aee.rc
-import init.fon.rc
-import init.volte.rc
-import init.mal.rc
-import init.wfca.rc
-import init.epdg.rc
-#import init.trustonic.rc
-import init.common_svc.rc
-import init.emdlogger1.rc
+import /init.ril.rc
+import /init.wifi.rc
 
-# init.modem.rc must be the LAST rc file because vold.post_fs_data_done is set in it
+# Ensure this is last
 import init.modem.rc
-# *** DO NOT import the new rc file after this line ***
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
@@ -1559,66 +1549,33 @@ service zpppd_gprs /system/bin/init.gprs-pppd
 # add the service for call pppd(end)
 #
 
-## ====== BEGIN REMOVE SAMSUNG STUFF ==========
+# this is me note things, of course.
+## ====== BEGIN SAMSUNG ==========
 
 # Program binary service
-#service program_binary /system/bin/program_binary_service
-#    class late_start
-#    user system
-#    group graphics
-#    oneshot
+service program_binary /system/bin/program_binary_service
+    class late_start
+    user system
+    group graphics
+    oneshot
 
 # Blowfish service
-#service tz_service /system/bin/tzdaemon
-#    class core
-#    socket tz stream 0666 system system
-#    user system
-#    group system
-#    disabled
+service tz_service /system/bin/tzdaemon
+    class core
+    socket tz stream 0666 system system
+    user system
+    group system
+    disabled
 
-#service taa_service /system/bin/taadaemon
-#    class core
-#    user system
-#    group system
-#    disabled
-#    oneshot
+service taa_service /system/bin/taadaemon
+    class core
+    user system
+    group system
+    disabled
+    oneshot
 
-#on property:sys.tzdaemon=Ready
-#    start taa_service
-#
-#on property:init.svc.tz_service=stopped
-#    setprop sys.tzdaemon NotReady
+on property:sys.tzdaemon=Ready
+    start taa_service
 
-
-
-# LPM
-#on property:ro.bootmode=charger
-#    mount ext4 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system /system support_scfs wait ro
-#
-#on property:ro.bootmode=charger
-#    wait /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/EFS
-#    check_fs /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/EFS ext4
-#    mount ext4 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/EFS /efs nosuid nodev noatime #noauto_da_alloc,discard,journal_async_commit
-#
-#on property:ro.bootmode=charger
-#    class_start sec-charger
-#
-#service lpm /system/bin/lpm
-#    class sec-charger
-#    critical
-#
-# Secure Storage startup
-#service secure_storage /system/bin/secure_storage_daemon
-#    class core
-#    user system
-#    group system
-#    disabled
-
-#on property:ro.securestorage.support=true
-#    mkdir /dev/.secure_storage
-#    chmod 0711 /dev/.secure_storage
-#    chown system system /dev/.secure_storage
-#    restorecon -R /dev/.secure_storage
-#    start secure_storage
-
-# ========= END REMOVE SAMSUNG STUFF =============
+on property:init.svc.tz_service=stopped
+    setprop sys.tzdaemon NotReady

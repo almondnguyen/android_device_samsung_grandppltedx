@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-LOCAL_PATH := $(call my-dir)
+LOCAL_PATH := device/samsung/grandppltedx/power
 include $(CLEAR_VARS)
 
 LOCAL_STATIC_LIBRARIES += power-feature

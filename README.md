@@ -2,8 +2,6 @@
 grandpplte device tree
 
 -----
-CURRENT BUG:
-mostly permission stuffs. SEpolicy involved
-
+CURRENT BUG: sepolicy
 
 DEVELOPMENT IN PROGRESS. MAY EAT YOUR CAT

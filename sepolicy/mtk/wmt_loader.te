@@ -1,16 +1,9 @@
-# ==============================================
-# Policy File of /system/bin/wmt_loader Executable File
 
-
-# ==============================================
 # Type Declaration
 # ==============================================
 type wmt_loader ,domain;
 type wmt_loader_exec , exec_type, file_type;
 
-# ==============================================
-# MTK Policy Rule
-# ==============================================
 init_daemon_domain(wmt_loader)
 
 allow wmt_loader self:capability { chown dac_override };
