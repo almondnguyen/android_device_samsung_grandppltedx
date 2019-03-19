@@ -13,6 +13,11 @@ on fs
     chmod 0660 /sys/class/android_usb/android0/f_acm/port_index
     setprop sys.usb.ffs.aio_compat 1
 
+on post-fs
+    # Avoid USB crash
+    setprop persist.adb.nonblocking_ffs 0
+    setprop ro.adb.nonblocking_ffs 0
+
 on post-fs-data
     chown radio system /sys/class/usb_rawbulk/data/enable
     chmod 0660 /sys/class/usb_rawbulk/data/enable
