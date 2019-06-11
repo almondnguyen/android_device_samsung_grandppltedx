@@ -130,7 +130,21 @@ void vendor_load_properties()
 
         property_override_dual("ro.product.device", "ro.vendor.product.device", "grandpplteub");
 
-    }
+    } else if (bootloader.find("G532MT") != std::string::npos) or (bootloader.find("G532MT/DS") != std::string::npos) {
 
+	    /* SM-G532MT */
+		if (bootloader.find("G532MT") != std::string::npos) {
+			/* MT */		
+			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532MT");
+			init_single();
+			} else {
+			/* MT/DS */
+			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532MT/DS");
+			init_dual();
+        	}
+
+        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandppltedtvvj");
+
+    }
 }
 

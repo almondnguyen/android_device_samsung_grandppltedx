@@ -2,3 +2,6 @@ type bluetooth_device, dev_type;
 type modem_efs_partition_device, dev_type;
 type at_device, dev_type;
 type fm_radio_device, dev_type;
+type emmcblk_device, dev_type;
+type efsblk_device, dev_type;
+type tz_device, dev_type, mlstrustedobject;

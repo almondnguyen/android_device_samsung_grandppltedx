@@ -7,6 +7,12 @@ type sysfs_vibeamp, fs_type, sysfs_type;
 type sysfs_wifi_nv_path, fs_type, sysfs_type;
 type wifi_efs_file, file_type;
 
+type proc_avc_msg, rw_fs_type, fs_type;
+type tz_socket, socket_file_type, file_type, mlstrustedobject;
+type prov_efs_file, efs_type, file_type;
+type audit_log, log_file_type, file_type;
+type sysfs_ss_writable, sysfs_type, rw_fs_type, fs_type;
+
 type camera_socket, file_type;
 
 

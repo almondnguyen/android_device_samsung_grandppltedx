@@ -12,14 +12,22 @@ endef
 
 $(call add-rootdir-targets, \
 	fstab.mt6735 \
+	factory_init.rc \
+	factory_init.project.rc \
+	meta_init.rc \
+	meta_init.modem.rc \
+	meta_init.project.rc \
+	meta_init.usb.rc \
 	init.modem.rc \
 	init.mt6735.rc \
 	init.mt6735.usb.rc \
 	init.project.rc \
 	init.recovery.mt6735.rc \
-	init.ril.rc \
-    init.usb.configfs.rc \
+	init.rilchip.rc \
+	init.rilepdg.rc \
+	init.rilcommon.rc \
+	init.usb.configfs.rc \
 	init.volte.rc \
 	init.wifi.rc \
-	ueventd.mt6735.rc)
-
+	ueventd.mt6735.rc \
+	init.samsung.rc)

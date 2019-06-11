@@ -1,11 +1,4 @@
-# ro.product.first_api_level indicates the first api level the device has commercially launched on.
-ro.product.first_api_level=23
-
-#
 # system.prop for grandpplte
-#
-
-#+ Samsung Build properties
 
 # Platform
 ro.mediatek.chip_ver=S01
@@ -62,7 +55,7 @@ ro.mtk_ims_support=1
 
 # SELinux
 # DISABLE FOR TESTING PURPOSE ONLY
-ro.build.selinux=0
+ro.build.selinux=1
 
 # Dalvik / hwui
 persist.sys.dalvik.vm.lib.2=libart.so
@@ -74,7 +67,7 @@ dalvik.vm.heapsize=512m
 dalvik.vm.heapgrowthlimit=256m
 
 # Block
-ro.frp.pst=/dev/block/persistent
+ro.frp.pst=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/PERSISTENT
 
 # PQ
 ro.mtk_pq_support=2
@@ -134,15 +127,6 @@ ro.zygote.preload.enable=0
 persist.af.audio_patch_fm=1
 persist.md.perm.checked=1
 
-# Test and my screen is cracked.
+# Test
 qemu.hw.mainkeys=0
-
-# MAD
-bgw.current3gband=0
-drm.service.enabled=true
-wfd.dummy.enable=1
-persist.sys.display.clearMotion=1
-ro.mtk_clearmotion_support=1
-keyguard.no_require_sim=true
-camera.disable_zsl_mode=1
-persist.debug.wfd.enable=1
+ro.build.selinux=disabled

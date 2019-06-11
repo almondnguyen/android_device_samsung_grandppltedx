@@ -37,6 +37,11 @@
 /efs/wifi(/.*)?                                         u:object_r:wifi_efs_file:s0
 /sys/module/dhd/parameters/nvram_path                   u:object_r:sysfs_wifi_nv_path:s0
 
+#- J2p
+# trustzone > gatekeeperd
+/system/bin/taadaemon           u:object_r:tzdaemon_exec:s0
+/system/bin/tzdaemon            u:object_r:tzdaemon_exec:s0
+
 # Block
 
 /dev/block/platform/mtk-msdc\.0/by-name/(proinfo|nvram)?            u:object_r:nvram_device:s0
@@ -54,6 +59,6 @@
 /dev/block/platform/mtk-msdc\.0/by-name/cache       		        u:object_r:cache_block_device:s0
 /dev/block/platform/mtk-msdc\.0/by-name/recovery    		        u:object_r:recovery_block_device:s0
 
-/dev/block/platform/mtk-msdc\.0/[0-9]+\.msdc0/by-name/omekeystore	u:object_r:oemkeystore_block_device:s0
+/dev/block/platform/mtk-msdc\.0/[0-9]+\.msdc0/by-name/oemkeystore	u:object_r:oemkeystore_block_device:s0
 /dev/block/platform/mtk-msdc\.0/[0-9]+\.msdc0/by-name/protect1		u:object_r:protect1_block_device:s0
 /dev/block/platform/mtk-msdc\.0/[0-9]+\.msdc0/by-name/protect2		u:object_r:protect2_block_device:s0

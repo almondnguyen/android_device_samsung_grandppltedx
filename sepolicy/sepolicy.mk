@@ -7,5 +7,4 @@
 
 BOARD_SEPOLICY_DIRS := \
 	device/samsung/grandppltedx/sepolicy/samsung \
-	device/samsung/grandppltedx/sepolicy/mtk \
-	device/samsung/grandppltedx/sepolicy/permissive
+	device/samsung/grandppltedx/sepolicy/mt6737m

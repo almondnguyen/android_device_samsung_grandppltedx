@@ -34,7 +34,7 @@
     <bool name="config_unplugTurnsOnScreen">true</bool>
 
     <!-- Shutdown if the battery temperature exceeds (this value * 0.1) Celsius. -->
-    <integer name="config_shutdownBatteryTemperature">600</integer>
+    <integer name="config_shutdownBatteryTemperature">620</integer>
 
     <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveNotificationLed">true</bool>
@@ -209,7 +209,7 @@
             64 - Volume rocker
          For example, a device with Home, Back and Menu keys would set this
          config to 7. -->
-    <integer name="config_deviceHardwareKeys">79</integer>
+    <integer name="config_deviceHardwareKeys">83</integer>
 
     <!-- Hardware keys present on the device with the ability to wake, stored as a bit field.
          This integer should equal the sum of the corresponding value for each
@@ -223,7 +223,7 @@
             64 - Volume rocker
          For example, a device with Home, Back and Menu keys would set this
          config to 7. -->
-    <integer name="config_deviceHardwareWakeKeys">79</integer>
+    <integer name="config_deviceHardwareWakeKeys">65</integer>
 
     
     <!-- Performance profiles -->
@@ -243,13 +243,13 @@
 
     <!-- Control whether Night display is available. This should only be enabled on devices
          with HWC 2.0 or higher. -->
-    <bool name="config_nightDisplayAvailable">true</bool>
+    <bool name="config_nightDisplayAvailable">false</bool>
     
     <!-- enable doze powersaving mode -->
     <bool name="config_enableAutoPowerModes">true</bool>
     
     <!-- Whether device supports double tap to wake -->
-    <bool name="config_supportDoubleTapWake">true</bool>
+    <bool name="config_supportDoubleTapWake">false</bool>
     
     <!-- Is the device capable of hot swapping an UICC Card -->
     <bool name="config_hotswapCapable">true</bool>
