@@ -50,6 +50,20 @@ static bool onRequestGetRadioCapability(RIL_Token t)
 	return true;
 }
 
+static bool onCompleteGetActivityInfo(RIL_Token t)
+{
+	RIL_ActivityStatsInfo stats[1];
+	stats[0].sleep_mode_time_ms = 0;
+	stats[0].idle_mode_time_ms = 0;
+	for(int i = 0; i < RIL_NUM_TX_POWER_LEVELS; i++) {
+		stats[0].tx_mode_time_ms[i] = 0;
+	}
+	stats[0].rx_mode_time_ms = 0;
+
+	rilEnv->OnRequestComplete(t, RIL_E_SUCCESS, stats, sizeof(stats));
+	return true;
+}
+
 static void onRequestShim(int request, void *data, size_t datalen, RIL_Token t)
 {
 	switch (request) {
@@ -256,6 +270,10 @@ static void onRequestCompleteShim(RIL_Token t, RIL_Errno e, void *response, size
 				return;
 			}
 			break;
+		case RIL_REQUEST_GET_ACTIVITY_INFO:
+			RLOGD("%s: got request %s and shimming response!\n", __FUNCTION__, requestToString(request));
+			onCompleteGetActivityInfo(t);
+			return;
 	}
 	RLOGD("%s: got request %s: forwarded to libril.\n", __FUNCTION__, requestToString(request));
 
