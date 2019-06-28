@@ -668,8 +668,8 @@ on post-fs-data
 	
     # Blowfish service
     mkdir /data/tee 0700 system system
-    start tz_service
-    setprop sys.blowfish.loaded true
+    #start tz_service
+    #setprop sys.blowfish.loaded true
 
     #create directory /data/subt for subtitle
     mkdir /mnt/subt/ 0770 media media

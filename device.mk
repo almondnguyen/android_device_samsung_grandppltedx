@@ -198,7 +198,7 @@ PRODUCT_PACKAGES += \
 
 # memtrack
 PRODUCT_PACKAGES += \
-	memtrack.mt6735
+	memtrack.mt6737t
     
 # Rootdir
 PRODUCT_PACKAGES += \
