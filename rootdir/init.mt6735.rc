@@ -39,7 +39,7 @@ on init
     #export LD_SHIM_LIBS /system/xbin/mnld|libxlog.so
     #export LD_SHIM_LIBS /system/bin/thermal|libshim_thermal.so
 
-    export LD_SHIM_LIBS "/system/libdpframework.so|libshim_general.so:/system/libdpframework.so|libxlog.so:/system/bin/sn|libshim_general.so:/system/bin/guiext-server|libxlog.so:/system/bin/pq|libxlog.so:/system/lib/egl/libGLES_mali.so|libxlog.so:/system/lib/libfmcust.so|libxlog.so:/system/xbin/mnld|libxlog.so:/system/bin/thermal|libshim_thermal.so"
+    export LD_SHIM_LIBS "/system/libdpframework.so|libshim_general.so:/system/libdpframework.so|libxlog.so:/system/bin/sn|libshim_general.so:/system/bin/guiext-server|libxlog.so:/system/bin/pq|libxlog.so:/system/lib/egl/libGLES_mali.so|libxlog.so:/system/lib/libfmcust.so|libxlog.so:/system/xbin/mnld|libxlog.so:/system/bin/thermal|libshim_thermal.so:/system/lib/libcutils.so|libshim_thermal.so"
 
 
     # Support legacy paths

@@ -23,7 +23,7 @@
 #include <pthread.h>
 #include <utils/Log.h>
 
-void _ZN7android10AudioTrack3setE19(audio_stream_type , audio_format,audio_output_flags , transfer_type , audio_offload_info , audio_attributes) {
+void _ZN7android10AudioTrack3setE19( audio_stream_type , audio_format , audio_output_flags , transfer_type , audio_offload_info , audio_attributes) {
 
 /*
 audio_stream_type_tj14audio_format_tjj20audio_output_flags_tPFviPvS4_ES4_jRKNS_2spINS_7IMemoryEEEbiNS0_13transfer_typeEPK20audio_offload_info_tiiPK18audio_attributes_tb() {
