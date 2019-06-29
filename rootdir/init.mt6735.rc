@@ -23,13 +23,25 @@ import init.modem.rc
 
 on early-init
 
-    maddebugboot	
-
     mount debugfs debugfs /sys/kernel/debug
     chmod 0755 /sys/kernel/debug
     chown system system /sys/kernel/debug
 
 on init
+
+    #export LD_SHIM_LIBS /system/libdpframework.so|libshim_general.so
+    #export LD_SHIM_LIBS /system/libdpframework.so|libxlog.so
+    #export LD_SHIM_LIBS /system/bin/sn|libshim_general.so
+    #export LD_SHIM_LIBS /system/bin/guiext-server|libxlog.so
+    #export LD_SHIM_LIBS /system/bin/pq|libxlog.so
+    #export LD_SHIM_LIBS /system/lib/egl/libGLES_mali.so|libxlog.so
+    #export LD_SHIM_LIBS /system/lib/libfmcust.so|libxlog.so
+    #export LD_SHIM_LIBS /system/xbin/mnld|libxlog.so
+    #export LD_SHIM_LIBS /system/bin/thermal|libshim_thermal.so
+
+    export LD_SHIM_LIBS "/system/libdpframework.so|libshim_general.so:/system/libdpframework.so|libxlog.so:/system/bin/sn|libshim_general.so:/system/bin/guiext-server|libxlog.so:/system/bin/pq|libxlog.so:/system/lib/egl/libGLES_mali.so|libxlog.so:/system/lib/libfmcust.so|libxlog.so:/system/xbin/mnld|libxlog.so:/system/bin/thermal|libshim_thermal.so"
+
+
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
 

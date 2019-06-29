@@ -141,8 +141,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.android.checkjni=0 \
 	ro.telephony.ril_class=MT6735 \
-	ro.telephony.ril.config=fakeiccid \
-	ro.com.android.mobiledata=false
+	ro.telephony.ril.config=fakeiccid
 
 #-- FM
 MTK_FM_SUPPORT := true
@@ -151,9 +150,13 @@ PRODUCT_PACKAGES += \
 	libfmjni \
 	FMRadio
 
-# Mediatek platform
+# shim
 PRODUCT_PACKAGES += \
-	mtk_symbols
+	mtk_symbols \
+	liblog_mtk \
+	libshim_secims \
+	libshim_general \
+	libshim_thermal
 
 # Recovery - twrp
 PRODUCT_COPY_FILES += \
@@ -225,8 +228,7 @@ PRODUCT_PACKAGES += \
 #-- sbin
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/rootdir/sbin/sswap:root/sbin/sswap \
-	$(DEVICE_PATH)/rootdir/sbin/ffu:root/sbin/ffu \
-	$(DEVICE_PATH)/rootdir/sbin/log-kmsg.sh:root/sbin/log-kmsg.sh
+	$(DEVICE_PATH)/rootdir/sbin/ffu:root/sbin/ffu
 
 #   $(DEVICE_PATH)/rootdir/sbin/busybox:root/sbin/busybox \
 

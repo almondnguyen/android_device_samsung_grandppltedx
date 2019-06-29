@@ -5,8 +5,17 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_SRC_FILES := secims_shim.c
+LOCAL_SRC_FILES := secims_shim.cpp
 LOCAL_MODULE := libshim_secims
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 include $(BUILD_SHARED_LIBRARY)
+
+# MTK Thermal
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := thermal_shim.cpp
+LOCAL_MODULE := libshim_thermal
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+include $(BUILD_SHARED_LIBRARY)
+
