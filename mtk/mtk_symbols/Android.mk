@@ -1,4 +1,4 @@
-LOCAL_PATH := $(call my-dir)
+LOCAL_PATH := device/samsung/grandppltedx/mtk/mtk_symbols
 
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := \
@@ -24,8 +24,6 @@ include $(BUILD_SHARED_LIBRARY)
 
 
 # MTK cam
-LOCAL_PATH := $(call my-dir)
-
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := mtk_cam.cpp
 LOCAL_MODULE := libshim_general

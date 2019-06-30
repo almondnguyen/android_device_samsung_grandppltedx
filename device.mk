@@ -154,9 +154,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	mtk_symbols \
 	liblog_mtk \
-	libshim_general \
-	libshim_thermal
+	libshim_general
 
+# added patches, unnecessary |	libshim_thermal \
 # removed libsec-ims.so | 	libshim_secims \
 
 # Recovery - twrp
