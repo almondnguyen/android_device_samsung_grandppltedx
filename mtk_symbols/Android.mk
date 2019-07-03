@@ -1,4 +1,4 @@
-LOCAL_PATH := device/samsung/grandppltedx/mtk/mtk_symbols
+LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := \
@@ -10,7 +10,6 @@ LOCAL_SRC_FILES := \
     mtk_ui.cpp \
     mtk_audioCompat.c \
     mtk_gps.cpp
-
 
 #    mtk_xlog.cpp \
 

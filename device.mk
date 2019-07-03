@@ -29,12 +29,6 @@ $(call inherit-product-if-exists, vendor/samsung/grandppltedx/grandppltedx-vendo
 include device/samsung/grandppltedx/configs/extra-makefiles/permissions.mk
 include device/samsung/grandppltedx/configs/extra-makefiles/hardware.mk
 
-ifeq ($(MESS_UP_WITH_OPENSSL),true)
-PRODUCT_PACKAGES += \
-	libssl_static \
-	libcrypto_static
-endif
-
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
 
@@ -150,13 +144,15 @@ PRODUCT_PACKAGES += \
 	libfmjni \
 	FMRadio
 
-# shim
+# shim / symbols
 PRODUCT_PACKAGES += \
-	mtk_symbols \
 	liblog_mtk \
+	libmtk_symbols \
+	libshim_thermal \
 	libshim_general
 
-# added patches, unnecessary |	libshim_thermal \
+# use porridge mtk_symbol instead | 	mtk_symbols \
+# broken patches |	libshim_thermal \
 # removed libsec-ims.so | 	libshim_secims \
 
 # Recovery - twrp
