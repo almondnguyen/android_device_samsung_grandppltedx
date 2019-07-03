@@ -147,7 +147,7 @@ PRODUCT_PACKAGES += \
 # shim / symbols
 PRODUCT_PACKAGES += \
 	liblog_mtk \
-	libmtk_symbols \
+	mtk_symbols \
 	libshim_thermal \
 	libshim_general
 
