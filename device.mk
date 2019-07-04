@@ -44,7 +44,7 @@ PRODUCT_PACKAGES += \
 	libion
 
 # Dalvik heap configurations
-$(call inherit-product-if-exists, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
+$(call inherit-product-if-exists, frameworks/native/build/phone-hdpi-2048-dalvik-heap.mk)
 
 # Locale
 PRODUCT_DEFAULT_LANGUAGE := en
