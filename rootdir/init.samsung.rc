@@ -5,6 +5,18 @@ on init
 
     ffu
 
+    # Create cgroup mount point for memory
+    mount tmpfs none /sys/fs/cgroup mode=0750,uid=0,gid=1000
+    mkdir /sys/fs/cgroup/memory 0750 root system
+    mount cgroup none /sys/fs/cgroup/memory memory
+    write /sys/fs/cgroup/memory/memory.move_charge_at_immigrate 1
+    chown root system /sys/fs/cgroup/memory/tasks
+    chmod 0660 /sys/fs/cgroup/memory/tasks
+    mkdir /sys/fs/cgroup/memory/sw 0750 root system
+    write /sys/fs/cgroup/memory/sw/memory.swappiness 100
+    write /sys/fs/cgroup/memory/sw/memory.move_charge_at_immigrate 1
+    chown root system /sys/fs/cgroup/memory/sw/tasks
+    chmod 0660 /sys/fs/cgroup/memory/sw/tasks
     mkdir /.system
     mkdir /system
     mkdir /data 0771 system system
@@ -16,6 +28,10 @@ on init
     mkdir /dev/socket/vaultkeeper 0770 system system
     chown system system /dev/socket/vaultkeeper
     chmod 0770 /dev/socket/vaultkeeper
+
+
+    # Storage views to support runtime permissions
+    mkdir /storage 0755 root root
 
     # scheduler tunables
     write /proc/sys/kernel/sched_compat_yield 1
@@ -79,12 +95,14 @@ on init
     write /dev/cpuctl/dex2oat/cpu.cfs_period_us 16700
     write /dev/cpuctl/cpu.rt_runtime_us 950000
 
+    symlink /proc/self/fd /dev/fd
+
     # reset_reason
     chown system system /proc/reset_reason
     chmod 0600 /proc/reset_reason
 
-        
-
+on post-fs
+    start sec-sh
 
 on post-fs-data
     
@@ -578,6 +596,17 @@ on charger
     write /sys/class/power_supply/battery/batt_update_data "/efs/Battery/battery_data.dat"
     class_start charger
 
+# Activate Background Compaction
+on property:sys.sysctl.compact_memory=1
+    setprop sys.sysctl.compact_memory 0
+    start compact_memory
+
+service compact_memory /sbin/bgcompact
+    user root
+    seclabel u:r:sswap:s0
+    oneshot
+    disabled
+
 ## Daemon processes to be run by init.
 ##
 # deferred initcall
@@ -667,4 +696,3 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
     disabled
     oneshot
 # end of BT
-
