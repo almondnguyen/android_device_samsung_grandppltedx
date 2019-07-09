@@ -72,6 +72,9 @@ TARGET_OMX_LEGACY_RESCALING := true
 
 PRODUCT_SHIPPING_API_LEVEL := 23
 
+WITH_DEXPREOPT := false
+DONT_DEXPREOPT_PREBUILTS := true
+
 # Backlight
 BACKLIGHT_PATH := /sys/devices/ktd3102-bl/backlight/panel/brightness
 

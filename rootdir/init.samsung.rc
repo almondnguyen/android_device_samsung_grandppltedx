@@ -175,20 +175,20 @@ on post-fs-data
     chmod 0775 /system/etc/security/.drm
 
     # Added for Playready DRM Support
-    mkdir /data/data/.drm 0775
-    chown drm system /data/data/.drm
-    chmod 0775 /data/data/.drm
-    mkdir /data/data/.drm/.playready 0775
-    chown drm system /data/data/.drm/.playready
-    chmod 0775 /data/data/.drm/.playready
+    #mkdir /data/data/.drm 0775
+    #chown drm system /data/data/.drm
+    #chmod 0775 /data/data/.drm
+    #mkdir /data/data/.drm/.playready 0775
+    #chown drm system /data/data/.drm/.playready
+    #chmod 0775 /data/data/.drm/.playready
 
     # Added for Playready DCM DRM Support
-    mkdir /data/.dcmdrm 0775
-    chown drm system /data/.dcmdrm
-    chmod 0775 /data/.dcmdrm
-    mkdir /data/.dcmdrm/.playready 0775
-    chown drm system /data/.dcmdrm/.playready
-    chmod 0775 /data/.dcmdrm/.playready
+    #mkdir /data/.dcmdrm 0775
+    #chown drm system /data/.dcmdrm
+    #chmod 0775 /data/.dcmdrm
+    #mkdir /data/.dcmdrm/.playready 0775
+    #chown drm system /data/.dcmdrm/.playready
+    #chmod 0775 /data/.dcmdrm/.playready
 
     # Added drm folder to copy drm plugins
     mkdir /system/lib/drm 0775

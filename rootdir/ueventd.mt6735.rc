@@ -15,6 +15,9 @@
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/frp       0660    root    system
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/md1img    0660    root    system
 
+# samsung
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/PERSISTENT       0660    root    system
+
 # OTP
 /dev/otp                 0660 system system
 

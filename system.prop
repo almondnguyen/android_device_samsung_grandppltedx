@@ -1,5 +1,8 @@
 # system.prop for grandpplte
 
+# Nougat stuff
+config.disable_consumerir=true
+
 # Platform
 ro.mediatek.chip_ver=S01
 ro.mediatek.platform=MT6737T

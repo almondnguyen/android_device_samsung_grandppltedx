@@ -1,0 +1,17 @@
+This module creates the MT-RAMDUMP (MediaTek Full Ramdump) libraries.
+
+
+WHAT IT DOES?
+=============
+MT-RAMDUMP exports some API for customer to create their own flow.
+
+
+HOW IT WAS BUILT?
+==================
+It was built as a shared library from AOSP: libmrdump.so
+
+
+HOW TO USE IT?
+==============
+The libmrdump.so file should be put into /system/lib after compiled.
+

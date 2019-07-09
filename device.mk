@@ -100,6 +100,9 @@ PRODUCT_PACKAGES += \
 	lib_driver_cmd_mt66xx
 
 PRODUCT_COPY_FILES += \
+	$(DEVICE_PATH)/configs/hostapd/hostapd.accept:system/etc/hostapd/hostapd.accept \
+	$(DEVICE_PATH)/configs/hostapd/hostapd.deny:system/etc/hostapd/hostapd.deny \
+	$(DEVICE_PATH)/configs/hostapd/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf \
 	$(DEVICE_PATH)/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 	$(DEVICE_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
 	$(DEVICE_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
@@ -193,7 +196,6 @@ PRODUCT_PACKAGES += \
 
 # Sensor
 PRODUCT_PACKAGES += \
-	libhwm \
 	libnvram
 
 # memtrack
@@ -210,7 +212,9 @@ PRODUCT_PACKAGES += \
 	init.mt6735.rc \
 	init.mt6735.usb.rc \
 	init.project.rc \
-	init.ril.rc \
+	init.rilcommon.rc \
+	init.rilchip.rc \
+	init.rilepdg.rc \
 	init.volte.rc \
 	init.usb.configfs.rc \
 	init.wifi.rc \
@@ -225,7 +229,8 @@ PRODUCT_PACKAGES += \
 #-- sbin
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/rootdir/sbin/sswap:root/sbin/sswap \
-	$(DEVICE_PATH)/rootdir/sbin/ffu:root/sbin/ffu
+	$(DEVICE_PATH)/rootdir/sbin/ffu:root/sbin/ffu \
+	$(DEVICE_PATH)/rootdir/sbin/bgcompact:root/sbin/bgcompact \
 
 #   $(DEVICE_PATH)/rootdir/sbin/busybox:root/sbin/busybox \
 
