@@ -76,7 +76,11 @@ WITH_DEXPREOPT := false
 DONT_DEXPREOPT_PREBUILTS := true
 
 # Backlight
-BACKLIGHT_PATH := /sys/devices/ktd3102-bl/backlight/panel/brightness
+#BACKLIGHT_PATH ?= /sys/devices/ktd3102-bl/backlight/panel/brightness
+BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
+
+# Offline charging
+BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/BOOT/BOOT/boot/boot_mode
 
 # Architecture
 TARGET_ARCH         := arm
@@ -135,8 +139,8 @@ BOARD_CONNECTIVITY_MODULE := MT6625
 BOARD_MEDIATEK_USES_GPS := true
 
 # RIL
-BOARD_RIL_CLASS := ../../../device/samsung/grandppltedx/ril
-BOARD_CONNECTIVITY_MODULE := conn_soc
+#BOARD_RIL_CLASS := ../../../device/samsung/grandppltedx/ril
+#BOARD_CONNECTIVITY_MODULE := conn_soc
 
 # Power HAL
 TARGET_POWERHAL_VARIANT := mtk

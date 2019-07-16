@@ -45,6 +45,24 @@ using android::base::GetProperty;
 using android::base::ReadFileToString;
 using android::base::Trim;
 
+#define SERIAL_NUMBER_FILE "/efs/FactoryApp/serial_no"
+
+int read_integer(const char* filename)
+{
+	int retval;
+	FILE * file;
+
+	/* open the file */
+	if (!(file = fopen(filename, "r"))) {
+		return -1;
+	}
+	/* read the value from the file */
+	fscanf(file, "%d", &retval);
+	fclose(file);
+
+	return retval;
+}
+
 void property_override(char const prop[], char const value[])
 {	
 	prop_info *pi;
@@ -85,66 +103,62 @@ void vendor_load_properties()
 	if (platform != ANDROID_TARGET)
 		return;
 
-	if (bootloader.find("G532F") != std::string::npos) or (bootloader.find("G532F/DS") != std::string::npos) {
+	/* check if the simslot count file exists */
+	if (access(SIMSLOT_FILE, F_OK) == 0) {
+		int sim_count= read_integer(SIMSLOT_FILE);
 
-	    /* SM-G532F */
-		if (bootloader.find("G532F") != std::string::npos) {
-			/* F */		
+		/* set the dual sim props */
+	
+	if (bootloader.find("G532F") != std::string::npos) {
+		/* G532F */
+	        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandpplteser");
+		if (sim_count == 1) {
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532F");
 			init_single();
-			} else {
-			/* F/DS */
+		} else {
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532F/DS");
-			init_dual();       	
-			}
+			init_dual();
+	}
 
-        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandpplteser");
-
-    } else if (bootloader.find("G532G") != std::string::npos) or (bootloader.find("G532G/DS") != std::string::npos) {
-
-	    /* SM-G532G */
-		if (bootloader.find("G532G") != std::string::npos) {
-			/* G */		
+	if (bootloader.find("G532G") != std::string::npos) {
+		/* G532G */
+	        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandppltedx");
+		if (sim_count == 1) {
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532G");
 			init_single();
-			} else {
-			/* G/DS */
+		} else {
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532G/DS");
-			init_dual();       	
-			}
+			init_dual();
+	}
 
-        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandppltedx");
-
-    } else if (bootloader.find("G532M") != std::string::npos) or (bootloader.find("G532M/DS") != std::string::npos) {
-
-	    /* SM-G532M */
-		if (bootloader.find("G532M") != std::string::npos) {
-			/* M */		
+	if (bootloader.find("G532M") != std::string::npos) {
+		/* G532M */
+	        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandpplteub");
+		if (sim_count == 1) {
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532M");
 			init_single();
-			} else {
-			/* M/DS */
+		} else {
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532M/DS");
 			init_dual();
-        	}
+	}
 
-        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandpplteub");
-
-    } else if (bootloader.find("G532MT") != std::string::npos) or (bootloader.find("G532MT/DS") != std::string::npos) {
-
-	    /* SM-G532MT */
-		if (bootloader.find("G532MT") != std::string::npos) {
-			/* MT */		
+	if (bootloader.find("G532MT") != std::string::npos) {
+		/* G532MT */
+	        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandppltedtvvj");
+		if (sim_count == 1) {
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532MT");
 			init_single();
-			} else {
-			/* MT/DS */
+		} else {
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532MT/DS");
 			init_dual();
-        	}
+	}
 
-        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandppltedtvvj");
+		/* set serial number */
+	char const *serial_number_file = SERIAL_NUMBER_FILE;
+	std::string serial_number;
 
-    }
+	if (ReadFileToString(serial_number_file, &serial_number)) {
+        	serial_number = Trim(serial_number);
+        	property_override("ro.serialno", serial_number.c_str());
+	}
 }
-

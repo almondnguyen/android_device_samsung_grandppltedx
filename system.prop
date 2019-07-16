@@ -15,7 +15,7 @@ rild.libpath=/system/lib/libsec-ril.so
 rild.libpath2=/system/lib/libsec-ril-dsds.so
 rild.libargs=-d /dev/ttyC0
 
-ro.telephony.ril_class=MT6735
+ro.telephony.ril_class=SlteRIL
 ro.telephony.ril.config=fakeiccid
 ro.telephony.sim.count=2
 ro.boot.opt_lte_support=1
@@ -24,6 +24,8 @@ ro.mtk_sim_hot_swap=1
 ro.mtk_gemini_support=1
 ro.mediatek.gemini_support=true
 ro.gemini.smart_sim_switch=false
+ro.ril.hsxpa=1
+ro.ril.gprsclass=10
 
 ril.current.share_modem=2
 ril.first.md=1
@@ -140,6 +142,7 @@ ro.sys.usb.mtp.whql.enable=0
 sys.ipo.pwrdncap=2
 ro.sys.usb.bicr=no
 ro.sys.usb.charging.only=yes
+ro.sys.usb.storage.type=mtp,mass_storage
 
 ro.camera.sound.forced=0
 ro.audio.silent=0

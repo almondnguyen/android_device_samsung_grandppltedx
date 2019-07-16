@@ -127,17 +127,25 @@ PRODUCT_COPY_FILES += \
 #-- RIL
 #-- use open-sourced libril @ android_hardware_samsung
 BOARD_PROVIDE_LIBRIL := true
-SIM_COUNT := 2
-
-BOARD_NEEDS_IMS_TYPE_FIELD := true
-BOARD_MODEM_TYPE := mt6625
-
 PRODUCT_PACKAGES += \
 	libril
 
+SIM_COUNT := 2
+
+BOARD_NEEDS_IMS_TYPE_FIELD := true
+BOARD_MODEM_TYPE := xmm7260
+
+PRODUCT_PACKAGES += \
+	libsecril-client \
+	libxml2 \
+	libprotobuf-cpp-full
+
+PRODUCT_COPY_FILES += \
+	frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
+
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.kernel.android.checkjni=0 \
-	ro.telephony.ril_class=MT6735 \
+	ro.kernel.android.checkjni=0
+	ro.telephony.ril_class=SlteRIL
 	ro.telephony.ril.config=fakeiccid
 
 #-- FM
