@@ -109,7 +109,7 @@ void vendor_load_properties()
 
 		/* set the dual sim props */
 	
-	if (bootloader.find("G532F") != std::string::npos) {
+	if (bootloader.find("G532F") == 0) {
 		/* G532F */
 	        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandpplteser");
 		if (sim_count == 1) {
@@ -120,7 +120,7 @@ void vendor_load_properties()
 			init_dual();
 	}
 
-	if (bootloader.find("G532G") != std::string::npos) {
+	if (bootloader.find("G532G") == 0) {
 		/* G532G */
 	        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandppltedx");
 		if (sim_count == 1) {
@@ -131,7 +131,7 @@ void vendor_load_properties()
 			init_dual();
 	}
 
-	if (bootloader.find("G532M") != std::string::npos) {
+	if (bootloader.find("G532M") == 0) {
 		/* G532M */
 	        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandpplteub");
 		if (sim_count == 1) {
@@ -142,7 +142,7 @@ void vendor_load_properties()
 			init_dual();
 	}
 
-	if (bootloader.find("G532MT") != std::string::npos) {
+	if (bootloader.find("G532MT") == 0) {
 		/* G532MT */
 	        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandppltedtvvj");
 		if (sim_count == 1) {

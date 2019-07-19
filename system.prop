@@ -15,10 +15,11 @@ rild.libpath=/system/lib/libsec-ril.so
 rild.libpath2=/system/lib/libsec-ril-dsds.so
 rild.libargs=-d /dev/ttyC0
 
-ro.telephony.ril_class=SlteRIL
-ro.telephony.ril.config=fakeiccid
+ro.telephony.ril_class=grandpplteRIL
+#ro.telephony.ril.config=fakeiccid
 ro.telephony.sim.count=2
 ro.boot.opt_lte_support=1
+
 ro.mtk_lte_support=1
 ro.mtk_sim_hot_swap=1
 ro.mtk_gemini_support=1

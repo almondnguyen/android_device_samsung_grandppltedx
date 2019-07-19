@@ -17,7 +17,7 @@
 DEVICE_PATH := device/samsung/grandppltedx
 
 # assert
-TARGET_OTA_ASSERT_DEVICE := grandpplte,grandppltedx,grandpplteub,grandpplteser,grandppltedtvvj
+TARGET_OTA_ASSERT_DEVICE := grandppltedx,grandpplteub,grandpplteser,grandppltedtvvj
 
 # CFLAG
 BOARD_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
@@ -79,8 +79,11 @@ DONT_DEXPREOPT_PREBUILTS := true
 #BACKLIGHT_PATH ?= /sys/devices/ktd3102-bl/backlight/panel/brightness
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 
-# Offline charging
-BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/BOOT/BOOT/boot/boot_mode
+# Charger (borrow from herolte)
+BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
+BOARD_CHARGER_ENABLE_SUSPEND := true
+BOARD_CHARGER_SHOW_PERCENTAGE := true
+CHARGING_ENABLED_PATH := /sys/class/power_supply/battery/batt_lp_charging
 
 # Architecture
 TARGET_ARCH         := arm
@@ -139,7 +142,7 @@ BOARD_CONNECTIVITY_MODULE := MT6625
 BOARD_MEDIATEK_USES_GPS := true
 
 # RIL
-#BOARD_RIL_CLASS := ../../../device/samsung/grandppltedx/ril
+BOARD_RIL_CLASS := ../../../device/samsung/grandppltedx/ril
 #BOARD_CONNECTIVITY_MODULE := conn_soc
 
 # Power HAL

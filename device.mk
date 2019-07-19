@@ -125,15 +125,12 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/carrier/spn-conf.xml:system/etc/spn-conf.xml
 
 #-- RIL
-#-- use open-sourced libril @ android_hardware_samsung
-BOARD_PROVIDE_LIBRIL := true
+#
+BOARD_PROVIDE_LIBRIL := false
 PRODUCT_PACKAGES += \
 	libril
 
 SIM_COUNT := 2
-
-BOARD_NEEDS_IMS_TYPE_FIELD := true
-BOARD_MODEM_TYPE := xmm7260
 
 PRODUCT_PACKAGES += \
 	libsecril-client \
@@ -145,8 +142,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.android.checkjni=0
-	ro.telephony.ril_class=SlteRIL
-	ro.telephony.ril.config=fakeiccid
+	ro.telephony.ril_class=grandpplteRIL
 
 #-- FM
 MTK_FM_SUPPORT := true

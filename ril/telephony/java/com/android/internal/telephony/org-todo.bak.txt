@@ -1,0 +1,1218 @@
+/* sources (0.)
+// grandpplte
+
++import android.os.Build;
++import android.os.Bundle;
+
++import android.os.Registrant;
++import android.os.RegistrantList;
+
++import android.provider.Settings.Global;
++import android.provider.Settings.Secure;
++import android.provider.Settings.System;
++import android.provider.Telephony.Threads;
+
++import android.telephony.gsm.CbConfig;
+
++import com.android.internal.telephony.uicc.AdnRecord;
++import com.android.internal.telephony.uicc.SimLockInfoResult;
++import com.android.internal.telephony.uicc.SimPBEntryResult;
+
++import com.samsung.android.feature.FloatingFeature;
++import com.sec.android.app.CscFeature;
++import com.sec.android.emergencymode.EmergencyManager;
+
++import java.io.ByteArrayOutputStream;
++import java.io.DataOutputStream;
++import java.io.UnsupportedEncodingException;
+
+
++import java.util.HashSet;
++import java.util.Iterator;
++import java.util.Set;
+
+
+*/
+/************************************************************************/
+/* (0.1)
++    public static final boolean CELL_BROADCAST_ENABLE = true;
++    static final String ETWS_TEST = "jp.co.android.softbankCBM.ETWS";
+
++    static final String LOG_LEVEL_PROP = "ro.debug_level";
++    static final String LOG_LEVEL_PROP_HIGH = "0x4948";
++    static final String LOG_LEVEL_PROP_LOW = "0x4f4c";
++    static final String LOG_LEVEL_PROP_MID = "0x494d";
++    static final int NETTEXT_GSM_SMS_CBMI_LIST_SIZE_MAX = 100;
++    private static final int OEM_FUNCTION_ID_NETWORK = 2;
++    private static final int OEM_HIDDEN_MAIN_CMD = 81;
++    private static final int OEM_NET_GET_MODEM_CAP = 97;
++    private static final int OEM_NET_UPDATE_SUB_BINDING = 98;
++    private static final int OEM_SUB_SIM_LOCK_GET = 66;
++    private static final int OEM_SUB_SIM_LOCK_SET = 65;
+
+
+
+
+*/
+/************************************************************************/
+/* RIL (1.)
+            case 10001:
+                return "DIAL_EMERGENCY_CALL";
+            case 10002:
+                return "CALL_DEFLECTION";
+            case 10003:
+                return "MODIFY_CALL_INITIATE";
+            case 10004:
+                return "MODIFY_CALL_CONFIRM";
+            case 10005:
+                return "SET_VOICE_DOMAIN_PREF";
+            case 10006:
+                return "SAFE_MODE";
+            case 10007:
+                return "SET_TRANSMIT_POWER";
+            case 10008:
+                return "GET_CELL_BROADCAST_CONFIG";
+            case 10009:
+                return "GET_PHONEBOOK_STORAGE_INFO";
+            case 10010:
+                return "GET_PHONEBOOK_ENTRY";
+            case 10011:
+                return "ACCESS_PHONEBOOK_ENTRY";
+            case 10012:
+                return "USIM_PB_CAPA";
+            case 10013:
+                return "LOCK_INFO";
+            case 10014:
+                return "STK_SIM_INIT_EVENT";
+            case 10015:
+                return "SET_PREFERRED_NETWORK_LIST";
+            case 10016:
+                return "GET_PREFERRED_NETWORK_LIST";
+            case 10017:
+                return "CHANGE_SIM_PERSO";
+            case 10018:
+                return "ENTER_SIM_PERSO";
+            case 10019:
+                return "SEND_ENCODED_USSD";
+            case 10020:
+                return "CDMA_SEND_SMS_EXPECT_MORE";
+            case 10022:
+                return "REQUEST_HOLD";
+            case 10023:
+                return "SET_SIM_POWER";
+            case 10024:
+                return "GET_ACB_INFO";
+            case 10025:
+                return "UICC_GBA_AUTHENTICATE_BOOTSTRAP";
+            case 10026:
+                return "UICC_GBA_AUTHENTICATE_NAF";
+            case 10027:
+                return "GET_INCOMING_COMMUNICATION_BARRING";
+            case 10028:
+                return "SET_INCOMING_COMMUNICATION_BARRING";
+            case 10029:
+                return "QUERY_CNAP";
+            case 10030:
+                return "SET_TRANSFER_CALL";
+            case 10031:
+                return "GET_DISABLE_2G";
+            case 10032:
+                return "SET_DISABLE_2G";
+            case 10033:
+                return "REFRESH_NITZ_TIME";
+            case 10034:
+                return "ENABLE_UNSOL_RESPONSE";
+            case 10035:
+                return "CANCEL_TRANSFER_CALL";
+*/
+
+/************************************************************************/
+/* UNSOLS (2.)
+            case 11000:
+                return "UNSOL_RESPONSE_NEW_CB_MSG";
+            case 11001:
+                return "UNSOL_RELEASE_COMPLETE_MESSAGE";
+            case 11002:
+                return "UNSOL_STK_SEND_SMS_RESULT";
+            case 11003:
+                return "UNSOL_STK_CALL_CONTROL_RESULT";
+            case 11005:
+                return "UNSOL_ACB_INFO_CHANGED";
+            case 11008:
+                return "UNSOL_DEVICE_READY_NOTI";
+            case 11009:
+                return "UNSOL_GPS_NOTI";
+            case 11010:
+                return "UNSOL_AM";
+            case 11013:
+                return "UNSOL_SAP";
+            case 11020:
+                return "UNSOL_UART";
+            case 11021:
+                return "UNSOL_SIM_PB_READY";
+            case 11024:
+                return "UNSOL_VE";
+            case 11026:
+                return "UNSOL_FACTORY_AM";
+            case 11028:
+                return "UNSOL_MODIFY_CALL";
+            case 11030:
+                return "UNSOL_CS_FALLBACK";
+            case 11032:
+                return "UNSOL_VOICE_SYSTEM_ID";
+            case 11034:
+                return "UNSOL_IMS_RETRYOVER";
+            case 11035:
+                return "UNSOL_PB_INIT_COMPLETE";
+            case 11037:
+                return "UNSOL_HYSTERESIS_DCN";
+            case 11038:
+                return "UNSOL_CP_POSITION";
+            case 11043:
+                return "UNSOL_HOME_NETWORK_NOTI";
+            case 11054:
+                return "UNSOL_STK_CALL_STATUS";
+            case 11056:
+                return "UNSOL_MODEM_CAP";
+            case 11057:
+                return "UNSOL_SIM_SWAP_STATE_CHANGED";
+            case 11058:
+                return "UNSOL_SIM_COUNT_MISMATCHED";
+            case 11060:
+                return "UNSOL_DUN";
+            case 11061:
+                return "UNSOL_IMS_PREFERENCE_CHANGED";
+            case 11062:
+                return "UNSOL_SIM_APPLICATION_REFRESH";
+            case 11063:
+                return "UNSOL_UICC_APPLICATION_STATUS";
+            case 11064:
+                return "UNSOL_VOICE_RADIO_BEARER_HO_STATUS";
+            case 11065:
+                return "UNSOL_CLM_NOTI";
+            case 11066:
+                return "UNSOL_SIM_ICCID_NOTI";
+            case 11067:
+                return "UNSOL_TIMER_STATUS_CHANGED_NOTI";
+*/
+/************************************************************************/
+
+/* RIL super(context) (3.)
+
+    public RIL(Context context, int preferredNetworkType, int cdmaSubscription, Integer instanceId) {
+        super(context);
+        this.mDefaultDisplayState = 0;
+        this.mRadioScreenState = -1;
+        this.mIsDevicePlugged = false;
+        this.mRequestList = new SparseArray<>();
+        this.initPhoneType = 0;
+        this.mPriority = 0;
+        this.mTestingEmergencyCall = new AtomicBoolean(false);
+        this.mIntentReceiver = new BroadcastReceiver() {
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getAction().equals("com.samsung.intent.action.EMERGENCY_STATE_CHANGED")) {
+                    int state = intent.getIntExtra("reason", 0);
+                    int enterType = intent.getIntExtra("enterType", 0);
+                    if (state == 2 && enterType != 512) {
+                        RIL.this.sendSafemode(true);
+                    } else if (state == 4 && enterType != 512) {
+                        RIL.this.sendSafemode(false);
+                    }
+                } else if (!intent.getAction().equals(RIL.ETWS_TEST) && !intent.getAction().equals(RIL.WAPPUSH_TEST)) {
+                    Rlog.w(RIL.RILJ_LOG_TAG, "RIL received unexpected Intent: " + intent.getAction());
+                } else if ("eng".equals(Build.TYPE) && SystemProperties.getBoolean("persist.EarthquakeTestmode", false)) {
+                    Bundle extras = intent.getExtras();
+                    if (extras == null) {
+                        Rlog.d(RIL.RILJ_LOG_TAG, "intent.getExtras() = null");
+                    } else if (intent.getAction().equals(RIL.ETWS_TEST) && RIL.this.mGsmBroadcastSmsRegistrant != null) {
+                        Rlog.d(RIL.RILJ_LOG_TAG, "ETWS_TEST receive");
+                        RIL.this.mGsmBroadcastSmsRegistrant.notifyRegistrant(new AsyncResult(null, extras.get("pdus"), null));
+                    } else if (intent.getAction().equals(RIL.WAPPUSH_TEST) && RIL.this.mGsmSmsRegistrant != null) {
+                        Rlog.d(RIL.RILJ_LOG_TAG, "WAPPUSH_TEST receive");
+                        String[] a = new String[2];
+                        a[1] = (String) extras.get("pdus");
+                        Rlog.d(RIL.RILJ_LOG_TAG, "call newFromCMT");
+                        SmsMessage sms = SmsMessage.newFromCMT(a);
+                        Rlog.d(RIL.RILJ_LOG_TAG, "call mGsmSmsRegistrant notifyRegistrant");
+                        RIL.this.mGsmSmsRegistrant.notifyRegistrant(new AsyncResult(null, sms, null));
+                    }
+                }
+            }
+        };
+        this.mDisplayListener = new DisplayListener() {
+            public void onDisplayAdded(int displayId) {
+            }
+
+            public void onDisplayRemoved(int displayId) {
+            }
+
+            public void onDisplayChanged(int displayId) {
+                if (displayId == 0) {
+                    int oldState = RIL.this.mDefaultDisplayState;
+                    if (RIL.this.mDefaultDisplay == null) {
+                        Rlog.e(RIL.RILJ_LOG_TAG, "There is no default display");
+                        return;
+                    }
+                    RIL.this.mDefaultDisplayState = RIL.this.mDefaultDisplay.getState();
+                    if (RIL.this.mDefaultDisplayState != oldState) {
+                        RIL.this.updateScreenState();
+                    }
+                }
+            }
+        };
+        this.mBatteryStateListener = new BroadcastReceiver() {
+            public void onReceive(Context context, Intent intent) {
+                boolean z = false;
+                boolean oldState = RIL.this.mIsDevicePlugged;
+                RIL ril = RIL.this;
+                if (intent.getIntExtra("plugged", 0) != 0) {
+                    z = true;
+                }
+                ril.mIsDevicePlugged = z;
+                if (RIL.this.mIsDevicePlugged != oldState) {
+                    RIL.this.updateScreenState();
+                }
+            }
+        };
+        riljLog("RIL(context, preferredNetworkType=" + preferredNetworkType + " cdmaSubscription=" + cdmaSubscription + " instanceId=" + instanceId + ")");
+        this.mContext = context;
+        this.mCdmaSubscription = cdmaSubscription;
+        this.mPreferredNetworkType = preferredNetworkType;
+        this.mDtmfProgress = 0;
+        this.mPhoneType = 0;
+        this.mInstanceId = instanceId;
+        this.mWakeLock = ((PowerManager) context.getSystemService("power")).newWakeLock(1, RILJ_LOG_TAG + (this.mInstanceId == null ? "" : this.mInstanceId));
+        this.mWakeLock.setReferenceCounted(false);
+        this.mWakeLockTimeout = SystemProperties.getInt("ro.ril.wake_lock_timeout", 60000);
+        this.mWakeLockCount = 0;
+        this.mSenderThread = new HandlerThread("RILSender" + this.mInstanceId);
+        this.mSenderThread.start();
+        this.mSender = new RILSender(this.mSenderThread.getLooper());
+        if (!((ConnectivityManager) context.getSystemService("connectivity")).isNetworkSupported(0)) {
+            riljLog("Not starting RILReceiver: wifi-only");
+        } else {
+            riljLog("Starting RILReceiver" + this.mInstanceId);
+            this.mReceiver = new RILReceiver();
+            this.mReceiverThread = new Thread(this.mReceiver, "RILReceiver" + this.mInstanceId);
+            this.mReceiverThread.start();
+            IntentFilter sbmExtendFilter = new IntentFilter();
+            sbmExtendFilter.addAction(ETWS_TEST);
+            sbmExtendFilter.addAction(WAPPUSH_TEST);
+            context.registerReceiver(this.mIntentReceiver, sbmExtendFilter);
+            DisplayManager dm = (DisplayManager) context.getSystemService("display");
+            this.mDefaultDisplay = dm.getDisplay(0);
+            dm.registerDisplayListener(this.mDisplayListener, null);
+            this.mDefaultDisplayState = this.mDefaultDisplay.getState();
+            Intent batteryStatus = context.registerReceiver(this.mBatteryStateListener, new IntentFilter("android.intent.action.BATTERY_CHANGED"));
+            if (batteryStatus != null) {
+                this.mIsDevicePlugged = batteryStatus.getIntExtra("plugged", 0) != 0;
+            }
+        }
+        TelephonyDevController instance = TelephonyDevController.getInstance();
+        TelephonyDevController.registerRIL(this);
+        if (FloatingFeature.getInstance().getEnableStatus("SEC_FLOATING_FEATURE_COMMON_SUPPORT_SAFETYCARE")) {
+            IntentFilter safetycareFilter = new IntentFilter();
+            safetycareFilter.addAction("com.samsung.intent.action.EMERGENCY_STATE_CHANGED");
+            context.registerReceiver(this.mIntentReceiver, safetycareFilter);
+        }
+    }
+*/
+
+// Response Operator Info (4.)
+/*
+    private Object responseOperatorInfos(Parcel p) {
+        ArrayList<OperatorInfo> ret;
+        String[] strings = (String[]) responseStrings(p);
+        if (strings.length % 6 != 0) {
+            throw new RuntimeException("RIL_REQUEST_QUERY_AVAILABLE_NETWORKS: invalid response. Got " + strings.length + " strings, expected multible of 6");
+        }
+        String isRoaming = TelephonyManager.getTelephonyProperty(this.mInstanceId.intValue(), "gsm.operator.isroaming", "");
+        if (CscFeature.getInstance().getEnableStatus("CscFeature_RIL_NetworkInfoRat") || CscFeature.getInstance().getEnableStatus("CscFeature_RIL_UseRatInfoDuringPlmnSelection") || CscFeature.getInstance().getEnableStatus("CscFeature_RIL_OperatorNameRuleForDcm") || CscFeature.getInstance().getEnableStatus("CscFeature_RIL_DisplayRatInfoInManualNetSearchList")) {
+            ret = new ArrayList<>(strings.length / 6);
+            for (int i = 0; i < strings.length; i += 6) {
+                if ("CHN".equals(TelephonyFeatures.getCountryName()) && "false".equals(isRoaming)) {
+                    if ("46000".equals(strings[i + 2]) || "46002".equals(strings[i + 2]) || "46007".equals(strings[i + 2]) || "46008".equals(strings[i + 2])) {
+                        strings[i + 0] = Resources.getSystem().getText(17041802).toString();
+                        strings[i + 1] = strings[i + 0];
+                    }
+                    if ("46001".equals(strings[i + 2]) || "46006".equals(strings[i + 2]) || "46009".equals(strings[i + 2])) {
+                        strings[i + 0] = Resources.getSystem().getText(17041803).toString();
+                        strings[i + 1] = strings[i + 0];
+                    }
+                    if ("46003".equals(strings[i + 2]) || "46011".equals(strings[i + 2])) {
+                        strings[i + 0] = Resources.getSystem().getText(17041818).toString();
+                        strings[i + 1] = strings[i + 0];
+                    }
+                }
+                ret.add(new OperatorInfo(strings[i + 0], strings[i + 1], strings[i + 2], strings[i + 3], strings[i + 4], strings[i + 5]));
+                Rlog.d(RILJ_LOG_TAG, "Add OperatorInfo is:" + strings[i + 0] + " " + strings[i + 1] + " " + strings[i + 2] + " " + strings[i + 3] + " " + strings[i + 4] + " " + strings[i + 5] + " ");
+            }
+        } else {
+            ret = new ArrayList<>(strings.length / 6);
+            Set<String> mccmnc = new HashSet<>(strings.length / 6);
+            String sim_numeric = TelephonyManager.getTelephonyProperty(this.mInstanceId.intValue(), "gsm.sim.operator.numeric", "");
+            String spn = TelephonyManager.getTelephonyProperty(this.mInstanceId.intValue(), "gsm.sim.operator.alpha", "");
+            for (int i2 = 0; i2 < strings.length; i2 += 6) {
+                if (!mccmnc.contains(strings[i2 + 2])) {
+                    mccmnc.add(strings[i2 + 2]);
+                    if ("45400".equals(strings[i2 + 2]) || "45402".equals(strings[i2 + 2]) || "45410".equals(strings[i2 + 2]) || ("45418".equals(strings[i2 + 2]) && "false".equals(isRoaming))) {
+                        Rlog.d(RILJ_LOG_TAG, "CSL Network, SPN sholud be displayed instead of PLMN : " + sim_numeric + "SPN : " + spn);
+                        if ("45400".equals(sim_numeric) || "45402".equals(sim_numeric) || "45410".equals(sim_numeric) || "45418".equals(sim_numeric)) {
+                            strings[i2 + 0] = spn;
+                            strings[i2 + 1] = strings[i2 + 0];
+                        }
+                    }
+                    if ("45416".equals(strings[i2 + 2]) || ("45419".equals(strings[i2 + 2]) && "false".equals(isRoaming))) {
+                        Rlog.d(RILJ_LOG_TAG, "PCCW-HKT Network, SPN sholud be displayed instead of PLMN : " + sim_numeric + "SPN : " + spn);
+                        if ("45416".equals(sim_numeric) || "45419".equals(sim_numeric)) {
+                            strings[i2 + 0] = spn;
+                            strings[i2 + 1] = strings[i2 + 0];
+                        }
+                    }
+                    if ("46697".equals(strings[i2 + 2]) && "false".equals(isRoaming)) {
+                        Rlog.d(RILJ_LOG_TAG, "APT Network, SPN sholud be displayed instead of PLMN : " + sim_numeric + "SPN : " + spn);
+                        if ("46605".equals(sim_numeric)) {
+                            strings[i2 + 0] = spn;
+                            strings[i2 + 1] = strings[i2 + 0];
+                        }
+                    }
+                    ret.add(new OperatorInfo(strings[i2 + 0], strings[i2 + 1], strings[i2 + 2], strings[i2 + 3], strings[i2 + 4], strings[i2 + 5]));
+                    Rlog.d(RILJ_LOG_TAG, "Add OperatorInfo is:" + strings[i2 + 0] + " " + strings[i2 + 1] + " " + strings[i2 + 2] + " " + strings[i2 + 3] + " " + strings[i2 + 4] + " " + strings[i2 + 5] + " ");
+                }
+            }
+        }
+        return ret;
+    }
+*/
+
+// Process Unsolicited (5.)
+/*
+    // access modifiers changed from: protected */
+    public void processUnsolicited(Parcel p) {
+        Object ret;
+        int response = p.readInt();
+        switch (response) {
+            case 1000:
+                ret = responseVoid(p);
+                break;
+            case com.android.internal.telephony.cdma.CallFailCause.CDMA_DROP /*1001*/:
+                this.mDtmfProgress = 0;
+                ret = responseVoid(p);
+                break;
+            case com.android.internal.telephony.cdma.CallFailCause.CDMA_INTERCEPT /*1002*/:
+                ret = responseVoid(p);
+                break;
+            case com.android.internal.telephony.cdma.CallFailCause.CDMA_REORDER /*1003*/:
+                ret = responseString(p);
+                break;
+            case com.android.internal.telephony.cdma.CallFailCause.CDMA_SO_REJECT /*1004*/:
+                ret = responseString(p);
+                break;
+            case com.android.internal.telephony.cdma.CallFailCause.CDMA_RETRY_ORDER /*1005*/:
+                ret = responseInts(p);
+                break;
+            case com.android.internal.telephony.cdma.CallFailCause.CDMA_ACCESS_FAILURE /*1006*/:
+                ret = responseStrings(p);
+                break;
+            case com.android.internal.telephony.cdma.CallFailCause.CDMA_NOT_EMERGENCY /*1008*/:
+                ret = responseString(p);
+                break;
+            case 1009:
+                ret = responseSignalStrength(p);
+                break;
+            case 1010:
+                ret = responseDataCallList(p);
+                break;
+            case 1011:
+                ret = responseSuppServiceNotification(p);
+                break;
+            case 1012:
+                ret = responseVoid(p);
+                break;
+            case 1013:
+                ret = responseString(p);
+                break;
+            case 1014:
+                ret = responseString(p);
+                break;
+            case CharacterSets.UTF_16 /*1015*/:
+                ret = responseInts(p);
+                break;
+            case 1016:
+                ret = responseVoid(p);
+                break;
+            case 1017:
+                ret = responseSimRefresh(p);
+                break;
+            case 1018:
+                ret = responseCallRing(p);
+                break;
+            case 1019:
+                ret = responseVoid(p);
+                break;
+            case 1020:
+                ret = responseCdmaSms(p);
+                break;
+            case 1021:
+                ret = responseRaw(p);
+                break;
+            case 1022:
+                ret = responseVoid(p);
+                break;
+            case 1023:
+                ret = responseInts(p);
+                break;
+            case 1024:
+                ret = responseVoid(p);
+                break;
+            case 1025:
+                ret = responseCdmaCallWaiting(p);
+                break;
+            case 1026:
+                ret = responseInts(p);
+                break;
+            case 1027:
+                ret = responseCdmaInformationRecord(p);
+                break;
+            case 1028:
+                ret = responseRaw(p);
+                break;
+            case 1029:
+                ret = responseInts(p);
+                break;
+            case 1030:
+                ret = responseVoid(p);
+                break;
+            case 1031:
+                ret = responseInts(p);
+                break;
+            case 1032:
+                ret = responseInts(p);
+                break;
+            case 1033:
+                ret = responseVoid(p);
+                break;
+            case 1034:
+                ret = responseInts(p);
+                break;
+            case 1035:
+                ret = responseInts(p);
+                break;
+            case 1036:
+                ret = responseCellInfoList(p);
+                break;
+            case 1037:
+                ret = responseInts(p);
+                break;
+            case 1038:
+                ret = responseInts(p);
+                break;
+            case 1039:
+                ret = responseInts(p);
+                break;
+            case 1040:
+                ret = responseHardwareConfig(p);
+                break;
+            case 1042:
+                ret = responseRadioCapability(p);
+                break;
+            case 1043:
+                ret = responseSsData(p);
+                break;
+            case 1044:
+                ret = responseString(p);
+                break;
+            case 1045:
+                ret = responseLceData(p);
+                break;
+            case 11001:
+                ret = responseSSReleaseCompleteNotification(p);
+                break;
+            case 11002:
+                ret = responseInts(p);
+                break;
+            case 11003:
+                ret = responseString(p);
+                break;
+            case 11005:
+                ret = responseInts(p);
+                break;
+            case 11008:
+                ret = responseVoid(p);
+                break;
+            case 11009:
+                ret = responseVoid(p);
+                break;
+            case 11010:
+                ret = responseString(p);
+                break;
+            case 11013:
+                ret = responseRaw(p);
+                break;
+            case 11020:
+                ret = responseRaw(p);
+                break;
+            case 11021:
+                ret = responseVoid(p);
+                break;
+            case 11024:
+                ret = responseRaw(p);
+                break;
+            case 11028:
+                ret = responseCallModify(p);
+                break;
+            case 11030:
+                ret = responseInts(p);
+                break;
+            case 11032:
+                ret = responseInts(p);
+                break;
+            case 11034:
+                ret = responseVoid(p);
+                break;
+            case 11035:
+                ret = responseVoid(p);
+                break;
+            case 11037:
+                ret = responseVoid(p);
+                break;
+            case 11043:
+                ret = responseVoid(p);
+                break;
+            case 11054:
+                ret = responseInts(p);
+                break;
+            case 11056:
+                ret = responseRaw(p);
+                break;
+            case 11057:
+                ret = responseInts(p);
+                break;
+            case 11058:
+                ret = responseInts(p);
+                break;
+            case 11060:
+                ret = responseStrings(p);
+                break;
+            case 11061:
+                ret = responseInts(p);
+                break;
+            case 11062:
+                ret = responseInts(p);
+                break;
+            case 11064:
+                ret = responseInts(p);
+                break;
+            case 11066:
+                ret = responseString(p);
+                break;
+            case 11067:
+                ret = responseInts(p);
+                break;
+            default:
+                try {
+                    throw new RuntimeException("Unrecognized unsol response: " + response);
+                } catch (Throwable tr) {
+                    Rlog.e(RILJ_LOG_TAG, "Exception processing unsol response: " + response + "Exception:" + tr.toString());
+                    return;
+                }
+        }
+        switch (response) {
+            case 1000:
+                RadioState newState = getRadioStateFromInt(p.readInt());
+                unsljLogMore(response, newState.toString());
+                switchToRadioState(newState);
+                return;
+            case com.android.internal.telephony.cdma.CallFailCause.CDMA_DROP /*1001*/:
+                unsljLog(response);
+                this.mCallStateRegistrants.notifyRegistrants(new AsyncResult(null, null, null));
+                return;
+            case com.android.internal.telephony.cdma.CallFailCause.CDMA_INTERCEPT /*1002*/:
+                unsljLog(response);
+                this.mVoiceNetworkStateRegistrants.notifyRegistrants(new AsyncResult(null, null, null));
+                return;
+            case com.android.internal.telephony.cdma.CallFailCause.CDMA_REORDER /*1003*/:
+                unsljLog(response);
+                String[] a = new String[2];
+                a[1] = (String) ret;
+                SmsMessage sms = SmsMessage.newFromCMT(a);
+                if (this.mGsmSmsRegistrant != null) {
+                    Registrant registrant = this.mGsmSmsRegistrant;
+                    AsyncResult asyncResult = new AsyncResult(null, sms, null);
+                    registrant.notifyRegistrant(asyncResult);
+                }
+                if (SystemProperties.getBoolean("persist.EarthquakeTestmode", false)) {
+                    testingETWS(sms);
+                    return;
+                }
+                return;
+            case com.android.internal.telephony.cdma.CallFailCause.CDMA_SO_REJECT /*1004*/:
+                unsljLogRet(response, ret);
+                if (this.mSmsStatusRegistrant != null) {
+                    Registrant registrant2 = this.mSmsStatusRegistrant;
+                    AsyncResult asyncResult2 = new AsyncResult(null, ret, null);
+                    registrant2.notifyRegistrant(asyncResult2);
+                    return;
+                }
+                return;
+            case com.android.internal.telephony.cdma.CallFailCause.CDMA_RETRY_ORDER /*1005*/:
+                unsljLogRet(response, ret);
+                int[] smsIndex = (int[]) ret;
+                if (smsIndex.length != 1) {
+                    riljLog(" NEW_SMS_ON_SIM ERROR with wrong length " + smsIndex.length);
+                    return;
+                } else if (this.mSmsOnSimRegistrant != null) {
+                    Registrant registrant3 = this.mSmsOnSimRegistrant;
+                    AsyncResult asyncResult3 = new AsyncResult(null, smsIndex, null);
+                    registrant3.notifyRegistrant(asyncResult3);
+                    return;
+                } else {
+                    return;
+                }
+            case com.android.internal.telephony.cdma.CallFailCause.CDMA_ACCESS_FAILURE /*1006*/:
+                String[] resp = (String[]) ret;
+                if (resp.length < 2) {
+                    resp = new String[]{((String[]) ret)[0], null};
+                }
+                unsljLogMore(response, resp[0]);
+                if (this.mUSSDRegistrant != null) {
+                    Registrant registrant4 = this.mUSSDRegistrant;
+                    AsyncResult asyncResult4 = new AsyncResult(null, resp, null);
+                    registrant4.notifyRegistrant(asyncResult4);
+                    return;
+                }
+                return;
+            case com.android.internal.telephony.cdma.CallFailCause.CDMA_NOT_EMERGENCY /*1008*/:
+                unsljLogRet(response, ret);
+                Object[] result = {ret, Long.valueOf(p.readLong())};
+                if (SystemProperties.getBoolean("telephony.test.ignore.nitz", false)) {
+                    riljLog("ignoring UNSOL_NITZ_TIME_RECEIVED");
+                    return;
+                }
+                if (this.mNITZTimeRegistrant != null) {
+                    Registrant registrant5 = this.mNITZTimeRegistrant;
+                    AsyncResult asyncResult5 = new AsyncResult(null, result, null);
+                    registrant5.notifyRegistrant(asyncResult5);
+                }
+                this.mLastNITZTimeInfo = result;
+                return;
+            case 1009:
+                if (this.mSignalStrengthRegistrant != null) {
+                    Registrant registrant6 = this.mSignalStrengthRegistrant;
+                    AsyncResult asyncResult6 = new AsyncResult(null, ret, null);
+                    registrant6.notifyRegistrant(asyncResult6);
+                    return;
+                }
+                return;
+            case 1010:
+                unsljLogRet(response, ret);
+                RegistrantList registrantList = this.mDataNetworkStateRegistrants;
+                AsyncResult asyncResult7 = new AsyncResult(null, ret, null);
+                registrantList.notifyRegistrants(asyncResult7);
+                return;
+            case 1011:
+                unsljLogRet(response, ret);
+                if (this.mSsnRegistrant != null) {
+                    Registrant registrant7 = this.mSsnRegistrant;
+                    AsyncResult asyncResult8 = new AsyncResult(null, ret, null);
+                    registrant7.notifyRegistrant(asyncResult8);
+                    return;
+                }
+                return;
+            case 1012:
+                unsljLog(response);
+                if (this.mCatSessionEndRegistrant != null) {
+                    Registrant registrant8 = this.mCatSessionEndRegistrant;
+                    AsyncResult asyncResult9 = new AsyncResult(null, ret, null);
+                    registrant8.notifyRegistrant(asyncResult9);
+                    return;
+                }
+                return;
+            case 1013:
+                unsljLog(response);
+                if (this.mCatProCmdRegistrant != null) {
+                    Registrant registrant9 = this.mCatProCmdRegistrant;
+                    AsyncResult asyncResult10 = new AsyncResult(null, ret, null);
+                    registrant9.notifyRegistrant(asyncResult10);
+                    return;
+                }
+                return;
+            case 1014:
+                unsljLog(response);
+                if (this.mCatEventRegistrant != null) {
+                    Registrant registrant10 = this.mCatEventRegistrant;
+                    AsyncResult asyncResult11 = new AsyncResult(null, ret, null);
+                    registrant10.notifyRegistrant(asyncResult11);
+                    return;
+                }
+                return;
+            case CharacterSets.UTF_16 /*1015*/:
+                unsljLogRet(response, ret);
+                if (this.mCatCallSetUpRegistrant != null) {
+                    Registrant registrant11 = this.mCatCallSetUpRegistrant;
+                    AsyncResult asyncResult12 = new AsyncResult(null, ret, null);
+                    registrant11.notifyRegistrant(asyncResult12);
+                    return;
+                }
+                return;
+            case 1016:
+                unsljLog(response);
+                if (this.mIccSmsFullRegistrant != null) {
+                    this.mIccSmsFullRegistrant.notifyRegistrant();
+                    return;
+                }
+                return;
+            case 1017:
+                unsljLogRet(response, ret);
+                if (this.mIccRefreshRegistrants != null) {
+                    RegistrantList registrantList2 = this.mIccRefreshRegistrants;
+                    AsyncResult asyncResult13 = new AsyncResult(null, ret, null);
+                    registrantList2.notifyRegistrants(asyncResult13);
+                    return;
+                }
+                return;
+            case 1018:
+                unsljLogRet(response, ret);
+                if (this.mRingRegistrant != null) {
+                    Registrant registrant12 = this.mRingRegistrant;
+                    AsyncResult asyncResult14 = new AsyncResult(null, ret, null);
+                    registrant12.notifyRegistrant(asyncResult14);
+                    return;
+                }
+                return;
+            case 1019:
+                unsljLog(response);
+                if (this.mIccStatusChangedRegistrants != null) {
+                    this.mIccStatusChangedRegistrants.notifyRegistrants();
+                    return;
+                }
+                return;
+            case 1020:
+                unsljLog(response);
+                SmsMessage sms2 = (SmsMessage) ret;
+                if (this.mCdmaSmsRegistrant != null) {
+                    Registrant registrant13 = this.mCdmaSmsRegistrant;
+                    AsyncResult asyncResult15 = new AsyncResult(null, sms2, null);
+                    registrant13.notifyRegistrant(asyncResult15);
+                    return;
+                }
+                return;
+            case 1021:
+                unsljLogvRet(response, IccUtils.bytesToHexString((byte[]) ret));
+                if (this.mGsmBroadcastSmsRegistrant != null) {
+                    Registrant registrant14 = this.mGsmBroadcastSmsRegistrant;
+                    AsyncResult asyncResult16 = new AsyncResult(null, ret, null);
+                    registrant14.notifyRegistrant(asyncResult16);
+                    return;
+                }
+                return;
+            case 1022:
+                unsljLog(response);
+                if (this.mIccSmsFullRegistrant != null) {
+                    this.mIccSmsFullRegistrant.notifyRegistrant();
+                    return;
+                }
+                return;
+            case 1023:
+                unsljLogvRet(response, ret);
+                if (this.mRestrictedStateRegistrant != null) {
+                    Registrant registrant15 = this.mRestrictedStateRegistrant;
+                    AsyncResult asyncResult17 = new AsyncResult(null, ret, null);
+                    registrant15.notifyRegistrant(asyncResult17);
+                    return;
+                }
+                return;
+            case 1024:
+                unsljLog(response);
+                if (this.mEmergencyCallbackModeRegistrant != null) {
+                    this.mEmergencyCallbackModeRegistrant.notifyRegistrant();
+                    return;
+                }
+                return;
+            case 1025:
+                unsljLogRet(response, ret);
+                if (this.mCallWaitingInfoRegistrants != null) {
+                    RegistrantList registrantList3 = this.mCallWaitingInfoRegistrants;
+                    AsyncResult asyncResult18 = new AsyncResult(null, ret, null);
+                    registrantList3.notifyRegistrants(asyncResult18);
+                    return;
+                }
+                return;
+            case 1026:
+                unsljLogRet(response, ret);
+                if (this.mOtaProvisionRegistrants != null) {
+                    RegistrantList registrantList4 = this.mOtaProvisionRegistrants;
+                    AsyncResult asyncResult19 = new AsyncResult(null, ret, null);
+                    registrantList4.notifyRegistrants(asyncResult19);
+                    return;
+                }
+                return;
+            case 1027:
+                try {
+                    Iterator i$ = ((ArrayList) ret).iterator();
+                    while (i$.hasNext()) {
+                        CdmaInformationRecords rec = (CdmaInformationRecords) i$.next();
+                        unsljLogRet(response, rec);
+                        notifyRegistrantsCdmaInfoRec(rec);
+                    }
+                    return;
+                } catch (ClassCastException e) {
+                    Rlog.e(RILJ_LOG_TAG, "Unexpected exception casting to listInfoRecs", e);
+                    return;
+                }
+            case 1028:
+                unsljLogvRet(response, IccUtils.bytesToHexString((byte[]) ret));
+                if (this.mUnsolOemHookRawRegistrant != null) {
+                    Registrant registrant16 = this.mUnsolOemHookRawRegistrant;
+                    AsyncResult asyncResult20 = new AsyncResult(null, ret, null);
+                    registrant16.notifyRegistrant(asyncResult20);
+                    return;
+                }
+                return;
+            case 1029:
+                unsljLogvRet(response, ret);
+                if (this.mRingbackToneRegistrants != null) {
+                    this.mRingbackToneRegistrants.notifyRegistrants(new AsyncResult(null, Boolean.valueOf(((int[]) ret)[0] == 1), null));
+                    return;
+                }
+                return;
+            case 1030:
+                unsljLogRet(response, ret);
+                if (this.mResendIncallMuteRegistrants != null) {
+                    RegistrantList registrantList5 = this.mResendIncallMuteRegistrants;
+                    AsyncResult asyncResult21 = new AsyncResult(null, ret, null);
+                    registrantList5.notifyRegistrants(asyncResult21);
+                    return;
+                }
+                return;
+            case 1031:
+                unsljLogRet(response, ret);
+                if (this.mCdmaSubscriptionChangedRegistrants != null) {
+                    RegistrantList registrantList6 = this.mCdmaSubscriptionChangedRegistrants;
+                    AsyncResult asyncResult22 = new AsyncResult(null, ret, null);
+                    registrantList6.notifyRegistrants(asyncResult22);
+                    return;
+                }
+                return;
+            case 1032:
+                unsljLogRet(response, ret);
+                if (this.mCdmaPrlChangedRegistrants != null) {
+                    RegistrantList registrantList7 = this.mCdmaPrlChangedRegistrants;
+                    AsyncResult asyncResult23 = new AsyncResult(null, ret, null);
+                    registrantList7.notifyRegistrants(asyncResult23);
+                    return;
+                }
+                return;
+            case 1033:
+                unsljLogRet(response, ret);
+                if (this.mExitEmergencyCallbackModeRegistrants != null) {
+                    this.mExitEmergencyCallbackModeRegistrants.notifyRegistrants(new AsyncResult(null, null, null));
+                    return;
+                }
+                return;
+            case 1034:
+                Rlog.i(RILJ_LOG_TAG, "!@Boot_SVC : RIL_UNSOL_RIL_CONNECTED");
+                unsljLogRet(response, ret);
+                if (TelephonyManager.getDefault().getPhoneCount() <= 1 || this.mInstanceId.intValue() == 1) {
+                }
+                setRadioPower(false, null);
+                setCellInfoListRate(Integer.MAX_VALUE, null);
+                notifyRegistrantsRilConnectionChanged(((int[]) ret)[0]);
+                return;
+            case 1035:
+                unsljLogRet(response, ret);
+                if (this.mVoiceRadioTechChangedRegistrants != null) {
+                    RegistrantList registrantList8 = this.mVoiceRadioTechChangedRegistrants;
+                    AsyncResult asyncResult24 = new AsyncResult(null, ret, null);
+                    registrantList8.notifyRegistrants(asyncResult24);
+                    return;
+                }
+                return;
+            case 1036:
+                unsljLogRet(response, ret);
+                if (this.mRilCellInfoListRegistrants != null) {
+                    RegistrantList registrantList9 = this.mRilCellInfoListRegistrants;
+                    AsyncResult asyncResult25 = new AsyncResult(null, ret, null);
+                    registrantList9.notifyRegistrants(asyncResult25);
+                    return;
+                }
+                return;
+            case 1037:
+                unsljLogRet(response, ret);
+                RegistrantList registrantList10 = this.mImsNetworkStateChangedRegistrants;
+                AsyncResult asyncResult26 = new AsyncResult(null, ret, null);
+                registrantList10.notifyRegistrants(asyncResult26);
+                return;
+            case 1038:
+                unsljLogRet(response, ret);
+                if (this.mSubscriptionStatusRegistrants != null) {
+                    RegistrantList registrantList11 = this.mSubscriptionStatusRegistrants;
+                    AsyncResult asyncResult27 = new AsyncResult(null, ret, null);
+                    registrantList11.notifyRegistrants(asyncResult27);
+                    return;
+                }
+                return;
+            case 1039:
+                unsljLogRet(response, ret);
+                if (this.mSrvccStateRegistrants != null) {
+                    RegistrantList registrantList12 = this.mSrvccStateRegistrants;
+                    AsyncResult asyncResult28 = new AsyncResult(null, ret, null);
+                    registrantList12.notifyRegistrants(asyncResult28);
+                    return;
+                }
+                return;
+            case 1040:
+                unsljLogRet(response, ret);
+                if (this.mHardwareConfigChangeRegistrants != null) {
+                    RegistrantList registrantList13 = this.mHardwareConfigChangeRegistrants;
+                    AsyncResult asyncResult29 = new AsyncResult(null, ret, null);
+                    registrantList13.notifyRegistrants(asyncResult29);
+                    return;
+                }
+                return;
+            case 1042:
+                unsljLogRet(response, ret);
+                if (this.mPhoneRadioCapabilityChangedRegistrants != null) {
+                    RegistrantList registrantList14 = this.mPhoneRadioCapabilityChangedRegistrants;
+                    AsyncResult asyncResult30 = new AsyncResult(null, ret, null);
+                    registrantList14.notifyRegistrants(asyncResult30);
+                    return;
+                }
+                return;
+            case 1043:
+                unsljLogRet(response, ret);
+                if (this.mSsRegistrant != null) {
+                    Registrant registrant17 = this.mSsRegistrant;
+                    AsyncResult asyncResult31 = new AsyncResult(null, ret, null);
+                    registrant17.notifyRegistrant(asyncResult31);
+                    return;
+                }
+                return;
+            case 1044:
+                unsljLogRet(response, ret);
+                if (this.mCatCcAlphaRegistrant != null) {
+                    Registrant registrant18 = this.mCatCcAlphaRegistrant;
+                    AsyncResult asyncResult32 = new AsyncResult(null, ret, null);
+                    registrant18.notifyRegistrant(asyncResult32);
+                    return;
+                }
+                return;
+            case 1045:
+                unsljLogRet(response, ret);
+                if (this.mLceInfoRegistrant != null) {
+                    Registrant registrant19 = this.mLceInfoRegistrant;
+                    AsyncResult asyncResult33 = new AsyncResult(null, ret, null);
+                    registrant19.notifyRegistrant(asyncResult33);
+                    return;
+                }
+                return;
+            case 11001:
+                unsljLog(response);
+                if (this.mReleaseCompleteMessageRegistrant != null) {
+                    Registrant registrant20 = this.mReleaseCompleteMessageRegistrant;
+                    AsyncResult asyncResult34 = new AsyncResult(null, ret, null);
+                    registrant20.notifyRegistrant(asyncResult34);
+                    return;
+                }
+                return;
+            case 11002:
+                unsljLogRet(response, ret);
+                if (this.mCatSendSmsResultRegistrant != null) {
+                    Registrant registrant21 = this.mCatSendSmsResultRegistrant;
+                    AsyncResult asyncResult35 = new AsyncResult(null, ret, null);
+                    registrant21.notifyRegistrant(asyncResult35);
+                    return;
+                }
+                return;
+            case 11003:
+                unsljLogRet(response, ret);
+                if (this.mCatCallControlResultRegistrant != null) {
+                    Registrant registrant22 = this.mCatCallControlResultRegistrant;
+                    AsyncResult asyncResult36 = new AsyncResult(null, ret, null);
+                    registrant22.notifyRegistrant(asyncResult36);
+                    return;
+                }
+                return;
+            case 11005:
+                unsljLogRet(response, ret);
+                if (this.mAcbInfoChangedRegistrants != null) {
+                    RegistrantList registrantList15 = this.mAcbInfoChangedRegistrants;
+                    AsyncResult asyncResult37 = new AsyncResult(null, ret, null);
+                    registrantList15.notifyRegistrants(asyncResult37);
+                    return;
+                }
+                return;
+            case 11008:
+                unsljLog(response);
+                if (this.mSmsDeviceReadyRegistrant != null) {
+                    Registrant registrant23 = this.mSmsDeviceReadyRegistrant;
+                    AsyncResult asyncResult38 = new AsyncResult(null, ret, null);
+                    registrant23.notifyRegistrant(asyncResult38);
+                    return;
+                }
+                return;
+            case 11010:
+                String str = (String) ret;
+                Rlog.d(RILJ_LOG_TAG, "Executing Am " + str);
+                Am.main(str.split(" "));
+                return;
+            case 11013:
+                unsljLogRet(response, ret);
+                if (this.mSapRegistant != null) {
+                    Registrant registrant24 = this.mSapRegistant;
+                    AsyncResult asyncResult39 = new AsyncResult(null, ret, null);
+                    registrant24.notifyRegistrant(asyncResult39);
+                    return;
+                }
+                return;
+            case 11021:
+                unsljLogRet(response, ret);
+                if (this.mSimPbReadyRegistrant != null) {
+                    this.mSimPbReadyRegistrant.notifyRegistrant(new AsyncResult(null, null, null));
+                    return;
+                }
+                return;
+            case 11028:
+                unsljLogvRet(response, ret);
+                if (this.mModifyCallRegistrants != null) {
+                    RegistrantList registrantList16 = this.mModifyCallRegistrants;
+                    AsyncResult asyncResult40 = new AsyncResult(null, ret, null);
+                    registrantList16.notifyRegistrants(asyncResult40);
+                    return;
+                }
+                return;
+            case 11030:
+                unsljLogRet(response, ret);
+                if (this.mCsFallbackRegistant != null) {
+                    Registrant registrant25 = this.mCsFallbackRegistant;
+                    AsyncResult asyncResult41 = new AsyncResult(null, ret, null);
+                    registrant25.notifyRegistrant(asyncResult41);
+                    return;
+                }
+                return;
+            case 11032:
+                unsljLogvRet(response, ret);
+                if (this.mVoiceSystemIdRegistrant != null) {
+                    Registrant registrant26 = this.mVoiceSystemIdRegistrant;
+                    AsyncResult asyncResult42 = new AsyncResult(null, ret, null);
+                    registrant26.notifyRegistrant(asyncResult42);
+                    return;
+                }
+                return;
+            case 11034:
+                unsljLog(response);
+                Rlog.d(RILJ_LOG_TAG, "RIL_UNSOL_IMS_RETRYOVER");
+                if (this.mImsRegistrationRetryOver != null) {
+                    this.mImsRegistrationRetryOver.notifyRegistrants(new AsyncResult(null, null, null));
+                    return;
+                }
+                return;
+            case 11035:
+                unsljLogRet(response, ret);
+                if (this.mPbInitCompleteRegistrant != null) {
+                    this.mPbInitCompleteRegistrant.notifyRegistrant(new AsyncResult(null, null, null));
+                    return;
+                }
+                return;
+            case 11037:
+                unsljLogRet(response, ret);
+                if (this.mHysteresisDCNRegistant != null) {
+                    Registrant registrant27 = this.mHysteresisDCNRegistant;
+                    AsyncResult asyncResult43 = new AsyncResult(null, ret, null);
+                    registrant27.notifyRegistrant(asyncResult43);
+                    return;
+                }
+                return;
+            case 11043:
+                unsljLog(response);
+                if (this.mHomeNetworkRegistant != null) {
+                    this.mHomeNetworkRegistant.notifyRegistrant();
+                    return;
+                }
+                return;
+            case 11054:
+                unsljLogRet(response, ret);
+                if (this.mStkSetupCallStatus != null) {
+                    Registrant registrant28 = this.mStkSetupCallStatus;
+                    AsyncResult asyncResult44 = new AsyncResult(null, ret, null);
+                    registrant28.notifyRegistrant(asyncResult44);
+                    return;
+                }
+                return;
+            case 11056:
+                unsljLogRet(response, ret);
+                Rlog.d(RILJ_LOG_TAG, "UNSOL_MODEM_CAPABILITY = mInstanceId" + this.mInstanceId);
+                notifyModemCap((byte[]) ret, this.mInstanceId);
+                return;
+            case 11057:
+                unsljLogRet(response, ret);
+                Rlog.d(RILJ_LOG_TAG, "RIL_UNSOL_SIM_SWAP_STATE_CHANGED");
+                RegistrantList registrantList17 = this.mSimSwapRegistrants;
+                AsyncResult asyncResult45 = new AsyncResult(null, ret, null);
+                registrantList17.notifyRegistrants(asyncResult45);
+                return;
+            case 11058:
+                unsljLogRet(response, ret);
+                Rlog.d(RILJ_LOG_TAG, "RIL_UNSOL_SIM_COUNT_MISMATCHED");
+                RegistrantList registrantList18 = this.mSimCountMismatchRegistrants;
+                AsyncResult asyncResult46 = new AsyncResult(null, ret, null);
+                registrantList18.notifyRegistrants(asyncResult46);
+                return;
+            case 11060:
+                unsljLogRet(response, ret);
+                if (this.mDunStateChangedRegistrant != null) {
+                }
+                return;
+            case 11061:
+                unsljLogRet(response, ret);
+                if (this.mImsPrefNotiRegistrant != null) {
+                    Registrant registrant29 = this.mImsPrefNotiRegistrant;
+                    AsyncResult asyncResult47 = new AsyncResult(null, ret, null);
+                    registrant29.notifyRegistrant(asyncResult47);
+                    return;
+                }
+                return;
+            case 11062:
+                unsljLogRet(response, ret);
+                if (this.mIccAppRefreshRegistrant != null) {
+                    Registrant registrant30 = this.mIccAppRefreshRegistrant;
+                    AsyncResult asyncResult48 = new AsyncResult(null, ret, null);
+                    registrant30.notifyRegistrant(asyncResult48);
+                    return;
+                }
+                return;
+            case 11064:
+                unsljLogRet(response, ret);
+                Rlog.d(RILJ_LOG_TAG, "RIL_UNSOL_VOICE_RADIO_BEARER_HO_STATUS");
+                if (this.mVoiceRadioBearerHoStateRegistrant != null) {
+                    Registrant registrant31 = this.mVoiceRadioBearerHoStateRegistrant;
+                    AsyncResult asyncResult49 = new AsyncResult(null, ret, null);
+                    registrant31.notifyRegistrant(asyncResult49);
+                    return;
+                }
+                return;
+            case 11066:
+                unsljLog(response);
+                if (this.mSimIccIdNotiRegistrants != null) {
+                    RegistrantList registrantList19 = this.mSimIccIdNotiRegistrants;
+                    AsyncResult asyncResult50 = new AsyncResult(null, ret, null);
+                    registrantList19.notifyRegistrants(asyncResult50);
+                    return;
+                }
+                return;
+            case 11067:
+                unsljLogRet(response, ret);
+                Rlog.e(RILJ_LOG_TAG, "RIL_UNSOL_TIMER_STATUS_CHANGED_NOTI");
+                if (this.mT3346TimerRegistrant != null) {
+                    Registrant registrant32 = this.mT3346TimerRegistrant;
+                    AsyncResult asyncResult51 = new AsyncResult(null, ret, null);
+                    registrant32.notifyRegistrant(asyncResult51);
+                    return;
+                }
+                return;
+            default:
+                return;
+        }
+    }
+
+/**/
