@@ -156,7 +156,8 @@ PRODUCT_PACKAGES += \
 	liblog_mtk \
 	mtk_symbols \
 	libshim_thermal \
-	libshim_general
+	libshim_general \
+	libshim_mtkomx-mm
 
 # use porridge mtk_symbol instead | 	mtk_symbols \
 # broken patches |	libshim_thermal \

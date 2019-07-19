@@ -2,7 +2,13 @@
 grandpplte device tree
 
 -----
-CURRENT BUG: a lot ~ not boot yet (check vendor tree for *such little* detail)
+CURRENT BUG:
+
+[LIST]
+[*] Telephony
+[*] Media / OMX in apps
+[*] (note to self, again) please populate this...
+[/LIST]
 
 DEVELOPMENT IN PROGRESS. MAY EAT YOUR CAT
 

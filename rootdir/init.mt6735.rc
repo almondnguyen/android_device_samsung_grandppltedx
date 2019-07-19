@@ -40,7 +40,7 @@ on init
     #export LD_SHIM_LIBS /system/bin/thermal|libshim_thermal.so
 
 	# yes it is ultra long... blame Samsung lol
-    export LD_SHIM_LIBS "/system/lib/libdpframework.so|libshim_general.so:/system/lib/libdpframework.so|liblog_mtk.so:/system/bin/sn|libshim_general.so:/system/bin/guiext-server|liblog_mtk.so:/system/bin/pq|liblog_mtk.so:/system/lib/egl/libGLES_mali.so|liblog_mtk.so:/system/lib/libfmcust.so|liblog_mtk.so:/system/xbin/mnld|liblog_mtk.so:/system/bin/thermal|libshim_thermal.so:/system/lib/libcutils.so|libshim_thermal.so:/system/bin/mtk_agpsd|liblog_mtk.so:/system/bin/mobile_log_d|liblog_mtk.so:/system/bin/wpa_supplicant:mtk_symbols.so:/system/lib/libnvram.so|libnvram_platform.so:/system/lib/libnvram.so|libnvram_sec.so:/system/lib/libnvram.so|libcustom_nvram.so:"
+    export LD_SHIM_LIBS "/system/lib/libdpframework.so|libshim_general.so:/system/lib/libdpframework.so|liblog_mtk.so:/system/bin/sn|libshim_general.so:/system/bin/guiext-server|liblog_mtk.so:/system/bin/pq|liblog_mtk.so:/system/lib/egl/libGLES_mali.so|liblog_mtk.so:/system/lib/libfmcust.so|liblog_mtk.so:/system/xbin/mnld|liblog_mtk.so:/system/bin/thermal|libshim_thermal.so:/system/lib/libcutils.so|libshim_thermal.so:/system/bin/mtk_agpsd|liblog_mtk.so:/system/bin/mobile_log_d|liblog_mtk.so:/system/bin/wpa_supplicant:mtk_symbols.so:/system/lib/libnvram.so|libnvram_platform.so:/system/lib/libnvram.so|libnvram_sec.so:/system/lib/libnvram.so|libcustom_nvram.so:/system/lib/hw/audio.primary.mt6735.so|liblog_mtk.so:/system/lib/hw/gps.default.so|liblog_mtk.so"
 
     # Support legacy paths
     symlink /sdcard /mnt/sdcard

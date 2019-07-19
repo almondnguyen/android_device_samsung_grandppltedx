@@ -61,7 +61,7 @@ public class grandpplteRIL extends RIL {
     }
 
     public grandpplteRIL(Context context, int preferredNetworkType, int cdmaSubscription, Integer instanceId) {
-        super(context);
+        super(context, preferredNetworkType, cdmaSubscription, instanceId);
     }
 
     @Override
@@ -103,10 +103,10 @@ public class grandpplteRIL extends RIL {
     public void dial(String address, int clirMode, UUSInfo uusInfo, Message result) {
 	
 	// inherit from SlteRIL
-        if (PhoneNumberUtils.isEmergencyNumber(address)) {
+        if (PhoneNumberUtils.isEmergencyNumber(address)) { // -
             dialEmergencyCall(address, clirMode, result);
             return;
-        }
+        } // -
 
         RILRequest rr = RILRequest.obtain(10, result);
         rr.mParcel.writeString(address);
@@ -123,11 +123,11 @@ public class grandpplteRIL extends RIL {
             rr.mParcel.writeInt(uusInfo.getDcs());
             rr.mParcel.writeByteArray(uusInfo.getUserData());
         }
-        riljLog(rr.serialString() + "> " + requestToString(rr.mRequest) + " " + callDetails);
+        riljLog(rr.serialString() + "> " + requestToString(rr.mRequest) );
         send(rr);
     }
 
-    public void dialEmergencyCall(String address, int clirMode, CallDetails callDetails, Message result) {
+    public void dialEmergencyCall(String address, int clirMode, Message result) {
         RILRequest rr = RILRequest.obtain(10001, result);
         rr.mParcel.writeString(address);
         rr.mParcel.writeInt(clirMode);
@@ -138,10 +138,11 @@ public class grandpplteRIL extends RIL {
        
         rr.mParcel.writeInt(0);
         send(rr);
+    }
 
     @Override
-    private Object responseIccCardStatus(Parcel p) {
-	// TODO \ Selfnote : opensource RIL class is somewhat different than stock one.
+    protected Object responseIccCardStatus(Parcel p) {
+	/* TODO \ Selfnote : opensource RIL class is somewhat different than stock one. */
 	
         IccCardStatus cardStatus = new IccCardStatus();
         cardStatus.setCardState(p.readInt());
@@ -150,10 +151,13 @@ public class grandpplteRIL extends RIL {
         cardStatus.mCdmaSubscriptionAppIndex = p.readInt();
         cardStatus.mImsSubscriptionAppIndex = p.readInt();
         int numApplications = p.readInt();
+        
         if (numApplications > 8) {
             numApplications = 8;
+        }
         
         cardStatus.mApplications = new IccCardApplicationStatus[numApplications];
+
         for (int i = 0; i < numApplications; i++) {
             IccCardApplicationStatus appStatus = new IccCardApplicationStatus();
             appStatus.app_type = appStatus.AppTypeFromRILInt(p.readInt());
@@ -164,18 +168,115 @@ public class grandpplteRIL extends RIL {
             appStatus.pin1_replaced = p.readInt();
             appStatus.pin1 = appStatus.PinStateFromRILInt(p.readInt());
             appStatus.pin2 = appStatus.PinStateFromRILInt(p.readInt());
-            appStatus.pin1_num_retries = p.readInt();
-            appStatus.puk1_num_retries = p.readInt();
-            appStatus.pin2_num_retries = p.readInt();
-            appStatus.puk2_num_retries = p.readInt();
-            appStatus.perso_unblock_retries = p.readInt();
+
+            /* compilation error */
+            p.readInt(); // pin1_num_retries
+            p.readInt(); // puk1_num_retries
+            p.readInt(); // pin2_num_retries
+            p.readInt(); // puk2_num_retries
+            p.readInt(); // perso_unblock_retries
             cardStatus.mApplications[i] = appStatus;
         }
         return cardStatus;
     }
 
-    // use opensource aka SlteRIL, Samsung used MM packages (that quite sure will not work on later versions)
+    // again, SlteRIL
+    @Override
+    protected Object responseCallList(Parcel p) {
+        int num;
+        int voiceSettings;
+        ArrayList<DriverCall> response;
+        DriverCall dc;
 
+        num = p.readInt();
+        response = new ArrayList<DriverCall>(num);
+
+        if (RILJ_LOGV) {
+            riljLog("responseCallList: num=" + num +
+                    " mEmergencyCallbackModeRegistrant=" + mEmergencyCallbackModeRegistrant +
+                    " mTestingEmergencyCall=" + mTestingEmergencyCall.get());
+        }
+        for (int i = 0 ; i < num ; i++) {
+            dc = new DriverCall();
+
+            dc.state = DriverCall.stateFromCLCC(p.readInt());
+            dc.index = p.readInt() & 0xff;
+            dc.TOA = p.readInt();
+            dc.isMpty = (0 != p.readInt());
+            dc.isMT = (0 != p.readInt());
+            dc.als = p.readInt();
+            voiceSettings = p.readInt();
+            dc.isVoice = (0 == voiceSettings) ? false : true;
+
+            int call_type = p.readInt();            // Samsung CallDetails
+            int call_domain = p.readInt();          // Samsung CallDetails
+            String csv = p.readString();            // Samsung CallDetails
+            if (RILJ_LOGV) {
+                riljLog(String.format("Samsung call details: type=%d, domain=%d, csv=%s",
+                               call_type, call_domain, csv));
+            }
+
+            dc.isVoicePrivacy = (0 != p.readInt());
+            dc.number = p.readString();
+            if (RILJ_LOGV) {
+                riljLog("responseCallList dc.number=" + dc.number);
+            }
+            dc.numberPresentation = DriverCall.presentationFromCLIP(p.readInt());
+            dc.name = p.readString();
+            if (RILJ_LOGV) {
+                riljLog("responseCallList dc.name=" + dc.name);
+            }
+            // according to ril.h, namePresentation should be handled as numberPresentation;
+            dc.namePresentation = DriverCall.presentationFromCLIP(p.readInt());
+
+            int uusInfoPresent = p.readInt();
+            if (uusInfoPresent == 1) {
+                dc.uusInfo = new UUSInfo();
+                dc.uusInfo.setType(p.readInt());
+                dc.uusInfo.setDcs(p.readInt());
+                byte[] userData = p.createByteArray();
+                dc.uusInfo.setUserData(userData);
+                riljLogv(String.format("Incoming UUS : type=%d, dcs=%d, length=%d",
+                                dc.uusInfo.getType(), dc.uusInfo.getDcs(),
+                                dc.uusInfo.getUserData().length));
+                riljLogv("Incoming UUS : data (string)="
+                        + new String(dc.uusInfo.getUserData()));
+                riljLogv("Incoming UUS : data (hex): "
+                        + IccUtils.bytesToHexString(dc.uusInfo.getUserData()));
+
+                // Make sure there's a leading + on addresses with a TOA of 145
+                dc.number = PhoneNumberUtils.stringFromStringAndTOA(dc.number, dc.TOA);
+            } else {
+                riljLogv("Incoming UUS : NOT present!");
+            }
+
+            response.add(dc);
+
+            if (dc.isVoicePrivacy) {
+                mVoicePrivacyOnRegistrants.notifyRegistrants();
+                riljLog("InCall VoicePrivacy is enabled");
+            } else {
+                mVoicePrivacyOffRegistrants.notifyRegistrants();
+                riljLog("InCall VoicePrivacy is disabled");
+            }
+        }
+
+        Collections.sort(response);
+
+        if ((num == 0) && mTestingEmergencyCall.getAndSet(false)
+                        && mEmergencyCallbackModeRegistrant != null) {
+            if (mEmergencyCallbackModeRegistrant != null) {
+                riljLog("responseCallList: call ended, testing emergency call," +
+                            " notify ECM Registrants");
+                mEmergencyCallbackModeRegistrant.notifyRegistrant();
+            }
+        }
+
+        return response;
+    }
+
+    /* use opensource aka SlteRIL, Samsung used MM packages (that quite sure will not work on later versions)
+    */
     @Override
     protected Object responseSignalStrength(Parcel p) {
         int numInts = 12;
@@ -236,7 +337,7 @@ public class grandpplteRIL extends RIL {
     }
 
     // TODO: strip down certain network stuffs~
-    private Object responseOperatorInfos(Parcel p) {
+    protected Object responseOperatorInfos(Parcel p) {
         ArrayList<OperatorInfo> ret;
         String[] strings = (String[]) responseStrings(p);
         if (strings.length % 6 != 0) {
@@ -284,7 +385,6 @@ public class grandpplteRIL extends RIL {
         /* Remap incorrect respones or ignore them */
         switch (origResponse) {
             case RIL_UNSOL_STK_CALL_CONTROL_RESULT:
-            case RIL_UNSOL_WB_AMR_STATE:
             case RIL_UNSOL_DEVICE_READY_NOTI: /* Registrant notification */
             case RIL_UNSOL_SIM_PB_READY: /* Registrant notification */
                 Rlog.v(RILJ_LOG_TAG,
@@ -326,4 +426,3 @@ public class grandpplteRIL extends RIL {
     }
 }
 
-}

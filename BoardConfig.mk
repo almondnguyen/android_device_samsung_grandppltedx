@@ -17,7 +17,7 @@
 DEVICE_PATH := device/samsung/grandppltedx
 
 # assert
-TARGET_OTA_ASSERT_DEVICE := grandppltedx,grandpplteub,grandpplteser,grandppltedtvvj
+TARGET_OTA_ASSERT_DEVICE := grandpplte,grandppltedx,grandpplteub,grandpplteser,grandppltedtvvj
 
 # CFLAG
 BOARD_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
