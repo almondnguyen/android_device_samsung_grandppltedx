@@ -89,6 +89,9 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml
 #	$(DEVICE_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml \
 
+PRODUCT_PROPERTY_OVERRIDES += \
+	media.sf.omx-plugin=libffmpeg_omx.so,libsomxcore.so
+
 
 # Wifi
 PRODUCT_PACKAGES += \
@@ -113,8 +116,8 @@ PRODUCT_PACKAGES += \
 	muxreport \
 	terservice
 
-PRODUCT_PACKAGES += \
-	libsecnativefeature
+#PRODUCT_PACKAGES += \
+#	libsecnativefeature
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.android.checkjni=0
@@ -126,14 +129,13 @@ PRODUCT_COPY_FILES += \
 
 #-- RIL
 #
-BOARD_PROVIDE_LIBRIL := false
-PRODUCT_PACKAGES += \
-	libril
+BOARD_PROVIDES_LIBRIL := true
 
 SIM_COUNT := 2
 
 PRODUCT_PACKAGES += \
 	libsecril-client \
+	libsecril-client-sap \
 	libxml2 \
 	libprotobuf-cpp-full
 
@@ -156,8 +158,9 @@ PRODUCT_PACKAGES += \
 	liblog_mtk \
 	mtk_symbols \
 	libshim_thermal \
-	libshim_general \
-	libshim_mtkomx-mm
+	libshim_general
+
+#	libshim_mtkomx-mm
 
 # use porridge mtk_symbol instead | 	mtk_symbols \
 # broken patches |	libshim_thermal \
@@ -235,8 +238,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/rootdir/sbin/sswap:root/sbin/sswap \
 	$(DEVICE_PATH)/rootdir/sbin/ffu:root/sbin/ffu \
-	$(DEVICE_PATH)/rootdir/sbin/bgcompact:root/sbin/bgcompact \
-
+	$(DEVICE_PATH)/rootdir/sbin/bgcompact:root/sbin/bgcompact
 #   $(DEVICE_PATH)/rootdir/sbin/busybox:root/sbin/busybox \
 
 ADDITIONAL_DEFAULT_PROPERTIES += \

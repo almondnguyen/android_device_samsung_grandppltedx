@@ -100,16 +100,15 @@ void vendor_load_properties()
 	std::string device;
 
 	platform = GetProperty("ro.board.platform", "");
-	if (platform != ANDROID_TARGET)
-		return;
+	if (platform != ANDROID_TARGET) { return; }
 
 	/* check if the simslot count file exists */
 	if (access(SIMSLOT_FILE, F_OK) == 0) {
 		int sim_count= read_integer(SIMSLOT_FILE);
-
+	}
 		/* set the dual sim props */
 	
-	if (bootloader.find("G532F") == 0) {
+	if (bootloader.find("G532F") != std::string::npos) {
 		/* G532F */
 	        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandpplteser");
 		if (sim_count == 1) {
@@ -118,10 +117,12 @@ void vendor_load_properties()
 		} else {
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532F/DS");
 			init_dual();
+		}
 	}
 
-	if (bootloader.find("G532G") == 0) {
+	if (bootloader.find("G532G") != std::string::npos) {
 		/* G532G */
+		/* there is another grandpplte variant: grandpplteins ?D */
 	        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandppltedx");
 		if (sim_count == 1) {
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532G");
@@ -129,9 +130,10 @@ void vendor_load_properties()
 		} else {
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532G/DS");
 			init_dual();
+		}
 	}
 
-	if (bootloader.find("G532M") == 0) {
+	if (bootloader.find("G532M") != std::string::npos) {
 		/* G532M */
 	        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandpplteub");
 		if (sim_count == 1) {
@@ -140,9 +142,10 @@ void vendor_load_properties()
 		} else {
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532M/DS");
 			init_dual();
+		}
 	}
 
-	if (bootloader.find("G532MT") == 0) {
+	if (bootloader.find("G532MT") != std::string::npos) {
 		/* G532MT */
 	        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandppltedtvvj");
 		if (sim_count == 1) {
@@ -151,6 +154,7 @@ void vendor_load_properties()
 		} else {
 			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532MT/DS");
 			init_dual();
+		}
 	}
 
 		/* set serial number */

@@ -273,5 +273,7 @@
     <!-- If supported, are dreams enabled? (by default) -->
     <bool name="config_dreamsEnabledByDefault">false</bool>
 
+
+    <string name="config_radio_access_family">GSM|WCDMA|LTE</string>
     
 </resources>

@@ -19,6 +19,8 @@ ro.telephony.ril_class=grandpplteRIL
 #ro.telephony.ril.config=fakeiccid
 ro.telephony.sim.count=2
 ro.boot.opt_lte_support=1
+telephony.lteOnGsmDevice=1
+telephony.lteOnCdmaDevice=0
 
 ro.mtk_lte_support=1
 ro.mtk_sim_hot_swap=1

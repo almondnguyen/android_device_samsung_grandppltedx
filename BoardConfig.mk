@@ -15,6 +15,7 @@
 #
 
 DEVICE_PATH := device/samsung/grandppltedx
+BOARD_VENDOR := samsung
 
 # assert
 TARGET_OTA_ASSERT_DEVICE := grandpplte,grandppltedx,grandpplteub,grandpplteser,grandppltedtvvj
