@@ -2,6 +2,7 @@
 
 # Nougat stuff
 config.disable_consumerir=true
+media.sf.omx-plugin=libffmpeg_omx.so,libsomxcore.so
 
 # Platform
 ro.mediatek.chip_ver=S01
@@ -18,6 +19,7 @@ rild.libargs=-d /dev/ttyC0
 ro.telephony.ril_class=grandpplteRIL
 #ro.telephony.ril.config=fakeiccid
 ro.telephony.sim.count=2
+ro.telephony.default_network=9
 ro.boot.opt_lte_support=1
 telephony.lteOnGsmDevice=1
 telephony.lteOnCdmaDevice=0

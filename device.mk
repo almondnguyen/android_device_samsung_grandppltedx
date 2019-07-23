@@ -129,11 +129,10 @@ PRODUCT_COPY_FILES += \
 
 #-- RIL
 #
-BOARD_PROVIDES_LIBRIL := true
-
 SIM_COUNT := 2
 
 PRODUCT_PACKAGES += \
+	libril \
 	libsecril-client \
 	libsecril-client-sap \
 	libxml2 \

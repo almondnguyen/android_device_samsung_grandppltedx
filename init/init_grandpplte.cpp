@@ -26,7 +26,6 @@
  */
 
 /* credit: a3y17lte devs (A3 2017) */
-/* currently not support G532MT | MT/DS because not know codename */
 
 #include <stdlib.h>
 #include <string.h>
@@ -46,9 +45,9 @@ using android::base::ReadFileToString;
 using android::base::Trim;
 
 #define SERIAL_NUMBER_FILE "/efs/FactoryApp/serial_no"
+#define SIMSLOT_FILE "/proc/simslot_count"
 
-int read_integer(const char* filename)
-{
+int read_integer(const char* filename) {
 	int retval;
 	FILE * file;
 
@@ -63,8 +62,7 @@ int read_integer(const char* filename)
 	return retval;
 }
 
-void property_override(char const prop[], char const value[])
-{	
+void property_override(char const prop[], char const value[]) {	
 	prop_info *pi;
 
 	pi = (prop_info*) __system_property_find(prop);
@@ -72,13 +70,6 @@ void property_override(char const prop[], char const value[])
 		__system_property_update(pi, value, strlen(value));
 	else
 		__system_property_add(prop, strlen(prop), value, strlen(value));
-}
-
-void property_override_dual(char const system_prop[],
-		char const vendor_prop[], char const value[])
-{
-	property_override(system_prop, value);
-	property_override(vendor_prop, value);
 }
 
 void init_dual() {
@@ -93,14 +84,13 @@ void init_single() {
     property_set("persist.radio.multisim.config", "none");
 }
 
-void vendor_load_properties()
-{
+void vendor_load_properties() {
 	std::string platform;
 	std::string bootloader = GetProperty("ro.bootloader", "");
 	std::string device;
-
-	platform = GetProperty("ro.board.platform", "");
-	if (platform != ANDROID_TARGET) { return; }
+	
+	/* set basic device name */
+	property_override("ro.product.device","grandpplte");
 
 	/* check if the simslot count file exists */
 	if (access(SIMSLOT_FILE, F_OK) == 0) {
@@ -110,12 +100,12 @@ void vendor_load_properties()
 	
 	if (bootloader.find("G532F") != std::string::npos) {
 		/* G532F */
-	        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandpplteser");
+	        property_override("ro.product.name", "grandpplteser");
 		if (sim_count == 1) {
-			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532F");
+			property_override("ro.product.model", "SM-G532F");
 			init_single();
 		} else {
-			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532F/DS");
+			property_override("ro.product.model", "SM-G532F/DS");
 			init_dual();
 		}
 	}
@@ -123,36 +113,36 @@ void vendor_load_properties()
 	if (bootloader.find("G532G") != std::string::npos) {
 		/* G532G */
 		/* there is another grandpplte variant: grandpplteins ?D */
-	        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandppltedx");
+	        property_override("ro.product.name", "grandppltedx");
 		if (sim_count == 1) {
-			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532G");
+			property_override("ro.product.model", "SM-G532G");
 			init_single();
 		} else {
-			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532G/DS");
+			property_override("ro.product.model", "SM-G532G/DS");
 			init_dual();
 		}
 	}
 
 	if (bootloader.find("G532M") != std::string::npos) {
 		/* G532M */
-	        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandpplteub");
+	        property_override("ro.product.name", "ro.vendor.product.name", "grandpplteub");
 		if (sim_count == 1) {
-			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532M");
+			property_override("ro.product.model", "SM-G532M");
 			init_single();
 		} else {
-			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532M/DS");
+			property_override("ro.product.model", "SM-G532M/DS");
 			init_dual();
 		}
 	}
 
 	if (bootloader.find("G532MT") != std::string::npos) {
 		/* G532MT */
-	        property_override_dual("ro.product.device", "ro.vendor.product.device", "grandppltedtvvj");
+	        property_override("ro.product.name", "grandppltedtvvj");
 		if (sim_count == 1) {
-			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532MT");
+			property_override("ro.product.model", "SM-G532MT");
 			init_single();
 		} else {
-			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532MT/DS");
+			property_override("ro.product.model", "SM-G532MT/DS");
 			init_dual();
 		}
 	}
@@ -165,4 +155,6 @@ void vendor_load_properties()
         	serial_number = Trim(serial_number);
         	property_override("ro.serialno", serial_number.c_str());
 	}
+
+	INFO("device info updated");
 }
