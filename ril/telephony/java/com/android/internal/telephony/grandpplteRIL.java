@@ -40,7 +40,7 @@ import java.util.Collections;
  * {@hide}
  */
 
-public class grandpplteRIL extends RIL {
+public class grandpplteRIL extends RIL implements CommandsInterface {
 
     /**********************************************************
      * SAMSUNG REQUESTS
@@ -58,13 +58,26 @@ public class grandpplteRIL extends RIL {
     private static final int RIL_UNSOL_DEVICE_READY_NOTI = 11008;
     private static final int RIL_UNSOL_AM = 11010;
     private static final int RIL_UNSOL_SIM_PB_READY = 11021;
-
+	
     public grandpplteRIL(Context context, int preferredNetworkType, int cdmaSubscription) {
         this(context, preferredNetworkType, cdmaSubscription, null);
     }
 
     public grandpplteRIL(Context context, int preferredNetworkType, int cdmaSubscription, Integer instanceId) {
         super(context, preferredNetworkType, cdmaSubscription, instanceId);
+    }
+
+    @Override
+    public void setDataAllowed(boolean allowed, Message result) {
+        RILRequest rr = RILRequest.obtain(RIL_REQUEST_ALLOW_DATA, result);
+        if (RILJ_LOGD) {
+            riljLog(rr.serialString() + "> " + requestToString(rr.mRequest) +
+                    " allowed: " + allowed);
+        }
+
+        rr.mParcel.writeInt(1);
+        rr.mParcel.writeInt(allowed ? 1 : 0);
+        send(rr);
     }
 
     @Override
@@ -278,9 +291,6 @@ public class grandpplteRIL extends RIL {
         return response;
     }
 
-    /* use opensource aka SlteRIL, Samsung used MM packages (that quite sure will not work on later versions)
-    */
-    @Override
     protected Object responseSignalStrength(Parcel p) {
         int numInts = 12;
         int response[];
@@ -313,11 +323,20 @@ public class grandpplteRIL extends RIL {
                                   true);
     }
 
-    // this phone is GSM only
+    /* this phone is GSM only */
     private void constructGsmSendSmsRilRequest(RILRequest rr, String smscPDU, String pdu) {
         rr.mParcel.writeInt(2);
         rr.mParcel.writeString(smscPDU);
         rr.mParcel.writeString(pdu);
+    }
+
+
+    @Override
+    public void sendSMSExpectMore(String smscPDU, String pdu, Message result) {
+        RILRequest rr = RILRequest.obtain(26, result);
+        constructGsmSendSmsRilRequest(rr, smscPDU, pdu);
+        riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
+        send(rr);
     }
 
     // according to SlteRIL
@@ -325,7 +344,7 @@ public class grandpplteRIL extends RIL {
      * The RIL can't handle the RIL_REQUEST_SEND_SMS_EXPECT_MORE
      * request properly, so we use RIL_REQUEST_SEND_SMS instead.
      */
-    @Override
+/*    @Override
     public void sendSMSExpectMore(String smscPDU, String pdu, Message result) {
 
 	// idk how to search for device modem lol
@@ -338,7 +357,7 @@ public class grandpplteRIL extends RIL {
 
         send(rr);
     }
-
+*/
     // TODO: strip down certain network stuffs~
     protected Object responseOperatorInfos(Parcel p) {
         ArrayList<OperatorInfo> ret;
@@ -347,14 +366,15 @@ public class grandpplteRIL extends RIL {
             throw new RuntimeException("RIL_REQUEST_QUERY_AVAILABLE_NETWORKS: invalid response. Got " + strings.length + " strings, expected multible of 6");
         }
 	
-	// might not be necessary        
-	//String isRoaming = TelephonyManager.getTelephonyProperty(this.mInstanceId.intValue(), "gsm.operator.isroaming", "");
-        
-	// removed some kind of CSC things~
+	/* might not be necessary        
+	String isRoaming = TelephonyManager.getTelephonyProperty(this.mInstanceId.intValue(), "gsm.operator.isroaming", "");
+        */
+	/* removed some kind of CSC things~
 
 	// use SlteRIL coding, same work but much more elegant
 	// mQANElements in grandpplte is 6
-        ret = new ArrayList<OperatorInfo>(strings.length / 6);
+	*/        
+	ret = new ArrayList<OperatorInfo>(strings.length / 6);
         for (int i = 0 ; i < strings.length ; i += 6) {
             String strOperatorLong = strings[i+0];
             String strOperatorNumeric = strings[i+2];
@@ -377,7 +397,7 @@ public class grandpplteRIL extends RIL {
 
     // uses SlteRIL because stock one is waaayyy too lengthy
     // tons of bugs incoming (.......)
-        @Override
+    @Override
     protected void processUnsolicited(Parcel p, int type) {
         Object ret;
 

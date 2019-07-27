@@ -28,21 +28,19 @@
 /* credit: a3y17lte devs (A3 2017) */
 
 #include <stdlib.h>
-#include <string.h>
-#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
-#include <sys/_system_properties.h>
+#include <stdio.h>
 
-#include <android-base/file.h>
-#include <android-base/logging.h>
-#include <android-base/strings.h>
-#include <android-base/properties.h>
+#include <string.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 #include "property_service.h"
 #include "vendor_init.h"
+#include "log.h"
+#include "util.h"
 
-using android::base::GetProperty;
-using android::base::ReadFileToString;
-using android::base::Trim;
+#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
+#include <sys/_system_properties.h>
 
 #define SERIAL_NUMBER_FILE "/efs/FactoryApp/serial_no"
 #define SIMSLOT_FILE "/proc/simslot_count"
@@ -85,19 +83,19 @@ void init_single() {
 }
 
 void vendor_load_properties() {
+	std::string bootloader = property_get("ro.bootloader");
 	std::string platform;
-	std::string bootloader = GetProperty("ro.bootloader", "");
-	std::string device;
-	
+	int sim_count;
+
 	/* set basic device name */
 	property_override("ro.product.device","grandpplte");
 
 	/* check if the simslot count file exists */
 	if (access(SIMSLOT_FILE, F_OK) == 0) {
-		int sim_count= read_integer(SIMSLOT_FILE);
+		sim_count = read_integer(SIMSLOT_FILE);
 	}
-		/* set the dual sim props */
 	
+	/* set model + dual sim props */
 	if (bootloader.find("G532F") != std::string::npos) {
 		/* G532F */
 	        property_override("ro.product.name", "grandpplteser");
@@ -125,7 +123,7 @@ void vendor_load_properties() {
 
 	if (bootloader.find("G532M") != std::string::npos) {
 		/* G532M */
-	        property_override("ro.product.name", "ro.vendor.product.name", "grandpplteub");
+	        property_override("ro.product.name", "grandpplteub");
 		if (sim_count == 1) {
 			property_override("ro.product.model", "SM-G532M");
 			init_single();
@@ -147,14 +145,9 @@ void vendor_load_properties() {
 		}
 	}
 
-		/* set serial number */
-	char const *serial_number_file = SERIAL_NUMBER_FILE;
-	std::string serial_number;
+	std::string device = property_get("ro.product.device");
+	std::string devicename = property_get("ro.product.model");
 
-	if (ReadFileToString(serial_number_file, &serial_number)) {
-        	serial_number = Trim(serial_number);
-        	property_override("ro.serialno", serial_number.c_str());
-	}
+	INFO("Found bootloader id %s setting build properties for %s device\n", bootloader.c_str(), devicename.c_str());
 
-	INFO("device info updated");
 }

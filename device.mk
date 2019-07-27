@@ -132,9 +132,6 @@ PRODUCT_COPY_FILES += \
 SIM_COUNT := 2
 
 PRODUCT_PACKAGES += \
-	libril \
-	libsecril-client \
-	libsecril-client-sap \
 	libxml2 \
 	libprotobuf-cpp-full
 
@@ -142,7 +139,7 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.kernel.android.checkjni=0
+	ro.kernel.android.checkjni=0 \
 	ro.telephony.ril_class=grandpplteRIL
 
 #-- FM

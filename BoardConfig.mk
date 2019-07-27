@@ -49,11 +49,13 @@ MTK_HWC_VERSION := 1.4.1
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
 
 # Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := SRPPI01A000KU
+TARGET_BOOTLOADER_BOARD_NAME := MT6737T
 TARGET_NO_BOOTLOADER := true
 # mt6737t
 
 # Platform
+TARGET_INIT_VENDOR_LIB := libinit_grandpplte
+
 ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_BOARD_PLATFORM := MT6737T
 TARGET_NO_FACTORYIMAGE := true
@@ -68,17 +70,17 @@ BOARD_USES_MTK_MEDIA_PROFILES := true
 TARGET_PROVIDES_LIBLIGHT := true
 
 USE_CAMERA_STUB := true
-
-TARGET_OMX_LEGACY_RESCALING := true
-
 PRODUCT_SHIPPING_API_LEVEL := 23
 
+# Dexpreopt
 WITH_DEXPREOPT := false
 DONT_DEXPREOPT_PREBUILTS := true
 
 # Backlight
-#BACKLIGHT_PATH ?= /sys/devices/ktd3102-bl/backlight/panel/brightness
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
+
+# Lights
+TARGET_HAS_BACKLIT_KEYS := false
 
 # Charger (borrow from herolte)
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
@@ -137,12 +139,17 @@ BOARD_HARDWARE_CLASS += $(DEVICE_PATH)/lineagehw
 MTK_MEDIA_PROFILES := true
 BOARD_USES_MTK_MEDIA_PROFILES := true
 
+TARGET_OMX_LEGACY_RESCALING := true
+
+BOARD_CANT_REALLOCATE_OMX_BUFFERS := true
+
 # GPS
 BOARD_GPS_LIBRARIES := true
-BOARD_CONNECTIVITY_MODULE := MT6625
 BOARD_MEDIATEK_USES_GPS := true
 
 # RIL
+# use prebuilt for now
+
 BOARD_RIL_CLASS := ../../../device/samsung/grandppltedx/ril
 #BOARD_CONNECTIVITY_MODULE := conn_soc
 
@@ -170,8 +177,6 @@ BOARD_CUSTOM_BOOTIMG := true
 
 BOARD_KERNEL_IMAGE_NAME := zImage
 TARGET_KERNEL_SOURCE    := kernel/samsung/grandppltedx
-#TARGET_KERNEL_CONFIG    := grandpplte_00_defconfig
-#TARGET_KERNEL_CONFIG	:= aeon6737t_36g_n_defconfig
 TARGET_KERNEL_CONFIG    := mt6737t-grandpplte_defconfig
 
 BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive androidboot.selinux=disabled

@@ -639,7 +639,7 @@ service vold /system/bin/vold \
 ## Samsung ODE <<<
 
 # RIL
-service ril-daemon /system/bin/rild
+service ril-daemon /system/bin/rild -l /system/lib/libreference-ril-sammtk.so
     class main
     socket rild stream 660 root radio
     socket sap_uim_socket1 stream 660 bluetooth bluetooth

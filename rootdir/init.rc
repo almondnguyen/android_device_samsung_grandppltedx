@@ -1596,7 +1596,7 @@ service icd /system/bin/icd
     oneshot
 
 # RIL
-service ril-daemon /system/bin/rild
+service ril-daemon /system/bin/rild -l system/lib/libreference-ril_sp.so -m w -n 1
     class main
     socket rild stream 660 root radio
     socket sap_uim_socket1 stream 660 bluetooth bluetooth
