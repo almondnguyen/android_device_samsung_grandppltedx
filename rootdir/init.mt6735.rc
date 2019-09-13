@@ -22,6 +22,8 @@ import init.modem.rc
 # *** DO NOT import the new rc file after this line ***
 
 on early-init
+    # fix RIL?
+    chmod 0644 /proc/cmdline
 
     mount debugfs debugfs /sys/kernel/debug
     chmod 0755 /sys/kernel/debug
@@ -30,7 +32,7 @@ on early-init
 on init
 
 	# yes it is ultra long... blame Samsung lol
-    export LD_SHIM_LIBS "/system/lib/libdpframework.so|libshim_general.so:/system/lib/libdpframework.so|liblog_mtk.so:/system/bin/sn|libshim_general.so:/system/bin/guiext-server|liblog_mtk.so:/system/bin/pq|liblog_mtk.so:/system/lib/egl/libGLES_mali.so|liblog_mtk.so:/system/lib/libfmcust.so|liblog_mtk.so:/system/xbin/mnld|liblog_mtk.so:/system/bin/thermal|libshim_thermal.so:/system/lib/libcutils.so|libshim_thermal.so:/system/bin/mtk_agpsd|liblog_mtk.so:/system/bin/mobile_log_d|liblog_mtk.so:/system/bin/wpa_supplicant:mtk_symbols.so:/system/lib/libnvram.so|libnvram_platform.so:/system/lib/libnvram.so|libnvram_sec.so:/system/lib/libnvram.so|libcustom_nvram.so:/system/lib/hw/audio.primary.mt6735.so|liblog_mtk.so:/system/lib/hw/gps.default.so|liblog_mtk.so:/system/lib/libreference-ril-sammtk.so:libreference-ril.so"
+    export LD_SHIM_LIBS "/system/lib/libdpframework.so|libshim_general.so:/system/lib/libdpframework.so|liblog_mtk.so:/system/bin/sn|libshim_general.so:/system/bin/guiext-server|liblog_mtk.so:/system/bin/pq|liblog_mtk.so:/system/lib/egl/libGLES_mali.so|liblog_mtk.so:/system/lib/libfmcust.so|liblog_mtk.so:/system/xbin/mnld|liblog_mtk.so:/system/bin/thermal|libshim_thermal.so:/system/lib/libcutils.so|libshim_thermal.so:/system/bin/mtk_agpsd|liblog_mtk.so:/system/bin/mobile_log_d|liblog_mtk.so:/system/bin/wpa_supplicant:mtk_symbols.so:/system/lib/libnvram.so|libnvram_platform.so:/system/lib/libnvram.so|libnvram_sec.so:/system/lib/libnvram.so|libcustom_nvram.so:/system/lib/hw/audio.primary.mt6735.so|liblog_mtk.so:/system/lib/hw/gps.default.so|liblog_mtk.so:/system/bin/emdlogger1|liblog_mtk.so"
 
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
@@ -1348,6 +1350,10 @@ service dualmdlogger /system/bin/dualmdlogger
     group shell system radio sdcard_rw inet sdcard_r media_rw
     disabled
     oneshot
+
+
+#-- Disable emdlogger1 only
+#-- need to disable the related property to run md_ctrl
 
 #service emdlogger1 /system/bin/emdlogger1
 #    class main

@@ -132,8 +132,12 @@ PRODUCT_COPY_FILES += \
 SIM_COUNT := 2
 
 PRODUCT_PACKAGES += \
+	libsecril-client-sap \
 	libxml2 \
-	libprotobuf-cpp-full
+	libprotobuf-cpp-full \
+	libstlport \
+	librilutils
+
 
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
@@ -141,6 +145,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.android.checkjni=0 \
 	ro.telephony.ril_class=grandpplteRIL
+
+# Doze
+PRODUCT_PACKAGES += \
+	SamsungDoze
+
 
 #-- FM
 MTK_FM_SUPPORT := true
@@ -155,12 +164,6 @@ PRODUCT_PACKAGES += \
 	mtk_symbols \
 	libshim_thermal \
 	libshim_general
-
-#	libshim_mtkomx-mm
-
-# use porridge mtk_symbol instead | 	mtk_symbols \
-# broken patches |	libshim_thermal \
-# removed libsec-ims.so | 	libshim_secims \
 
 # Recovery - twrp
 PRODUCT_COPY_FILES += \

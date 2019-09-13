@@ -1,11 +1,3 @@
-# Use uber-4.8 toolchain
-# AOSP (or lineage one) will return NO LOGGING..
-echo "use different toolchain"
-export ANDROID_EABI_TOOLCHAIN="prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-UB-4.9/bin"
-export ANDROID_EABI_TOOLCHAIN_PATH=":prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-UB-4.9/bin"
-
-export ANDROID_TOOLCHAIN="prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-UB-4.9/bin"
-
 # This is optional. It always errors out on my side
 # Assertion `cnt
 # Your mileage may vary

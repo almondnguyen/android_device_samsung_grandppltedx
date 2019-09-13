@@ -25,8 +25,6 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* credit: a3y17lte devs (A3 2017) */
-
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -112,6 +110,8 @@ void vendor_load_properties() {
 		/* G532G */
 		/* there is another grandpplte variant: grandpplteins ?D */
 	        property_override("ro.product.name", "grandppltedx");
+		property_override("ro.build.fingerprint", "samsung/grandppltedx/grandpplte:6.0.1/MMB29T/G532GDXU1ARH1:user/release-keys");
+		property_override("ro.build.description", "grandppltedx-user 6.0.1 MMB29T G532GDXU1ARH1 release-keys");
 		if (sim_count == 1) {
 			property_override("ro.product.model", "SM-G532G");
 			init_single();

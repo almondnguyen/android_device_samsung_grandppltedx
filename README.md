@@ -2,13 +2,11 @@
 grandpplte device tree
 
 -----
-CURRENT BUG:
+CURRENT BUG: 
+[] Telephony
+[] OMX/Video
+[] Camera (it might be possible to fix the front camera, based on diepquynh's Spreadtrum tree(s) )
 
-[LIST]
-[*] Telephony
-[*] Media / OMX in apps
-[*] (note to self, again) please populate this...
-[/LIST]
 
 DEVELOPMENT IN PROGRESS. MAY EAT YOUR CAT
 

@@ -615,12 +615,6 @@ service sec-sh /system/etc/init.sec.boot.sh
     user root
     oneshot
 
-# lowmem killerd
-service lmkd /system/bin/lmkd
-    class core
-    critical
-    socket lmkd seqpacket 0660 system system
-
 # vold
 service vold /system/bin/vold \
         --blkid_context=u:r:blkid:s0 --blkid_untrusted_context=u:r:blkid_untrusted:s0 \
@@ -638,28 +632,6 @@ service vold /system/bin/vold \
     socket dir_enc_report stream 0660 root mount
 ## Samsung ODE <<<
 
-# RIL
-service ril-daemon /system/bin/rild -l /system/lib/libreference-ril-sammtk.so
-    class main
-    socket rild stream 660 root radio
-    socket sap_uim_socket1 stream 660 bluetooth bluetooth
-    socket rild-debug stream 660 radio system
-#FSI {Tmm] Add Start (120615)
-    socket rild-cas stream 660  casdrm mmb
-#FSI {Tmm] Add End (120615)
-    user root
-    group radio cache inet misc audio sdcard_r sdcard_rw log vpn system
-    onrestart restart cpboot-daemon
-on property:persist.sys.cpboot=disable
-    stop ril-daemon
-    stop cpboot-daemon
-
-# MobiCore startup
-service mobicore /system/bin/mcDriverDaemon -r /system/app/FFFFFFFF000000000000000000000001.drbin -r /system/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin -r /system/app/mcRegistry/ffffffffd00000000000000000000016.tlbin
-    class core
-    user system
-    group system
-
 service drm /system/bin/drmserver
     class main
     user drm
@@ -669,15 +641,6 @@ service drm /system/bin/drmserver
 # org
 #    group drm system inet drmrpc
 # ]
-
-service gatekeeperd /system/bin/gatekeeperd /data/misc/gatekeeper
-    class late_start
-    user system
-
-service keystore /system/bin/keystore /data/misc/keystore
-    class main
-    user keystore
-    group keystore drmrpc system
 
 # Sensorhub service
 service sensorhubservice /system/bin/sensorhubservice

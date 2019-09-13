@@ -150,6 +150,10 @@ BOARD_MEDIATEK_USES_GPS := true
 # RIL
 # use prebuilt for now
 
+BOARD_PROVIDES_RILD := true
+BOARD_PROVIDES_LIBRIL := true
+BOARD_PROVIDES_LIBREFERENCE_RIL := true
+
 BOARD_RIL_CLASS := ../../../device/samsung/grandppltedx/ril
 #BOARD_CONNECTIVITY_MODULE := conn_soc
 

@@ -15,9 +15,20 @@
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/frp        0660    root    system
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/md1img     0660    root    system
 
-# additions
+# almond: additions
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/PERSISTENT 0660    root    system
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/md1dsp     0660    root    system
+
+# almond: try permission umts devs
+/dev/umts_boot0           0660   radio      radio
+/dev/umts_ipc0            0660   radio      radio
+/dev/umts_ipc1            0660   radio      radio
+/dev/umts_rfs0            0660   radio      radio
+
+/dev/umts*                0660   system     radio
+
+
+
 
 # OTP
 /dev/otp                 0660 system system
