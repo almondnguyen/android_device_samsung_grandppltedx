@@ -1105,3 +1105,5 @@ service lpm /system/bin/lpm
     class sec-charger
     critical
 
+on property:apexd.status=ready
+    mount none /vendor/etc/swcodec/ld.config.txt /apex/com.android.media.swcodec/etc/ld.config.txt bind
