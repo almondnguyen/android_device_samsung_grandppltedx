@@ -62,6 +62,9 @@ PRODUCT_PACKAGES += \
 	android.hardware.graphics.mapper@2.0-impl \
 	android.hardware.graphics.composer@2.1-impl
 
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.surface_flinger.max_frame_buffer_acquired_buffers=3
+
 # Locale
 PRODUCT_DEFAULT_LANGUAGE := en
 PRODUCT_DEFAULT_REGION   := US
