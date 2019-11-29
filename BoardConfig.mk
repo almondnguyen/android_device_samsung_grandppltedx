@@ -20,6 +20,28 @@ BOARD_VENDOR := samsung
 # assert
 TARGET_OTA_ASSERT_DEVICE := grandpplte,grandppltedx,grandpplteub,grandpplteser,grandppltedtvvj
 
+# Move symlinks here
+LINKER_FORCED_SHIM_LIBS := \
+	/system/lib/libdpframework.so|libshim_general.so:\
+	/system/lib/libdpframework.so|liblog_mtk.so:\
+	/system/bin/sn|libshim_general.so:\
+	/system/bin/guiext-server|liblog_mtk.so:\
+	/system/bin/pq|liblog_mtk.so:\
+	/system/lib/egl/libGLES_mali.so|liblog_mtk.so:\
+	/system/lib/libfmcust.so|liblog_mtk.so:\
+	/system/xbin/mnld|liblog_mtk.so:\
+	/system/bin/thermal|libshim_thermal.so:\
+	/system/lib/libcutils.so|libshim_thermal.so:\
+	/system/bin/mtk_agpsd|liblog_mtk.so:\
+	/system/bin/mobile_log_d|liblog_mtk.so:\
+	/system/bin/wpa_supplicant:mtk_symbols.so:\
+	/system/lib/libnvram.so|libnvram_platform.so:\
+	/system/lib/libnvram.so|libnvram_sec.so:\
+	/system/lib/libnvram.so|libcustom_nvram.so:\
+	/system/lib/hw/audio.primary.mt6735.so|liblog_mtk.so:\
+	/system/lib/hw/gps.default.so|liblog_mtk.so:\
+	/system/bin/emdlogger1|liblog_mtk.so
+
 # CFLAG
 BOARD_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 BOARD_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
@@ -69,8 +91,11 @@ BOARD_USES_MTK_MEDIA_PROFILES := true
 
 TARGET_PROVIDES_LIBLIGHT := true
 
-USE_CAMERA_STUB := true
 PRODUCT_SHIPPING_API_LEVEL := 23
+
+# Camera
+#-- trying with grandprimeve3g configs
+include device/samsung/grandppltedx/configs/extra-makefiles/camera.mk
 
 # Dexpreopt
 WITH_DEXPREOPT := false
@@ -192,8 +217,9 @@ BOARD_SECOND_OFFSET   := 0x00f04000
 BOARD_TAGS_OFFSET     := 0x0e004000
 BOARD_KERNEL_OFFSET   := 0x00008000
 BOARD_DT_SIZE         := 485376
+BOARD_NAME            := SRPPI01A000KU
 
-BOARD_MKBOOTIMG_ARGS := --base $(BOARD_KERNEL_BASE) --pagesize $(BOARD_KERNEL_PAGESIZE) --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --second_offset $(BOARD_SECOND_OFFSET) --tags_offset $(BOARD_TAGS_OFFSET) --board $(TARGET_BOOTLOADER_BOARD_NAME) --dt $(DEVICE_PATH)/dt.img
+BOARD_MKBOOTIMG_ARGS := --base $(BOARD_KERNEL_BASE) --pagesize $(BOARD_KERNEL_PAGESIZE) --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --second_offset $(BOARD_SECOND_OFFSET) --tags_offset $(BOARD_TAGS_OFFSET) --board $(BOARD_NAME) --dt $(DEVICE_PATH)/dt.img
 
 
 # Recovery

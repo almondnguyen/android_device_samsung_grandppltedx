@@ -111,15 +111,6 @@ service permission_check /system/bin/permission_check
     group system radio
     oneshot
 
-# almond: after quite a lot of loggings,
-#         these ccci stuffs from MTK seem useless.
-#         still, idk what might break and what not.
-#
-#         this setprop reduces somewhat the massive amount
-#         of logging these things constantly print out
-
-setprop init.svc.emdlogger1 stopped
-
 service ccci_fsd /system/bin/ccci_fsd 0
     user system
     group radio system net_bt_stack

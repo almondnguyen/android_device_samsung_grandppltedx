@@ -21,6 +21,7 @@ import static com.android.internal.telephony.RILConstants.*;
 
 import android.content.Context;
 import android.telephony.Rlog;
+import android.os.AsyncResult;
 import android.os.Message;
 import android.os.Parcel;
 import android.os.SystemProperties;
@@ -33,6 +34,8 @@ import com.android.internal.telephony.uicc.IccRefreshResponse;
 import com.android.internal.telephony.uicc.IccUtils;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.io.IOException;
+
 
 /**
  * RIL customization for Galaxy J2 Prime/Grand Prime Plus (GSM)
@@ -46,22 +49,21 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
      * SAMSUNG REQUESTS
      **********************************************************/
     static final boolean RILJ_LOGD = true;
-    static final boolean RILJ_LOGV = false;
+    static final boolean RILJ_LOGV = true;
     
     /*request*/
     private static final int RIL_REQUEST_DIAL_EMERGENCY_CALL = 10001;
 
     /*response*/
-    
-    private static final int UNSOL_RESPONSE_NEW_CB_MSG = 11000; // alz
+    private static final int SAMSUNG_UNSOL_RESPONSE_BASE = 11000; // alz
     
     private static final int RIL_UNSOL_STK_SEND_SMS_RESULT = 11002;
     private static final int RIL_UNSOL_STK_CALL_CONTROL_RESULT = 11003;
-
     private static final int RIL_UNSOL_DEVICE_READY_NOTI = 11008;
     private static final int RIL_UNSOL_AM = 11010;
+    private static final int RIL_UNSOL_GPS_NOTI = 11009;
     private static final int RIL_UNSOL_SIM_PB_READY = 11021;
-	
+
     public grandpplteRIL(Context context, int preferredNetworkType, int cdmaSubscription) {
         this(context, preferredNetworkType, cdmaSubscription, null);
     }
@@ -70,17 +72,38 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
         super(context, preferredNetworkType, cdmaSubscription, instanceId);
     }
 
-    private int translateStatus(int status) {
-        switch (status & 7) {
-            case 3:
-                return 0;
-            case 5:
-                return 3;
-            case 7:
-                return 2;
-            default:
-                return 1;
+
+    // This thing... it causes lots of headaches due to RIL crashes
+    @Override
+    public void
+    getHardwareConfig (Message result) {
+        riljLog("Ignoring call to 'getHardwareConfig'");
+        if (result != null) {
+            CommandException ex = new CommandException(
+                CommandException.Error.REQUEST_NOT_SUPPORTED);
+            AsyncResult.forMessage(result, null, ex);
+            result.sendToTarget();
         }
+    }
+    
+    public void
+    acceptCall(int index, Message result) {
+        RILRequest rr =
+            RILRequest.obtain(RIL_REQUEST_ANSWER, result);
+
+        if (RILJ_LOGD) {
+            riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
+        }
+        rr.mParcel.writeInt(1);
+        rr.mParcel.writeInt(index);
+
+        send(rr);
+    }
+
+    @Override
+    public void
+    acceptCall(Message result) {
+        acceptCall(0, result);
     }
 
     @Override
@@ -242,91 +265,6 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
         }
         return response;
     }
-/*
-    // again, SlteRIL
-    @Override
-    protected Object responseCallList(Parcel p) {
-        int num;
-        int voiceSettings;
-        ArrayList<DriverCall> response;
-        DriverCall dc;
-        num = p.readInt();
-        response = new ArrayList<DriverCall>(num);
-        if (RILJ_LOGV) {
-            riljLog("responseCallList: num=" + num +
-                    " mEmergencyCallbackModeRegistrant=" + mEmergencyCallbackModeRegistrant +
-                    " mTestingEmergencyCall=" + mTestingEmergencyCall.get());
-        }
-        for (int i = 0 ; i < num ; i++) {
-            dc = new DriverCall();
-            dc.state = DriverCall.stateFromCLCC(p.readInt());
-            dc.index = p.readInt() & 0xff;
-            dc.TOA = p.readInt();
-            dc.isMpty = (0 != p.readInt());
-            dc.isMT = (0 != p.readInt());
-            dc.als = p.readInt();
-            voiceSettings = p.readInt();
-            dc.isVoice = (0 == voiceSettings) ? false : true;
-            int call_type = p.readInt();            // Samsung CallDetails
-            int call_domain = p.readInt();          // Samsung CallDetails
-            String csv = p.readString();            // Samsung CallDetails
-            if (RILJ_LOGV) {
-                riljLog(String.format("Samsung call details: type=%d, domain=%d, csv=%s",
-                               call_type, call_domain, csv));
-            }
-            dc.isVoicePrivacy = (0 != p.readInt());
-            dc.number = p.readString();
-            if (RILJ_LOGV) {
-                riljLog("responseCallList dc.number=" + dc.number);
-            }
-            dc.numberPresentation = DriverCall.presentationFromCLIP(p.readInt());
-            dc.name = p.readString();
-            if (RILJ_LOGV) {
-                riljLog("responseCallList dc.name=" + dc.name);
-            }
-            // according to ril.h, namePresentation should be handled as numberPresentation;
-            dc.namePresentation = DriverCall.presentationFromCLIP(p.readInt());
-            int uusInfoPresent = p.readInt();
-            if (uusInfoPresent == 1) {
-                dc.uusInfo = new UUSInfo();
-                dc.uusInfo.setType(p.readInt());
-                dc.uusInfo.setDcs(p.readInt());
-                byte[] userData = p.createByteArray();
-                dc.uusInfo.setUserData(userData);
-                riljLogv(String.format("Incoming UUS : type=%d, dcs=%d, length=%d",
-                                dc.uusInfo.getType(), dc.uusInfo.getDcs(),
-                                dc.uusInfo.getUserData().length));
-                riljLogv("Incoming UUS : data (string)="
-                        + new String(dc.uusInfo.getUserData()));
-                riljLogv("Incoming UUS : data (hex): "
-                        + IccUtils.bytesToHexString(dc.uusInfo.getUserData()));
-                // Make sure there's a leading + on addresses with a TOA of 145
-                dc.number = PhoneNumberUtils.stringFromStringAndTOA(dc.number, dc.TOA);
-            } else {
-                riljLogv("Incoming UUS : NOT present!");
-            }
-            response.add(dc);
-            if (dc.isVoicePrivacy) {
-                mVoicePrivacyOnRegistrants.notifyRegistrants();
-                riljLog("InCall VoicePrivacy is enabled");
-            } else {
-                mVoicePrivacyOffRegistrants.notifyRegistrants();
-                riljLog("InCall VoicePrivacy is disabled");
-            }
-        }
-        Collections.sort(response);
-        if ((num == 0) && mTestingEmergencyCall.getAndSet(false)
-                        && mEmergencyCallbackModeRegistrant != null) {
-            if (mEmergencyCallbackModeRegistrant != null) {
-                riljLog("responseCallList: call ended, testing emergency call," +
-                            " notify ECM Registrants");
-                mEmergencyCallbackModeRegistrant.notifyRegistrant();
-            }
-        }
-        return response;
-    }
-*/
-
     /* this phone is GSM only */
     private void constructGsmSendSmsRilRequest(RILRequest rr, String smscPDU, String pdu) {
         rr.mParcel.writeInt(2);
@@ -334,13 +272,24 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
         rr.mParcel.writeString(pdu);
     }
 
+    /**
+     *  Translates EF_SMS status bits to a status value compatible with
+     *  SMS AT commands.  See TS 27.005 3.1.
+     */
+    private int translateStatus(int status) {
+        switch(status & 0x7) {
+            case SmsManager.STATUS_ON_ICC_READ:
+                return 1;
+            case SmsManager.STATUS_ON_ICC_UNREAD:
+                return 0;
+            case SmsManager.STATUS_ON_ICC_SENT:
+                return 3;
+            case SmsManager.STATUS_ON_ICC_UNSENT:
+                return 2;
+        }
 
-    @Override
-    public void sendSMSExpectMore(String smscPDU, String pdu, Message result) {
-        RILRequest rr = RILRequest.obtain(RIL_REQUEST_SEND_SMS, result);
-        constructGsmSendSmsRilRequest(rr, smscPDU, pdu);
-        riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
-        send(rr);
+        // Default to READ.
+        return 1;
     }
 
     // according to SlteRIL
@@ -348,21 +297,20 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
      * The RIL can't handle the RIL_REQUEST_SEND_SMS_EXPECT_MORE
      * request properly, so we use RIL_REQUEST_SEND_SMS instead.
      */
-/*    @Override
+    @Override
     public void sendSMSExpectMore(String smscPDU, String pdu, Message result) {
-	// idk how to search for device modem lol
         Rlog.v(RILJ_LOG_TAG, "MT6737T: sendSMSExpectMore");
         RILRequest rr = RILRequest.obtain(RIL_REQUEST_SEND_SMS, result);
         constructGsmSendSmsRilRequest(rr, smscPDU, pdu);
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
         send(rr);
     }
-*/
+
     
     @Override
     protected Object responseOperatorInfos(Parcel p) {
         ArrayList<OperatorInfo> ret;
-        String[] strings = (String[]) responseStrings(p);
+        String[] strings = (String[])responseStrings(p);
         if (strings.length % 6 != 0) {
             throw new RuntimeException("RIL_REQUEST_QUERY_AVAILABLE_NETWORKS: invalid response. Got " + strings.length + " strings, expected multiple of 6");
         }
@@ -407,7 +355,9 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
 
         // Remap incorrect respones or ignore them
         switch (origResponse) {
+            case RIL_UNSOL_STK_CALL_CONTROL_RESULT:
             case RIL_UNSOL_SIM_PB_READY: // Registrant notification 
+            case RIL_UNSOL_GPS_NOTI:
         	Rlog.v(RILJ_LOG_TAG,
                        "MT6737T: ignoring unsolicited response " +
                        origResponse);
@@ -415,7 +365,7 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
         }
 
         if (newResponse != origResponse) {
-            riljLog("grandpplteRIL: remap unsolicited response from " +
+            riljLog("MT6737T: remap unsolicited response from " +
                     origResponse + " to " + newResponse);
             p.setDataPosition(dataPosition);
             p.writeInt(newResponse);

@@ -1,7 +1,6 @@
-MTK_LIB_PATH := device/samsung/grandppltedx/mtk
+LOCAL_PATH := $(call my-dir)
+ifeq ($(TARGET_DEVICE),grandppltedx)
 
-ifneq ($(filter grandppltedx,$(TARGET_DEVICE)),)
-
-include $(call all-makefiles-under,$(MTK_LIB_PATH))
+include $(call all-makefiles-under,$(LOCAL_PATH))
 
 endif

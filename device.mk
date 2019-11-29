@@ -29,6 +29,7 @@ $(call inherit-product-if-exists, vendor/samsung/grandppltedx/grandppltedx-vendo
 include device/samsung/grandppltedx/configs/extra-makefiles/permissions.mk
 include device/samsung/grandppltedx/configs/extra-makefiles/hardware.mk
 
+
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
 
@@ -146,11 +147,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.android.checkjni=0 \
 	ro.telephony.ril_class=grandpplteRIL
 
-# Doze
-PRODUCT_PACKAGES += \
-	SamsungDoze
-
-
 #-- FM
 MTK_FM_SUPPORT := true
 
@@ -188,6 +184,18 @@ $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 PRODUCT_COPY_FILES += \
 
+# Charger
+# Use cm images if available, aosp ones otherwise
+PRODUCT_PACKAGES += \
+	charger \
+	charger_res_images \
+	cm_charger_res_images
+
+# Camera
+PRODUCT_PACKAGES += \
+	libxml2 \
+	Camera2
+
 # Init
 PRODUCT_PACKAGES += \
 	libinit_grandpplte
@@ -223,6 +231,7 @@ PRODUCT_PACKAGES += \
 	init.rilchip.rc \
 	init.rilepdg.rc \
 	init.volte.rc \
+	init.emdlogger1.rc \
 	init.usb.configfs.rc \
 	init.wifi.rc \
 	meta_init.rc \
@@ -252,11 +261,6 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 	persist.sys.dun.override=0 \
 	persist.service.acm.enable=0 \
 	persist.sys.usb.config=mtp,adb
-
-# Charger Mode
-PRODUCT_PACKAGES += \
-	charger \
-	charger_res_images
 
 # Misc
 PRODUCT_PACKAGES += \

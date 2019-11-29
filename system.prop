@@ -1,8 +1,9 @@
 # system.prop for grandpplte
 
-# Nougat stuff
+# Nougat stuff and testing
 config.disable_consumerir=true
 media.sf.omx-plugin=libffmpeg_omx.so,libsomxcore.so
+qemu.hw.mainkeys=0
 
 # Platform
 ro.mediatek.chip_ver=S01
@@ -17,55 +18,8 @@ rild.libpath2=/system/lib/libsec-ril-dsds.so
 rild.libargs=-d /dev/ttyC0
 
 ro.telephony.ril_class=grandpplteRIL
-#ro.telephony.ril.config=fakeiccid
-ro.telephony.sim.count=2
-ro.telephony.default_network=9
-ro.boot.opt_lte_support=1
-telephony.lteOnGsmDevice=1
-telephony.lteOnCdmaDevice=0
-
-ro.mtk_lte_support=1
-ro.mtk_sim_hot_swap=1
-ro.mtk_gemini_support=1
-ro.mediatek.gemini_support=true
-ro.gemini.smart_sim_switch=false
-ro.ril.hsxpa=1
-ro.ril.gprsclass=10
-
-ril.current.share_modem=2
-ril.first.md=1
-ril.flightmode.poweroffMD=0
-ril.telephony.mode=0
-ril.external.md=0
-ril.specific.sm_cause=0
-
-persist.radio.multisim.config=dsds
-persist.radio.gemini_support=1
-persist.radio.fd.counter=15
-persist.radio.fd.off.counter=5
-persist.radio.fd.r8.counter=15
-persist.radio.fd.off.r8.counter=5
-persist.radio.sib16_support=0
-
-fmradio.driver.enable=1
-ro.mtk_fm_recording_support=1
-
-# audio
-ro.camera.sound.forced=0
-ro.audio.silent=0
-
-# VoLTE
-ro.mtk.volte.enable=1
-ro.mtk_volte_support=1
-
-persist.dbg.volte_avail_ovr=1
-
-# IMS
-ro.mtk_ims_support=1
-
-# SELinux
-# DISABLE FOR TESTING PURPOSE ONLY
-ro.build.selinux=1
+ro.telephony.ril.socket_name=rild,rild1,rild2
+ro.ril.telephony.mqanelements=6
 
 # Dalvik / hwui
 ro.hwui.texture_cache_size=24
@@ -97,64 +51,97 @@ dalvik.vm.heapmaxfree=8m
 # Block
 ro.frp.pst=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/PERSISTENT
 
-# PQ
-ro.mtk_pq_support=2
-
-# Wi-Fi / BT
-wifi.interface=wlan0
-wifi.direct.interface=p2p0
-wifi.tethering.interface=ap0
-
-ro.mtk_wlan_support=1
-ro.mtk_wifi_mcc_support=1
-ro.mediatek.wlan.wsc=1
-ro.mtk_dhcpv6c_wifi=1
-
-mediatek.wlan.chip=CONSYS_MT6735
-mediatek.wlan.module.postfix=_consys_mt6735
-mediatek.wlan.ctia=0
-
-#-
-ro.mtk_bt_support=1
-
-# Tethering
-ro.mtk_tetheringipv6_support=1
-
-# GPS
-ro.mtk_agps_app=1
-ro.mtk_gps_support=1
-
-#+ Other - mix of Samsung and MTK-common
+# display
 ro.sf.lcd_density=240
 persist.sys.lcd_density=240
 
-ro.opengles.version=196609
+# add
+ro.telephony.default_network=9
+ro.boot.opt_lte_support=1
+telephony.lteOnGsmDevice=1
+telephony.lteOnCdmaDevice=0
 
-debug.hwui.render_dirty_regions=false
-
-ro.mtk_world_phone_policy=0
-ro.kernel.zio=38,108,105,16
+# copypasta build.prop
+persist.radio.sib16_support=0
+ro.telephony.default_network=9
+ro.product.first_api_level=23
+dalvik.vm.heapsize=512m
+ro.carrier=unknown
+ro.com.google.clientidbase=android-samsung
+ro.mediatek.chip_ver=S01
+ro.mediatek.platform=MT6737T
+ro.gemini.smart_sim_switch=false
+ril.specific.sm_cause=0
+bgw.current3gband=0
+ril.external.md=0
 ro.sf.hwrotation=0
+ro.mediatek.gemini_support=true
+persist.radio.fd.counter=15
+persist.radio.fd.off.counter=5
+persist.radio.fd.r8.counter=15
+persist.radio.fd.off.r8.counter=5
+fmradio.driver.enable=1
+ril.first.md=1
+ril.flightmode.poweroffMD=0
+ril.telephony.mode=0
+dalvik.vm.mtk-stack-trace-file=/data/anr/mtk_traces.txt
+mediatek.wlan.chip=CONSYS_MT6735
+mediatek.wlan.module.postfix=_consys_mt6735
+ril.radiooff.poweroffMD=0
+ro.mediatek.version.branch=alps-mp-m1.mp8.tc10sp
+ro.mediatek.version.release=alps-mp-m1.mp8.tc10sp
+ro.mediatek.version.sdk=4
+ro.mtk_gemini_support=1
+persist.radio.gemini_support=1
+ril.current.share_modem=2
+ro.mtk_audenh_support=1
+ro.mtk_bt_support=1
+ro.mtk_wappush_support=1
+ro.mtk_agps_app=1
+ro.mtk_audio_tuning_tool_ver=V2.2
+ro.mtk_wlan_support=1
+ro.mtk_gps_support=1
+ro.mtk_dhcpv6c_wifi=1
+ro.have_aacencode_feature=1
+ro.mtk_fd_support=1
+ro.mtk_widevine_drm_l3_support=1
+ro.mtk_eap_sim_aka=1
+ro.mtk_fm_recording_support=1
+ro.mtk_audio_ape_support=1
+ro.mtk_flv_playback_support=1
+ro.mtk_wmv_playback_support=1
+ro.mtk_send_rr_support=1
 ro.mtk_emmc_support=1
-persist.mtk.wcn.combo.chipid=-1
-ro.com.android.mobiledata=true
+ro.mtk_bsp_package=1
+ro.mtk_tetheringipv6_support=1
+ro.mtk_shared_sdcard=1
 ro.mtk_enable_md1=1
-ro.mtk_flight_mode_power_off_md=1
-ro.mtk_world_phone=1
+ro.mtk_pq_support=2
+ro.mtk_wifi_mcc_support=1
+ro.mtk_sim_hot_swap=1
+ro.mtk_bip_scws=1
+ro.mtk_world_phone_policy=0
+ro.mtk_perfservice_support=1
 ro.mtk_cta_set=1
-ro.mtk_rild_read_imsi=1
-ro.sys.usb.mtp.whql.enable=0
-sys.ipo.pwrdncap=2
-ro.sys.usb.bicr=no
-ro.sys.usb.charging.only=yes
-ro.sys.usb.storage.type=mtp,mass_storage
-
-ro.camera.sound.forced=0
-ro.audio.silent=0
-
-ro.zygote.preload.enable=0
-persist.af.audio_patch_fm=1
-persist.md.perm.checked=1
-
-# Test
-qemu.hw.mainkeys=0
+ro.mtk_antibricking_level=2
+ro.mtk_lte_support=1
+ro.mtk_safemedia_support=1
+ro.sim_refresh_reset_by_modem=1
+ro.mtk_passpoint_r1_support=1
+ro.mtk_bg_power_saving_support=1
+ro.sim_me_lock_mode=0
+ro.mtk_dual_mic_support=0
+ro.mtk_is_tablet=0
+ro.mtk_ims_support=1
+ro.mtk.volte.enable=1
+ro.mtk_volte_support=1
+persist.dbg.volte_avail_ovr=1
+wfd.dummy.enable=1
+ro.mediatek.project.path=
+persist.mtk.wcn.combo.chipid=-1
+service.wcn.driver.ready=no
+service.wcn.coredump.mode=0
+ro.com.android.mobiledata=true
+persist.radio.mobile.data=0,0
+persist.meta.dumpdata=0
+ro.opengles.version=196609

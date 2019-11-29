@@ -108,10 +108,9 @@ void vendor_load_properties() {
 
 	if (bootloader.find("G532G") != std::string::npos) {
 		/* G532G */
-		/* there is another grandpplte variant: grandpplteins ?D */
+		/* SEA is grandppltedx; SWA is grandpplteins*/
+		/* no major differences actually, so just name it -dx*/
 	        property_override("ro.product.name", "grandppltedx");
-		property_override("ro.build.fingerprint", "samsung/grandppltedx/grandpplte:6.0.1/MMB29T/G532GDXU1ARH1:user/release-keys");
-		property_override("ro.build.description", "grandppltedx-user 6.0.1 MMB29T G532GDXU1ARH1 release-keys");
 		if (sim_count == 1) {
 			property_override("ro.product.model", "SM-G532G");
 			init_single();
@@ -148,6 +147,7 @@ void vendor_load_properties() {
 	std::string device = property_get("ro.product.device");
 	std::string devicename = property_get("ro.product.model");
 
-	INFO("Found bootloader id %s setting build properties for %s device\n", bootloader.c_str(), devicename.c_str());
+	/* error for easier finding~ */
+	ERROR("Found bootloader id %s setting build properties for %s device\n", bootloader.c_str(), devicename.c_str());
 
 }

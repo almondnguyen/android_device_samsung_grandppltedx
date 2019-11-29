@@ -30,4 +30,5 @@ $(call add-rootdir-targets, \
 	init.volte.rc \
 	init.wifi.rc \
 	ueventd.mt6735.rc \
+	init.emdlogger1.rc \
 	init.samsung.rc)
