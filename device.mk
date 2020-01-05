@@ -17,6 +17,7 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+BLOCK_BASED_OTA := false
 
 # Define Path
 DEVICE_PATH := device/samsung/grandppltedx
@@ -135,9 +136,7 @@ SIM_COUNT := 2
 PRODUCT_PACKAGES += \
 	libsecril-client-sap \
 	libxml2 \
-	libprotobuf-cpp-full \
-	libstlport \
-	librilutils
+	libprotobuf-cpp-full
 
 
 PRODUCT_COPY_FILES += \
@@ -160,6 +159,10 @@ PRODUCT_PACKAGES += \
 	mtk_symbols \
 	libshim_thermal \
 	libshim_general
+#	libshim_ril
+
+# Camera
+BOARD_USE_SAMSUNG_CAMERAFORMAT_YUV420SP := true
 
 # Recovery - twrp
 PRODUCT_COPY_FILES += \

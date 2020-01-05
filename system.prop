@@ -61,6 +61,14 @@ ro.boot.opt_lte_support=1
 telephony.lteOnGsmDevice=1
 telephony.lteOnCdmaDevice=0
 
+# trying to manipulate emdlogger1
+mtklog_path = internal_sd
+com.mediatek.log.modem.enabled = true
+com.mediatek.log.modem.maxsize = 2000
+com.mediatek.log.net.enabled = true
+com.mediatek.log.net.maxsize = 600
+com.mediatek.log.gps.enabled = true
+
 # copypasta build.prop
 persist.radio.sib16_support=0
 ro.telephony.default_network=9
