@@ -28,7 +28,8 @@
 /dev/umts*                0660   system     radio
 
 
-
+# fix alarm permissions
+/dev/alarm                0664   system     radio
 
 # OTP
 /dev/otp                 0660 system system
