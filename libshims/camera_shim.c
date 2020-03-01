@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-const char _ZN7android16CameraParameters26PIXEL_FORMAT_YUV420SP_NV21E[] = "yuv420sp-nv21e";
+// const char _ZN7android16CameraParameters26PIXEL_FORMAT_YUV420SP_NV21E[] = "yuv420sp-nv21e";
