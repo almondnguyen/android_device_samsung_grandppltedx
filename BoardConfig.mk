@@ -40,7 +40,15 @@ LINKER_FORCED_SHIM_LIBS := \
 	/system/lib/libnvram.so|libcustom_nvram.so:\
 	/system/lib/hw/audio.primary.mt6735.so|liblog_mtk.so:\
 	/system/lib/hw/gps.default.so|liblog_mtk.so:\
-	/system/bin/emdlogger1|liblog_mtk.so
+	/system/bin/emdlogger1|liblog_mtk.so:\
+	/system/bin/mtk_agpsd|libshim_ssl.so:\
+	/system/bin/tzdaemon|libshim_ssl.so:\
+	/system/bin/taadaemon|libshim_ssl.so:\
+	/system/bin/wpa_supplicant|libshim_ssl.so:\
+	/system/lib/libshim_ssl.so|libopensslsmime.so:\
+	/system/lib/libshim_ssl.so|libsecopenssl_engine.so:\
+	/system/lib/libshim_ssl.so|libcrypto-rename.so:\
+	/system/lib/libshim_ssl.so|libssl.so
 
 # CFLAG
 BOARD_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
@@ -208,7 +216,8 @@ BOARD_KERNEL_IMAGE_NAME := zImage
 TARGET_KERNEL_SOURCE    := kernel/samsung/grandppltedx
 TARGET_KERNEL_CONFIG    := mt6737t-grandpplte_defconfig
 
-BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive androidboot.selinux=disabled
+BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive androidboot.selinux=disabled mitigations=off
+# credit mitigations to arter97
 
 BOARD_KERNEL_BASE     := 0x3fffc000
 BOARD_KERNEL_PAGESIZE := 2048
