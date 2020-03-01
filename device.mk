@@ -26,7 +26,6 @@ DEVICE_PATH := device/samsung/grandppltedx
 $(call inherit-product-if-exists, vendor/samsung/grandppltedx/grandppltedx-vendor.mk)
 
 # hmm
-#include device/samsung/grandppltedx/configs/extra-makefiles/tempo-fix.mk
 include device/samsung/grandppltedx/configs/extra-makefiles/permissions.mk
 include device/samsung/grandppltedx/configs/extra-makefiles/hardware.mk
 
@@ -161,18 +160,9 @@ PRODUCT_PACKAGES += \
 	libshim_general
 #	libshim_ril
 
-# Camera
-BOARD_USE_SAMSUNG_CAMERAFORMAT_YUV420SP := true
-
 # Recovery - twrp
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/recovery.fstab:recovery/root/etc/twrp.fstab
-
-# Thermal
-PRODUCT_COPY_FILES += \
-	$(DEVICE_PATH)/configs/thermal/.ht120.mtc:system/etc/.tp/.ht120.mtc \
-	$(DEVICE_PATH)/configs/thermal/thermal.conf:system/etc/.tp/thermal.conf \
-	$(DEVICE_PATH)/configs/thermal/thermal.off.conf:system/etc/.tp/thermal.off.conf
 
 # GPS
 PRODUCT_PACKAGES += \

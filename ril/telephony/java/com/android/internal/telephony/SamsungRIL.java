@@ -43,7 +43,7 @@ import java.io.IOException;
  * {@hide}
  */
 
-public class grandpplteRIL extends RIL implements CommandsInterface {
+public class SamsungRIL extends RIL implements CommandsInterface {
 
     /**********************************************************
      * SAMSUNG REQUESTS
@@ -64,11 +64,11 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
     private static final int RIL_UNSOL_GPS_NOTI = 11009;
     private static final int RIL_UNSOL_SIM_PB_READY = 11021;
 
-    public grandpplteRIL(Context context, int preferredNetworkType, int cdmaSubscription) {
+    public SamsungRIL(Context context, int preferredNetworkType, int cdmaSubscription) {
         this(context, preferredNetworkType, cdmaSubscription, null);
     }
 
-    public grandpplteRIL(Context context, int preferredNetworkType, int cdmaSubscription, Integer instanceId) {
+    public SamsungRIL(Context context, int preferredNetworkType, int cdmaSubscription, Integer instanceId) {
         super(context, preferredNetworkType, cdmaSubscription, instanceId);
     }
 
@@ -362,9 +362,89 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
 
         // Remap incorrect respones or ignore them
         switch (origResponse) {
-            case RIL_UNSOL_STK_CALL_CONTROL_RESULT:
-            case RIL_UNSOL_SIM_PB_READY: // Registrant notification 
-            case RIL_UNSOL_GPS_NOTI:
+		case 11001: ret = responseSSReleaseCompleteNotification(p);
+                break;
+            case 11002:
+                ret = responseInts(p);
+                break;
+            case 11003:
+                ret = responseString(p);
+                break;
+            case 11005:
+                ret = responseInts(p);
+                break;
+            case 11008:
+                ret = responseVoid(p);
+                break;
+            case 11009:
+                ret = responseVoid(p);
+                break;
+            case 11010:
+                ret = responseString(p);
+                break;
+            case 11013:
+                ret = responseRaw(p);
+                break;
+            case 11020:
+                ret = responseRaw(p);
+                break;
+            case 11021:
+                ret = responseVoid(p);
+                break;
+            case 11024:
+                ret = responseRaw(p);
+                break;
+            case 11028:
+                ret = responseCallModify(p);
+                break;
+            case 11030:
+                ret = responseInts(p);
+                break;
+            case 11032:
+                ret = responseInts(p);
+                break;
+            case 11034:
+                ret = responseVoid(p);
+                break;
+            case 11035:
+                ret = responseVoid(p);
+                break;
+            case 11037:
+                ret = responseVoid(p);
+                break;
+            case 11043:
+                ret = responseVoid(p);
+                break;
+            case 11054:
+                ret = responseInts(p);
+                break;
+            case 11056:
+                ret = responseRaw(p);
+                break;
+            case 11057:
+                ret = responseInts(p);
+                break;
+            case 11058:
+                ret = responseInts(p);
+                break;
+            case 11060:
+                ret = responseStrings(p);
+                break;
+            case 11061:
+                ret = responseInts(p);
+                break;
+            case 11062:
+                ret = responseInts(p);
+                break;
+            case 11064:
+                ret = responseInts(p);
+                break;
+            case 11066:
+                ret = responseString(p);
+                break;
+            case 11067:
+                ret = responseInts(p);
+                break;
         	Rlog.v(RILJ_LOG_TAG,
                        "MT6737T: ignoring unsolicited response " +
                        origResponse);
