@@ -18,7 +18,7 @@ rild.libpath2=/system/lib/libsec-ril-dsds.so
 rild.libargs=-d /dev/ttyC0
 
 ro.telephony.ril_class=grandpplteRIL
-ro.telephony.ril.socket_name=rild,rild1
+ro.telephony.ril.socket_name=rild,rild2
 ro.ril.telephony.mqanelements=6
 
 # Dalvik / hwui

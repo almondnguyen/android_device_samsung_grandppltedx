@@ -2,8 +2,6 @@
 
 #include <openssl/ssl.h>
 #include <openssl/bio.h>
-#include <openssl/bio-new-ssl.h> /* add BIO_new_ssl_connect func for mtk_agpsd */
-#include <openssl/evp.h>
 
 #define LOG_TAG "SSL_ctrl_stub"
 #include <log/log.h>

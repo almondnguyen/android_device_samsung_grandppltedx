@@ -158,7 +158,8 @@ PRODUCT_PACKAGES += \
 	mtk_symbols \
 	libshim_thermal \
 	libshim_general \
-	libshim_ssl
+	libshim_ssl \
+	libshim_camera
 #	libshim_ril
 
 # Recovery - twrp

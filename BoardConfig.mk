@@ -45,10 +45,11 @@ LINKER_FORCED_SHIM_LIBS := \
 	/system/bin/tzdaemon|libshim_ssl.so:\
 	/system/bin/taadaemon|libshim_ssl.so:\
 	/system/bin/wpa_supplicant|libshim_ssl.so:\
-	/system/lib/libshim_ssl.so|libopensslsmime.so:\
 	/system/lib/libshim_ssl.so|libsecopenssl_engine.so:\
 	/system/lib/libshim_ssl.so|libcrypto-rename.so:\
-	/system/lib/libshim_ssl.so|libssl.so
+	/system/lib/libshim_ssl.so|libssl.so:\
+	/system/lib/libshim_camera.so|libcam.utils.so
+	#/system/lib/libshim_ssl.so|libopensslsmime.so:\
 
 # CFLAG
 BOARD_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
