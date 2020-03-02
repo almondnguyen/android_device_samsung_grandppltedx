@@ -17,7 +17,7 @@ long SSL_CTX_ctrl(SSL_CTX *ctx, int cmd, long larg, void *parg) {
 }
 
 void CRYPTO_free(void *str) {
-//free(str);
+    free(str);
 }
 
 void *CRYPTO_malloc(int num, const char *file, int line) {

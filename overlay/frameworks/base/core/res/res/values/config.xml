@@ -150,7 +150,7 @@
          Empty is viewed as "all".  Only used on devices which
          don't support RIL_REQUEST_GET_RADIO_CAPABILITY
          format is UMTS|LTE|... -->
-    <string translatable="false" name="config_radio_access_family">GSM|EVDO|WCDMA|UMTS|LTE</string>
+    <string translatable="false" name="config_radio_access_family">GSM | WCDMA | UMTS | LTE</string>
     
     <!-- Boolean indicating whether the wifi chipset has dual frequency band support -->
     <bool translatable="false" name="config_wifi_dual_band_support">false</bool>
@@ -160,7 +160,7 @@
     <bool name="config_wifiDisplaySupportsProtectedBuffers">true</bool>
 
     <!-- Indicate whether the SD card is accessible without removing the battery. -->
-    <bool name="config_batterySdCardAccessibility">false</bool>
+    <bool name="config_batterySdCardAccessibility">true</bool>
 
     <!--  Maximum number of supported users -->
     <integer name="config_multiuserMaximumUsers">4</integer>

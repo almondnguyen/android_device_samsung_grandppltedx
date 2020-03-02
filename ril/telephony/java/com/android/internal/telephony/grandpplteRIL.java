@@ -53,9 +53,9 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
     
     /*request*/
     private static final int RIL_REQUEST_DIAL_EMERGENCY_CALL = 10001;
-
+    private static final int GET_CELL_BROADCAST_CONFIG = 10008;
     /*response*/
-    private static final int SAMSUNG_UNSOL_RESPONSE_BASE = 11000; // alz
+    //private static final int SAMSUNG_UNSOL_RESPONSE_BASE = 11000; // alz
     
     private static final int RIL_UNSOL_STK_SEND_SMS_RESULT = 11002;
     private static final int RIL_UNSOL_STK_CALL_CONTROL_RESULT = 11003;
@@ -63,6 +63,8 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
     private static final int RIL_UNSOL_AM = 11010;
     private static final int RIL_UNSOL_GPS_NOTI = 11009;
     private static final int RIL_UNSOL_SIM_PB_READY = 11021;
+    private static final int RIL_UNSOL_PB_INIT_COMPLETE = 11035;
+    private static final int RIL_UNSOL_SIM_ICCID_NOTI = 11066;
 
     public grandpplteRIL(Context context, int preferredNetworkType, int cdmaSubscription) {
         this(context, preferredNetworkType, cdmaSubscription, null);
@@ -365,6 +367,7 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
             case RIL_UNSOL_STK_CALL_CONTROL_RESULT:
             case RIL_UNSOL_SIM_PB_READY: // Registrant notification 
             case RIL_UNSOL_GPS_NOTI:
+	    case RIL_UNSOL_SIM_ICCID_NOTI:
         	Rlog.v(RILJ_LOG_TAG,
                        "MT6737T: ignoring unsolicited response " +
                        origResponse);
@@ -396,13 +399,16 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
                 super.processUnsolicited(p, type);
                 return;
         }
-
+	
         switch (newResponse) {
             case RIL_UNSOL_AM:
                 String strAm = (String)ret;
                 // Add debug to check if this wants to execute any useful am command
                 Rlog.v(RILJ_LOG_TAG, "MT6737T: am=" + strAm);
                 break;
+	    case RIL_UNSOL_PB_INIT_COMPLETE:
+		ret = responseVoid(p);
+		break;
         }
     }
 }

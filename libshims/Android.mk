@@ -24,7 +24,7 @@ include $(BUILD_SHARED_LIBRARY)
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := \
 	ssl_shim.c \
-	openssl_shim.c
+	evp_acnf.c
 
 LOCAL_MODULE := libshim_ssl
 LOCAL_MODULE_TAGS := optional
