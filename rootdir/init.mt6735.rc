@@ -2,6 +2,7 @@
 
 # samsung init forked out
 import /init.samsung.rc
+import /init.rllcommon.rc
 
 # normal
 import init.project.rc
@@ -1570,14 +1571,16 @@ service program_binary /system/bin/program_binary_service
     oneshot
 
 # Blowfish service
-service tz_service /system/bin/tzdaemon
+#--almond: force run these services to see how emdlogger1 reacts
+
+service tz_service /system/bin/tzdaemon --daemon=yes --verbose=dbg
     class core
     socket tz stream 0666 system system
     user system
     group system
     disabled
 
-service taa_service /system/bin/taadaemon
+service taa_service /system/bin/taadaemon --daemon=yes --verbose=dbg
     class core
     user system
     group system

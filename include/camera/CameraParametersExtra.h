@@ -16,7 +16,7 @@
  */
 
 #define CAMERA_PARAMETERS_EXTRA_C \
-    const char CameraParameters::PIXEL_FORMAT_YUV420SP_NV21[] = "yuv420sp-nv21e"; \
+    const char CameraParameters::PIXEL_FORMAT_YUV420SP_NV21E[] = "yuv420sp-nv21e"; \
     const char CameraParameters::EFFECT_CARTOONIZE[] = "cartoonize"; \
     const char CameraParameters::EFFECT_POINT_RED_YELLOW[] = "point-red-yellow"; \
     const char CameraParameters::EFFECT_POINT_GREEN[] = "point-green"; \
@@ -49,7 +49,7 @@
     const char CameraParameters::KEY_RT_HDR[] = "rt-hdr";
 
 #define CAMERA_PARAMETERS_EXTRA_H \
-    static const char PIXEL_FORMAT_YUV420SP_NV21[]; \
+    static const char PIXEL_FORMAT_YUV420SP_NV21E[]; \
     static const char EFFECT_CARTOONIZE[]; \
     static const char EFFECT_POINT_RED_YELLOW[]; \
     static const char EFFECT_POINT_GREEN[]; \

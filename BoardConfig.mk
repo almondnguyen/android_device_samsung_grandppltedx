@@ -217,9 +217,7 @@ BOARD_KERNEL_IMAGE_NAME := zImage
 TARGET_KERNEL_SOURCE    := kernel/samsung/grandppltedx
 TARGET_KERNEL_CONFIG    := mt6737t-grandpplte_defconfig
 
-BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive androidboot.selinux=disabled mitigations=off
-# credit mitigations to arter97
-
+BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive
 BOARD_KERNEL_BASE     := 0x3fffc000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_RAMDISK_OFFSET  := 0x04004000
