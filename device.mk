@@ -32,6 +32,12 @@ $(call inherit-product-if-exists, vendor/samsung/grandppltedx/grandppltedx-vendo
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
 
+# Dexpreopt
+PRODUCT_DEXPREOPT_SPEED_APPS += \
+    TrebuchetQuickStep \
+    Settings \
+    SystemUI
+
 # Display
 #-- This device is hdpi.
 PRODUCT_AAPT_CONFIG := normal hdpi
