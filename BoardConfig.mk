@@ -125,11 +125,6 @@ BOARD_MKBOOTIMG_ARGS := \
 	--tags_offset $(BOARD_TAGS_OFFSET) \
 	--board $(BOARD_NAME)
 
-# CMHW
-BOARD_USES_LINEAGE_HARDWARE := true
-BOARD_USES_CYANOGEN_HARDWARE := true
-BOARD_HARDWARE_CLASS += $(DEVICE_PATH)/lineagehw
-
 # Legacy BLOB Support
 TARGET_PROCESS_SDK_VERSION_OVERRIDE += \
     /system/vendor/bin/hw/rild=27
