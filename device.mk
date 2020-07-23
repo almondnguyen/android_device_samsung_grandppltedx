@@ -311,7 +311,11 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.service.acm.enable=0 \
 	persist.sys.usb.config=mtp,adb \
 	persist.sys.display.clearMotion=0
-	 
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.egl=mali \
+    ro.hardware.vulkan=mali
+
 # Misc
 PRODUCT_PACKAGES += \
 	librs_jni \
