@@ -75,12 +75,33 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
     }
 
     @Override
-    public void getRadioCapability(Message response) {
-        riljLog("getRadioCapability: returning static radio capability");
+    public void
+    getHardwareConfig (Message result) {
+        riljLog("Ignoring call to 'getHardwareConfig'");
+        if (result != null) {
+            CommandException ex = new CommandException(
+                CommandException.Error.REQUEST_NOT_SUPPORTED);
+            AsyncResult.forMessage(result, null, ex);
+            result.sendToTarget();
+        }
+    }
+
+    @Override
+    public void startLceService(int reportIntervalMs, boolean pullMode, Message response) {
+        riljLog("Link Capacity Estimate (LCE) service is not supported!");
         if (response != null) {
-            Object ret = makeStaticRadioCapability();
-            AsyncResult.forMessage(response, ret, null);
+            AsyncResult.forMessage(response, null, new CommandException(
+                    CommandException.Error.REQUEST_NOT_SUPPORTED));
             response.sendToTarget();
+        }
+    }
+
+    @Override
+    public void setDataAllowed(boolean allowed, Message result) {
+        RILRequest rr = RILRequest.obtain(RIL_REQUEST_ALLOW_DATA, result);
+        if (RILJ_LOGD) {
+            riljLog(rr.serialString() + "> " + requestToString(rr.mRequest) +
+                    " allowed: " + allowed);
         }
     }
 

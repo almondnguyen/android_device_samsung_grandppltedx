@@ -1,15 +1,14 @@
-#on boot
-#    /system/etc/init/bokeh-emdlogger.sh
+on boot
+    /system/etc/init/log.sh
 
 # MTK silentlog default OFF for UserBin
-service emdlogger1 /system/bin/emdlogger1
-    class main
-    user shell
-    group system shell radio sdcard_rw inet sdcard_r media_rw log
-    disabled
-    oneshot
+#service emdlogger1 /system/bin/emdlogger1
+#    class main
+#    user shell
+#    group system radio sdcard_rw inet sdcard_r media_rw log
+#    disabled
+#    oneshot
 
-# al + TBM13: test
-on property:vold.decrypt=trigger_restart_framework && property:init.svc.emdlogger1=stopped
-    start emdlogger1
+#on property:vold.decrypt=trigger_restart_framework && property:init.svc.emdlogger1=stopped
+#    start emdlogger1
     

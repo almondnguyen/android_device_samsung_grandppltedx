@@ -3,9 +3,14 @@ grandpplte device tree
 
 -----
 CURRENTLY NOT WORKING: 
-* Telephony (Modem/CP Crash)
-* Camera 
-* (Most other bugs are induced from those 2 above)
+* Telephony (if Audio is up, Radio is down)
+* Camera (Camera app crash)
+* Wi-Fi Hotspot
+* Doze (doesn't work at all)
+* Probably OMX (will need further testing)
+* Recent Key
+* LiveDisplay
+
 
 DEVELOPMENT IN PROGRESS. MAY EAT YOUR CAT
 

@@ -23,7 +23,6 @@ import init.modem.rc
 # *** DO NOT import the new rc file after this line ***
 
 on early-init
-
     chmod 0644 /proc/cmdline
 
     mount debugfs /sys/kernel/debug
@@ -194,6 +193,8 @@ on post-fs-data
 
     mkdir /data/drm/wv 0770 drm system
 
+    write /sys/class/firmware/timeout 75
+    
 # GPS
     mkdir /data/gps_mnl 0771 gps system
     mkdir /data/misc/gps 0770 gps system
@@ -992,11 +993,13 @@ service bugreport /system/bin/dumpstate -d -p -B \
 service netdiag /system/bin/netdiag
     class main
 
+#al: a dum-dum way to get a lot more permission for the nvram stuff
+#group system
 
 service nvram_daemon /system/bin/nvram_daemon
     class main
     user root
-    group system
+    group root system radio shell net_bt_stack audio inet
     oneshot
 
 service meta_tst /system/bin/meta_tst
@@ -1412,10 +1415,16 @@ service shutdown /system/bin/shutdown
     group root
     disabled
 
+#al: a dum-dum way to get a lot more permission for the nvram stuff
+#group system
+#user system
+
 service NvRAMAgent /system/bin/nvram_agent_binder
     class main
-    user system
-    group system
+    user root
+    group root system radio shell net_bt_stack audio inet
+
+
 
 service thermal_manager /system/bin/thermal_manager
     class main

@@ -25,10 +25,36 @@ DEVICE_PATH := device/samsung/grandppltedx
 # Vendor
 $(call inherit-product-if-exists, vendor/samsung/grandppltedx/grandppltedx-vendor.mk)
 
-# hmm
-include device/samsung/grandppltedx/configs/extra-makefiles/permissions.mk
-include device/samsung/grandppltedx/configs/extra-makefiles/hardware.mk
-
+# Perms
+PRODUCT_COPY_FILES += \
+	frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
+	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
+	frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
+	frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
+	frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+	frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+	frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
+	frameworks/native/data/etc/android.hardware.faketouch.xml:system/etc/permissions/android.hardware.faketouch.xml \
+	frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+	frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
+	frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.compass.xml \
+	frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+	frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
+	frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+	frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
+	frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:system/etc/permissions/android.hardware.sensor.stepdetector.xml \
+	frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
+	frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
+	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
+	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
+	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+	frameworks/native/data/etc/android.hardware.touchscreen.xml:system/etc/permissions/android.hardware.touchscreen.xml \
+	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+	frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+	frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
+	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+	frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+	frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
 
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
@@ -112,11 +138,6 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
 # Radio
-#-- Radio dependencies
-PRODUCT_PACKAGES += \
-	muxreport \
-	terservice
-
 #PRODUCT_PACKAGES += \
 #	libsecnativefeature
 
@@ -159,8 +180,19 @@ PRODUCT_PACKAGES += \
 	libshim_thermal \
 	libshim_general \
 	libshim_ssl \
-	libshim_camera
-#	libshim_ril
+	libshim_camera \
+	libshim_agpsd \
+	libccci_util
+
+
+# Platform
+PRODUCT_PACKAGES += \
+	libem_sensor_jni \
+	libstlport \
+	libgralloc_extra \
+	libgui_ext \
+	libui_ext
+
 
 # Recovery - twrp
 PRODUCT_COPY_FILES += \
@@ -190,6 +222,21 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	libxml2 \
 	Camera2
+
+#-- camera sensor type
+CAMERA_SENSOR_TYPE_BACK := "imx219_mipi_raw"
+CAMERA_SENSOR_TYPE_FRONT := "s5k5e3yx_mipi_raw"
+
+CAMERA_SUPPORT_SIZE := 8M
+FRONT_CAMERA_SUPPORT_SIZE := 5M
+TARGET_BOARD_NO_FRONT_SENSOR := false
+TARGET_BOARD_CAMERA_FLASH_CTRL := false
+
+BOARD_USE_SAMSUNG_CAMERAFORMAT_YUV420SP := true
+TARGET_HAS_LEGACY_CAMERA_HAL1 := true
+TARGET_NEEDS_LEGACY_CAMERA_HAL1_DYN_NATIVE_HANDLE := true
+
+TARGET_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_HARDWARE
 
 # Init
 PRODUCT_PACKAGES += \
@@ -235,9 +282,12 @@ PRODUCT_PACKAGES += \
 	meta_init.usb.rc \
 	init.recovery.mt6735.rc \
 	init.samsung.rc \
-	ueventd.mt6735.rc
+	ueventd.mt6735.rc \
+	init.xlog.rc \
+	log.sh
 
 #-- sbin
+
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/rootdir/sbin/sswap:root/sbin/sswap \
 	$(DEVICE_PATH)/rootdir/sbin/ffu:root/sbin/ffu \

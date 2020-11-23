@@ -22,34 +22,27 @@ TARGET_OTA_ASSERT_DEVICE := grandpplte,grandppltedx,grandpplteub,grandpplteser,g
 
 # Move symlinks here
 LINKER_FORCED_SHIM_LIBS := \
-	/system/lib/libdpframework.so|libshim_general.so:\
 	/system/lib/libdpframework.so|liblog_mtk.so:\
-	/system/bin/sn|libshim_general.so:\
-	/system/bin/guiext-server|liblog_mtk.so:\
-	/system/bin/pq|liblog_mtk.so:\
-	/system/lib/egl/libGLES_mali.so|liblog_mtk.so:\
-	/system/lib/libfmcust.so|liblog_mtk.so:\
-	/system/xbin/mnld|liblog_mtk.so:\
-	/system/bin/thermal|libshim_thermal.so:\
-	/system/lib/libcutils.so|libshim_thermal.so:\
+	/system/lib/hw/gps.default.so|liblog_mtk.so:\
+	/system/lib/hw/audio.primary.mt6735.so|liblog_mtk.so:\
+	/system/lib/libMtkOmxAlacDec.so|liblog_mtk.so:\
+	/system/bin/mdlogger|liblog_mtk.so:\
 	/system/bin/mtk_agpsd|liblog_mtk.so:\
 	/system/bin/mobile_log_d|liblog_mtk.so:\
-	/system/bin/wpa_supplicant:mtk_symbols.so:\
-	/system/lib/libnvram.so|libnvram_platform.so:\
-	/system/lib/libnvram.so|libnvram_sec.so:\
-	/system/lib/libnvram.so|libcustom_nvram.so:\
-	/system/lib/hw/audio.primary.mt6735.so|liblog_mtk.so:\
-	/system/lib/hw/gps.default.so|liblog_mtk.so:\
+	/system/bin/fsck_msdos_mtk|liblog_mtk.so:\
+	/system/bin/mmp|liblog_mtk.so:\
+	/system/xbin/mnld|liblog_mtk.so\
+	/system/lib/libcam_utils.so|libshim_camera.so:\
+	/system/bin/thermal|libshim_thermal.so:\
 	/system/bin/emdlogger1|liblog_mtk.so:\
-	/system/bin/mtk_agpsd|libshim_ssl.so:\
-	/system/bin/tzdaemon|libshim_ssl.so:\
-	/system/bin/taadaemon|libshim_ssl.so:\
-	/system/bin/wpa_supplicant|libshim_ssl.so:\
-	/system/lib/libshim_ssl.so|libsecopenssl_engine.so:\
-	/system/lib/libshim_ssl.so|libcrypto-rename.so:\
-	/system/lib/libshim_ssl.so|libssl.so:\
-	/system/lib/libshim_camera.so|libcam.utils.so
-	#/system/lib/libshim_ssl.so|libopensslsmime.so:\
+	/system/bin/xlog|liblog_mtk.so:\
+	/system/bin/mtk_agpsd|libshim_agpsd.so:\
+	/system/lib/libMtkOmxVenc.so|mtk_symbols.so:\
+	/system/lib/hw/camera.mt6735.so|libshim_camera.so:\
+	/system/lib/hw/camera.mt6735.so|mtk_symbols.so
+	
+	
+LD_PRELOADS += mtk_symbols.so
 
 # CFLAG
 BOARD_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
@@ -102,10 +95,6 @@ TARGET_PROVIDES_LIBLIGHT := true
 
 PRODUCT_SHIPPING_API_LEVEL := 23
 
-# Camera
-#-- trying with grandprimeve3g configs
-include device/samsung/grandppltedx/configs/extra-makefiles/camera.mk
-
 # Dexpreopt
 WITH_DEXPREOPT := false
 DONT_DEXPREOPT_PREBUILTS := true
@@ -123,6 +112,7 @@ BOARD_CHARGER_SHOW_PERCENTAGE := true
 CHARGING_ENABLED_PATH := /sys/class/power_supply/battery/batt_lp_charging
 
 # Architecture
+TARGET_SOC          := mt6737t
 TARGET_ARCH         := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI      := armeabi-v7a
@@ -231,44 +221,61 @@ BOARD_MKBOOTIMG_ARGS := --base $(BOARD_KERNEL_BASE) --pagesize $(BOARD_KERNEL_PA
 
 
 # Recovery
-# twrp doesnt like me
-
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.mt6735
 #RECOVERY_VARIANT := twrp
 BOARD_HAS_NO_SELECT_BUTTON := true
 
-ifeq ($(RECOVERY_VARIANT), twrp)
+ifeq ($(RECOVERY_VARIANT),twrp)
 
 #-- common
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/configs/recovery.fstab
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBA_8888"
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/mt_usb/musb-hdrc.0.auto/gadget/lun%d/file
-TARGET_RECOVERY_LCD_BACKLIGHT_PATH := \"/sys/devices/ktd3102-bl/lcd-backlight/brightness\"
+TARGET_RECOVERY_LCD_BACKLIGHT_PATH := "/sys/devices/ktd3102-bl/lcd-backlight/brightness"
+BOARD_USE_FRAMEBUFFER_ALPHA_CHANNEL := true
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+BOARD_SUPPRESS_SECURE_ERASE := true
+DEVICE_RESOLUTION := 540x960
+DEVICE_SCREEN_WIDTH := 540
+DEVICE_SCREEN_HEIGHT := 960
+
+# Relocations
+TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
+
+# Malloc implementation
+MALLOC_SVELTE := true
+
+# Protobuf
+PROTOBUF_SUPPORTED := true
+
+#--twrp
 TW_NO_REBOOT_BOOTLOADER := true
 TW_THEME := portrait_hdpi
 TW_CUSTOM_CPU_TEMP_PATH := /sys/devices/virtual/thermal/thermal_zone1/temp
 TW_USE_MODEL_HARDWARE_ID_FOR_DEVICE_ID := true
-RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TW_MAX_BRIGHTNESS := 255
-BOARD_SUPPRESS_SECURE_ERASE := true
 TW_INCLUDE_CRYPTO := true
 TW_BRIGHTNESS_PATH := /sys/devices/ktd3102-bl/lcd-backlight/brightness
-TW_MAX_BRIGHTNESS := 255
-TW_NO_USB_STORAGE := true
-BOARD_USE_FRAMEBUFFER_ALPHA_CHANNEL := true
-TARGET_DISABLE_TRIPLE_BUFFERING := false
+TW_DEFAULT_BRIGHTNESS := 162
 TW_USE_TOOLBOX := true
-
-#-- device
-DEVICE_RESOLUTION := 540x960
-DEVICE_SCREEN_WIDTH := 540
-DEVICE_SCREEN_HEIGHT := 960
-RECOVERY_SDCARD_ON_DATA := true
+TW_HAS_DOWNLOAD_MODE := true
 TW_INTERNAL_STORAGE_PATH := "/data/media"
 TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
 TW_EXTERNAL_STORAGE_PATH := "/external_sd"
 TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
 TW_DEFAULT_EXTERNAL_STORAGE := true
+
+#-+ brcken detection
+TW_NO_CPU_TEMP := true
+
+#--pbrp
+PB_DISABLE_DEFAULT_DM_VERITY := true
+PB_DISABLE_DEFAULT_TREBLE_COMP := true
+
+
+else 
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.mt6735
 endif
+
 
 # system properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
