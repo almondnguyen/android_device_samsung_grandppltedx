@@ -13,5 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include <stdint.h>
 
 const char _ZN7android16CameraParameters26PIXEL_FORMAT_YUV420SP_NV21E[] = "yuv420sp-nv21e";
+void _ZN7android16CameraParameters26KEY_CAPTURE_BURST_FILEPATHE() {}

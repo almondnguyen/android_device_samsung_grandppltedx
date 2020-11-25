@@ -182,6 +182,7 @@ PRODUCT_PACKAGES += \
 	libshim_ssl \
 	libshim_camera \
 	libshim_agpsd \
+	libshim_xlog \
 	libccci_util
 
 
@@ -221,7 +222,7 @@ PRODUCT_PACKAGES += \
 # Camera
 PRODUCT_PACKAGES += \
 	libxml2 \
-	Camera2
+	Snap
 
 #-- camera sensor type
 CAMERA_SENSOR_TYPE_BACK := "imx219_mipi_raw"

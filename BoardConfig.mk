@@ -36,11 +36,13 @@ LINKER_FORCED_SHIM_LIBS := \
 	/system/bin/thermal|libshim_thermal.so:\
 	/system/bin/emdlogger1|liblog_mtk.so:\
 	/system/bin/xlog|liblog_mtk.so:\
+	/system/bin/xlog|libshim_xlog.so:\
 	/system/bin/mtk_agpsd|libshim_agpsd.so:\
 	/system/lib/libMtkOmxVenc.so|mtk_symbols.so:\
 	/system/lib/hw/camera.mt6735.so|libshim_camera.so:\
-	/system/lib/hw/camera.mt6735.so|mtk_symbols.so
-	
+	/system/lib/hw/camera.mt6735.so|mtk_symbols.so:\
+	/system/lib/libcam.camadapter.so|libshim_camera.so:\
+	/system/lib/libcam.client.so|mtk_symbols.so
 	
 LD_PRELOADS += mtk_symbols.so
 
