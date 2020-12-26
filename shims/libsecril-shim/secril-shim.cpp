@@ -12,8 +12,9 @@ static const struct RIL_Env *rilEnv;
 static const int VOICE_REGSTATE_SIZE = 15 * sizeof(char *);
 static char *voiceRegStateResponse[VOICE_REGSTATE_SIZE];
 
+static RIL_Dial dial;
+
 static void onRequestDial(int request, void *data, RIL_Token t) {
-	RIL_Dial dial;
 	RIL_UUS_Info uusInfo;
 
 	dial.address = ((RIL_Dial *) data)->address;
