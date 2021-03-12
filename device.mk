@@ -25,39 +25,10 @@ DEVICE_PATH := device/samsung/grandppltedx
 # Vendor
 $(call inherit-product-if-exists, vendor/samsung/grandppltedx/grandppltedx-vendor.mk)
 
-# Perms
-PRODUCT_COPY_FILES += \
-	frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
-	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
-	frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
-	frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
-	frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
-	frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
-	frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
-	frameworks/native/data/etc/android.hardware.faketouch.xml:system/etc/permissions/android.hardware.faketouch.xml \
-	frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-	frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
-	frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.compass.xml \
-	frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-	frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
-	frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-	frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
-	frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:system/etc/permissions/android.hardware.sensor.stepdetector.xml \
-	frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
-	frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
-	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
-	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
-	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
-	frameworks/native/data/etc/android.hardware.touchscreen.xml:system/etc/permissions/android.hardware.touchscreen.xml \
-	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-	frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
-	frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
-	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-	frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
-	frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-
 # Overlay
-DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
+DEVICE_PACKAGE_OVERLAYS += \
+	$(DEVICE_PATH)/overlay/n \
+	$(DEVICE_PATH)/overlay/tether
 
 # Display
 #-- This device is hdpi.
@@ -69,9 +40,6 @@ TARGET_SCREEN_WIDTH := 540
 
 PRODUCT_PACKAGES += \
 	libion
-
-# Dalvik heap configurations
-$(call inherit-product-if-exists, frameworks/native/build/phone-hdpi-2048-dalvik-heap.mk)
 
 # Locale
 PRODUCT_DEFAULT_LANGUAGE := en
@@ -98,27 +66,34 @@ PRODUCT_COPY_FILES += \
 	frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:/system/etc/r_submix_audio_policy_configuration.xml \
 	frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:/system/etc/usb_audio_policy_configuration.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
-	frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-	frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml \
-	$(DEVICE_PATH)/configs/audio/AudioParamOptions.xml:system/etc/audio_param/AudioParamOptions.xml \
+	frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
+	frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml \
 	$(DEVICE_PATH)/configs/audio/audio_policy.conf:system/etc/audio_policy.conf \
 	$(DEVICE_PATH)/configs/audio/audio_device.xml:system/etc/audio_device.xml \
-	$(DEVICE_PATH)/configs/audio/audio_effects.conf:system/etc/audio_effects.conf
+	$(DEVICE_PATH)/configs/audio/audio_effects.conf:system/etc/audio_effects.conf \
+	$(DEVICE_PATH)/configs/audio/audio_param/AudioParamOptions.xml:system/etc/audio_param/AudioParamOptions.xml
 
 #-- Media
 PRODUCT_COPY_FILES += \
-	frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml \
 	$(DEVICE_PATH)/configs/media/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
 	$(DEVICE_PATH)/configs/media/media_codecs_mediatek_audio.xml:system/etc/media_codecs_mediatek_audio.xml \
 	$(DEVICE_PATH)/configs/media/media_codecs_mediatek_video.xml:system/etc/media_codecs_mediatek_video.xml \
-	$(DEVICE_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml
-#	$(DEVICE_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml \
+	$(DEVICE_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
+	$(DEVICE_PATH)/configs/media/media_codecs_sec_primary.xml:system/etc/media_codecs_sec_primary.xml \
+	$(DEVICE_PATH)/configs/media/media_codecs_sec_secondary.xml:system/etc/media_codecs_sec_secondary.xml \
+	$(DEVICE_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	media.sf.omx-plugin=libffmpeg_omx.so,libsomxcore.so
 
+#-- BT
+PRODUCT_COPY_FILES += \
+	frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
+	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml
+	
+#-- 
 
 # Wifi
 PRODUCT_PACKAGES += \
@@ -147,17 +122,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #-- Carrier
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/carrier/apns-conf.xml:system/etc/apns-conf.xml \
-	$(DEVICE_PATH)/configs/carrier/spn-conf.xml:system/etc/spn-conf.xml
-
+	$(DEVICE_PATH)/configs/carrier/spn-conf.xml:system/etc/spn-conf.xml \
+	$(DEVICE_PATH)/configs/carrier/old-apns-conf.xml:system/etc/old-apns-conf.xml \
+	$(DEVICE_PATH)/configs/carrier/nwk_info.xml:system/etc/nwk_info.xml
 #-- RIL
 #
 SIM_COUNT := 2
 
 PRODUCT_PACKAGES += \
-	libsecril-client-sap \
 	libxml2 \
 	libprotobuf-cpp-full
-
 
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
@@ -171,7 +145,9 @@ MTK_FM_SUPPORT := true
 
 PRODUCT_PACKAGES += \
 	libfmjni \
-	FMRadio
+	FMRadio \
+	libfmcust \
+	radio.fm.mt6737t
 
 # shim / symbols
 PRODUCT_PACKAGES += \
@@ -182,9 +158,7 @@ PRODUCT_PACKAGES += \
 	libshim_ssl \
 	libshim_camera \
 	libshim_agpsd \
-	libshim_xlog \
-	libccci_util
-
+	libshim_xlog
 
 # Platform
 PRODUCT_PACKAGES += \
@@ -192,8 +166,27 @@ PRODUCT_PACKAGES += \
 	libstlport \
 	libgralloc_extra \
 	libgui_ext \
-	libui_ext
+	libui_ext \
+	libperfservicenative
 
+PRODUCT_COPY_FILES += \
+	frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
+	frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:system/etc/permissions/android.hardware.sensor.stepdetector.xml \
+	frameworks/native/data/etc/android.hardware.faketouch.xml:system/etc/permissions/android.hardware.faketouch.xml \
+	frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
+	frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
+	frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
+	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
+	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+	frameworks/native/data/etc/android.hardware.touchscreen.xml:system/etc/permissions/android.hardware.touchscreen.xml \
+	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+	frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+	frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
+	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+	frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+	frameworks/native/data/etc/android.software.sip.xml:system/etc/permissions/android.software.sip.xml \
+	frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
 # Recovery - twrp
 PRODUCT_COPY_FILES += \
@@ -202,11 +195,14 @@ PRODUCT_COPY_FILES += \
 # GPS
 PRODUCT_PACKAGES += \
 	gps.mt6737t \
+	wifi2agps \
+	libepos \
 	libcurl
-
+	
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-	$(DEVICE_PATH)/configs/agps_profiles_conf2.xml:system/etc/agps_profiles_conf2.xml
+	$(DEVICE_PATH)/configs/gps/agps_profiles_conf2.xml:system/etc/agps_profiles_conf2.xml \
+	$(DEVICE_PATH)/configs/gps/slp_conf:system/etc/slp_conf	
 
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
@@ -224,20 +220,26 @@ PRODUCT_PACKAGES += \
 	libxml2 \
 	Snap
 
-#-- camera sensor type
+#-- camera sensor
 CAMERA_SENSOR_TYPE_BACK := "imx219_mipi_raw"
 CAMERA_SENSOR_TYPE_FRONT := "s5k5e3yx_mipi_raw"
 
 CAMERA_SUPPORT_SIZE := 8M
 FRONT_CAMERA_SUPPORT_SIZE := 5M
-TARGET_BOARD_NO_FRONT_SENSOR := false
-TARGET_BOARD_CAMERA_FLASH_CTRL := false
 
+#-- samsung camera
 BOARD_USE_SAMSUNG_CAMERAFORMAT_YUV420SP := true
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 TARGET_NEEDS_LEGACY_CAMERA_HAL1_DYN_NATIVE_HANDLE := true
 
 TARGET_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_HARDWARE
+
+#-- perm
+PRODUCT_COPY_FILES += \
+	frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
+	frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+	frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+	frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml
 
 # Init
 PRODUCT_PACKAGES += \
@@ -259,12 +261,10 @@ PRODUCT_PACKAGES += \
 # memtrack
 PRODUCT_PACKAGES += \
 	memtrack.mt6737t
-    
+
 # Rootdir
 PRODUCT_PACKAGES += \
 	enableswap.sh \
-	factory_init.rc \
-	factory_init.project.rc \
 	fstab.mt6735 \
 	init.modem.rc \
 	init.mt6735.rc \
@@ -277,23 +277,18 @@ PRODUCT_PACKAGES += \
 	init.emdlogger1.rc \
 	init.usb.configfs.rc \
 	init.wifi.rc \
-	meta_init.rc \
-	meta_init.modem.rc \
-	meta_init.project.rc \
-	meta_init.usb.rc \
 	init.recovery.mt6735.rc \
 	init.samsung.rc \
 	ueventd.mt6735.rc \
 	init.xlog.rc \
 	log.sh
 
+
 #-- sbin
 
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/rootdir/sbin/sswap:root/sbin/sswap \
-	$(DEVICE_PATH)/rootdir/sbin/ffu:root/sbin/ffu \
-	$(DEVICE_PATH)/rootdir/sbin/bgcompact:root/sbin/bgcompact
-#   $(DEVICE_PATH)/rootdir/sbin/busybox:root/sbin/busybox \
+	$(DEVICE_PATH)/rootdir/sbin/busybox:root/sbin/busybox
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
 	rild.libpath=/system/lib/libsec-ril.so \
@@ -306,9 +301,31 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 	ro.debuggable=1 \
 	persist.sys.dun.override=0 \
 	persist.service.acm.enable=0 \
-	persist.sys.usb.config=mtp,adb
-
+	persist.sys.usb.config=mtp,adb \
+	persist.sys.display.clearMotion=0
+	 
 # Misc
 PRODUCT_PACKAGES += \
 	librs_jni \
 	libnl_2
+	
+# Filesystem management tools
+PRODUCT_PACKAGES += \
+	f2fstat \
+	fibmap.f2fs \
+	e2fsck \
+	fsck.f2fs \
+	mkfs.f2fs \
+	setup_fs \
+	make_ext4fs
+
+# exFAT
+PRODUCT_PACKAGES += \
+	fsck.exfat \
+	mkfs.exfat
+
+# NTFS
+PRODUCT_PACKAGES += \
+	fsck.ntfs \
+	mkfs.ntfs \
+	mount.ntfs

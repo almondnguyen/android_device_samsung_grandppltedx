@@ -639,7 +639,6 @@ typedef enum
 //
 typedef struct  {
     ISP_RTBC_STATE_ENUM state;
-    unsigned long dropCnt;
     ISP_RT_RING_BUF_INFO_STRUCT  ring_buf[_rt_dma_max_];
 }ISP_RT_BUF_STRUCT;
 //

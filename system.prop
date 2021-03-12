@@ -1,9 +1,11 @@
-# system.prop for grandpplte
+## system.prop for grandpplte
 
-# Nougat stuff and testing
+## Nougat stuff and testing
 config.disable_consumerir=true
 media.sf.omx-plugin=libffmpeg_omx.so,libsomxcore.so
 qemu.hw.mainkeys=0
+lineage.updater.uri=https://raw.githubusercontent.com/almondnguyen/android_OTA/main/grandppltedx.json
+cm.updater.uri=https://raw.githubusercontent.com/almondnguyen/android_OTA/main/grandppltedx.json
 
 # Platform
 ro.mediatek.chip_ver=S01
@@ -12,7 +14,7 @@ ro.mediatek.version.branch=alps-mp-m1.mp8.tc10sp
 ro.mediatek.version.release=alps-mp-m1.mp8.tc10sp
 ro.mediatek.version.sdk=4
 
-# RIL
+## RIL
 rild.libpath=/system/lib/libsec-ril.so
 rild.libpath2=/system/lib/libsec-ril-dsds.so
 rild.libargs=-d /dev/ttyC0
@@ -21,7 +23,7 @@ ro.telephony.ril_class=grandpplteRIL
 ro.telephony.ril.socket_name=rild,rild2
 ro.ril.telephony.mqanelements=6
 
-# Dalvik / hwui
+## Dalvik / hwui
 ro.hwui.texture_cache_size=24
 ro.hwui.layer_cache_size=16
 ro.hwui.path_cache_size=4
@@ -35,9 +37,6 @@ ro.hwui.text_small_cache_height=512
 ro.hwui.text_large_cache_width=1024
 ro.hwui.text_large_cache_height=1024
 
-#dalvik.vm.heapgrowthlimit=128m
-#dalvik.vm.heapsize=512m
-
 dalvik.vm.mtk-stack-trace-file=/data/anr/mtk_traces.txt
 
 # from wileyfox_porridge
@@ -47,24 +46,86 @@ dalvik.vm.heapsize=512m
 dalvik.vm.heaptargetutilization=0.75
 dalvik.vm.heapminfree=512k
 dalvik.vm.heapmaxfree=8m
-
-# Block
+    
+## Block
 ro.frp.pst=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/PERSISTENT
 
-# display
+## display
 ro.sf.lcd_density=240
 persist.sys.lcd_density=240
 
-# add
+## add
 ro.telephony.default_network=9
 ro.boot.opt_lte_support=1
 telephony.lteOnGsmDevice=1
 telephony.lteOnCdmaDevice=0
 
-# trying to manipulate emdlogger1
-#-- now in emdlogger1 config in vendor/etc
+## Samsung Specific Properties
+ro.build.PDA=G532GDXU1ASA5
+ro.build.hidden_ver=G532GDXU1ASA5
+ro.config.rm_preload_enabled=0
+ro.chipname=MT6737T
 
-# copypasta build.prop
+## copypasta build.prop
+
+# MTK, Infinity, 20090720 {
+wifi.interface=wlan0
+# MTK, Infinity, 20090720 }
+
+# MTK, mtk03034, 20101210 {
+ro.mediatek.wlan.wsc=1
+# MTK, mtk03034 20101210}
+# MTK, mtk03034, 20110318 {
+ro.mediatek.wlan.p2p=1
+# MTK, mtk03034 20110318}
+
+# MTK, mtk03034, 20101213 {
+mediatek.wlan.ctia=0
+# MTK, mtk03034 20101213}
+
+#
+wifi.tethering.interface=ap0
+#
+
+#ro.kernel.qemu=1
+#ro.kernel.qemu.gles=0
+
+wifi.direct.interface=p2p0
+dalvik.vm.heapgrowthlimit=128m
+dalvik.vm.heapsize=256m
+
+# USB MTP WHQL
+ro.sys.usb.mtp.whql.enable=0
+
+# Power off opt in IPO
+sys.ipo.pwrdncap=2
+
+ro.sys.usb.storage.type=mtp,mass_storage
+
+# USB BICR function
+ro.sys.usb.bicr=yes
+
+# USB Charge only function
+ro.sys.usb.charging.only=yes
+
+# audio
+ro.camera.sound.forced=0
+ro.audio.silent=0
+
+ro.zygote.preload.enable=0
+
+ro.kernel.zio=38,108,105,16
+#ro.kernel.qemu=1
+#ro.kernel.qemu.gles=0
+#ro.boot.selinux=disable
+
+# Disable dirty region for Mali
+debug.hwui.render_dirty_regions=false
+
+# performance
+ro.mtk_perf_simple_start_win=1
+ro.mtk_perf_response_time=1
+
 persist.radio.sib16_support=0
 ro.telephony.default_network=9
 ro.product.first_api_level=23

@@ -12,12 +12,6 @@ endef
 
 $(call add-rootdir-targets, \
 	fstab.mt6735 \
-	factory_init.rc \
-	factory_init.project.rc \
-	meta_init.rc \
-	meta_init.modem.rc \
-	meta_init.project.rc \
-	meta_init.usb.rc \
 	init.modem.rc \
 	init.mt6735.rc \
 	init.mt6735.usb.rc \

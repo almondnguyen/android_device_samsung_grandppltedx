@@ -9,7 +9,7 @@
 typedef struct {
 	/* DRE */
 	int dre_map_bypass;
-	/* CABC */
+	/* ESS */
 	int cabc_gainlmt[33];
 } DISP_AAL_INITREG;
 

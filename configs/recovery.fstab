@@ -6,7 +6,7 @@
 /nvdata	 	emmc    	/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvdata 	flags=backup=1;subpartitionof=/efs
 /cache	 	ext4		/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache         
 /system	 	ext4		/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system         
-/data	 	ext4		/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata   flags=encryptable=footer   length=-16384
+/data	 	ext4		/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata   flags=encryptable=footer length=-16384
 /misc	 	emmc		/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/para 	flags=backup=1;display=misc
 /md1img	 	emmc		/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/md1img  flags=backup=1;display=modem
 /md1dsp	 	emmc		/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/md1dsp	flags=backup=1;subpartitionof=/md1img

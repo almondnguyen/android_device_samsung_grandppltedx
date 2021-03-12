@@ -2,7 +2,7 @@
 
 # samsung init forked out
 import /init.samsung.rc
-import /init.rllcommon.rc
+import /init.rilcommon.rc
 
 # normal
 import init.project.rc

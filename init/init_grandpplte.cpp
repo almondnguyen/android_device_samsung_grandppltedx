@@ -96,6 +96,8 @@ void vendor_load_properties() {
 	/* set model + dual sim props */
 	if (bootloader.find("G532F") != std::string::npos) {
 		/* G532F */
+		property_override("ro.build.fingerprint", "samsung/grandpplteser/grandpplte:6.0.1/MMB29T/G532FXWU1ASB1:user/release-keys");
+	        property_override("ro.build.description", "grandpplteser-user 6.0.1 MMB29T G532FXWU1ASB1 release-keys");
 	        property_override("ro.product.name", "grandpplteser");
 		if (sim_count == 1) {
 			property_override("ro.product.model", "SM-G532F");
@@ -110,6 +112,8 @@ void vendor_load_properties() {
 		/* G532G */
 		/* SEA is grandppltedx; SWA is grandpplteins*/
 		/* no major differences actually, so just name it -dx*/
+		property_override("ro.build.fingerprint", "samsung/grandppltedx/grandpplte:6.0.1/MMB29T/G532DXU1ASA5:user/release-keys");
+	        property_override("ro.build.description", "grandppltedx-user 6.0.1 MMB29T G532GDXU1ASA5 release-keys");
 	        property_override("ro.product.name", "grandppltedx");
 		if (sim_count == 1) {
 			property_override("ro.product.model", "SM-G532G");
@@ -122,6 +126,8 @@ void vendor_load_properties() {
 
 	if (bootloader.find("G532M") != std::string::npos) {
 		/* G532M */
+		property_override("ro.build.fingerprint", "samsung/grandpplteub/grandpplte:6.0.1/MMB29T/G532MUMU1ASA1:user/release-keys");
+		property_override("ro.build.description", "grandpplteub-user 6.0.1 MMB29T G532MUMU1ASA1 release-keys");
 	        property_override("ro.product.name", "grandpplteub");
 		if (sim_count == 1) {
 			property_override("ro.product.model", "SM-G532M");
@@ -134,6 +140,8 @@ void vendor_load_properties() {
 
 	if (bootloader.find("G532MT") != std::string::npos) {
 		/* G532MT */
+		property_override("ro.build.fingerprint", "samsung/grandppltedtvvj/grandpplte:6.0.1/MMB29T/G532MTVJU1ASA1:user/release-keys");
+		property_override("ro.build.description", "grandppltedtvvj-user 6.0.1 MMB29T G532MTVJU1ASA1 release-keys");
 	        property_override("ro.product.name", "grandppltedtvvj");
 		if (sim_count == 1) {
 			property_override("ro.product.model", "SM-G532MT");
@@ -143,11 +151,4 @@ void vendor_load_properties() {
 			init_dual();
 		}
 	}
-
-	std::string device = property_get("ro.product.device");
-	std::string devicename = property_get("ro.product.model");
-
-	/* error for easier finding~ */
-	ERROR("Found bootloader id %s setting build properties for %s device\n", bootloader.c_str(), devicename.c_str());
-
 }
