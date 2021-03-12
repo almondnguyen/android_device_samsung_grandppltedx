@@ -1,0 +1,21 @@
+commit 95b957aed3e71e10272324a816cf428dccb6441b
+Author: Jonathon Fitch <lightman1@virginmedia.com>
+Date:   Sat Dec 31 14:18:26 2016 +0000
+Subject: [PATCH] zygote: Add /proc/ged to the FD whitelist
+
+    This is used by some platforms' gfx stack
+    
+    Change-Id: Ic908264e05518f29f82bb3ce1794895ebb271efc
+
+diff --git a/core/jni/fd_utils-inl.h b/core/jni/fd_utils-inl.h
+index 84252c0..ba07995 100644
+--- a/core/jni/fd_utils-inl.h
++++ b/core/jni/fd_utils-inl.h
+@@ -58,6 +58,7 @@ static const char* kPathWhitelist[] = {
+   "/dev/ion",
+   "/dev/dri/renderD129", // Fixes b/31172436
+   "/system/framework/org.cyanogenmod.platform-res.apk",
++  "/proc/ged",
+ #ifdef PATH_WHITELIST_EXTRA_H
+ PATH_WHITELIST_EXTRA_H
+ #endif

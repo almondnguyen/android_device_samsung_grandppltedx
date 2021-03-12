@@ -1,0 +1,5 @@
+This is patch directory
+
+cd WORKING_DIR
+sh device/samsung/grandppltedx/patches/install.sh
+sh device/samsung/grandppltedx/patches/uninstall.sh
