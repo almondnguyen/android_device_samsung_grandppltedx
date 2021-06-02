@@ -1415,17 +1415,11 @@ service shutdown /system/bin/shutdown
     group root
     disabled
 
-#al: a dum-dum way to get a lot more permission for the nvram stuff
-#group system
-#user system
-
 service NvRAMAgent /system/bin/nvram_agent_binder
     class main
-    user root
-    group root system radio shell net_bt_stack audio inet
-
-
-
+    user system
+    group system
+    
 service thermal_manager /system/bin/thermal_manager
     class main
     user root
@@ -1578,29 +1572,6 @@ service program_binary /system/bin/program_binary_service
     user system
     group graphics
     oneshot
-
-# Blowfish service
-#--almond: force run these services to see how emdlogger1 reacts
-
-service tz_service /system/bin/tzdaemon --daemon=yes --verbose=dbg
-    class core
-    socket tz stream 0666 system system
-    user system
-    group system
-    disabled
-
-service taa_service /system/bin/taadaemon --daemon=yes --verbose=dbg
-    class core
-    user system
-    group system
-    disabled
-    oneshot	
-	
-on property:sys.tzdaemon=Ready
-    start taa_service
-
-on property:init.svc.tz_service=stopped
-    setprop sys.tzdaemon NotReady
 
 # LPM
 on property:ro.bootmode=charger
