@@ -1,29 +1,20 @@
 #!/bin/bash
-CURRENT_DIR=${PWD}
-LOS_REPO=
-function warn() {
-echo -e "\n Those Patches Are Only For Pure LineageOS"
-echo -e "\n Are You Sure Thats You Want To Apply? y/n"
+
+# CONFIRMATION
+echo -e "\n These patches are for Pure LineageOS"
+echo -e "\n It is also outdated (150 commits behind upstream)"
+echo -e "\n Are you sure you want to apply? y/n"
 read answr
 [ "$answr" != "y" ] && exit 1
-}
-function find() {
-echo -e "\n Current Directory: $CURRENT_DIR"
-echo -e "\n Finding LineageOS Repo Root Dir.."
-sleep 2
-cd ../../../../..
-LOS_REPO=${PWD}
-}
-warn
 
-find
+# INPUT LOS DIR
+echo -e "\n Input your LOS top directory"
+echo -e "\n for example: ~/android/n/lineage"
+read LOS_REPO
 
-sleep 1
-
-echo -e "\n Finded LOS Directoty: $LOS_REPO"
-sleep 0.5
+# PATCH START
+echo -e "\n LOS Directory: $LOS_REPO"
 echo -e "\n Start Patching.."
-sleep 1.5
-cd $CURRENT_DIR
-bash oms_patches.sh ~/los
+
+bash ${LOS_REPO}/device/samsung/grandppltedx/patches/oms/oms_patches.sh ${LOS_REPO}
 exit 0
