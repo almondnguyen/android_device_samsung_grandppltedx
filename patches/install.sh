@@ -13,6 +13,11 @@ for dir in $dirs ; do
 done
 
 # Almond: didnt know anything about git patches, so use diff instead to fix older patches
+
+# there is another patch needed: 
+# frameworks/base/data/keyboard/Generic.kl: 
+# APP_SWITCH: patch to key 254
+
 mandirs="system/core system/netd"
 cd $rootdirectory
 

@@ -194,7 +194,6 @@ PRODUCT_COPY_FILES += \
 
 # GPS
 PRODUCT_PACKAGES += \
-	gps.mt6737t \
 	wifi2agps \
 	libepos \
 	libcurl
@@ -209,11 +208,11 @@ $(call inherit-product, device/common/gps/gps_us_supl.mk)
 PRODUCT_COPY_FILES += \
 
 # Charger
-# Use cm images if available, aosp ones otherwise
+# Use cm/lineage images if available, aosp ones otherwise
 PRODUCT_PACKAGES += \
-	charger \
 	charger_res_images \
-	cm_charger_res_images
+	cm_charger_res_images \
+	lineage_charger_res_images
 
 # Camera
 PRODUCT_PACKAGES += \
