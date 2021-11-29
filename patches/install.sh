@@ -14,9 +14,12 @@ done
 
 # Almond: didnt know anything about git patches, so use diff instead to fix older patches
 
-# there is another patch needed: 
-# frameworks/base/data/keyboard/Generic.kl: 
-# APP_SWITCH: patch to key 254
+# there are other patches needed: 
+#-- frameworks/base/data/keyboard/Generic.kl: 
+#    APP_SWITCH: patch to key 254
+#-- etc/java-8-openjdk/security/java.security
+#    in jdk.tls.disabledAlgorithms, remove TLSv1 and TLSv1.1
+#-- set Jack max mem yourself
 
 mandirs="system/core system/netd"
 cd $rootdirectory
