@@ -1,0 +1,26 @@
+diff --git a/tools/jack b/tools/jack
+index ab59768..1371811 100755
+--- a/tools/jack
++++ b/tools/jack
+@@ -125,7 +125,7 @@ DELAY_CONNECT=30
+ DATE_CONNECT=$(date +%s)
+ while true; do
+   CURL_TIME=$(date +%H:%M:%S)
+-  HTTP_CODE=$(curl --fail --silent --data @- --output "$JACK_EXIT" --write-out %{http_code} --connect-timeout 10 --no-proxy 127.0.0.1:$SERVER_PORT_SERVICE http://127.0.0.1:$SERVER_PORT_SERVICE/jack <<< "+ $JACK_OUT $JACK_ERR $JACK_CLI")
++  HTTP_CODE=$(curl --fail --silent --data @- --output "$JACK_EXIT" --write-out %{http_code} --connect-timeout 10 --noproxy 127.0.0.1:$SERVER_PORT_SERVICE http://127.0.0.1:$SERVER_PORT_SERVICE/jack <<< "+ $JACK_OUT $JACK_ERR $JACK_CLI")
+   CURL_CODE=$?
+   JACK_CODE=$(cat "$JACK_EXIT")
+   echo "CURL: $$ - $CURL_TIME - $CURL_CODE - $HTTP_CODE - $JACK_CODE" >>$SERVER_LOG
+diff --git a/tools/jack-admin b/tools/jack-admin
+index a7c4e8e..30c1968 100755
+--- a/tools/jack-admin
++++ b/tools/jack-admin
+@@ -120,7 +120,7 @@ DELAY_CONNECT=3
+ # Send command to Jack server
+ DATE_CONNECT=$(date +%s)
+ while true; do
+-  HTTP_CODE=$(curl --fail --silent --output $JACK_EXIT --write-out %{http_code} --connect-timeout 5 --no-proxy 127.0.0.1:$SERVER_PORT_ADMIN http://127.0.0.1:$SERVER_PORT_ADMIN/$CMD)
++  HTTP_CODE=$(curl --fail --silent --output $JACK_EXIT --write-out %{http_code} --connect-timeout 5 --noproxy 127.0.0.1:$SERVER_PORT_ADMIN http://127.0.0.1:$SERVER_PORT_ADMIN/$CMD)
+   CURL_CODE=$?
+   if [ $CURL_CODE -eq 0 ]; then
+     # No problem, let's go

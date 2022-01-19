@@ -50,10 +50,10 @@ PRODUCT_DEFAULT_REGION   := US
 PRODUCT_PACKAGES += \
 	audio.a2dp.default \
 	audio.usb.default \
-	audio.r_submix.default \
 	audio_policy.default \
 	libaudiopolicymanagerdefault \
 	libaudio-resampler \
+	libaudioutils \
 	libtinyalsa \
 	libtinycompress \
 	libtinymix \
@@ -147,7 +147,7 @@ PRODUCT_PACKAGES += \
 	libfmjni \
 	FMRadio \
 	libfmcust \
-	radio.fm.mt6737t
+	radio.fm.mt6735
 
 # shim / symbols
 PRODUCT_PACKAGES += \
@@ -158,7 +158,9 @@ PRODUCT_PACKAGES += \
 	libshim_ssl \
 	libshim_camera \
 	libshim_agpsd \
-	libshim_xlog
+	libshim_xlog \
+	libshim_audioflinger \
+	libshim_audiopolicyservice
 
 # Platform
 PRODUCT_PACKAGES += \
@@ -210,9 +212,7 @@ PRODUCT_COPY_FILES += \
 # Charger
 # Use cm/lineage images if available, aosp ones otherwise
 PRODUCT_PACKAGES += \
-	charger_res_images \
-	cm_charger_res_images \
-	lineage_charger_res_images
+	cm_charger_res_images
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -247,11 +247,11 @@ PRODUCT_PACKAGES += \
 # Power
 PRODUCT_PACKAGES += \
 	power.default \
-	power.mt6737t
+	power.mt6735
 
 # Lights
 PRODUCT_PACKAGES += \
-	lights.mt6737t
+	lights.mt6735
 
 # Sensor
 PRODUCT_PACKAGES += \
@@ -259,7 +259,7 @@ PRODUCT_PACKAGES += \
 
 # memtrack
 PRODUCT_PACKAGES += \
-	memtrack.mt6737t
+	memtrack.mt6735
 
 # Rootdir
 PRODUCT_PACKAGES += \
