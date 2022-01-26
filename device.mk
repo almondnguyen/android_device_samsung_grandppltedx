@@ -52,6 +52,9 @@ PRODUCT_PACKAGES += \
 	audio.usb.default \
 	audio_policy.default \
 	libaudiopolicymanagerdefault \
+	libaudiopolicymanager \
+	libaudiopolicyservice \
+	libaudiopolicyenginedefault \
 	libaudio-resampler \
 	libaudioutils \
 	libtinyalsa \
@@ -159,8 +162,7 @@ PRODUCT_PACKAGES += \
 	libshim_camera \
 	libshim_agpsd \
 	libshim_xlog \
-	libshim_audioflinger \
-	libshim_audiopolicyservice
+	libshim_audioflinger
 
 # Platform
 PRODUCT_PACKAGES += \
@@ -231,8 +233,6 @@ BOARD_USE_SAMSUNG_CAMERAFORMAT_YUV420SP := true
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 TARGET_NEEDS_LEGACY_CAMERA_HAL1_DYN_NATIVE_HANDLE := true
 
-TARGET_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_HARDWARE
-
 #-- perm
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
@@ -289,7 +289,7 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/rootdir/sbin/sswap:root/sbin/sswap \
 	$(DEVICE_PATH)/rootdir/sbin/busybox:root/sbin/busybox
 
-ADDITIONAL_DEFAULT_PROPERTIES += \
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	rild.libpath=/system/lib/libsec-ril.so \
 	rild.libpath2=/system/lib/libsec-ril-dsds.so \
 	ro.zygote=zygote32 \

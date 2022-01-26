@@ -26,9 +26,6 @@ BOARD_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
 BOARD_GLOBAL_CFLAGS += -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL
 BOARD_GLOBAL_CFLAGS += -DCOMPAT_SENSORS_M
 
-TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
-TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
-
 # Headers
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 
@@ -184,8 +181,7 @@ LINKER_FORCED_SHIM_LIBS := \
 	/system/lib/libcam.client.so|mtk_symbols.so:\
 	/system/bin/mtk_agpsd|mtk_symbols.so:\
 	/system/lib/libaudio_param_parser.so|mtk_symbols.so:\
-	/system/lib/libaudioflinger.so|libshim_audioflinger.so:\
-	/system/lib/libaudiopolicyservice.so|libshim_audiopolicyservice.so
+	/system/lib/libaudioflinger.so|libshim_audioflinger.so
 
 # temporary. This'll be useful when buiding
 # libril + libsecril-client from source
