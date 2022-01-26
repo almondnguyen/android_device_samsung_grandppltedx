@@ -1,0 +1,5 @@
+This is patch directory
+
+cd WORKING_DIR
+sh vendor/bq/mt8163/build/patches/install.sh
+sh vendor/bq/mt8163/build/patches/uninstall.sh
