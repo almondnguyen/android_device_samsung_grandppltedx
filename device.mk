@@ -17,18 +17,20 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-BLOCK_BASED_OTA := false
+BLOCK_BASED_OTA := true
+
+# Device is a phone
+PRODUCT_CHARACTERISTICS := phone
 
 # Define Path
 DEVICE_PATH := device/samsung/grandppltedx
+VENDOR_PATH := vendor/samsung/grandppltedx
 
 # Vendor
 $(call inherit-product-if-exists, vendor/samsung/grandppltedx/grandppltedx-vendor.mk)
 
 # Overlay
-DEVICE_PACKAGE_OVERLAYS += \
-	$(DEVICE_PATH)/overlay/n \
-	$(DEVICE_PATH)/overlay/tether
+DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
 
 # Display
 #-- This device is hdpi.
@@ -37,6 +39,7 @@ PRODUCT_AAPT_PREF_CONFIG := hdpi
 PRODUCT_AAPT_PREBUILT_DPI := hdpi
 TARGET_SCREEN_HEIGHT := 960
 TARGET_SCREEN_WIDTH := 540
+$(call inherit-product, frameworks/native/build/phone-hdpi-dalvik-heap.mk)
 
 PRODUCT_PACKAGES += \
 	libion
@@ -50,20 +53,30 @@ PRODUCT_DEFAULT_REGION   := US
 PRODUCT_PACKAGES += \
 	audio.a2dp.default \
 	audio.usb.default \
+	audio.r_submix.default \
 	audio_policy.default \
 	libaudiopolicymanagerdefault \
 	libaudiopolicymanager \
 	libaudiopolicyservice \
 	libaudiopolicyenginedefault \
 	libaudio-resampler \
+	libaudioroute \
 	libaudioutils \
+	libaudiospdif \
+	libalsautils \
+	libeffects \
 	libtinyalsa \
 	libtinycompress \
 	libtinymix \
 	libtinyxml \
 	libfs_mgr
 
+PRODUCT_PACKAGES += \
+	android.hardware.audio@2.0-impl \
+	android.hardware.audio.effect@2.0-impl
+
 PRODUCT_COPY_FILES += \
+	frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:system/etc/a2dp_audio_policy_configuration.xml \
 	frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:/system/etc/audio_policy_volumes.xml \
 	frameworks/av/services/audiopolicy/config/default_volume_tables.xml:/system/etc/default_volume_tables.xml \
 	frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:/system/etc/r_submix_audio_policy_configuration.xml \
@@ -78,8 +91,10 @@ PRODUCT_COPY_FILES += \
 
 #-- Media
 PRODUCT_COPY_FILES += \
+	frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml \
+	frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
 	$(DEVICE_PATH)/configs/media/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
 	$(DEVICE_PATH)/configs/media/media_codecs_mediatek_audio.xml:system/etc/media_codecs_mediatek_audio.xml \
 	$(DEVICE_PATH)/configs/media/media_codecs_mediatek_video.xml:system/etc/media_codecs_mediatek_video.xml \
@@ -95,8 +110,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
 	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml
-	
-#-- 
 
 # Wifi
 PRODUCT_PACKAGES += \
@@ -105,7 +118,9 @@ PRODUCT_PACKAGES += \
 	libwpa_client \
 	wpa_supplicant \
 	wpa_supplicant.conf \
-	lib_driver_cmd_mt66xx
+	lib_driver_cmd_mt66xx \
+	android.hardware.wifi@1.0-service \
+	wificond
 
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/hostapd/hostapd.accept:system/etc/hostapd/hostapd.accept \
@@ -128,13 +143,14 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/carrier/spn-conf.xml:system/etc/spn-conf.xml \
 	$(DEVICE_PATH)/configs/carrier/old-apns-conf.xml:system/etc/old-apns-conf.xml \
 	$(DEVICE_PATH)/configs/carrier/nwk_info.xml:system/etc/nwk_info.xml
+
 #-- RIL
-#
 SIM_COUNT := 2
 
 PRODUCT_PACKAGES += \
 	libxml2 \
-	libprotobuf-cpp-full
+	libprotobuf-cpp-full \
+	SamsungStk
 
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
@@ -154,15 +170,14 @@ PRODUCT_PACKAGES += \
 
 # shim / symbols
 PRODUCT_PACKAGES += \
-	liblog_mtk \
-	mtk_symbols \
-	libshim_thermal \
-	libshim_general \
-	libshim_ssl \
+	libshim_gps \
 	libshim_camera \
-	libshim_agpsd \
+	libshim_vt \
 	libshim_xlog \
-	libshim_audioflinger
+	libshim_asc \
+	libshim_gui \
+	libshim_audio \
+	libshim_ifc
 
 # Platform
 PRODUCT_PACKAGES += \
@@ -171,7 +186,9 @@ PRODUCT_PACKAGES += \
 	libgralloc_extra \
 	libgui_ext \
 	libui_ext \
-	libperfservicenative
+	libperfservicenative \
+	libnvram \
+	busybox
 
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
@@ -214,24 +231,12 @@ PRODUCT_COPY_FILES += \
 # Charger
 # Use cm/lineage images if available, aosp ones otherwise
 PRODUCT_PACKAGES += \
-	cm_charger_res_images
+	lineage_charger_res_images
 
 # Camera
 PRODUCT_PACKAGES += \
-	libxml2 \
-	Snap
-
-#-- camera sensor
-CAMERA_SENSOR_TYPE_BACK := "imx219_mipi_raw"
-CAMERA_SENSOR_TYPE_FRONT := "s5k5e3yx_mipi_raw"
-
-CAMERA_SUPPORT_SIZE := 8M
-FRONT_CAMERA_SUPPORT_SIZE := 5M
-
-#-- samsung camera
-BOARD_USE_SAMSUNG_CAMERAFORMAT_YUV420SP := true
-TARGET_HAS_LEGACY_CAMERA_HAL1 := true
-TARGET_NEEDS_LEGACY_CAMERA_HAL1_DYN_NATIVE_HANDLE := true
+	Snap \
+	android.hardware.camera.provider@2.4-impl-legacy
 
 #-- perm
 PRODUCT_COPY_FILES += \
@@ -246,20 +251,22 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-	power.default \
-	power.mt6735
+	power.mt6737t \
+	android.hardware.power@1.0-impl
 
 # Lights
 PRODUCT_PACKAGES += \
-	lights.mt6735
+	lights.mt6737t \
+	android.hardware.light@2.0-impl-mediatek
 
-# Sensor
-PRODUCT_PACKAGES += \
-	libnvram
+# Keymaster
+PRODUCT_PACKAGES += android.hardware.keymaster@3.0-impl
 
-# memtrack
-PRODUCT_PACKAGES += \
-	memtrack.mt6735
+# Memtrack
+PRODUCT_PACKAGES += android.hardware.memtrack@1.0-impl
+
+# Local Time
+PRODUCT_PACKAGES += local_time.default
 
 # Rootdir
 PRODUCT_PACKAGES += \
