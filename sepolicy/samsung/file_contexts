@@ -1,64 +1,122 @@
-# Bluetooth
-/dev/btlock                                             u:object_r:bluetooth_device:s0
-/dev/rfkill                                             u:object_r:bluetooth_device:s0
-/efs/bluetooth(/.*)?                                    u:object_r:bluetooth_efs_file:s0
+##########################
+# Devices
+#
+/dev/mali[0-9]*              u:object_r:gpu_device:s0
+/dev/mali.*            	     u:object_r:video_device:s0
 
-# Camera
-/data/cam_socket.*                                      u:object_r:camera_socket:s0
-/sys/devices/virtual/camera(/.*)?                       u:object_r:sysfs_camera:s0
+/dev/seiren                  u:object_r:seiren_device:s0
 
-# CMHW
-/sys/devices/virtual/timed_output/vibrator(/.*)?        u:object_r:sysfs_vibeamp:s0
-/sys/devices/virtual/sec/sec_touchkey/keypad_enable     u:object_r:sysfs_display:s0
+/dev/bcm2079x                u:object_r:nfc_device:s0
+/dev/sec-nfc                 u:object_r:nfc_device:s0
 
-# Display
-/sys/devices/virtual/lcd/panel/power_reduce             u:object_r:sysfs_display:s0
+/dev/ttySAC3                 u:object_r:bluetooth_device:s0
 
-# Macloader
-/system/bin/macloader                                   u:object_r:macloader_exec:s0
+/dev/batch_io                u:object_r:batch_io_device:s0
 
-# RIL
-/data/data/com.android.providers.telephony/databases(/.*)?     u:object_r:radio_data_file:s0
-/data/data/com.android.providers.telephony/shared_prefs(/.*)?  u:object_r:radio_data_file:s0
+/dev/bbd_control             u:object_r:bbd_device:s0
+/dev/bbd_patch               u:object_r:bbd_device:s0
+/dev/bbd_sensor              u:object_r:bbd_device:s0
 
-# SEC
-/sys/devices/virtual/sec/sec_key/hall_irq_ctrl          u:object_r:sysfs_sec:s0
-/sys/devices/virtual/sec/tsp(/.*)?                      u:object_r:sysfs_sec:s0
+/dev/s5p-smem                u:object_r:secmem_device:s0
+/dev/mobicore                u:object_r:tee_device:s0
+/dev/mobicore-user           u:object_r:tee_device:s0
+/dev/vfsspi                  u:object_r:vfs_device:s0
 
-# Sensors
-/dev/batch_io                                           u:object_r:sensors_device:s0
-/efs/FactoryApp/baro_delta                              u:object_r:sensors_efs_file:s0
-/efs/gyro_cal_data                                      u:object_r:sensors_efs_file:s0
-/efs/prox_cal                                           u:object_r:sensors_efs_file:s0
+/dev/v4l-subdev[0-9]*        u:object_r:video_device:s0
+/dev/media[0-3]*             u:object_r:camera_device:s0
+/dev/m2m1shot_jpeg           u:object_r:camera_device:s0
+/dev/m2m1shot_scaler0        u:object_r:video_device:s0
+/dev/m2m1shot_scaler1        u:object_r:video_device:s0
 
-# WiFi
-/data/.cid.info                                         u:object_r:wifi_data_file:s0
-/data/.wifiver.info                                     u:object_r:wifi_data_file:s0
-/efs/wifi(/.*)?                                         u:object_r:wifi_efs_file:s0
-/sys/module/dhd/parameters/nvram_path                   u:object_r:sysfs_wifi_nv_path:s0
+/dev/mtp_usb*                u:object_r:mtp_device:s0
 
-#- J2p
-# trustzone > gatekeeperd
-/system/bin/taadaemon           u:object_r:tzdaemon_exec:s0
-/system/bin/tzdaemon            u:object_r:tzdaemon_exec:s0
+/dev/__cbd_msg_              u:object_r:mif_device:s0
+/dev/umts.*                  u:object_r:mif_device:s0
+/dev/ehci_power              u:object_r:mif_device:s0
+/dev/mipi-lli/lli_control    u:object_r:mif_device:s0
 
-# Block
+/dev/ttyBCM[0-9]*            u:object_r:bbd_device:s0
+/dev/ttySAC[0-9]*            u:object_r:uart_device:s0
 
-/dev/block/platform/mtk-msdc\.0/by-name/(proinfo|nvram)?            u:object_r:nvram_device:s0
-/dev/block/platform/mtk-msdc\.0/by-name/nvdata 				        u:object_r:nvdata_device:s0
-/dev/block/platform/mtk-msdc\.0/by-name/persistent  		        u:object_r:frp_block_device:s0
-/dev/block/platform/mtk-msdc\.0/by-name/expdb   			        u:object_r:expdb_block_device:s0
-/dev/block/platform/mtk-msdc\.0/by-name/misc2    			        u:object_r:misc2_block_device:s0
-/dev/block/platform/mtk-msdc\.0/by-name/logo     			        u:object_r:logo_block_device:s0
-/dev/block/platform/mtk-msdc\.0/by-name/para     			        u:object_r:para_block_device:s0
-/dev/block/platform/mtk-msdc\.0/by-name/efs			                u:object_r:modem_efs_partition_device:s0
-/dev/block/platform/mtk-msdc\.0/by-name/tee[1-2]  		            u:object_r:tee_block_device:s0
-/dev/block/platform/mtk-msdc\.0/by-name/seccfg  			        u:object_r:seccfg_block_device:s0
-/dev/block/platform/mtk-msdc\.0/by-name/secro      		            u:object_r:secro_block_device:s0
-/dev/block/platform/mtk-msdc\.0/by-name/userdata  			        u:object_r:userdata_block_device:s0
-/dev/block/platform/mtk-msdc\.0/by-name/cache       		        u:object_r:cache_block_device:s0
-/dev/block/platform/mtk-msdc\.0/by-name/recovery    		        u:object_r:recovery_block_device:s0
+/dev/block/mmcblk0p[0-9]*    u:object_r:emmcblk_device:s0
 
-/dev/block/platform/mtk-msdc\.0/[0-9]+\.msdc0/by-name/oemkeystore	u:object_r:oemkeystore_block_device:s0
-/dev/block/platform/mtk-msdc\.0/[0-9]+\.msdc0/by-name/protect1		u:object_r:protect1_block_device:s0
-/dev/block/platform/mtk-msdc\.0/[0-9]+\.msdc0/by-name/protect2		u:object_r:protect2_block_device:s0
+/dev/block/platform/155a0000.ufs/by-name/EFS  u:object_r:efs_block_device:s0
+/dev/block/platform/155a0000.ufs/by-name/CACHE    u:object_r:cache_block_device:s0
+/dev/block/platform/155a0000.ufs/by-name/USERDATA    u:object_r:userdata_block_device:s0
+/dev/block/platform/.+/by-name/(radio|RADIO)?   u:object_r:radio_block_device:s0
+
+/dev/rfkill                  u:object_r:rfkill_device:s0
+
+####################################
+# efs files
+/efs/bluetooth(/.*)?         u:object_r:bluetooth_efs_file:s0
+/efs/Battery(/.*)?           u:object_r:battery_efs_file:s0
+/efs/drm(/.*)?               u:object_r:drm_efs_file:s0
+/efs/FactoryApp(/.*)?        u:object_r:app_efs_file:s0
+/efs/gyro_cal_data           u:object_r:sensor_efs_file:s0
+/efs/h2k.dat                 u:object_r:cpk_efs_file:s0
+/efs/imei(/.*)?              u:object_r:imei_efs_file:s0
+/efs/nv_data.bin(.*)         u:object_r:bin_nv_data_efs_file:s0
+/efs/nv.log                  u:object_r:nv_log_efs_file:s0
+/efs/prov(/.*)?              u:object_r:prov_efs_file:s0
+/efs/prov_data(/.*)?         u:object_r:prov_efs_file:s0
+/efs/sec_efs(/.*)?           u:object_r:sec_efs_file:s0
+/efs/wifi(/.*)?              u:object_r:wifi_efs_file:s0
+/efs/wv.keys                 u:object_r:cpk_efs_file:s0
+
+####################################
+# data files
+/data/camera(/.*)?           u:object_r:camera_data_file:s0
+/data/nfc(/.*)?              u:object_r:nfc_data_file:s0
+/data/.cid.info              u:object_r:wifi_data_file:s0
+/data/.wifiver.info          u:object_r:wifi_data_file:s0
+
+/data/misc/radio(/.*)?       u:object_r:radio_data_file:s0
+
+# biometrics
+/data/biometrics(/.*)?	     u:object_r:biometrics_data_file:s0
+
+# gps
+/data/system/gps(/.*)?       u:object_r:gps_data_file:s0
+
+# tee
+/data/misc/mcRegistry(/.*)?  u:object_r:mobicore_data_file:s0
+
+####################################
+# sysfs files
+/sys/class/power_supply/battery/music -- u:object_r:sysfs_writable:s0
+/sys/class/devfreq/exynos5-busfreq-mif(/.*)? -- u:object_r:sysfs_writable:s0
+/sys/class/lcd(/.*)?         -- u:object_r:sysfs_writable:s0
+
+# bluetooth
+/sys/devices/bluetooth.[0-9]*/rfkill/rfkill0/state  u:object_r:sysfs_bluetooth_writable:s0
+/sys/devices/bluetooth.[0-9]*/rfkill/rfkill0/type   u:object_r:sysfs_bluetooth_writable:s0
+
+# camera
+/sys/devices/virtual/camera(/.*)?           u:object_r:camera_device:s0
+
+# cbd
+/sys/devices/10f24000.mipi-lli/lli_control  u:object_r:sysfs_mipi_writable:s0
+
+# rild
+/sys/devices/virtual/misc/multipdp(/.*)     u:object_r:sysfs_multipdp_writable:s0
+/dev/socket/rild2                           u:object_r:rild_socket:s0
+/dev/socket/rild-debug[0-9]*                u:object_r:rild_debug_socket:s0
+
+# mDNIe
+/sys/devices/[0-9]*.decon_fb/lcd/panel/mdnie/mode       u:object_r:sysfs_mdnie_writable:s0
+/sys/devices/[0-9]*.decon_fb/lcd/panel/mdnie/scenario   u:object_r:sysfs_mdnie_writable:s0
+
+####################################
+# deamons
+#
+
+/system/bin/mcDriverDaemon   u:object_r:tee_exec:s0
+/system/bin/macloader        u:object_r:macloader_exec:s0
+/system/bin/modemloader      -- u:object_r:modemloader_exec:s0
+/system/bin/sensorhubservice -- u:object_r:sensorhubservice_exec:s0
+/system/bin/wifiloader       -- u:object_r:wifiloader_exec:s0
+
+/sbin/cbd                    -- u:object_r:rootfs:s0
+/system/bin/gpsd             -- u:object_r:gpsd_exec:s0
+/system/bin/lhd               -- u:object_r:lhd_exec:s0

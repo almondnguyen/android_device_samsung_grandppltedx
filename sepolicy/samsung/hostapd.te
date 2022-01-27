@@ -1,1 +1,2 @@
-allow hostapd bluetooth_device:chr_file { open read };
+allow hostapd wifi_efs_file:dir search;
+allow hostapd wifi_efs_file:file { read open };

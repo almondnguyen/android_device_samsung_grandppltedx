@@ -1,3 +1,0 @@
-allow gatekeeperd efs_file:dir search;
-allow gatekeeperd prov_efs_file:dir { write search add_name };
-allow gatekeeperd prov_efs_file:file { write read create open };

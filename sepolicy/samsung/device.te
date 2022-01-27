@@ -1,7 +1,31 @@
+# /dev/ttySAC3
 type bluetooth_device, dev_type;
-type modem_efs_partition_device, dev_type;
-type at_device, dev_type;
-type fm_radio_device, dev_type;
-type emmcblk_device, dev_type;
-type efsblk_device, dev_type;
-type tz_device, dev_type, mlstrustedobject;
+
+type bbd_device, dev_type;
+
+# /dev/block/mmcblk0p[0-9] (/dev/mbin0)
+type emmcblk_device, file_type;
+
+# /dev/umts_boot*, /dev/ehci_power
+type mif_device, dev_type;
+
+# /dev/seiren
+type seiren_device, dev_type;
+
+# /dev/s5p-smem
+type secmem_device, dev_type;
+
+# efs
+type efs_block_device, dev_type;
+
+type radio_block_device, dev_type;
+
+type uart_device, dev_type;
+
+type vfs_device, dev_type;
+
+type batch_io_device, dev_type;
+
+# fix build err
+type gps_device, dev_type;
+type log_device, dev_type;

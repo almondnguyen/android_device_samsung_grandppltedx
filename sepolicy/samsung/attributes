@@ -1,6 +1,0 @@
-
-attribute socket_file_type;
-attribute rw_fs_type;
-attribute efs_type;
-attribute log_file_type;
-

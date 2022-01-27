@@ -1,6 +1,0 @@
-typeattribute lmkd mlstrustedsubject;
-
-allow lmkd sysfs:file write;
-allow lmkd sysfs_ss_writable:file rw_file_perms;
-
-

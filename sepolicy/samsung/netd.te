@@ -1,0 +1,3 @@
+allow netd self:capability sys_module;
+allow netd dhcp_data_file:dir setattr;
+allow netd wifi_data_file:sock_file { create setattr unlink };

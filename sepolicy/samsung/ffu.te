@@ -1,6 +1,0 @@
-type ffu, domain;
-domain_trans(init, rootfs, ffu)
-
-allow ffu self:capability { sys_boot dac_read_search dac_override fowner chown fsetid };
-
-
