@@ -171,6 +171,7 @@ LINKER_FORCED_SHIM_LIBS := \
 	/system/lib/libgui_ext.so|libshim_gui.so \
 	/system/lib/audio.primary.mt6737t.so|libshim_audio.so \
 	/system/bin/thermal|libshim_ifc.so \
+	/system/bin/libdpframework.so|libshim_xlog.so
 
 LD_PRELOADS += mtk_symbols.so
 
@@ -260,3 +261,7 @@ DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/configs/manifest.xml
 
 # Misc
 EXTENDED_FONT_FOOTPRINT := true
+
+# TEMPORARY: AOSP RILD cannot build. What a day
+BOARD_PROVIDES_RILD := true
+BOARD_PROVIDES_LIBRIL := true
