@@ -139,10 +139,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 #-- Carrier
 PRODUCT_COPY_FILES += \
-	$(DEVICE_PATH)/configs/carrier/apns-conf.xml:system/etc/apns-conf.xml \
-	$(DEVICE_PATH)/configs/carrier/spn-conf.xml:system/etc/spn-conf.xml \
-	$(DEVICE_PATH)/configs/carrier/old-apns-conf.xml:system/etc/old-apns-conf.xml \
-	$(DEVICE_PATH)/configs/carrier/nwk_info.xml:system/etc/nwk_info.xml
+	$(DEVICE_PATH)/configs/carrier/spn-conf.xml:system/etc/spn-conf.xml
 
 #-- RIL
 SIM_COUNT := 2
