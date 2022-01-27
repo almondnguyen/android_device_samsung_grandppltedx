@@ -47,6 +47,7 @@
 using android::base::GetProperty;
 using android::base::ReadFileToString;
 using android::base::Trim;
+using android::init::property_set;
 
 int read_integer(const char* filename) {
 	int retval;
@@ -97,7 +98,7 @@ void vendor_load_properties() {
 	std::string platform = GetProperty("ro.board.platform", "");
 	std::string device;
 
-	if (platform != ANDROID_TARGET)
+	if (platform != ANDROID_TARGET) return;
 	int sim_count;
 
 	/* set basic device name */
