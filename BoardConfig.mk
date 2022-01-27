@@ -263,6 +263,6 @@ DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/configs/manifest.xml
 EXTENDED_FONT_FOOTPRINT := true
 
 # TEMPORARY: AOSP RILD cannot build. What a day
-BOARD_PROVIDES_RILD := true
-BOARD_PROVIDES_LIBRIL := true
-PRODUCT_PACKAGES += libccci_util
+#BOARD_PROVIDES_RILD := true
+#BOARD_PROVIDES_LIBRIL := true
+#PRODUCT_PACKAGES += libccci_util rild-prop-md1
