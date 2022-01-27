@@ -28,20 +28,25 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <string.h>
-#include <fcntl.h>
-#include <unistd.h>
+#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
+#include <sys/_system_properties.h>
+
+#include <android-base/file.h>
+#include <android-base/logging.h>
+#include <android-base/strings.h>
+#include <android-base/properties.h>
 
 #include "property_service.h"
 #include "vendor_init.h"
 #include "log.h"
 #include "util.h"
 
-#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
-#include <sys/_system_properties.h>
-
 #define SERIAL_NUMBER_FILE "/efs/FactoryApp/serial_no"
 #define SIMSLOT_FILE "/proc/simslot_count"
+
+using android::base::GetProperty;
+using android::base::ReadFileToString;
+using android::base::Trim;
 
 int read_integer(const char* filename) {
 	int retval;
@@ -68,6 +73,13 @@ void property_override(char const prop[], char const value[]) {
 		__system_property_add(prop, strlen(prop), value, strlen(value));
 }
 
+void property_override_dual(char const system_prop[],
+		char const vendor_prop[], char const value[])
+{
+	property_override(system_prop, value);
+	property_override(vendor_prop, value);
+}
+
 void init_dual() {
     property_set("ro.multisim.set_audio_params", "true");
     property_set("ro.multisim.simslotcount", "2");
@@ -81,12 +93,15 @@ void init_single() {
 }
 
 void vendor_load_properties() {
-	std::string bootloader = property_get("ro.bootloader");
-	std::string platform;
+	std::string bootloader = GetProperty("ro.bootloader", "");
+	std::string platform = GetProperty("ro.board.platform", "");
+	std::string device;
+
+	if (platform != ANDROID_TARGET)
 	int sim_count;
 
 	/* set basic device name */
-	property_override("ro.product.device","grandpplte");
+	property_override_dual("ro.product.device", "ro.vendor.product.device", "grandpplte");
 
 	/* check if the simslot count file exists */
 	if (access(SIMSLOT_FILE, F_OK) == 0) {
@@ -96,58 +111,48 @@ void vendor_load_properties() {
 	/* set model + dual sim props */
 	if (bootloader.find("G532F") != std::string::npos) {
 		/* G532F */
-		property_override("ro.build.fingerprint", "samsung/grandpplteser/grandpplte:6.0.1/MMB29T/G532FXWU1ASB1:user/release-keys");
-	        property_override("ro.build.description", "grandpplteser-user 6.0.1 MMB29T G532FXWU1ASB1 release-keys");
-	        property_override("ro.product.name", "grandpplteser");
+	        property_override_dual("ro.product.name", "ro.vendor.product.name", "grandpplteser");
 		if (sim_count == 1) {
-			property_override("ro.product.model", "SM-G532F");
+			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532F");
 			init_single();
 		} else {
-			property_override("ro.product.model", "SM-G532F/DS");
+			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532F/DS");
 			init_dual();
 		}
 	}
 
 	if (bootloader.find("G532G") != std::string::npos) {
 		/* G532G */
-		/* SEA is grandppltedx; SWA is grandpplteins*/
-		/* no major differences actually, so just name it -dx*/
-		property_override("ro.build.fingerprint", "samsung/grandppltedx/grandpplte:6.0.1/MMB29T/G532DXU1ASA5:user/release-keys");
-	        property_override("ro.build.description", "grandppltedx-user 6.0.1 MMB29T G532GDXU1ASA5 release-keys");
-	        property_override("ro.product.name", "grandppltedx");
+	        property_override_dual("ro.product.name", "ro.vendor.product.name", "grandppltedx");
 		if (sim_count == 1) {
-			property_override("ro.product.model", "SM-G532G");
+			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532G");
 			init_single();
 		} else {
-			property_override("ro.product.model", "SM-G532G/DS");
+			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532G/DS");
 			init_dual();
 		}
 	}
 
 	if (bootloader.find("G532M") != std::string::npos) {
 		/* G532M */
-		property_override("ro.build.fingerprint", "samsung/grandpplteub/grandpplte:6.0.1/MMB29T/G532MUMU1ASA1:user/release-keys");
-		property_override("ro.build.description", "grandpplteub-user 6.0.1 MMB29T G532MUMU1ASA1 release-keys");
-	        property_override("ro.product.name", "grandpplteub");
+	        property_override_dual("ro.product.name", "ro.vendor.product.name", "grandpplteub");
 		if (sim_count == 1) {
-			property_override("ro.product.model", "SM-G532M");
+			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532M");
 			init_single();
 		} else {
-			property_override("ro.product.model", "SM-G532M/DS");
+			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532M/DS");
 			init_dual();
 		}
 	}
 
 	if (bootloader.find("G532MT") != std::string::npos) {
-		/* G532MT */
-		property_override("ro.build.fingerprint", "samsung/grandppltedtvvj/grandpplte:6.0.1/MMB29T/G532MTVJU1ASA1:user/release-keys");
-		property_override("ro.build.description", "grandppltedtvvj-user 6.0.1 MMB29T G532MTVJU1ASA1 release-keys");
-	        property_override("ro.product.name", "grandppltedtvvj");
+		/* G532F */
+	        property_override_dual("ro.product.name", "ro.vendor.product.name", "grandppltedtvvj");
 		if (sim_count == 1) {
-			property_override("ro.product.model", "SM-G532MT");
+			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532MT");
 			init_single();
 		} else {
-			property_override("ro.product.model", "SM-G532MT/DS");
+			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532MT/DS");
 			init_dual();
 		}
 	}
