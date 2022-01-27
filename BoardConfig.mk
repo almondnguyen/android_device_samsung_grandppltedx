@@ -238,9 +238,7 @@ BOARD_USE_SAMSUNG_CAMERAFORMAT_YUV420SP := true
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 
 # SEAndroid
-BOARD_SEPOLICY_DIRS := \
-	device/samsung/grandppltedx/sepolicy/samsung \
-	device/samsung/grandppltedx/sepolicy/mt6737m
+#BOARD_SEPOLICY_DIRS := device/samsung/grandppltedx/sepolicy/samsung device/samsung/grandppltedx/sepolicy/mtk
 
 BOARD_SECCOMP_POLICY += $(DEVICE_PATH)/seccomp
 
