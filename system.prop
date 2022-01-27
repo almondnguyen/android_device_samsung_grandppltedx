@@ -4,8 +4,9 @@
 config.disable_consumerir=true
 media.sf.omx-plugin=libffmpeg_omx.so,libsomxcore.so
 qemu.hw.mainkeys=0
-lineage.updater.uri=https://raw.githubusercontent.com/almondnguyen/android_OTA/main/grandppltedx.json
-cm.updater.uri=https://raw.githubusercontent.com/almondnguyen/android_OTA/main/grandppltedx.json
+
+## Oreo
+lineage.updater.uri=https://raw.githubusercontent.com/almondnguyen/android_OTA/main/los-15-grandppltedx.json
 
 # Platform
 ro.mediatek.chip_ver=S01
