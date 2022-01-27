@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The LineageOS Project
+ * Copyright (C) 2020 Tobias Tefke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,3 +14,11 @@
  * limitations under the License.
  */
 
+extern "C" {
+     void _ZN7android12AudioPCMxWayD1Ev() {}
+     void _ZN7android12AudioPCMxWayC1EiPFviPvS1_ES1_() {}
+     void _ZN7android12AudioPCMxWay5startEv() {}
+     void _ZN7android12AudioPCMxWay4stopEv() {}
+     void _ZN7android12AudioPCMxWay4readEPvj() {}
+     void _ZN7android14FindAVCSPSInfoEPhjPNS_7SPSInfoE() {}
+}
