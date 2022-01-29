@@ -164,9 +164,7 @@ LINKER_FORCED_SHIM_LIBS := \
 	/system/bin/mtk_agpsd|libshim_gps.so \
 	/system/lib/libcam_utils.so|libshim_camera.so \
 	/system/lib/libcam_utils.so|libshim_gui.so \
-	/system/bin/vtservice|libshim_vt.so \
 	/system/lib/liblog.so|libshim_xlog.so \
-	/system/lib/libvtmal.so|libshim_vt.so \
 	/system/lib/libui_ext.so|libshim_gui.so \
 	/system/lib/libgui_ext.so|libshim_gui.so \
 	/system/lib/audio.primary.mt6737t.so|libshim_audio.so \
@@ -263,6 +261,6 @@ DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/configs/manifest.xml
 EXTENDED_FONT_FOOTPRINT := true
 
 # TEMPORARY: AOSP RILD cannot build. What a day
-#BOARD_PROVIDES_RILD := true
-#BOARD_PROVIDES_LIBRIL := true
-#PRODUCT_PACKAGES += libccci_util rild-prop-md1
+BOARD_PROVIDES_RILD := true
+BOARD_PROVIDES_LIBRIL := true
+PRODUCT_PACKAGES += libccci_util rild-prop-md1

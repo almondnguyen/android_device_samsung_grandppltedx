@@ -6,6 +6,7 @@ media.sf.omx-plugin=libffmpeg_omx.so,libsomxcore.so
 qemu.hw.mainkeys=0
 
 ## Oreo
+ro.radio.noril=yes
 lineage.updater.uri=https://raw.githubusercontent.com/almondnguyen/android_OTA/main/los-15-grandppltedx.json
 
 # Platform

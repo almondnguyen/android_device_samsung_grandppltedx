@@ -41,22 +41,6 @@ LOCAL_MODULE := libshim_xlog
 LOCAL_PROPRIETARY_MODULE := true
 include $(BUILD_SHARED_LIBRARY)
 
-# MAL Shim (vt)
-include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES := \
-	vt/vt_shim.cpp \
-	vt/skia_shim.cpp \
-	vt/MediaBuffer_shim.cpp \
-	vt/MediaCodec_shim.cpp \
-	vt/AudioTrack_shim.cpp
-
-LOCAL_MODULE := libshim_vt
-LOCAL_SHARED_LIBRARIES := libskia libstagefright_foundation libui libgui libmedia libstagefright
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/skia/include    
-LOCAL_PROPRIETARY_MODULE := true
-include $(BUILD_SHARED_LIBRARY)
-
 # ASC Shim (vt)
 include $(CLEAR_VARS)
 
