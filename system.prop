@@ -8,6 +8,18 @@ qemu.hw.mainkeys=0
 ## Oreo
 ro.radio.noril=yes
 lineage.updater.uri=https://raw.githubusercontent.com/almondnguyen/android_OTA/main/los-15-grandppltedx.json
+rild.libpath=/system/lib/libsec-ril.so
+rild.libpath2=/system/lib/libsec-ril-dsds.so
+ro.zygote=zygote32
+ro.mount.fs=EXT4
+ro.adb.secure=0
+ro.secure=0
+ro.allow.mock.location=0
+ro.debuggable=1
+persist.sys.dun.override=0
+persist.service.acm.enable=0
+persist.sys.usb.config=mtp,adb
+persist.sys.display.clearMotion=0
 
 # Platform
 ro.mediatek.chip_ver=S01
