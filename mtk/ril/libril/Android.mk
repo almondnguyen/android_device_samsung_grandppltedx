@@ -43,7 +43,7 @@ ril_shared_libs := \
 #endif
 
 ril_inc := external/nanopb-c \
-    $(LOCAL_PATH)/../include
+    hardware/ril/include
 
 ril_cflags := -Wno-unused-parameter -DANDROID_SIM_COUNT_2 -DANDROID_MULTI_SIM
 
