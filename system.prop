@@ -7,6 +7,12 @@ qemu.hw.mainkeys=0
 lineage.updater.uri=https://raw.githubusercontent.com/almondnguyen/android_OTA/main/grandppltedx.json
 cm.updater.uri=https://raw.githubusercontent.com/almondnguyen/android_OTA/main/grandppltedx.json
 
+## persist logcat
+logd.logpersistd.enable=true
+persist.logd.logpersistd=logcatd
+persist.logd.logpersistd.buffer=all
+persist.logd.logpersistd.size=2048
+
 # Platform
 ro.mediatek.chip_ver=S01
 ro.mediatek.platform=MT6737T
