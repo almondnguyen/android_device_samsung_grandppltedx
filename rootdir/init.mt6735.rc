@@ -31,6 +31,9 @@ on early-init
 
 on init
 
+    # al: start boot logging in system/etc/init/
+    start cust-log
+
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
 
@@ -78,6 +81,9 @@ on init
     chmod 0644 /sys/devices/system/cpu/cpu1/online
     chmod 0644 /sys/devices/system/cpu/cpu2/online
     chmod 0644 /sys/devices/system/cpu/cpu3/online
+
+# al: help audioparamparser
+    mkdir /sdcard/.audio_param system system
 
 # mount different fs start
 

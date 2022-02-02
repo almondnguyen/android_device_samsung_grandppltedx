@@ -16,7 +16,7 @@ on boot
 service at_distributor /system/bin/at_distributor
     class late_start
     user root
-    group radio misc log
+    group system radio inet misc log sdcard_r sdcard_rw
 
 service DR-daemon /system/bin/ddexe
     class main

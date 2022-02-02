@@ -52,6 +52,8 @@ PRODUCT_PACKAGES += \
 	audio.usb.default \
 	audio_policy.default \
 	libaudiopolicymanagerdefault \
+	libaudiopolicyservice \
+	libaudiopolicyenginedefault \
 	libaudio-resampler \
 	libaudioutils \
 	libtinyalsa \
@@ -158,9 +160,7 @@ PRODUCT_PACKAGES += \
 	libshim_ssl \
 	libshim_camera \
 	libshim_agpsd \
-	libshim_xlog \
-	libshim_audioflinger \
-	libshim_audiopolicyservice
+	libshim_xlog
 
 # Platform
 PRODUCT_PACKAGES += \
@@ -282,12 +282,11 @@ PRODUCT_PACKAGES += \
 	init.xlog.rc \
 	log.sh
 
-
-#-- sbin
-
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/rootdir/sbin/sswap:root/sbin/sswap \
 	$(DEVICE_PATH)/rootdir/sbin/busybox:root/sbin/busybox
+	
+PRODUCT_COPY_FILES += $(DEVICE_PATH)/configs/init/audioserver.rc:system/etc/init/audioserver.rc
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
 	rild.libpath=/system/lib/libsec-ril.so \
