@@ -160,32 +160,16 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.mt6735
 
 # Move symlinks here
 TARGET_LDPRELOAD += liblog_mtk.so
-
 LINKER_FORCED_SHIM_LIBS := \
-	/system/lib/libdpframework.so|liblog_mtk.so:\
-	/system/lib/hw/audio.primary.mt6735.so|liblog_mtk.so:\
-	/system/lib/libMtkOmxAlacDec.so|liblog_mtk.so:\
-	/system/bin/mdlogger|liblog_mtk.so:\
-	/system/bin/mtk_agpsd|liblog_mtk.so:\
-	/system/bin/mobile_log_d|liblog_mtk.so:\
-	/system/bin/fsck_msdos_mtk|liblog_mtk.so:\
-	/system/bin/mmp|liblog_mtk.so:\
-	/system/xbin/mnld|liblog_mtk.so\
-	/system/lib/libcam_utils.so|libshim_camera.so:\
-	/system/bin/thermal|libshim_thermal.so:\
-	/system/bin/emdlogger1|liblog_mtk.so:\
-	/system/bin/xlog|liblog_mtk.so:\
-	/system/bin/xlog|libshim_xlog.so:\
-	/system/bin/mtk_agpsd|libshim_agpsd.so:\
-	/system/lib/libMtkOmxVenc.so|mtk_symbols.so:\
-	/system/lib/hw/camera.mt6735.so|libshim_camera.so:\
-	/system/lib/hw/camera.mt6735.so|mtk_symbols.so:\
-	/system/lib/libcam.camadapter.so|libshim_camera.so:\
-	/system/lib/libcam.client.so|mtk_symbols.so:\
-	/system/bin/mtk_agpsd|mtk_symbols.so:\
-	/system/lib/libaudio_param_parser.so|mtk_symbols.so:\
-	/system/lib/libaudioflinger.so|libshim_audioflinger.so:\
-	/system/lib/libaudiopolicyservice.so|libshim_audiopolicyservice.so
+	/system/bin/mtk_agpsd|mtk_symbols.so \
+	/system/bin/mtk_agpsd|libshim_agpsd.so \
+	/system/lib/libcam_utils.so|libshim_camera.so \
+	/system/lib/libcam_utils.so|mtk_symbols.so \
+	/system/lib/liblog.so|libshim_xlog.so \
+	/system/lib/libui_ext.so|mtk_symbols.so \
+	/system/lib/libgui_ext.so|mtk_symbols.so \
+	/system/lib/audio.primary.mt6737t.so|mtk_symbols.so \
+	/system/bin/thermal|libshim_thermal.so
 
 # temporary. This'll be useful when buiding
 # libril + libsecril-client from source
@@ -196,8 +180,6 @@ LINKER_FORCED_SHIM_LIBS := \
 #	/system/lib/libaudio-ril.so|libsecril-client.so:\
 #	/system/bin/at_distributor|libsecril-client.so:\
 	
-LD_PRELOADS += mtk_symbols.so
-
 # Audio
 USE_CUSTOM_AUDIO_POLICY := 1
 BOARD_USES_MTK_AUDIO := true
