@@ -1,19 +1,25 @@
-# Device Tree for Samsung Galaxy J2 Prime
+# Device Tree for Samsung Galaxy J2 Prime (SM-G532x)
 
-SM-G532x
------
-CURRENTLY NOT WORKING/BUGGY: 
- 
-* GPS
+WORKING ON:
+* RadioFM (a port ROM has RFM confirmed working)
+* LiveDisplay (same as above ^)
+* Doze (Battery is important for a phone. Kek?)
+* Camera (log spamming wildly when opening camera; currently finding a way to read them)
+
+CURRENTLY NOT WORKING/BUGGY:
+* GPS (bin runs but doesn't work)
 * Camera: Video Recording
 * Camera: Stock Camera app (Snap) crashes after taking 1 pic.
-* Radio FM
+* RadioFM
 * LiveDisplay
 * Wi-Fi Hotspot
 * Dozing (aka. kinda bad battery). There's still log spamming.
-* VoLTE
 * No Icon/Percentage while offline charging. (it still charges.)
 * Manually configure for 2 active SIMs.
+
+WON'T FIX:
+* VoLTE. No Samsung device has managed to port IMS to AOSP, so I'd say 'impossible to fix'.
+
 
 DEVELOPMENT IN PROGRESS, MAY EAT YOUR CAT.
 
