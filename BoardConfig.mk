@@ -159,7 +159,7 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.mt6735
 
 # Move symlinks here
-TARGET_LDPRELOAD += liblog_mtk.so
+TARGET_LDPRELOAD += libshim_xlog.so
 LINKER_FORCED_SHIM_LIBS := \
 	/system/bin/mtk_agpsd|mtk_symbols.so \
 	/system/bin/mtk_agpsd|libshim_agpsd.so \

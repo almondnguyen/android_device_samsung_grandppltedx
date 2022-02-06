@@ -18,7 +18,8 @@ include $(BUILD_SHARED_LIBRARY)
 
 # Cam and FILEPATHE
 include $(CLEAR_VARS)
-LOCAL_SRC_FILES := camera_shim.c
+LOCAL_SHARED_LIBRARIES := libbinder liblog libgui libui libicuuc libicui18n libmedia
+LOCAL_SRC_FILES := camera_shim.c mtk_cam.cpp
 LOCAL_MODULE := libshim_camera
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES

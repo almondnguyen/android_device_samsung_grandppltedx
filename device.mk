@@ -148,15 +148,12 @@ MTK_FM_SUPPORT := true
 PRODUCT_PACKAGES += \
 	libfmjni \
 	FMRadio \
-	libfmcust \
-	radio.fm.mt6735
+	libfmcust
 
 # shim / symbols
 PRODUCT_PACKAGES += \
-	liblog_mtk \
 	mtk_symbols \
 	libshim_thermal \
-	libshim_general \
 	libshim_ssl \
 	libshim_camera \
 	libshim_agpsd \
@@ -282,12 +279,17 @@ PRODUCT_PACKAGES += \
 	init.xlog.rc \
 	log.sh
 
+#-- sbin
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/rootdir/sbin/sswap:root/sbin/sswap \
 	$(DEVICE_PATH)/rootdir/sbin/busybox:root/sbin/busybox
-	
-PRODUCT_COPY_FILES += $(DEVICE_PATH)/configs/init/audioserver.rc:system/etc/init/audioserver.rc
 
+#-- etc/init/
+PRODUCT_COPY_FILES += \
+	$(DEVICE_PATH)/configs/init/audioserver.rc:system/etc/init/audioserver.rc \
+	$(DEVICE_PATH)/configs/init/rild.rc:system/etc/init/rild.rc
+
+#-- default.prop
 ADDITIONAL_DEFAULT_PROPERTIES += \
 	rild.libpath=/system/lib/libsec-ril.so \
 	rild.libpath2=/system/lib/libsec-ril-dsds.so \
@@ -317,12 +319,10 @@ PRODUCT_PACKAGES += \
 	setup_fs \
 	make_ext4fs
 
-# exFAT
 PRODUCT_PACKAGES += \
 	fsck.exfat \
 	mkfs.exfat
 
-# NTFS
 PRODUCT_PACKAGES += \
 	fsck.ntfs \
 	mkfs.ntfs \
