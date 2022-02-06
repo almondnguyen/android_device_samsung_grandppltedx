@@ -26,9 +26,7 @@ DEVICE_PATH := device/samsung/grandppltedx
 $(call inherit-product-if-exists, vendor/samsung/grandppltedx/grandppltedx-vendor.mk)
 
 # Overlay
-DEVICE_PACKAGE_OVERLAYS += \
-	$(DEVICE_PATH)/overlay/n \
-	$(DEVICE_PATH)/overlay/tether
+DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
 
 # Display
 #-- This device is hdpi.
