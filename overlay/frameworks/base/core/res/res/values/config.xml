@@ -237,7 +237,4 @@
          timeout expires.  May be less than the minimum allowed brightness setting
          that can be set by the user. -->
     <integer name="config_screenBrightnessDim">5</integer>
-
-    <!-- test 4PDA: fix headphone -->
-    <bool name="config_useDevInputEventForAudioJack">true</bool>
 </resources>
