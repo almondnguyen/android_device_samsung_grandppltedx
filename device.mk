@@ -131,7 +131,8 @@ SIM_COUNT := 2
 
 PRODUCT_PACKAGES += \
 	libxml2 \
-	libprotobuf-cpp-full
+	libprotobuf-cpp-full \
+	libstlport
 
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
@@ -139,6 +140,15 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.android.checkjni=0 \
 	ro.telephony.ril_class=grandpplteRIL
+
+# Disable mobile data on first boot
+PRODUCT_PROPERTY_OVERRIDES += ro.com.android.mobiledata=false
+
+# Disable Data Roaming
+PRODUCT_PROPERTY_OVERRIDES += ro.com.android.dataroaming=false
+
+# Disable SIM keyguard
+PRODUCT_PROPERTY_OVERRIDES += keyguard.no_require_sim=true
 
 #-- FM
 MTK_FM_SUPPORT := true
@@ -202,12 +212,11 @@ PRODUCT_COPY_FILES += \
 
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
-PRODUCT_COPY_FILES += \
-
 # Charger
 # Use cm/lineage images if available, aosp ones otherwise
 PRODUCT_PACKAGES += \
-	cm_charger_res_images
+	charger \
+	charger_res_images
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -301,12 +310,14 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 	persist.service.acm.enable=0 \
 	persist.sys.usb.config=mtp,adb \
 	persist.sys.display.clearMotion=0
-	 
+
 # Misc
 PRODUCT_PACKAGES += \
 	librs_jni \
 	libnl_2
-	
+
+PRODUCT_PACKAGES += SamsungServiceMode
+
 # Filesystem management tools
 PRODUCT_PACKAGES += \
 	f2fstat \
