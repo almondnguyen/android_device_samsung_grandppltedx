@@ -2,14 +2,16 @@
 
 WORKING ON:
 * Headphone:
-
-`E/APM::AudioPolicyEngine(  319): getDeviceForInputSource() no default device defined
-
-W/APM_AudioPolicyManager(  319): getInputForAttr() could not find device for source 1998`
-
-* RadioFM (probably due to headphone not working)
-* Doze (log: `neither /proc/wakelocks nor /d/wakeup_sources exists`)
-* RIL (bad/unstable signal strength on LTE; manual configure for dual-SIM)
+```
+E/APM::AudioPolicyEngine(  319): getDeviceForInputSource() no default device defined
+W/APM_AudioPolicyManager(  319): getInputForAttr() could not find device for source 1998
+```
+* RadioFM (probably due to headphone not working; it scans then crashes)
+* Doze
+```
+neither /proc/wakelocks nor /d/wakeup_sources exists
+```
+* RIL (bad/unstable signal strength on LTE; manual configure for dual-SIM; log spam)
 
 CURRENTLY NOT WORKING/BUGGY:
 * Headphone
