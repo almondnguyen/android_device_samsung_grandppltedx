@@ -24,7 +24,7 @@ import init.modem.rc
 on early-init
     chmod 0644 /proc/cmdline
 
-    mount debugfs /sys/kernel/debug
+    mount debugfs debugfs /sys/kernel/debug
     chmod 0755 /sys/kernel/debug
     chown system /sys/kernel/debug
 
