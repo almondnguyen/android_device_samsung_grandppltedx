@@ -1,5 +1,8 @@
 # Device Tree for Samsung Galaxy J2 Prime (SM-G532x)
 
+TESTING:
+* Doze/Battery Life
+
 WORKING ON:
 * Headphone:
 ```
@@ -7,10 +10,6 @@ E/APM::AudioPolicyEngine(  319): getDeviceForInputSource() no default device def
 W/APM_AudioPolicyManager(  319): getInputForAttr() could not find device for source 1998
 ```
 * RadioFM (probably due to headphone not working; it scans then crashes)
-* Doze
-```
-neither /proc/wakelocks nor /d/wakeup_sources exists
-```
 * RIL (bad/unstable signal strength on LTE; manual configure for dual-SIM; log spam)
 
 CURRENTLY NOT WORKING/BUGGY:
@@ -19,7 +18,6 @@ CURRENTLY NOT WORKING/BUGGY:
 * Camera: Video Recording
 * RadioFM
 * Wi-Fi Hotspot
-* Dozing (aka. ~kinda~ REALLY bad battery). There's still log spamming.
 * No Icon/Percentage while offline charging. (it still charges.)
 * Manually configure for 2 active SIMs.
 
