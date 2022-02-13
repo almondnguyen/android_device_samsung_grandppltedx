@@ -75,36 +75,25 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
     }
 
     @Override
-    public void
-    getHardwareConfig (Message result) {
-        riljLog("Ignoring call to 'getHardwareConfig'");
-        if (result != null) {
-            CommandException ex = new CommandException(
-                CommandException.Error.REQUEST_NOT_SUPPORTED);
-            AsyncResult.forMessage(result, null, ex);
-            result.sendToTarget();
-        }
-    }
-
-    @Override
-    public void startLceService(int reportIntervalMs, boolean pullMode, Message response) {
-        riljLog("Link Capacity Estimate (LCE) service is not supported!");
-        if (response != null) {
-            AsyncResult.forMessage(response, null, new CommandException(
-                    CommandException.Error.REQUEST_NOT_SUPPORTED));
-            response.sendToTarget();
-        }
-    }
-
-    @Override
     public void setDataAllowed(boolean allowed, Message result) {
+    // from stock
+
+    	int i = 1;
         RILRequest rr = RILRequest.obtain(RIL_REQUEST_ALLOW_DATA, result);
         if (RILJ_LOGD) {
             riljLog(rr.serialString() + "> " + requestToString(rr.mRequest) +
                     " allowed: " + allowed);
         }
+        rr.mParcel.writeInt(1);
+        Parcel parcel = rr.mParcel;
+        
+        // disable 
+        // if (!allowed) {
+        //    i = 0;
+        // }
+        parcel.writeInt(i);
+        send(rr);
     }
-
 
     @Override
     public void writeSmsToSim(int status, String smsc, String pdu, Message response) {
@@ -183,12 +172,12 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
         RILRequest rr = RILRequest.obtain(RIL_REQUEST_DIAL_EMERGENCY_CALL, result);
         rr.mParcel.writeString(address);
         rr.mParcel.writeInt(clirMode);
+        rr.mParcel.writeInt(0);        // CallDetails.call_type
+        rr.mParcel.writeInt(3);        // CallDetails.call_domain
+        rr.mParcel.writeString("");    // CallDetails.getCsvFromExtra
+        rr.mParcel.writeInt(0);        // Unknown
         
-        rr.mParcel.writeInt(0);
-        rr.mParcel.writeInt(3);
-        rr.mParcel.writeString("");
-       
-        rr.mParcel.writeInt(0);
+        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
         send(rr);
     }
 
@@ -230,6 +219,7 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
         return cardStatus;
     }
     
+    /* BAD SIGNAL STRENGTH, DISABLE FOR NOW. STOCK USES AOSP IMPL ANYWAYS
     @Override
     protected Object
     responseSignalStrength(Parcel p) {
@@ -263,6 +253,7 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
                                   response[11],
                                   true);
     }
+    END DISABLE responseSignalStrength */
 
     @Override
     public Object responseCallList(Parcel p) {
@@ -422,6 +413,7 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
             case RIL_UNSOL_STK_CALL_CONTROL_RESULT:
             case RIL_UNSOL_SIM_PB_READY: // Registrant notification 
             case RIL_UNSOL_GPS_NOTI:
+            case RIL_UNSOL_DEVICE_READY_NOTI:
 	    case RIL_UNSOL_SIM_ICCID_NOTI:
         	Rlog.v(RILJ_LOG_TAG,
                        "MT6737T: ignoring unsolicited response " +
@@ -430,7 +422,7 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
         }
 
         if (newResponse != origResponse) {
-            riljLog("MT6737T: remap unsolicited response from " +
+            riljLog("MT6737T: grandpplteRIL: remap unsolicited response from " +
                     origResponse + " to " + newResponse);
             p.setDataPosition(dataPosition);
             p.writeInt(newResponse);
@@ -446,6 +438,11 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
             case RIL_UNSOL_STK_SEND_SMS_RESULT:
                 ret = responseInts(p);
                 break;
+            case RIL_UNSOL_NITZ_TIME_RECEIVED:
+                fixNitz(p);
+                p.setDataPosition(dataPosition);
+                super.processUnsolicited(p, type);
+                return;
             default:
                 // Rewind the Parcel
                 p.setDataPosition(dataPosition);
@@ -464,6 +461,24 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
 	    case RIL_UNSOL_PB_INIT_COMPLETE:
 		ret = responseVoid(p);
 		break;
+        }
+    }
+
+    private void
+    fixNitz(Parcel p) {
+        int dataPosition = p.dataPosition();
+        String nitz = p.readString();
+        long nitzReceiveTime = p.readLong();
+
+        String[] nitzParts = nitz.split(",");
+        if (nitzParts.length >= 4) {
+            // 0=date, 1=time+zone, 2=dst, 3(+)=garbage that confuses ServiceStateTracker
+            nitz = nitzParts[0] + "," + nitzParts[1] + "," + nitzParts[2];
+            p.setDataPosition(dataPosition);
+            p.writeString(nitz);
+            p.writeLong(nitzReceiveTime);
+            // The string is shorter now, drop the extra bytes
+            p.setDataSize(p.dataPosition());
         }
     }
 }
