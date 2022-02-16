@@ -53,18 +53,14 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
     
     /*request*/
     private static final int RIL_REQUEST_DIAL_EMERGENCY_CALL = 10001;
-    private static final int GET_CELL_BROADCAST_CONFIG = 10008;
+
     /*response*/
-    //private static final int SAMSUNG_UNSOL_RESPONSE_BASE = 11000; // alz
-    
     private static final int RIL_UNSOL_STK_SEND_SMS_RESULT = 11002;
     private static final int RIL_UNSOL_STK_CALL_CONTROL_RESULT = 11003;
     private static final int RIL_UNSOL_DEVICE_READY_NOTI = 11008;
     private static final int RIL_UNSOL_AM = 11010;
-    private static final int RIL_UNSOL_GPS_NOTI = 11009;
     private static final int RIL_UNSOL_SIM_PB_READY = 11021;
     private static final int RIL_UNSOL_PB_INIT_COMPLETE = 11035;
-    private static final int RIL_UNSOL_SIM_ICCID_NOTI = 11066;
 
     public grandpplteRIL(Context context, int preferredNetworkType, int cdmaSubscription) {
         this(context, preferredNetworkType, cdmaSubscription, null);
@@ -361,6 +357,23 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
         send(rr);
     }
 
+    private void
+    fixNitz(Parcel p) {
+        int dataPosition = p.dataPosition();
+        String nitz = p.readString();
+        long nitzReceiveTime = p.readLong();
+
+        String[] nitzParts = nitz.split(",");
+        if (nitzParts.length >= 4) {
+            // 0=date, 1=time+zone, 2=dst, 3(+)=garbage that confuses ServiceStateTracker
+            nitz = nitzParts[0] + "," + nitzParts[1] + "," + nitzParts[2];
+            p.setDataPosition(dataPosition);
+            p.writeString(nitz);
+            p.writeLong(nitzReceiveTime);
+            // The string is shorter now, drop the extra bytes
+            p.setDataSize(p.dataPosition());
+        }
+    }
     
     @Override
     protected Object responseOperatorInfos(Parcel p) {
@@ -412,9 +425,7 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
         switch (origResponse) {
             case RIL_UNSOL_STK_CALL_CONTROL_RESULT:
             case RIL_UNSOL_SIM_PB_READY: // Registrant notification 
-            case RIL_UNSOL_GPS_NOTI:
             case RIL_UNSOL_DEVICE_READY_NOTI:
-	    case RIL_UNSOL_SIM_ICCID_NOTI:
         	Rlog.v(RILJ_LOG_TAG,
                        "MT6737T: ignoring unsolicited response " +
                        origResponse);
@@ -429,9 +440,6 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
         }
 
         switch (newResponse) {
-            case RIL_UNSOL_DEVICE_READY_NOTI:
-                ret = responseVoid(p);
-                break;
             case RIL_UNSOL_AM:
                 ret = responseString(p);
                 break;
@@ -458,27 +466,6 @@ public class grandpplteRIL extends RIL implements CommandsInterface {
                 // Add debug to check if this wants to execute any useful am command
                 Rlog.v(RILJ_LOG_TAG, "MT6737T: am=" + strAm);
                 break;
-	    case RIL_UNSOL_PB_INIT_COMPLETE:
-		ret = responseVoid(p);
-		break;
-        }
-    }
-
-    private void
-    fixNitz(Parcel p) {
-        int dataPosition = p.dataPosition();
-        String nitz = p.readString();
-        long nitzReceiveTime = p.readLong();
-
-        String[] nitzParts = nitz.split(",");
-        if (nitzParts.length >= 4) {
-            // 0=date, 1=time+zone, 2=dst, 3(+)=garbage that confuses ServiceStateTracker
-            nitz = nitzParts[0] + "," + nitzParts[1] + "," + nitzParts[2];
-            p.setDataPosition(dataPosition);
-            p.writeString(nitz);
-            p.writeLong(nitzReceiveTime);
-            // The string is shorter now, drop the extra bytes
-            p.setDataSize(p.dataPosition());
         }
     }
 }
