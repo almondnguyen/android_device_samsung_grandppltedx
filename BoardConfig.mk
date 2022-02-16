@@ -125,7 +125,7 @@ BOARD_KERNEL_IMAGE_NAME := zImage
 TARGET_KERNEL_SOURCE    := kernel/samsung/grandppltedx
 #TARGET_KERNEL_SOURCE    := kernel/samsung/mainline-test
 TARGET_KERNEL_CONFIG    := mt6737t-grandpplte_defconfig
-TARGET_PREBUILT_DTB 	:= $(DEVICE_PATH)/dt.img
+TARGET_PREBUILT_DTB     := $(DEVICE_PATH)/dt.img
 
 BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive
 BOARD_KERNEL_BASE     := 0x3fffc000
@@ -211,9 +211,9 @@ BOARD_MEDIATEK_USES_GPS := true
 # RIL
 # use prebuilt for now
 
-BOARD_PROVIDES_RILD := true
-BOARD_PROVIDES_LIBRIL := false
-BOARD_PROVIDES_LIBREFERENCE_RIL := true
+BOARD_PROVIDES_RILD :=
+BOARD_PROVIDES_LIBRIL :=
+BOARD_PROVIDES_LIBREFERENCE_RIL :=
 
 BOARD_RIL_CLASS := ../../../device/samsung/grandppltedx/ril
 #BOARD_CONNECTIVITY_MODULE := conn_soc
