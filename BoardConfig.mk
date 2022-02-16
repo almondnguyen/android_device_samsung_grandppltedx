@@ -171,7 +171,8 @@ LINKER_FORCED_SHIM_LIBS := \
 	/system/lib/libui_ext.so|mtk_symbols.so \
 	/system/lib/libgui_ext.so|mtk_symbols.so \
 	/system/lib/audio.primary.mt6737t.so|mtk_symbols.so \
-	/system/bin/thermal|libshim_thermal.so
+	/system/bin/thermal|libshim_thermal.so \
+	/system/lib/libMtkOmxVenc.so|mtk_symbols.so
 
 # temporary. This'll be useful when buiding
 # libril + libsecril-client from source
