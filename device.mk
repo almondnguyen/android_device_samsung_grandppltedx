@@ -46,8 +46,11 @@ PRODUCT_DEFAULT_REGION   := US
 # Configs
 #-- Audio
 PRODUCT_PACKAGES += \
+	audio.primary.default \
 	audio.a2dp.default \
 	audio.usb.default \
+	audio.r_submix.default \
+	audio.tms.default \
 	audio_policy.default \
 	libaudiopolicymanagerdefault \
 	libaudiopolicyservice \
@@ -294,6 +297,8 @@ PRODUCT_COPY_FILES += \
 #-- etc/init/
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/init/audioserver.rc:system/etc/init/audioserver.rc \
+	$(DEVICE_PATH)/configs/init/mediaserver.rc:system/etc/init/mediaserver.rc \
+	$(DEVICE_PATH)/configs/init/mediacodec.rc:system/etc/init/mediacodec.rc \
 	$(DEVICE_PATH)/configs/init/rild.rc:system/etc/init/rild.rc
 
 #-- default.prop
