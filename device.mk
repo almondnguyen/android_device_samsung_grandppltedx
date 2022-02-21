@@ -46,22 +46,21 @@ PRODUCT_DEFAULT_REGION   := US
 # Configs
 #-- Audio
 PRODUCT_PACKAGES += \
-	audio.primary.default \
-	audio.a2dp.default \
 	audio.usb.default \
 	audio.r_submix.default \
-	audio.tms.default \
 	audio_policy.default \
 	libaudiopolicymanagerdefault \
 	libaudiopolicyservice \
 	libaudiopolicyenginedefault \
+	libaudioroute \
+	libaudiospdif \
+	libeffects \
 	libaudio-resampler \
 	libaudioutils \
 	libtinyalsa \
 	libtinycompress \
 	libtinymix \
-	libtinyxml \
-	libfs_mgr
+	libtinyxml
 
 PRODUCT_COPY_FILES += \
 	frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:/system/etc/audio_policy_volumes.xml \
@@ -198,10 +197,6 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.software.sip.xml:system/etc/permissions/android.software.sip.xml \
 	frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
-# Recovery - twrp
-PRODUCT_COPY_FILES += \
-	$(DEVICE_PATH)/configs/recovery.fstab:recovery/root/etc/twrp.fstab
-
 # GPS
 PRODUCT_PACKAGES += \
 	wifi2agps \
@@ -299,7 +294,16 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/init/audioserver.rc:system/etc/init/audioserver.rc \
 	$(DEVICE_PATH)/configs/init/mediaserver.rc:system/etc/init/mediaserver.rc \
 	$(DEVICE_PATH)/configs/init/mediacodec.rc:system/etc/init/mediacodec.rc \
-	$(DEVICE_PATH)/configs/init/rild.rc:system/etc/init/rild.rc
+	$(DEVICE_PATH)/configs/init/rild.rc:system/etc/init/rild.rc	
+
+#-- custom logging
+BUILD_INCLUDE_CUSTOM_LOG := true
+ifeq ($(BUILD_INCLUDE_CUSTOM_LOG), true)
+PRODUCT_COPY_FILES += \
+	$(DEVICE_PATH)/configs/init/al-cust-logcat.rc:system/etc/init/cust-log.rc \
+	$(DEVICE_PATH)/configs/init/log.sh:system/etc/init/log.sh
+
+endif
 
 #-- default.prop
 ADDITIONAL_DEFAULT_PROPERTIES += \
@@ -325,6 +329,7 @@ PRODUCT_PACKAGES += SamsungServiceMode
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
+	libfs_mgr \
 	f2fstat \
 	fibmap.f2fs \
 	e2fsck \
