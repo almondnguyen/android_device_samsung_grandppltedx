@@ -246,7 +246,7 @@ BOARD_SEPOLICY_DIRS := \
 	device/samsung/grandppltedx/sepolicy/samsung \
 	device/samsung/grandppltedx/sepolicy/mt6737m
 
-BOARD_SECCOMP_POLICY += $(DEVICE_PATH)/seccomp
+BOARD_SECCOMP_POLICY := $(DEVICE_PATH)/seccomp
 
 # Misc
 EXTENDED_FONT_FOOTPRINT := true
