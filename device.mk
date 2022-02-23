@@ -172,11 +172,7 @@ PRODUCT_PACKAGES += \
 # Platform
 PRODUCT_PACKAGES += \
 	libem_sensor_jni \
-	libstlport \
-	libgralloc_extra \
-	libgui_ext \
-	libui_ext \
-	libperfservicenative
+	libstlport
 
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
@@ -241,6 +237,12 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
 	frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
 	frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml
+
+# Graphics
+PRODUCT_PACKAGES += \
+	libgui_ext \
+	libui_ext \
+	libGLES_android
 
 # Init
 PRODUCT_PACKAGES += \
