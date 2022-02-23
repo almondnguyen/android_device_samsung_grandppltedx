@@ -1,6 +1,3 @@
-on post-fs-data
-    mkdir /mnt/m_internal_storage/mtklog/mobilelog 0640 system system
-
 service mobile_log_d /system/bin/mobile_log_d
     class main
 # MTK PR_DEBUG SWITCH
