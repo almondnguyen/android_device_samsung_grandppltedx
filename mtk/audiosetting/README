@@ -1,0 +1,24 @@
+The library 'libaudiosetting.so' is a library get matc using linein or digital and which chip
+This library is pre-built by MediaTek internal.
+
+
+WHAT IT DOES?
+=============
+
+libaudiosetting.so get matv using linein or digital and which chip
+
+
+HOW IT WAS BUILT?
+==================
+
+All source/dependency modules of this module are already put in
+'vendor/mediatek/proprietary/external/audiosetting' folder.
+
+
+HOW TO USE IT?
+==============
+
+The library 'libaudiosetting.so' is a library get matc using linein or digital and which chip
+
+
+All the source code of this library were written by MediaTek co..

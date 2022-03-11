@@ -72,6 +72,9 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/audio/audio_effects.conf:system/etc/audio_effects.conf \
 	$(DEVICE_PATH)/configs/audio/audio_param/AudioParamOptions.xml:system/etc/audio_param/AudioParamOptions.xml
 
+#al: test
+PRODUCT_PACKAGES += libaudiosetting
+
 #-- Media
 PRODUCT_COPY_FILES += \
 	frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
