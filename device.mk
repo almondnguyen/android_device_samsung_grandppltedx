@@ -44,6 +44,16 @@ $(call inherit-product, frameworks/native/build/phone-hdpi-dalvik-heap.mk)
 PRODUCT_PACKAGES += \
 	libion
 
+# Graphics
+PRODUCT_PACKAGES += \
+	libgralloc_extra \
+	libgui_ext \
+	libui_ext \
+	libshim_gui \
+	android.hardware.graphics.allocator@2.0-impl \
+	android.hardware.graphics.mapper@2.0-impl \
+	android.hardware.graphics.composer@2.1-impl
+
 # Locale
 PRODUCT_DEFAULT_LANGUAGE := en
 PRODUCT_DEFAULT_REGION   := US
@@ -172,7 +182,6 @@ PRODUCT_PACKAGES += \
 	libshim_vt \
 	libshim_xlog \
 	libshim_asc \
-	libshim_gui \
 	libshim_audio \
 	libshim_ifc
 
@@ -180,9 +189,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	libem_sensor_jni \
 	libstlport \
-	libgralloc_extra \
-	libgui_ext \
-	libui_ext \
 	libperfservicenative \
 	libnvram \
 	busybox
