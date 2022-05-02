@@ -17,9 +17,9 @@ LOCAL_SRC_FILES := \
 
 LOCAL_C_INCLUDES:= \
     $(TOP)/frameworks/base/include/ \
-    $(TOP)/$(DEVICE_PATH)/mediatek/graphics/gui_ext/inc \
-    $(TOP)/$(DEVICE_PATH)/mediatek/graphics/ui_ext/inc \
-    $(TOP)/$(DEVICE_PATH)/mediatek/graphics/gralloc_extra/include
+    $(TOP)/$(DEVICE_PATH)/mtk/graphics/gui_ext/inc \
+    $(TOP)/$(DEVICE_PATH)/mtk/graphics/ui_ext/inc \
+    $(TOP)/$(DEVICE_PATH)/mtk/graphics/gralloc_extra/include
 
 LOCAL_SHARED_LIBRARIES := \
     libutils \
