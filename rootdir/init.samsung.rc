@@ -3,6 +3,9 @@
 
 on init
 
+    # almond: start logcat locally, storing to /cache
+    start cust-log
+
     ffu
 
     # Create cgroup mount point for memory
