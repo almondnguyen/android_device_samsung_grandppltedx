@@ -12,6 +12,8 @@ allow adbd graphics_device:chr_file r_file_perms;
 # Date : WK14.27
 # Operation : KK.AOSP SQC
 # Purpose : A process wants to access a specific path. For example : shell:ls -l /data/data/
+allow adbd platform_app_data_file:dir ra_dir_perms;
+allow adbd platform_app_data_file:file create_file_perms;
 allow adbd radio_data_file:file r_file_perms;
 
 # Date : WK14.27

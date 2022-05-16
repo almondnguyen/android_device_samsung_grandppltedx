@@ -142,6 +142,11 @@ allow audioserver radio_data_file:file open;
 allow audioserver radio:dir { search read };
 allow audioserver radio:file r_file_perms;
 
+# Data : WK14.47
+# Operation : CTS
+# Purpose : cts search strange app
+allow audioserver untrusted_app:dir search;
+
 # Date : WK15.03
 # Operation : Migration
 # Purpose : offloadservice
@@ -212,6 +217,11 @@ allow audioserver offloadservice_device:chr_file { read write ioctl open };
 # Purpose : for WFD looper
 allow audioserver custom_file:dir search;
 
+# Data : WK14.48
+# Operation : WFD
+# Purpose : For WFD scenario
+allow audioserver untrusted_app_tmpfs:file write;
+
 # Date : WK14.49
 # Operation : WFD
 # Purpose : WFD notifies its status to thermal module
@@ -263,6 +273,9 @@ allow audioserver system_app:file { read open getattr };
 # platform_app:
 allow audioserver platform_app:dir search;
 allow audioserver platform_app:file { read open getattr };
+# untrusted_app:
+allow audioserver untrusted_app:dir search;
+allow audioserver untrusted_app:file { read open getattr };
 
 # Date : WK15.46
 # Operation : Migration
