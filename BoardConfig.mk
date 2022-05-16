@@ -18,6 +18,10 @@ DEVICE_PATH := device/samsung/grandppltedx
 VENDOR_PATH := vendor/samsung/grandppltedx
 BOARD_VENDOR := samsung
 
+# device doesn't have /vendor partition
+# yet.
+TARGET_COPY_OUT_VENDOR := system/vendor
+
 # assert
 TARGET_OTA_ASSERT_DEVICE := grandpplte,grandppltedx,grandpplteub,grandpplteser,grandppltedtvvj
 
