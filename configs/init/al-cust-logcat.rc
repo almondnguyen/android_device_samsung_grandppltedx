@@ -1,0 +1,6 @@
+# almond
+
+service cust-log /system/etc/init/log.sh
+    class main
+    user root
+    oneshot

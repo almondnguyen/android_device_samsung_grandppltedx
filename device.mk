@@ -296,6 +296,7 @@ PRODUCT_PACKAGES += \
 	init.xlog.rc \
 	log.sh
 
+PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/samsung/grandppltedx/configs/init,system/vendor/etc/init)
 
 #-- sbin
 

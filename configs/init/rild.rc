@@ -1,0 +1,18 @@
+# almond
+
+service ril-daemon /system/bin/rild
+    class main
+    socket rild stream 660 root radio
+    socket rild-debug stream 660 radio system
+    socket rild-cas stream 660  casdrm mmb
+    user root
+    group radio cache inet misc audio sdcard_r sdcard_rw log system
+
+
+service ril-daemon1 /system/bin/rild -c 2
+    class main
+    socket rild2 stream 660 root radio
+    socket rild-debug2 stream 660 radio system
+    user root
+    group radio cache inet misc audio sdcard_r sdcard_rw log system
+    disabled

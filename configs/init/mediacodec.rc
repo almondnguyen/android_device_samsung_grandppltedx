@@ -1,0 +1,6 @@
+service mediacodec /system/bin/mediacodec
+    class main
+    user mediacodec
+    group camera drmrpc mediadrm media system net_bw_acct sdcard_r sdcard_rw
+    ioprio rt 4
+    writepid /dev/cpuset/foreground/tasks
