@@ -51,6 +51,7 @@ PRODUCT_PACKAGES += \
 	libui_ext \
 	libshim_gui \
 	android.hardware.graphics.allocator@2.0-impl \
+	android.hardware.graphics.allocator@2.0-service \
 	android.hardware.graphics.mapper@2.0-impl \
 	android.hardware.graphics.composer@2.1-impl
 
@@ -65,14 +66,7 @@ PRODUCT_PACKAGES += \
 	audio.usb.default \
 	audio.r_submix.default \
 	audio_policy.default \
-	libaudiopolicymanagerdefault \
-	libaudiopolicymanager \
-	libaudiopolicyservice \
-	libaudiopolicyenginedefault \
 	libaudio-resampler \
-	libaudioroute \
-	libaudioutils \
-	libaudiospdif \
 	libalsautils \
 	libeffects \
 	libtinyalsa \
@@ -130,7 +124,8 @@ PRODUCT_PACKAGES += \
 	wpa_supplicant.conf \
 	lib_driver_cmd_mt66xx \
 	android.hardware.wifi@1.0-service \
-	wificond
+	wificond \
+	wifilogd
 
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/hostapd/hostapd.accept:system/etc/hostapd/hostapd.accept \
@@ -191,7 +186,12 @@ PRODUCT_PACKAGES += \
 	libstlport \
 	libperfservicenative \
 	libnvram \
-	busybox
+	busybox \
+	android.hardware.sensors@1.0-impl \
+	android.hardware.sensors@1.0-service \
+	android.hardware.usb@1.0-service \
+	android.hardware.vibrator@1.0-impl \
+	android.hardware.vibrator@1.0-service
 
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
@@ -224,8 +224,7 @@ PRODUCT_PACKAGES += \
 	
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-	$(DEVICE_PATH)/configs/gps/agps_profiles_conf2.xml:system/etc/agps_profiles_conf2.xml \
-	$(DEVICE_PATH)/configs/gps/slp_conf:system/etc/slp_conf	
+	$(DEVICE_PATH)/configs/gps/agps_profiles_conf2.xml:system/etc/agps_profiles_conf2.xml
 
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
@@ -251,7 +250,7 @@ PRODUCT_COPY_FILES += \
 # Init
 PRODUCT_PACKAGES += \
 	libinit_grandpplte
-
+    
 # Power
 PRODUCT_PACKAGES += \
 	power.mt6737t \
@@ -270,6 +269,11 @@ PRODUCT_PACKAGES += android.hardware.memtrack@1.0-impl
 
 # Local Time
 PRODUCT_PACKAGES += local_time.default
+
+# Health HAL
+PRODUCT_PACKAGES += \
+	android.hardware.health@1.0-impl \
+	android.hardware.health@1.0-service
 
 # Rootdir
 PRODUCT_PACKAGES += \
