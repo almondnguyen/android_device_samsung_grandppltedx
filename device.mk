@@ -69,7 +69,6 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml \
 	$(DEVICE_PATH)/configs/audio/audio_policy.conf:system/etc/audio_policy.conf \
 	$(DEVICE_PATH)/configs/audio/audio_device.xml:system/etc/audio_device.xml \
-	$(DEVICE_PATH)/configs/audio/audio_effects.conf:system/etc/audio_effects.conf \
 	$(DEVICE_PATH)/configs/audio/audio_param/AudioParamOptions.xml:system/etc/audio_param/AudioParamOptions.xml
 
 #al: test
@@ -83,8 +82,6 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/media/media_codecs_mediatek_audio.xml:system/etc/media_codecs_mediatek_audio.xml \
 	$(DEVICE_PATH)/configs/media/media_codecs_mediatek_video.xml:system/etc/media_codecs_mediatek_video.xml \
 	$(DEVICE_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
-	$(DEVICE_PATH)/configs/media/media_codecs_sec_primary.xml:system/etc/media_codecs_sec_primary.xml \
-	$(DEVICE_PATH)/configs/media/media_codecs_sec_secondary.xml:system/etc/media_codecs_sec_secondary.xml \
 	$(DEVICE_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml
 
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -122,11 +119,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.android.checkjni=0
 
 #-- Carrier
-PRODUCT_COPY_FILES += \
-	$(DEVICE_PATH)/configs/carrier/apns-conf.xml:system/etc/apns-conf.xml \
-	$(DEVICE_PATH)/configs/carrier/spn-conf.xml:system/etc/spn-conf.xml \
-	$(DEVICE_PATH)/configs/carrier/old-apns-conf.xml:system/etc/old-apns-conf.xml \
-	$(DEVICE_PATH)/configs/carrier/nwk_info.xml:system/etc/nwk_info.xml
+PRODUCT_COPY_FILES += $(DEVICE_PATH)/configs/carrier/old-apns-conf.xml:system/etc/old-apns-conf.xml
+
 #-- RIL
 #
 SIM_COUNT := 2
@@ -201,8 +195,7 @@ PRODUCT_PACKAGES += \
 	
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-	$(DEVICE_PATH)/configs/gps/agps_profiles_conf2.xml:system/etc/agps_profiles_conf2.xml \
-	$(DEVICE_PATH)/configs/gps/slp_conf:system/etc/slp_conf	
+	$(DEVICE_PATH)/configs/gps/agps_profiles_conf2.xml:system/etc/agps_profiles_conf2.xml
 
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
