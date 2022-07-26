@@ -3,7 +3,7 @@
 ## Nougat stuff and testing
 config.disable_consumerir=true
 media.sf.omx-plugin=libffmpeg_omx.so,libsomxcore.so
-qemu.hw.mainkeys=0
+#qemu.hw.mainkeys=0 ## disabled since someone said it is toggle-able
 lineage.updater.uri=https://raw.githubusercontent.com/almondnguyen/android_OTA/main/grandppltedx.json
 cm.updater.uri=https://raw.githubusercontent.com/almondnguyen/android_OTA/main/grandppltedx.json
 
