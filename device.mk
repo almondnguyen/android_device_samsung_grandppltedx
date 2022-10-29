@@ -151,7 +151,7 @@ SIM_COUNT := 2
 
 # temporary MTK RIL to pass build
 ifeq ($(TARGET_BUILD_MTK_RIL), true)
-PRODUCT_PACKAGES += rild-mtk
+PRODUCT_PACKAGES += rild-mtk libccci_util rild-prop-md1
 endif
 
 PRODUCT_PACKAGES += \

@@ -202,7 +202,8 @@ BOARD_GPS_LIBRARIES := true
 BOARD_MEDIATEK_USES_GPS := true
 
 # RIL
-TARGET_BUILD_MTK_RIL := true # accompanies https://github.com/almondnguyen/android_device_samsung_grandppltedx/commit/5eacb461d71c013e97552f122f1ee28bed8b9d01
+#> accompanies https://github.com/almondnguyen/android_device_samsung_grandppltedx/commit/5eacb461d71c013e97552f122f1ee28bed8b9d01
+TARGET_BUILD_MTK_RIL := true
 BOARD_PROVIDES_RILD := true
 BOARD_PROVIDES_LIBRIL := true
 BOARD_RIL_CLASS := ../../../device/samsung/grandppltedx/ril
@@ -260,8 +261,3 @@ DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/configs/manifest.xml
 
 # Misc
 EXTENDED_FONT_FOOTPRINT := true
-
-# TEMPORARY: AOSP RILD cannot build. What a day
-BOARD_PROVIDES_RILD := true
-BOARD_PROVIDES_LIBRIL := true
-PRODUCT_PACKAGES += libccci_util rild-prop-md1
