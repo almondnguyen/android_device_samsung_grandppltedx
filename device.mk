@@ -149,6 +149,11 @@ PRODUCT_COPY_FILES += \
 #-- RIL
 SIM_COUNT := 2
 
+# temporary MTK RIL to pass build
+ifeq ($(TARGET_BUILD_MTK_RIL), true)
+PRODUCT_PACKAGES += rild-mtk
+endif
+
 PRODUCT_PACKAGES += \
 	libxml2 \
 	libprotobuf-cpp-full \
