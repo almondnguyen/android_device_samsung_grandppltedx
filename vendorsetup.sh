@@ -5,7 +5,7 @@ export LC_ALL=C
 
 # recommended by Lineage
 # sometimes not work, do it in ~/.profile
-#export ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4G"
+export ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx6G"
 
 # 8GB-dual
 add_lunch_combo lineage_grandppltedx-userdebug
