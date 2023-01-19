@@ -148,6 +148,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.android.checkjni=0
 
+# LiveDisplay
+PRODUCT_PACKAGES += \
+    vendor.lineage.livedisplay@1.0-service-sdm
+
 #-- Carrier
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/carrier/spn-conf.xml:$(TARGET_COPY_OUT_VENDOR)/etc/spn-conf.xml
