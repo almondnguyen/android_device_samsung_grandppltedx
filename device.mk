@@ -152,6 +152,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     vendor.lineage.livedisplay@1.0-service-sdm
 
+# RenderScript
+PRODUCT_PACKAGES += \
+	android.hardware.renderscript@1.0-impl
+
 #-- Carrier
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/carrier/spn-conf.xml:$(TARGET_COPY_OUT_VENDOR)/etc/spn-conf.xml
