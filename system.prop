@@ -226,3 +226,6 @@ ro.com.android.mobiledata=true
 persist.radio.mobile.data=0,0
 persist.meta.dumpdata=0
 ro.opengles.version=196609
+
+# Display
+debug.hwui.use_buffer_age=false
