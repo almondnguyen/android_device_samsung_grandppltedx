@@ -166,6 +166,7 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.mt6735
 # Move symlinks here
 TARGET_LD_SHIM_LIBS := \
 	/vendor/bin/mtk_agpsd|libshim_gps.so \
+	/vendor/lib/libcam.utils.sensorlistener.so|libandroid.so \
 	/vendor/lib/libcam_utils.so|libshim_nv21e_camera.so \
 	/vendor/lib/libcam_utils.so|libshim_camera.so \
 	/vendor/lib/libcam_utils.so|libshim_gui.so \
