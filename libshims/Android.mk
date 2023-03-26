@@ -29,6 +29,18 @@ LOCAL_SHARED_LIBRARIES := libui
 LOCAL_PROPRIETARY_MODULE := true
 include $(BUILD_SHARED_LIBRARY)
 
+# Samsung Camera Shim
+include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES := camera/libshim_nv21e_camera.c
+
+LOCAL_MODULE := libshim_nv21e_camera
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+
+LOCAL_PROPRIETARY_MODULE := true
+include $(BUILD_SHARED_LIBRARY)
+
 # XLOG Shim
 include $(CLEAR_VARS)
 

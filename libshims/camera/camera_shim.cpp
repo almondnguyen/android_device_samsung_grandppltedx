@@ -43,8 +43,4 @@ extern "C" {
 		_ZN7android13GraphicBufferC1EjjijjjP13native_handleb(inHandle, inMethod, inWidth, inHeight,
 			inFormat, static_cast<uint32_t>(1), static_cast<uint64_t>(inUsage), inStride);
 		}
-
-	// Samsung Camera
-	const char _ZN7android16CameraParameters26PIXEL_FORMAT_YUV420SP_NV21E[] = "yuv420sp-nv21e";
-	void _ZN7android16CameraParameters26KEY_CAPTURE_BURST_FILEPATHE() {}
 }
