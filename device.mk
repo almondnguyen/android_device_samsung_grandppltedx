@@ -188,7 +188,6 @@ PRODUCT_PACKAGES += \
 	libshim_nv21e_camera \
 	libshim_vt \
 	libshim_xlog \
-	libshim_asc \
 	libshim_audio \
 	libshim_ifc
 

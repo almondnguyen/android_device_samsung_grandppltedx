@@ -53,18 +53,6 @@ LOCAL_MODULE := libshim_xlog
 LOCAL_PROPRIETARY_MODULE := true
 include $(BUILD_SHARED_LIBRARY)
 
-# ASC Shim (vt)
-include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES := misc/asc_shim.cpp
-
-LOCAL_SHARED_LIBRARIES := libsurfaceflinger libui libgui libcutils
-
-LOCAL_MODULE := libshim_asc
-
-LOCAL_PROPRIETARY_MODULE := true
-include $(BUILD_SHARED_LIBRARY)
-
 # GUI Shim
 include $(CLEAR_VARS)
 
