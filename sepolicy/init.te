@@ -109,8 +109,6 @@ allow init ccci_monitor_device:chr_file ioctl;
 allow init default_android_service:service_manager add;
 allow init dm_agent_binder_service:service_manager add;
 allow init guiext-server_service:service_manager add;
-allow init hostapd_exec:file getattr;
-allow init hostapd_exec:file relabelfrom;
 allow init logmisc_data_file:file append;
 allow init logtemp_data_file:file append;
 allow init mediacodec_exec:file relabelfrom;

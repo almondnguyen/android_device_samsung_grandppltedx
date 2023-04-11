@@ -85,7 +85,6 @@ allow meta_tst ttyMT_device:chr_file { read write ioctl open };
 allow meta_tst mnld_exec:file execute_no_trans;
 allow meta_tst mnld_device:chr_file { open read write ioctl };
 allow meta_tst property_socket:sock_file write;
-allow meta_tst vold_socket:sock_file write;
 allow meta_tst init:unix_stream_socket connectto;
 allow meta_tst vold:unix_stream_socket connectto;
 #allow meta_tst gps_device:chr_file { read write open };

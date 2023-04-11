@@ -254,7 +254,6 @@
 /dev/socket/soc_vt_tcv(/.*)? u:object_r:soc_vt_tcv_socket:s0
 /dev/socket/statusd u:object_r:statusd_socket:s0
 /dev/socket/sysctl(/.*)? u:object_r:sysctl_socket:s0
-/dev/socket/vold(/.*)? u:object_r:vold_socket:s0
 /dev/socket/volte_stack(/.*)? u:object_r:volte_stack_socket:s0
 /dev/socket/volte_imcb(/.*)? u:object_r:volte_imcb_socket:s0
 /dev/socket/volte_ua(/.*)? u:object_r:volte_ua_socket:s0

@@ -38,7 +38,6 @@ allow shell emdlogger_exec:file rx_file_perms;
 allow shell factory_exec:file rx_file_perms;
 allow shell geomagneticd_exec:file rx_file_perms;
 allow shell gsm0710muxd_exec:file rx_file_perms;
-allow shell hostapd_exec:file rx_file_perms;
 allow shell installd_exec:file rx_file_perms;
 allow shell keystore_exec:file rx_file_perms;
 allow shell lmkd_exec:file rx_file_perms;

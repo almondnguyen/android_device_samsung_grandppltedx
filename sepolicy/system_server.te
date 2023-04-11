@@ -26,8 +26,6 @@ allow system_server dhcp_data_file:file { read open unlink getattr };
 # Operation : Migration
 # Purpose : for wifi functionality
 allow system_server wpa_wlan0_socket:sock_file write;
-allow system_server hostapd:unix_dgram_socket sendto;
-allow hostapd system_server:unix_dgram_socket sendto;
 
 # Date : WK14.34
 # Operation : Migration
