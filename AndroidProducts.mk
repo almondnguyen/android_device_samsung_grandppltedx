@@ -15,4 +15,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-	$(LOCAL_DIR)/lineage.mk
+	$(LOCAL_DIR)/lineage_grandppltedx.mk
+
+COMMON_LUNCH_CHOICES := \
+    lineage_grandppltedx-user \
+    lineage_grandppltedx-userdebug \
+    lineage_grandppltedx-eng
