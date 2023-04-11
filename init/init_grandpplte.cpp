@@ -39,7 +39,6 @@
 #include "property_service.h"
 #include "vendor_init.h"
 #include "log.h"
-#include "util.h"
 
 #define SERIAL_NUMBER_FILE "/efs/FactoryApp/serial_no"
 #define SIMSLOT_FILE "/proc/simslot_count"
@@ -94,8 +93,8 @@ void init_single() {
 }
 
 void vendor_load_properties() {
-	std::string bootloader = GetProperty("ro.bootloader", "");
-	std::string platform = GetProperty("ro.board.platform", "");
+	std::string bootloader = android::base::GetProperty("ro.bootloader", "");
+	std::string platform = android::base::GetProperty("ro.board.platform", "");
 	std::string device;
 
 	if (platform != ANDROID_TARGET) return;
