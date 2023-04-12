@@ -162,11 +162,6 @@ allow meta_tst ttySDIO_device:chr_file { read write ioctl open };
 # Purpose : CCT linker fail
 allow meta_tst self:process execmem;
 
-# Date: WK15.13
-# Purpose: for nand project
-allow meta_tst mtd_device:dir search;
-allow meta_tst mtd_device:chr_file { read write open };
-
 # Date: WK15.38
 # Purpose: M Migration for CCT linker fail
 allow meta_tst fuse:dir { write search create add_name };
@@ -175,7 +170,3 @@ allow meta_tst mnt_user_file:dir search;
 allow meta_tst mnt_user_file:lnk_file read;
 allow meta_tst storage_file:lnk_file read;
 allow meta_tst fuse:file read;
-
-# Date: WK16.02
-# Purpose : for clear nand data
-allow meta_tst mtd_device:chr_file ioctl;

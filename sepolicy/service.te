@@ -4,7 +4,6 @@
 type nvram_agent_service,     		service_manager_type;
 type dm_agent_binder_service, 		service_manager_type;
 type terservice_service,     		service_manager_type;
-type ota_agent_service,      		service_manager_type;
 type aal_service,             		service_manager_type;
 type pq_service,             		service_manager_type;
 type guiext-server_service,      	service_manager_type;

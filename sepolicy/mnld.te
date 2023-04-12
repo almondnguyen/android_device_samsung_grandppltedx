@@ -52,7 +52,6 @@ allow mnld fuse:file create_file_perms;
 allow mnld nvram_device:chr_file ioctl;
 allow mnld fuse:dir { read remove_name create open };
 allow mnld tmpfs:lnk_file { read create open };
-allow mnld mtd_device:dir search;
 allow mnld platform_app:unix_stream_socket connectto;
 allow mnld system_app:unix_stream_socket connectto;
 allow mnld apk_data_file:dir { write add_name };

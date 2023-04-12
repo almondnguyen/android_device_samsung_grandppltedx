@@ -21,11 +21,9 @@ allow viarild kernel:system module_request;
 #unix_socket_connect(viarild, property, init) #@daniel, use set_prop()
 set_prop(viarild, init)
 allow viarild self:capability { setuid net_admin net_raw };
-allow viarild alarm_device:chr_file rw_file_perms;
 allow viarild cgroup:dir create_dir_perms;
 allow viarild radio_device:chr_file rw_file_perms;
 allow viarild radio_device:blk_file r_file_perms;
-allow viarild mtd_device:dir search;
 allow viarild efs_file:dir create_dir_perms;
 allow viarild efs_file:file create_file_perms;
 allow viarild shell_exec:file rx_file_perms;

@@ -43,8 +43,6 @@ allow netdiag shell_exec:file { read execute open };
 #allow netdiag tmpfs:lnk_file read;
 allow netdiag domain:dir search;
 allow netdiag domain:file { read open };
-#/proc/3523/net/xt_qtaguid/ctrl & /proc
-allow netdiag qtaguid_proc:file { read getattr open };
 
 allow netdiag self:capability net_admin;
 allow netdiag self:udp_socket create;

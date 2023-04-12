@@ -10,7 +10,6 @@
 allow dumpstate MtkCodecService:binder call;
 allow dumpstate nvram_agent_binder:binder call;
 allow dumpstate ppl_agent:binder call;
-allow dumpstate GoogleOtaBinder:binder call;
 
 #allow dumpstate system_data_file:file { rename write create unlink setattr };
 

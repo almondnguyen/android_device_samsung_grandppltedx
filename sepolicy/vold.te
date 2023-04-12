@@ -101,10 +101,6 @@ allow vold platform_app:fd use;
 #install APK move to SD
 allow vold block_device:file create;
 
-#Date : WK15.11
-allow vold mtd_device:dir search;
-allow vold mtd_device:chr_file { read write open };
-
 #fat on nand
 allow vold fon_image_data_file:dir search;
 allow vold fon_image_data_file:file { read write };

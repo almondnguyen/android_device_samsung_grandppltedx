@@ -149,9 +149,6 @@ allow factory vmodem_device:chr_file { read write ioctl open };
 
 # Date: WK15.13
 # Purpose: for nand project
-allow factory mtd_device:dir search;
-allow factory mtd_device:chr_file { read write ioctl open };
-allow factory mtd_device:chr_file rw_file_perms;
 allow factory self:capability sys_resource;
 allow factory pro_info_device:chr_file { read write ioctl open};
 

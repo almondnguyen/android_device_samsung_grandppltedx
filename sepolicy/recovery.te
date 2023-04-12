@@ -108,8 +108,6 @@ allow recovery mobicore_data_file:dir { read open };
 # Date : WK15.13
 # Operation : UT
 # Purpose : Nand device policy
-allow recovery mtd_device:dir search;
-allow recovery mtd_device:chr_file { read write open ioctl getattr };
 allow recovery self:capability sys_resource;
 
 # Date : WK15.35
