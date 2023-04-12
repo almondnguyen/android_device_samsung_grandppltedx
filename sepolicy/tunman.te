@@ -24,9 +24,6 @@ unix_socket_connect(netdomain, tunman, tunman)
 set_prop(tunman, init)
 allow tunman tunman_prop:property_service set;
 
-# Allows us to talk to netd
-unix_socket_connect(tunman, netd, netd)
-
 # Multiple instance detection (fs lock)
 #allow tunman shell_data_file:dir { write add_name};
 allow tunman shell_data_file:file { create read write lock };
@@ -46,9 +43,6 @@ allow appdomain tunman:fd use;
 # Needed for protect() implementation
 allow tunman appdomain:fd use;
 allow tunman appdomain:{ tcp_socket udp_socket } { read write };
-
-# Needed for socket re-tagging
-allow tunman qtaguid_proc:file { open write };
 
 #
 #allow tunman socket_device:dir { search write add_name remove_name};

@@ -183,11 +183,6 @@ allow system_server proc_secmem:file { rw_file_perms };
 
 # Date: WK14.47
 # Operation : Sanity
-# Purpose : for avoid SELinux warning after dex2oat execv failed
-allow system_server dex2oat_exec:file r_file_perms;
-
-# Date: WK14.47
-# Operation : Sanity
 # Purpose : for searching directories in sdcard by VoldConnector
 # allow system_server fuse:dir r_dir_perms;
 

@@ -71,10 +71,6 @@ allow nvram_daemon pro_info_device:chr_file {read write open ioctl};
 
 allow nvram_daemon block_device:dir search;
 
-# Purpose: for nand project
-allow nvram_daemon mtd_device:dir search;
-allow nvram_daemon mtd_device:chr_file { read write open };
-
 # Purpose: for fstab parser
 allow nvram_daemon kmsg_device:chr_file { write open };
 allow nvram_daemon proc_lk_env:file { read write ioctl open };

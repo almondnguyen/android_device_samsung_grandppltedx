@@ -35,7 +35,6 @@ allow mtkmal mal_mfi_socket:sock_file write;
 
 # NETd
 allow mtkmal netd:unix_stream_socket connectto;
-allow mtkmal netd_socket:sock_file write;
 
 # INIT
 allow mtkmal init:unix_stream_socket connectto;

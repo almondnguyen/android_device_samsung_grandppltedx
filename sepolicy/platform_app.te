@@ -225,12 +225,6 @@ allow platform_app system_app_service:service_manager find;
 # Package: com.android.systemui
 allow platform_app ppl_agent_service:service_manager find;
 
-# Date : 2015/08/20
-# Operation : Migration
-# Purpose : Allow mota app to find ota agent servive
-# Package: com.android.systemupdate
-allow platform_app ota_agent_service:service_manager find;
-
 # Date : 2015/09/06
 # Operation : SQC
 # Purpose : [NFC][can not get nfc service]

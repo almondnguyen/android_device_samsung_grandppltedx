@@ -7,7 +7,6 @@
 # Purpose : for exec labels defined by mtk
 allow shell mtk_6620_launcher_exec:file rx_file_perms;
 allow shell stp_dump3_exec:file rx_file_perms;
-allow shell GoogleOtaBinder_exec:file rx_file_perms;
 allow shell MtkCodecService_exec:file rx_file_perms;
 allow shell aee_core_forwarder_exec:file rx_file_perms;
 allow shell akmd8963_exec:file rx_file_perms;
@@ -26,7 +25,6 @@ allow shell ccci_fsd_exec:file rx_file_perms;
 allow shell ccci_mdinit_exec:file rx_file_perms;
 allow shell clatd_exec:file rx_file_perms;
 #allow shell debuggerd_exec:file rx_file_perms;
-allow shell dex2oat_exec:file rx_file_perms;
 allow shell dhcp6c_exec:file rx_file_perms;
 allow shell dhcp_exec:file rx_file_perms;
 allow shell dmlog_exec:file rx_file_perms;
@@ -59,7 +57,6 @@ allow shell netdiag_exec:file rx_file_perms;
 allow shell nvram_agent_binder_exec:file rx_file_perms;
 allow shell nvram_daemon_exec:file rx_file_perms;
 allow shell orientationd_exec:file rx_file_perms;
-allow shell dex2oat_exec:file rx_file_perms;
 allow shell ppl_agent_exec:file rx_file_perms;
 allow shell ppp_exec:file rx_file_perms;
 allow shell pq_exec:file rx_file_perms;

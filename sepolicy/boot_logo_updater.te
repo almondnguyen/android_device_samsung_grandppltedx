@@ -47,8 +47,6 @@ allow boot_logo_updater self:capability dac_override;
 allow boot_logo_updater sysfs:file write;
 allow boot_logo_updater block_device:dir search;
 allow boot_logo_updater graphics_device:dir search;
-allow boot_logo_updater mtd_device:chr_file { open read };
-allow boot_logo_updater mtd_device:dir search;
 
 # Date : WK15.30
 # Operation : Migration

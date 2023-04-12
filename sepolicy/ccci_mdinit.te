@@ -92,12 +92,6 @@ allow ccci_mdinit custom_file:dir { search };
 allow ccci_mdinit custom_file:file { open read getattr };
 allow ccci_mdinit mtk_tele_prop:property_service set;
 
-# Date WK15.13
-# Operation : Migration
-# Purpose : for nand partition access
-allow ccci_mdinit mtd_device:dir search;
-allow ccci_mdinit mtd_device:chr_file { read write open };
-
 # Date : WK15.30
 # Operation : Migration
 # Purpose : for device bring up, not to block early migration/sanity

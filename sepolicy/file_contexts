@@ -3,8 +3,6 @@
 # Custom files
 /custom(/.*)?		u:object_r:custom_file:s0
 
-/dev/block/mtd(.*)?     u:object_r:mtd_device:s0
-
 #############################
 # Executables
 # Meta/Factory Mode multi_init
@@ -215,7 +213,6 @@
 /dev/socket/mnld(/.*)? u:object_r:mnld_socket:s0
 /dev/socket/mtpd(/.*)? u:object_r:mtpd_socket:s0
 /dev/socket/netdiag(/.*)? u:object_r:netdiag_socket:s0
-/dev/socket/netd(/.*)? u:object_r:netd_socket:s0
 /dev/socket/racoon(/.*)? u:object_r:racoon_socket:s0
 /dev/socket/rild2-md2(/.*)? u:object_r:rild2_md2_socket:s0
 /dev/socket/rild2(/.*)? u:object_r:rild2_socket:s0
@@ -289,8 +286,6 @@
 /dev/ttyUSB3         u:object_r:tty_device:s0
 /dev/ttyUSB4         u:object_r:tty_device:s0
 /dev/TV-out(/.*)? u:object_r:TV_out_device:s0
-/dev/ubi_ctrl u:object_r:mtd_device:s0
-/dev/ubi[_0-9]* u:object_r:mtd_device:s0
 /dev/uboot(/.*)? u:object_r:uboot_device:s0
 /dev/uibc(/.*)? u:object_r:uibc_device:s0
 /dev/uinput(/.*)? u:object_r:uinput_device:s0
@@ -408,7 +403,6 @@
 /system/bin/gas_srv    u:object_r:gas_srv_exec:s0
 /system/bin/kpoc_charger u:object_r:kpoc_charger_exec:s0
 /vendor/bin/geomagneticd u:object_r:geomagneticd_exec:s0
-/system/bin/GoogleOtaBinder u:object_r:GoogleOtaBinder_exec:s0
 /system/bin/gsm0710muxd u:object_r:gsm0710muxd_exec:s0
 /vendor/bin/guiext-server u:object_r:guiext-server_exec:s0
 /system/bin/icusbd u:object_r:icusbd_exec:s0

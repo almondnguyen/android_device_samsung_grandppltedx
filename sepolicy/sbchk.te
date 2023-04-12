@@ -27,10 +27,4 @@ allow sbchk seccfg_device:chr_file rw_file_perms;
 allow sbchk sec_ro_device:chr_file { open read };
 allow sbchk block_device:dir search;
 
-# Date WK15.13
-# Operation : Migration
-# Purpose : for nand partition access
-allow sbchk mtd_device:chr_file rw_file_perms;
-allow sbchk mtd_device:dir search;
-
 

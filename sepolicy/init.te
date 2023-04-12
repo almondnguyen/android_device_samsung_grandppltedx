@@ -76,11 +76,6 @@ allow init tmpfs:lnk_file create;
 # Purpose : enable socket for ATCI
 allow init socket_device:sock_file { create unlink setattr };
 
-# Date : W15.34
-# Operation : Migration
-# Purpose : enable mtd device for ubi ioctl
-allow init mtd_device:chr_file { ioctl getattr };
-
 # Date : W15.49
 # Operation : Migration
 # Purpose : enable rawfs file getattr

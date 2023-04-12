@@ -56,13 +56,6 @@ allow installd platform_app:fd use;
 # Purpose : ALPS01911340 (MTK MTBF for GMO project)
 #allow installd platform_app_tmpfs:file { open read write getattr };
 
-# Date : WK15.32
-# Operation : Migration
-# Purpose : disable AT_SECURE for LD_PRELOAD
-userdebug_or_eng(`
-  allow installd dex2oat:process noatsecure;
-')
-
 # Nougat
 allow installd mobicore_data_file:dir { r_file_perms write remove_name rmdir };
 
