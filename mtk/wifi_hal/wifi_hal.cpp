@@ -162,7 +162,7 @@ wifi_error init_wifi_vendor_hal_func_table(wifi_hal_fn *fn)
     fn->wifi_start_rssi_monitoring = wifi_start_rssi_monitoring;
     fn->wifi_stop_rssi_monitoring = wifi_stop_rssi_monitoring;
     fn->wifi_configure_nd_offload = wifi_configure_nd_offload_dummy;
-    fn->wifi_start_sending_offloaded_packet = wifi_start_sending_offloaded_packet;
+    /*fn->wifi_start_sending_offloaded_packet = wifi_start_sending_offloaded_packet;*/
     fn->wifi_stop_sending_offloaded_packet = wifi_stop_sending_offloaded_packet;
     fn->wifi_start_pkt_fate_monitoring = wifi_start_pkt_fate_monitoring_dummy;
     fn->wifi_get_tx_pkt_fates = wifi_get_tx_pkt_fates_dummy;
