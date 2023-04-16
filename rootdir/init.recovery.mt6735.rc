@@ -22,6 +22,9 @@ on init
 # 	distinguish USB shoulde connect or not by this, CDP vs SDP
 	write /sys/devices/platform/mt_usb/cmode 2
 
+on fs
+    setprop sys.usb.ffs.aio_compat 1
+
 on late-init
 service tz_service /sbin/tzdaemon_recovery
     seclabel u:r:tzdaemon:s0
