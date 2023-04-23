@@ -135,11 +135,7 @@ BOARD_SECOND_OFFSET   := 0x00f04000
 BOARD_TAGS_OFFSET     := 0x0e004000
 BOARD_KERNEL_OFFSET   := 0x00008000
 BOARD_DT_SIZE         := 485376
-ifeq ($(RECOVERY_VARIANT),twrp)
-BOARD_NAME            := SRPPI01A000RU
-else
 BOARD_NAME            := SRPPI01A000KU
-endif
 
 BOARD_MKBOOTIMG_ARGS := \
 	--base $(BOARD_KERNEL_BASE) \
@@ -174,15 +170,6 @@ LINKER_FORCED_SHIM_LIBS := \
 	/system/bin/thermal|libshim_thermal.so \
 	/system/lib/libMtkOmxVenc.so|mtk_symbols.so
 
-# temporary. This'll be useful when buiding
-# libril + libsecril-client from source
-#
-#	:\
-#	/system/lib/hw/audio.primary.mt6735.so|libaudio-ril.so:\
-#	/system/lib/libril.so|libsecril-client.so:\
-#	/system/lib/libaudio-ril.so|libsecril-client.so:\
-#	/system/bin/at_distributor|libsecril-client.so:\
-	
 # Audio
 USE_CUSTOM_AUDIO_POLICY := 1
 BOARD_USES_MTK_AUDIO := true
