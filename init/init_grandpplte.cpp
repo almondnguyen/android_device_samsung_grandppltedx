@@ -83,7 +83,6 @@ void init_single() {
 void vendor_load_properties() {
     std::string bootloader = property_get("ro.bootloader");
     std::string platform;
-    std::string product_model = "SM-G532G";
     int sim_count;
 
     /* set basic device name */
@@ -100,7 +99,7 @@ void vendor_load_properties() {
         property_override("ro.build.fingerprint", "samsung/grandpplteser/grandpplte:6.0.1/MMB29T/G532FXWU1ASB1:user/release-keys");
         property_override("ro.build.description", "grandpplteser-user 6.0.1 MMB29T G532FXWU1ASB1 release-keys");
         property_override("ro.product.name", "grandpplteser");
-        product_model = "SM-G532F";
+        property_override("ro.product.model", "SM-G532F");
     }
 
     if (bootloader.find("G532G") != std::string::npos) {
@@ -110,6 +109,7 @@ void vendor_load_properties() {
         property_override("ro.build.fingerprint", "samsung/grandppltedx/grandpplte:6.0.1/MMB29T/G532DXU1ASA5:user/release-keys");
         property_override("ro.build.description", "grandppltedx-user 6.0.1 MMB29T G532GDXU1ASA5 release-keys");
         property_override("ro.product.name", "grandppltedx");
+        property_override("ro.product.model", "SM-G532G/DS");
     }
 
     if (bootloader.find("G532M") != std::string::npos) {
@@ -117,7 +117,7 @@ void vendor_load_properties() {
         property_override("ro.build.fingerprint", "samsung/grandpplteub/grandpplte:6.0.1/MMB29T/G532MUMU1ASA1:user/release-keys");
         property_override("ro.build.description", "grandpplteub-user 6.0.1 MMB29T G532MUMU1ASA1 release-keys");
         property_override("ro.product.name", "grandpplteub");
-        product_model = "SM-G532M"
+        property_override("ro.product.model", "SM-G532M");
     }
 
     if (bootloader.find("G532MT") != std::string::npos) {
@@ -125,15 +125,13 @@ void vendor_load_properties() {
         property_override("ro.build.fingerprint", "samsung/grandppltedtvvj/grandpplte:6.0.1/MMB29T/G532MTVJU1ASA1:user/release-keys");
         property_override("ro.build.description", "grandppltedtvvj-user 6.0.1 MMB29T G532MTVJU1ASA1 release-keys");
         property_override("ro.product.name", "grandppltedtvvj");
-        product_model = "SM-G532MT"
+        property_override("ro.product.model", "SM-G532MT");
     }
 
     if (sim_count == 1) {
         init_single();
     } else {
-        product_model.append("/DS");
         init_dual();
     }
 
-    property_override("ro.product.model", product_model);
 }
