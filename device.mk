@@ -43,8 +43,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_DEFAULT_LANGUAGE := en
 PRODUCT_DEFAULT_REGION   := US
 
-# Configs
-#-- Audio
+# Audio
 PRODUCT_PACKAGES += \
 	audio.usb.default \
 	audio.r_submix.default \
@@ -72,9 +71,9 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/audio/audio_param/AudioParamOptions.xml:system/etc/audio_param/AudioParamOptions.xml
 
 #al: test
-PRODUCT_PACKAGES += libaudiosetting
+#PRODUCT_PACKAGES += libaudiosetting
 
-#-- Media
+# Media
 PRODUCT_COPY_FILES += \
 	frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml \
@@ -84,15 +83,13 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
 	$(DEVICE_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml
 
-PRODUCT_PROPERTY_OVERRIDES += \
-	media.sf.omx-plugin=libffmpeg_omx.so,libsomxcore.so
+#PRODUCT_PROPERTY_OVERRIDES += \
+#	media.sf.omx-plugin=libffmpeg_omx.so,libsomxcore.so
 
-#-- BT
+# BT
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
 	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml
-	
-#-- 
 
 # Wifi
 PRODUCT_PACKAGES += \
@@ -118,11 +115,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.android.checkjni=0
 
-#-- Carrier
+# Carrier
 PRODUCT_COPY_FILES += $(DEVICE_PATH)/configs/carrier/old-apns-conf.xml:system/etc/old-apns-conf.xml
 
-#-- RIL
-#
+# RIL
 SIM_COUNT := 2
 
 PRODUCT_PACKAGES += \
@@ -146,7 +142,7 @@ PRODUCT_PROPERTY_OVERRIDES += ro.com.android.dataroaming=false
 # Disable SIM keyguard
 PRODUCT_PROPERTY_OVERRIDES += keyguard.no_require_sim=true
 
-#-- FM
+# FM
 MTK_FM_SUPPORT := true
 
 PRODUCT_PACKAGES += \
