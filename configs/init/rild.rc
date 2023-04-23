@@ -7,8 +7,7 @@ service ril-daemon /system/bin/rild
     socket rild-cas stream 660  casdrm mmb
     socket sap_uim_socket1 stream 660 bluetooth bluetooth
     user root
-    group radio cache inet misc audio sdcard_r sdcard_rw log system vpn
-
+    group radio cache inet misc audio readproc sdcard_rw log system vpn wakelock
 
 service ril-daemon1 /system/bin/rild -c 2
     class main
@@ -16,5 +15,5 @@ service ril-daemon1 /system/bin/rild -c 2
     socket rild-debug2 stream 660 radio system
     socket sap_uim_socket2 stream 660 bluetooth bluetooth
     user root
-    group radio cache inet misc audio sdcard_r sdcard_rw log system
+    group radio cache inet misc audio readproc sdcard_rw log system vpn wakelock
     disabled
