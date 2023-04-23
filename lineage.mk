@@ -15,6 +15,7 @@ DEVICE_RESOLUTION := 540x960
 
 TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true
+TARGET_BOOTANIMATION_HALF_RES := true
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := grandppltedx
