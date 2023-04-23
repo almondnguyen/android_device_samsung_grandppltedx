@@ -199,7 +199,9 @@ $(call inherit-product, device/common/gps/gps_us_supl.mk)
 # Use cm/lineage images if available, aosp ones otherwise
 PRODUCT_PACKAGES += \
 	charger \
-	charger_res_images
+	charger_res_images \
+	lineage_charger_res_images \
+	cm_charger_res_images
 
 # Camera
 PRODUCT_PACKAGES += \
