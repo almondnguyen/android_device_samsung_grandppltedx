@@ -12,21 +12,14 @@ for dir in $dirs ; do
 	echo " "
 done
 
-# there are other patches needed: 
-#-- frameworks/base/data/keyboard/Generic.kl: 
-#    APP_SWITCH: patch to key 254
+# there are other patches needed:
 #-- etc/java-8-openjdk/security/java.security
 #    in jdk.tls.disabledAlgorithms, remove TLSv1 and TLSv1.1
-
-#mandirs="system/core system/netd prebuilts/sdk"
-#cd $rootdirectory
-
-#for dir in $mandirs ; do
-#	echo "Applying $dir patches..."
-#	patch -p0 < "$rootdirectory/device/samsung/grandppltedx/patches/$dir/1.patch"
-#	echo " "
-#done
-
+echo "Additional patch needed:"
+echo "  in /etc/java-8-openjdk/security/java.security"
+echo "  in jdk.tls.disabledAlgorithms"
+echo "  remove TLSv1 and TLSv1.1"
+echo ""
 
 # -----------------------------------
 echo "Changing to build directory..."
