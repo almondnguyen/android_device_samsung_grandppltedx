@@ -1,17 +1,9 @@
 ## system.prop for grandpplte
 
-## Nougat stuff and testing
+# Nougat stuff and testing
 config.disable_consumerir=true
-media.sf.omx-plugin=libffmpeg_omx.so,libsomxcore.so
-#qemu.hw.mainkeys=0 ## disabled since someone said it is toggle-able
 lineage.updater.uri=https://raw.githubusercontent.com/almondnguyen/android_OTA/main/grandppltedx.json
 cm.updater.uri=https://raw.githubusercontent.com/almondnguyen/android_OTA/main/grandppltedx.json
-
-## persist logcat
-#logd.logpersistd.enable=true
-#persist.logd.logpersistd=logcatd
-#persist.logd.logpersistd.buffer=all
-#persist.logd.logpersistd.size=2048
 
 # Platform
 ro.mediatek.chip_ver=S01
