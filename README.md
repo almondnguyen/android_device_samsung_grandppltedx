@@ -4,20 +4,16 @@ TESTING:
 * Doze/Battery Life
 
 WORKING ON:
-* Headphone:
-```
-E/APM::AudioPolicyEngine(  319): getDeviceForInputSource() no default device defined
-W/APM_AudioPolicyManager(  319): getInputForAttr() could not find device for source 1998
-```
-* RadioFM (probably due to headphone not working; it scans then crashes)
-* RIL (bad/unstable signal strength on LTE; manual configure for dual-SIM; log spam)
+* Cleaning up whole tree, standardize, etc~
+* SELinux
+* Proper-izing roodir stuff
 
 CURRENTLY NOT WORKING/BUGGY:
-* Headphone
+* Headphone not working
 * GPS (bin runs but doesn't work)
-* Camera: Video Recording
-* RadioFM
-* Wi-Fi Hotspot
+* Camera: Video Recording not working
+* RadioFM not working
+* Wi-Fi Hotspot not working
 * No Icon/Percentage while offline charging. (it still charges.)
 * Manually configure for 2 active SIMs.
 
