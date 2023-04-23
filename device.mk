@@ -269,7 +269,6 @@ PRODUCT_PACKAGES += \
 	init.rilepdg.rc \
 	init.volte.rc \
 	init.emdlogger1.rc \
-	init.usb.configfs.rc \
 	init.wifi.rc \
 	init.recovery.mt6735.rc \
 	init.samsung.rc \
