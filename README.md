@@ -13,7 +13,6 @@ CURRENTLY NOT WORKING/BUGGY:
 * GPS (bin runs but doesn't work)
 * Camera: Video Recording not working
 * RadioFM not working
-* Wi-Fi Hotspot not working
 * No Icon/Percentage while offline charging. (it still charges.)
 * Manually configure for 2 active SIMs.
 
