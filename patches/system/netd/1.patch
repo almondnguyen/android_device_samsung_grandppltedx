@@ -1,6 +1,6 @@
-diff -uarN system/netd/server/NatController.cpp system/netd/server/NatController.cpp
---- system/netd/server/NatController.cpp	2019-12-12 18:50:20.235085000 +0700
-+++ system/netd/server/NatController.cpp	2019-12-14 16:11:30.513595078 +0700
+diff -uarN netd/server/NatController.cpp netd/server/NatController.cpp
+--- netd/server/NatController.cpp	2019-12-12 18:50:20.235085000 +0700
++++ netd/server/NatController.cpp	2019-12-14 16:11:30.513595078 +0700
 @@ -375,8 +375,9 @@
          rc = -1;
          goto err_return;
@@ -13,9 +13,9 @@ diff -uarN system/netd/server/NatController.cpp system/netd/server/NatController
          rc = -1;
          goto err_rpfilter;
      }
-diff -uarN system/netd/server/SoftapController.cpp system/netd/server/SoftapController.cpp
---- system/netd/server/SoftapController.cpp	2019-12-12 18:50:20.239085000 +0700
-+++ system/netd/server/SoftapController.cpp	2019-12-14 16:12:39.467644082 +0700
+diff -uarN netd/server/SoftapController.cpp netd/server/SoftapController.cpp
+--- netd/server/SoftapController.cpp	2019-12-12 18:50:20.239085000 +0700
++++ netd/server/SoftapController.cpp	2019-12-14 16:12:39.467644082 +0700
 @@ -53,7 +53,9 @@
  #include "wpa_ctrl.h"
  #endif

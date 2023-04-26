@@ -1,7 +1,8 @@
-diff -uarN system/core/init/init.cpp system/core/init/init.cpp
---- system/core/init/init.cpp	2019-12-13 19:36:16.515296000 +0700
-+++ system/core/init/init.cpp	2019-12-13 19:22:19.435728422 +0700
-@@ -85,7 +85,9 @@
+diff --git a/init/init.cpp b/init/init.cpp
+index 7a370596e..841048f67 100755
+--- a/init/init.cpp
++++ b/init/init.cpp
+@@ -85,7 +85,9 @@ int have_console;
  std::string console_name = "/dev/console";
  static time_t process_needs_restart;
  
@@ -12,7 +13,7 @@ diff -uarN system/core/init/init.cpp system/core/init/init.cpp
  
  bool waiting_for_exec = false;
  
-@@ -440,6 +442,7 @@
+@@ -440,6 +442,7 @@ static void selinux_init_all_handles(void)
      sehandle_prop = selinux_android_prop_context_handle();
  }
  
@@ -20,15 +21,12 @@ diff -uarN system/core/init/init.cpp system/core/init/init.cpp
  enum selinux_enforcing_status { SELINUX_PERMISSIVE, SELINUX_ENFORCING };
  
  static selinux_enforcing_status selinux_status_from_cmdline() {
-@@ -453,6 +456,7 @@
+@@ -453,11 +456,12 @@ static selinux_enforcing_status selinux_status_from_cmdline() {
  
      return status;
  }
 +#endif
  
- static bool selinux_is_enforcing(void)
- {
-@@ -461,7 +461,7 @@
  static bool selinux_is_enforcing(void)
  {
      if (ALLOW_PERMISSIVE_SELINUX) {
@@ -37,10 +35,11 @@ diff -uarN system/core/init/init.cpp system/core/init/init.cpp
      }
      return true;
  }
-diff -uarN system/core/init/init.h system/core/init/init.h
---- system/core/init/init.h	2019-12-13 19:36:16.515296000 +0700
-+++ system/core/init/init.h	2019-12-13 19:22:39.205787395 +0700
-@@ -24,7 +24,7 @@
+diff --git a/init/init.h b/init/init.h
+index 345d442c0..f93d0c5ba 100644
+--- a/init/init.h
++++ b/init/init.h
+@@ -24,7 +24,7 @@ class Service;
  
  #define COMMAND_RETRY_TIMEOUT 5
  
@@ -49,10 +48,11 @@ diff -uarN system/core/init/init.h system/core/init/init.h
  extern bool waiting_for_exec;
  extern int have_console;
  extern std::string console_name;
-diff -uarN system/core/init/service.cpp system/core/init/service.cpp
---- system/core/init/service.cpp	2019-12-13 19:36:16.519295000 +0700
-+++ system/core/init/service.cpp	2019-12-13 19:19:29.522058081 +0700
-@@ -371,6 +371,7 @@
+diff --git a/init/service.cpp b/init/service.cpp
+index a5334f447..560c12260 100644
+--- a/init/service.cpp
++++ b/init/service.cpp
+@@ -371,6 +371,7 @@ bool Service::Start() {
              scon = ret_scon;
              free(ret_scon);
          }
@@ -60,7 +60,7 @@ diff -uarN system/core/init/service.cpp system/core/init/service.cpp
          if (rc == 0 && scon == mycon) {
              ERROR("Service %s does not have a SELinux domain defined.\n", name_.c_str());
              if (selinux_status_getenforce() > 0) {
-@@ -379,6 +380,7 @@
+@@ -379,6 +380,7 @@ bool Service::Start() {
                  return false;
              }
          }
@@ -68,10 +68,11 @@ diff -uarN system/core/init/service.cpp system/core/init/service.cpp
          free(mycon);
          free(fcon);
          if (rc < 0) {
-diff -uarN system/core/libcutils/fs_config.c system/core/libcutils/fs_config.c
---- system/core/libcutils/fs_config.c	2019-12-14 16:08:48.648122294 +0700
-+++ system/core/libcutils/fs_config.c	2019-12-14 16:07:34.790888000 +0700
-@@ -143,7 +143,8 @@
+diff --git a/libcutils/fs_config.c b/libcutils/fs_config.c
+index 68cfcbe00..49879b694 100644
+--- a/libcutils/fs_config.c
++++ b/libcutils/fs_config.c
+@@ -143,7 +143,8 @@ static const struct fs_path_config android_files[] = {
      { 00700, AID_SYSTEM,    AID_SHELL,     CAP_MASK_LONG(CAP_BLOCK_SUSPEND), "system/bin/inputflinger" },
  
      /* Support FIFO scheduling mode in SurfaceFlinger. */
@@ -81,10 +82,11 @@ diff -uarN system/core/libcutils/fs_config.c system/core/libcutils/fs_config.c
  
      { 00750, AID_ROOT,      AID_ROOT,      0, "system/bin/uncrypt" },
      { 00750, AID_ROOT,      AID_ROOT,      0, "system/bin/install-recovery.sh" },
-diff -uarN system/core/rootdir/init.usb.rc system/core/rootdir/init.usb.rc
---- system/core/rootdir/init.usb.rc	2019-12-12 18:50:08.418624000 +0700
-+++ system/core/rootdir/init.usb.rc	2019-12-13 19:25:42.609271373 +0700
-@@ -15,7 +15,7 @@
+diff --git a/rootdir/init.usb.rc b/rootdir/init.usb.rc
+index 915d159a5..0666e4d63 100644
+--- a/rootdir/init.usb.rc
++++ b/rootdir/init.usb.rc
+@@ -15,7 +15,7 @@ on post-fs-data
  service adbd /sbin/adbd --root_seclabel=u:r:su:s0
      class core
      socket adbd stream 660 system system
