@@ -33,5 +33,3 @@ allow md_monitor platform_app:unix_stream_socket connectto;
 allow md_monitor debug_mdlogger_prop:property_service set;
 allow md_monitor untrusted_app:unix_stream_socket connectto;
 allow md_monitor radio:unix_stream_socket connectto;
-allow md_monitor sysfs_ccci:dir search;
-allow md_monitor sysfs_ccci:file r_file_perms;

@@ -1,0 +1,7 @@
+# ==============================================
+# MTK Policy Rule
+# ============
+
+allow hal_wifi_supplicant_default system_data_file:dir { remove_name setattr write };
+allow hal_wifi_supplicant_default system_data_file:file { getattr open read write };
+allow hal_wifi_supplicant_default system_data_file:sock_file { getattr open read unlink write };

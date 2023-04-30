@@ -15,16 +15,17 @@ type md_ctrl_exec, exec_type, file_type;
 # Purpose : Start md_ctrl
 
 init_daemon_domain(md_ctrl)
-allow md_ctrl ccci_device:chr_file { rw_file_perms };
-allow md_ctrl devpts:chr_file { rw_file_perms };
+allow md_ctrl ccci_device:chr_file { read write ioctl open };
+allow md_ctrl devpts:chr_file { read write getattr open ioctl };
+allow md_ctrl muxreport_exec:file { read execute open execute_no_trans };
 allow md_ctrl self:capability dac_override;
-allow md_ctrl muxreport_exec:file rx_file_perms;
-allow md_ctrl emd_device:chr_file { rw_file_perms };
-allow md_ctrl eemcs_device:chr_file { rw_file_perms  };
+allow md_ctrl emd_device:chr_file { read write open };
+allow md_ctrl eemcs_device:chr_file { read write };
+allow md_ctrl eemcs_device:chr_file open;
 
-# Needed to set vold.encryption.type
-set_prop(md_ctrl, vold_prop)
-
-# Allow read to sys/kernel/ccci/* files
-allow md_ctrl sysfs_ccci:dir search;
-allow md_ctrl sysfs_ccci:file r_file_perms;
+# Date : WK15.29
+# Operation : Migration
+# Purpose : for device bring up, not to block early migration
+allow md_ctrl property_socket:sock_file write;
+allow md_ctrl init:unix_stream_socket connectto;
+allow md_ctrl vold_prop:property_service set;

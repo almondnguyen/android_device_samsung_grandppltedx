@@ -7,8 +7,3 @@
 # Purpose: Trustonic HW-backed Gatekeeper
 allow gatekeeperd mobicore:unix_stream_socket connectto;
 allow gatekeeperd mobicore_user_device:chr_file { read write ioctl open };
-
-# Date : 2016/06/01
-# Operation: TEEI integration
-# Purpose: Microtrust HW-backed Gatekeeper
-allow gatekeeperd teei_fp_device:chr_file { read write open ioctl };

@@ -1,0 +1,6 @@
+#============= hal_bluetooth_default ==============
+
+allow hal_bluetooth_default nvram_device:blk_file { open read write };
+allow hal_bluetooth_default nvram_data_file:file { getattr open read };
+allow hal_bluetooth_default stpbt_device:chr_file { open read write };
+

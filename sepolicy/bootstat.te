@@ -1,0 +1,3 @@
+#============= bootstat ==============
+
+allow bootstat self:capability { dac_override fowner };

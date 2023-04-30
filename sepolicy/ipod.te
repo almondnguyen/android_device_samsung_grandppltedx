@@ -39,7 +39,7 @@ allow ipod ipod_prop:property_service set;
 allow ipod powerctl_prop:property_service set;
 allow ipod audiohal_prop:property_service set;
 allow ipod system_prop:property_service set;
-allow ipod shell_exec:file { read open execute_no_trans execute getattr };
+allow ipod shell_exec:file { read open execute_no_trans execute };
 allow ipod system_file:file execute_no_trans;
 
 # permissions for IPO with phone encrypted
@@ -87,7 +87,7 @@ allow ipod proc_drop_caches:file { open write };
 allow ipod self:capability sys_boot;
 allow ipod proc_sysrq:file { open write };
 
-allow ipod debugfs_wakeup_sources:file { open read getattr };
+allow ipod debugfs:file { getattr };
 
 # IPOH
 allow ipod system_data_file:dir { open read write add_name create remove_name };
@@ -99,7 +99,3 @@ allow ipod misc_device:chr_file { open read write };
 allow ipod self:capability { chown sys_admin };
 allow ipod mtd_device:blk_file { read write open };
 allow ipod ctl_ipo_swap_prop:property_service set;
-
-# Date : WK16.33
-# Purpose: Allow to access ged for gralloc_extra functions
-allow ipod proc_ged:file {open read write ioctl getattr};

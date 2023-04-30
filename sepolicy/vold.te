@@ -2,45 +2,19 @@
 # MTK Policy Rule
 # ==============================================
 
-# volume manager
-
-# Date : WK16.19
-# Operation : Migration
-# Purpose : unmount /mnt/cd-rom. It causes by unmountAll() when VolumeManager starts
-allow vold iso9660:filesystem unmount;
-
-# Date : WK16.19
-# Operation : Migration
-# Purpose : dotrim for the mountpoints in fstab
-allow vold nvdata_file:dir r_dir_perms;
-allow vold protect_f_data_file:dir r_dir_perms;
-allow vold protect_s_data_file:dir r_dir_perms;
-
-# Date : WK16.19
-# Operation : Migration
-# Purpose : vold will traverse /proc when remountUid().
-#           It will trigger violation if mtk customize some label in /proc.
-#           However, we should ignore the violation if the processes never access the storage.
-dontaudit vold proc_battery_cmd:dir { read open };
-dontaudit vold proc_mtkcooler:dir { read open };
-dontaudit vold proc_mtktz:dir { read open };
-# ==============================================
-# MTK Policy Rule
-# ==============================================
-
 # Date : WK14.37
 # Operation : Migration 
 # Purpose : Access 'OMADM_USB' nvram
-allow vold nvram_data_file:file { read getattr open write create setattr};
+#allow vold nvram_data_file:file { read getattr open write create setattr};
 allow vold nvram_data_file:lnk_file read;
-allow vold nvram_data_file:dir { read open write add_name create getattr setattr search};
+#allow vold nvram_data_file:dir { read open write add_name create getattr setattr search};
 allow vold nvdata_file:file { read getattr open write create setattr};
-allow vold nvdata_file:dir { read ioctl open write add_name create getattr setattr search};
+#allow vold nvdata_file:dir { read ioctl open write add_name create getattr setattr search};
 allow vold nvram_device:chr_file { read write open };
 #allow vold platformblk_device:blk_file { read write open };
 #allow vold platformblk_device:dir search;
 allow vold nvram_device:blk_file rw_file_perms;
-allow vold userdata_block_device:blk_file create_file_perms;
+#allow vold userdata_block_device:blk_file create_file_perms;
 allow vold para_block_device:blk_file rw_file_perms;
 allow vold misc2_block_device:blk_file rw_file_perms;
 allow vold mmcblk0_block_device:blk_file rw_file_perms;
@@ -64,7 +38,7 @@ allow vold zram0_device:blk_file getattr;
 # Date : WK14.38
 # Operation : Migration 
 # Purpose : symbolic link for /data/ext_sdcard_tool
-allow vold system_data_file:lnk_file { create unlink };
+#allow vold system_data_file:lnk_file { create unlink };
 
 # Date : WK14.40
 # Operation : Migration 
@@ -93,7 +67,7 @@ allow vold media_rw_data_file:dir { read open };
 
 # Date : WK14.46
 # Operation : allow sdcard create tmpfs link file
-allow vold tmpfs:lnk_file {create unlink};
+#allow vold tmpfs:lnk_file {create unlink};
 
 # Date : WK14.46
 # Operation : copy the logs in /data(tmpfs) to real userdata partition
@@ -160,17 +134,12 @@ allow vold resize_exec:file rx_file_perms;
 allow vold proc_mtkcooler:dir r_dir_perms;
 allow vold proc_mtktz:dir r_dir_perms;
 
-#allow vold block_device:blk_file { read write ioctl open getattr };
+allow vold block_device:blk_file { ioctl getattr };
 
 # Date : WK15.37
 # Operation : Migration
 # Purpose : for ntfs device mount
 allow vold mmcblk1p1_block_device:blk_file { open read write lock ioctl getattr};
-
-#Date : WK15.42
-# Operation : QC
-#Purpose: nvcfg
-allow vold nvcfg_file:dir { read getattr open ioctl };
 
 # Date : WK15.44
 # Purpose : access protect1 and protect2 partitions for the platform without nvdata partition
@@ -183,13 +152,10 @@ allow vold protect2_block_device:blk_file rw_file_perms;
 allow vold mobicore:unix_stream_socket connectto;
 allow vold mobicore_user_device:chr_file { read write ioctl open };
 
-# Date : 2016/06/01
-# Operation: TEEI integration
-# Purpose: Microtrust HW-backed Keymaster
-allow vold ut_keymaster_device:chr_file rw_file_perms;
-
 # Date : WK15.52
 # Operation : create symbolic link for /storage/sdcard1
-allow vold storage_file:lnk_file {create unlink};
+#allow vold storage_file:lnk_file {create unlink};
 
-
+# O
+allow vold system_data_file:lnk_file { create getattr unlink };
+allow vold efs_file:dir { ioctl open read };

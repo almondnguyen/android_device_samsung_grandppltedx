@@ -12,13 +12,7 @@ type pvrsrvctl_exec, exec_type, file_type;
 # ==============================================
 init_daemon_domain(pvrsrvctl)
 
-# Data : --
-# Operation : Migration
-# Purpose : GPU FW Init
 allow pvrsrvctl self:capability sys_admin;
 allow pvrsrvctl gpu_device:chr_file rw_file_perms;
 allow pvrsrvctl self:capability sys_module;
 
-# Date : WK16.33
-# Purpose: Allow to access ged for gralloc_extra functions
-allow pvrsrvctl proc_ged:file {open read write ioctl getattr};

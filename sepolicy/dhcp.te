@@ -5,23 +5,28 @@
 # Date :WK14.34
 # Operation : Migration
 # Purpose: for connecting Wifi
-allow dhcp devpts:chr_file rw_file_perms;
+allow dhcp devpts:chr_file { read write ioctl };
+
 
 
 # Date :WK14.41
-# Operation : ALPS01757300
-# Purpose: connect AP, using for wifi connect 
+# Operation : [Auto Sanity][L.AOSP.EARLY.DEV.BSP][k2v1]
+# Purpose: ALPS01757300 
+#============= dhcp ==============
 allow dhcp kernel:system module_request;
 
 
 # Date :WK14.44
-# Operation : ALPS01798575
-# Purpose: Search on Internet using browser, the 3th App use dhcp
+# Operation : [Rose][82L TK][FTester]
+# Purpose: ALPS01798575 
 #============= netd ==============
 allow dhcp platform_app:fd use;
-allow dhcp platform_app_tmpfs:file write;
+#allow dhcp platform_app_tmpfs:file write;
 
-allow dhcp init:fifo_file rw_file_perms;
+#============= dhcp ==============
+allow dhcp init:fifo_file { read write };
 allow dhcp init:unix_stream_socket { read write };
 
+
+#============= dhcp ==============
 allow dhcp untrusted_app:fd use;

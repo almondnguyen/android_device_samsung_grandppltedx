@@ -19,7 +19,7 @@ init_daemon_domain(wfca)
 allow wfca netd:unix_stream_socket connectto;
 allow wfca socket_device:sock_file {create write unlink};
 allow wfca socket_device:dir {write remove_name add_name};
-allow wfca self:capability { net_raw setuid setgid };
+allow wfca self:capability { setuid setgid };
 allow wfca self:udp_socket { create write bind read setopt ioctl getattr shutdown };
 allow wfca node:udp_socket node_bind;
 allow wfca port:udp_socket name_bind;
@@ -31,20 +31,10 @@ allow wfca system_file:file execute_no_trans;
 # Purpose : for access ccci device
 allow wfca ccci_device:chr_file { read write open ioctl };
 
-# Purpose : for WakeUpLock
-allow wfca sysfs_wake_lock:file { read write open };
-
-# Purpose : for raw socket
-allow wfca self:rawip_socket { create write bind setopt read getattr};
-allow wfca node:rawip_socket {node_bind}; 
-# ==============================================
-# Policy File of /system/bin/wfca Executable File 
-
-# ==============================================
-# MTK Policy Rule
-# ==============================================
-
 # Date : 2015/06/25
 # Purpose : for UA socket pass
 allow wfca volte_ua:fd use;
 allow wfca volte_ua:udp_socket {read write setopt getattr getopt shutdown};
+
+# Purpose : for WakeUpLock
+allow wfca sysfs_wake_lock:file { read write open }; 

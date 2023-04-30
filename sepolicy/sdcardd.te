@@ -33,7 +33,7 @@ allow sdcardd untrusted_app:fd use;
 
 # Date : WK15.02
 # Purpose : ashared memory
-allow sdcardd platform_app_tmpfs:file write;
+#allow sdcardd platform_app_tmpfs:file write;
 
 # Date : WK15.15
 # Purpose : access mmcblk0_block_device
@@ -43,3 +43,6 @@ allow sdcardd mmcblk0_block_device:blk_file { read write open };
 # Operation : Migration
 # Purpose : for M migration SQC
 typeattribute sdcardd mlstrustedsubject;
+
+# O
+allow sdcardd vold:unix_stream_socket { read write };

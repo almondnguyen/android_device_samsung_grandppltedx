@@ -4,29 +4,37 @@
 
 #permissive adbd;
 
+#violate neverallow rule
+#allow adbd block_device:blk_file { read ioctl open };
+
+#violate neverallow rule
+#allow adbd labeledfs:filesystem remount;
+
 # Date : WK14.27
 # Operation : KK.AOSP SQC
 # Purpose : MTK snapshot-related mechanism
-allow adbd graphics_device:chr_file r_file_perms;
+allow adbd graphics_device:chr_file { read ioctl open };
 
 # Date : WK14.27
 # Operation : KK.AOSP SQC
 # Purpose : A process wants to access a specific path. For example : shell:ls -l /data/data/
-allow adbd platform_app_data_file:dir ra_dir_perms;
-allow adbd platform_app_data_file:file create_file_perms;
-allow adbd radio_data_file:file r_file_perms;
+#allow adbd platform_app_data_file:dir { write getattr add_name };
+#allow adbd platform_app_data_file:file { read create open };
+allow adbd radio_data_file:file { read open };
 
 # Date : WK14.27
 # Operation : KK.AOSP SQC
 # Purpose : shell:logcat -v threadtime
 allow adbd self:capability2 syslog;
 
-allow adbd block_device:dir r_dir_perms;
+allow adbd block_device:dir search;
 allow adbd kernel:process setsched;
 allow adbd self:capability { net_raw ipc_lock dac_override };
-allow adbd system_data_file:dir w_dir_perms;
+allow adbd system_data_file:dir { write remove_name add_name };
+#allow adbd system_data_file:file { write create unlink open setattr };
 file_type_auto_trans(adbd, system_data_file, adbd_data_file)
-allow adbd adbd_data_file:file create_file_perms;
+allow adbd adbd_data_file:file { write create unlink open setattr };
+#allow adbd tmpfs:lnk_file read;
 
 # Date : WK14.46
 # Operation : Migration
@@ -49,8 +57,4 @@ allow adbd sf_rtt_file:dir getattr;
 # Date : WK15.35
 # Operation : Migration
 # Purpose: Allow adbd to read binder from surfaceflinger
-allow adbd surfaceflinger:fifo_file rw_file_perms;
-
-# Date : WK16.33
-# Purpose: Allow to access ged for gralloc_extra functions
-allow adbd proc_ged:file {open read write ioctl getattr};
+allow adbd surfaceflinger:fifo_file {read write};

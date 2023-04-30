@@ -1,14 +1,3 @@
-# ============================================== 
-# MTK Policy Rule 
-# ==============================================
-
-# Access /dev/stpbt
-allow bluetooth stpbt_device:chr_file rw_file_perms;
-
-# Access NVRAM
-allow bluetooth nvdata_file:dir search;
-allow bluetooth nvdata_file:file rw_file_perms;
-
 # Device access
 allow bluetooth stpbt_device:chr_file rw_file_perms;
 
@@ -27,19 +16,18 @@ allow bluetooth block_device:dir search;
 allow bluetooth proc_secmem:file { read open };
 
 # Temp FS access
-allow bluetooth platform_app_tmpfs:file write;
+#allow bluetooth platform_app_tmpfs:file write;
 
 # Date : WK15.36
 # Operation : Migration
 # Purpose: Allow bluetooth to access surfaceflinger
 allow bluetooth surfaceflinger:fifo_file { read write };
 
-allow bluetooth rilproxy:unix_stream_socket connectto;
-# ==============================================
-# MTK Policy Rule
-# ==============================================
-
 # Date: 2015/9/23
 # Operation: Program binary service
 # Purpose : Add permission for program binary service find from ServiceManager.
 allow bluetooth program_binary_service:service_manager find;
+
+# 2017/7/22: daniel_hk(danielhk@github.com)
+# O
+allow bluetooth wmt_prop:file { getattr open };

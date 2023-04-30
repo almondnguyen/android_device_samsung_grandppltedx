@@ -54,11 +54,6 @@ allow atcid viarild:unix_stream_socket connectto;
 allow atci_service gpu_device:chr_file { read write open ioctl getattr };
 #allow atci_service CAM_CAL_DRV1_device:chr_file { read write open };
 allow atci_service pq:binder call;
-allow atcid rilproxy_atci_socket:sock_file write;
-allow atcid rilproxy:unix_stream_socket connectto;
-allow atcid self:capability sys_time;
-allow atcid alarm_device:chr_file { write open };
 
-# Date : WK16.33
-# Purpose: Allow to access ged for gralloc_extra functions
-allow atcid proc_ged:file {open read write ioctl getattr};
+# Nougat
+allow atcid sysfs:file { read open };

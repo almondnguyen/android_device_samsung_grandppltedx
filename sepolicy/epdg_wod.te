@@ -40,7 +40,6 @@ allow epdg_wod property_socket:sock_file write;
 allow epdg_wod persist_wod_prop:property_service set;
 
 # Purpose :  Query ePDG IP address
-allow epdg_wod wod_dns_socket:sock_file write;
 allow epdg_wod dnsproxyd_socket:sock_file write;
 allow epdg_wod netd:unix_stream_socket connectto;
 
@@ -69,7 +68,3 @@ allow epdg_wod device:lnk_file create;
 # Purpose: Kill Process
 allow epdg_wod system_server:process { signal signull };
 allow epdg_wod kernel:process signal;
-
-# Purpose: access iptables for mss
-allow epdg_wod self:capability net_raw;
-allow epdg_wod self:rawip_socket { getopt create setopt };

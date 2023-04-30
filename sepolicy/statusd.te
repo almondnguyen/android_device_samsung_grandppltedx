@@ -1,5 +1,5 @@
 # ==============================================
-# Policy File of /system/bin/statusd Executable File
+# Policy File of /system/bin/statusd Executable File 
 
 type statusd_exec, exec_type, file_type;
 type statusd, domain;
@@ -9,7 +9,8 @@ type statusd, domain;
 init_daemon_domain(statusd)
 
 allow statusd block_device:dir search;
-allow statusd flashlessd_exec:file rx_file_perms;
+allow statusd ctl_pppd_via_prop:property_service set;
+allow statusd flashlessd_exec:file { read execute open execute_no_trans };
 allow statusd init:unix_stream_socket connectto;
 allow statusd mtk_md_prop:property_service set;
 allow statusd net_cdma_mdmstat:property_service set;
@@ -36,7 +37,7 @@ allow statusd c2k_file:file create_file_perms;
 allow statusd system_file:file execute_no_trans;
 allow statusd ttyMT_device:chr_file { read write ioctl open };
 allow statusd ttySDIO_device:chr_file { read write open setattr ioctl};
-allow statusd viarild_exec:file rx_file_perms;
+allow statusd viarild_exec:file { read execute open execute_no_trans };
 allow statusd vmodem_device:chr_file { read write open setattr ioctl};
 
 # property service

@@ -27,7 +27,8 @@ allow kpoc_charger self:capability sys_nice;
 allow kpoc_charger self:capability net_admin;
 allow kpoc_charger self:capability dac_override;
 allow kpoc_charger self:netlink_kobject_uevent_socket { create bind read setopt };
-allow kpoc_charger sysfs:file write;
+#allow kpoc_charger sysfs:file write;
+allow kpoc_charger debugfs:file { getattr };
 allow kpoc_charger graphics_device:chr_file { read write ioctl open };
 allow kpoc_charger kmsg_device:chr_file { write open };
 allow kpoc_charger logo_block_device:blk_file { read open };
@@ -39,18 +40,14 @@ allow healthd device:dir {open read write};
 allow kpoc_charger self:capability sys_boot;
 allow kpoc_charger alarm_device:chr_file write;
 
-# Date : WK15.44
+# Date : WK15.52
 # Operation : Migration
 # Purpose : add sepolicy for nand platform which use mtd_device
 allow kpoc_charger mtd_device:dir search;
 allow kpoc_charger mtd_device:chr_file read;
 allow kpoc_charger mtd_device:chr_file { read open };
 
-# Date : WK15.45
-# Operation : Migration
-# Purpose : add sepolicy for kpoc_charger
-allow kpoc_charger logo_device:chr_file read;
-allow kpoc_charger logo_device:chr_file open;
-allow kpoc_charger mmcblk0_block_device:blk_file read;
-allow kpoc_charger mmcblk0_block_device:blk_file open;
+# Nougat
+allow kpoc_charger sysfs:file { read write open };
+allow kpoc_charger rootfs:file { read open getattr };
 

@@ -1,44 +1,55 @@
 # ==============================================
-# Policy File of /system/bin/msensord Executable File
+# Policy File of /system/bin/msensord Executable File 
+
 
 # ==============================================
 # Type Declaration
 # ==============================================
+
 type msensord_exec , exec_type, file_type;
 type msensord ,domain;
 
 # ==============================================
+# Android Policy Rule
+# ==============================================
+
+# ==============================================
+# NSA Policy Rule
+# ==============================================
+
+# ==============================================
 # MTK Policy Rule
 # ==============================================
+
+#permissive msensord;
 init_daemon_domain(msensord)
+#unconfined_domain(msensord)
 
-# Purpose : M-sensor common daemon for access M-sensor daemon
-allow msensord msensord_daemon:file r_file_perms;
-allow msensord msensord_daemon2:file r_file_perms;
+# Data : WK14.43
+# Operation : Migration
+# Purpose : M-sensor daemon for access driver node
+allow msensord msensord_daemon:file { read open };
+allow msensord msensord_daemon2:file { read open };
 
-set_prop(msensord, ctl_msensord_prop)
 
-# set the ctl.xxxd property
-set_prop(msensord, ctl_akmd8963_prop)
-set_prop(msensord, ctl_akmd09911_prop)
-set_prop(msensord, ctl_s62xd_prop)
-set_prop(msensord, ctl_geomagneticd_prop)
-set_prop(msensord, ctl_orientationd_prop)
-set_prop(msensord, ctl_istd8303_prop)
-set_prop(msensord, ctl_st480_prop)
-# ==============================================
-# Policy File of /system/binmsensord Executable File
+# Data : WK14.43
+# Operation : Migration
+# Purpose : M-sensor daemon for property operation
+allow msensord ctl_msensord_prop:property_service set;
+#unix_socket_connect(msensord, property, init) #@daniel, use set_prop()
+set_prop(msensord, init)
 
-# ==============================================
-# Type Declaration
-# ==============================================
-
-# ==============================================
-# MTK Policy Rule
-# ==============================================
-
-# set the ctl.xxxd property
-allow msensord ctl_akmd09912_prop:property_service set;
-allow msensord ctl_mxg2320d_prop:property_service set;
+allow msensord ctl_akmd8963_prop:property_service set;
+allow msensord ctl_akmd09911_prop:property_service set;
+#allow msensord ctl_akmd09912_prop:property_service set;
 allow msensord ctl_bmm050d_prop:property_service set;
+allow msensord ctl_s62xd_prop:property_service set;
 allow msensord ctl_bmm056d_prop:property_service set;
+allow msensord ctl_geomagneticd_prop:property_service set;
+allow msensord ctl_orientationd_prop:property_service set;
+allow msensord ctl_istd8303_prop:property_service set;
+allow msensord ctl_st480_prop:property_service set;
+
+# Nougat
+allow msensord rootfs:lnk_file { getattr };
+

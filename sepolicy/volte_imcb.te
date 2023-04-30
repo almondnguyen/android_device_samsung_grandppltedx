@@ -40,7 +40,3 @@ allow volte_imcb volte_imcb_socket:sock_file write;
 # Purpose : For open socket device to vtservice connect
 allow ccci_mdinit volte_prop:property_service set;
 
-#============= volte_imcb sysfs related ==============
-allow volte_imcb sysfs_ccci:dir search;
-allow volte_imcb sysfs_ccci:file r_file_perms;
-

@@ -25,6 +25,7 @@ type permission_check ,domain;
 init_daemon_domain(permission_check)
 #unconfined_domain(permission_check)
 
+allow permission_check   persist_md_prop: property_service set;
 
 allow permission_check init:unix_stream_socket connectto;
 allow permission_check nvram_data_file:dir { rw_dir_perms setattr };
@@ -41,7 +42,7 @@ allow permission_check protect_f_data_file:file { getattr setattr };
 allow permission_check protect_s_data_file:file { getattr setattr };
 
 allow permission_check self:capability { fowner chown dac_override fsetid };
-allow permission_check shell_exec:file { read execute open execute_no_trans };
+#allow permission_check shell_exec:file { read execute open execute_no_trans };
 allow permission_check system_file:file { read getattr open execute execute_no_trans };
 
 allow permission_check ccci_cfg_file:dir create_dir_perms;
@@ -50,3 +51,9 @@ allow permission_check ccci_cfg_file:file create_file_perms;
 allow permission_check mdlog_data_file:dir { read search setattr open };
 allow permission_check mdlog_data_file:fifo_file setattr;
 allow permission_check mdlog_data_file:file setattr;
+
+# Nougat
+allow permission_check persist_md_prop:file { read open getattr };
+allow permission_check shell_exec:file { read getattr execute open execute_no_trans };
+allow permission_check toolbox_exec:file { getattr execute read open execute_no_trans };
+

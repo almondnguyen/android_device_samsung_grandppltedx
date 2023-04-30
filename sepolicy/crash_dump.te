@@ -1,0 +1,4 @@
+#============= crash_dump ==============
+
+allow crash_dump crash_dump_exec:file execute_no_trans;
+allow crash_dump self:capability dac_override;
