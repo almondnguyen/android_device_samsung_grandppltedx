@@ -7,7 +7,7 @@
 # almond: remove cpboot-daemon since 
 #         this phone does not come with sbin/cbd
 
-service SMD-daemon /system/bin/smdexe
+service SMD-daemon /vendor/bin/smdexe
     class main
     user root
     group system radio inet net_raw

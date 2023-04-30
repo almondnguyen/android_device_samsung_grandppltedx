@@ -635,14 +635,4 @@ service vold /system/bin/vold \
     socket dir_enc_report stream 0660 root mount
 ## Samsung ODE <<<
 
-# for Bluetooth Tethering
-service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
-    class main
-    disabled
-    oneshot
-
-service iprenew_bt-pan /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
 # end of BT

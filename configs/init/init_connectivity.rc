@@ -1,5 +1,20 @@
 # MTK connectivity .rc configure
 
+on post-fs-data
+    # give system access to wpa_supplicant.conf for backup and restore
+    mkdir /data/vendor/wifi 0770 wifi system
+    # HoangLong: Hacks
+    write /data/vendor/wifi/wpa_supplicant.conf 0
+    write /data/vendor/wifi/p2p_supplicant.conf 0
+    chmod 0777 /data/vendor/wifi/wpa_supplicant.conf
+    chmod 0777 /data/vendor/wifi/p2p_supplicant.conf
+    chown system wifi /data/vendor/wifi/p2p_supplicant.conf
+    mkdir /data/vendor/wifi/sockets 0777 wifi wifi
+    mkdir /data/vendor/wifi/wpa_supplicant 0777 wifi wifi
+    mkdir /data/vendor/wifi/log/ 0777 wifi system
+    mkdir /data/misc/dhcp 0775 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+
 on boot
 
 # WMT
