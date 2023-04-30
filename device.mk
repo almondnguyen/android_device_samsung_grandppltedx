@@ -154,12 +154,8 @@ PRODUCT_COPY_FILES += \
 #-- RIL
 SIM_COUNT := 2
 
-# temporary MTK RIL to pass build
-ifeq ($(TARGET_BUILD_MTK_RIL), true)
-PRODUCT_PACKAGES += rild-mtk libccci_util rild-prop-md1
-endif
-
 PRODUCT_PACKAGES += \
+	libsecril-shim \
 	libxml2 \
 	libprotobuf-cpp-full \
 	SamsungStk
@@ -315,8 +311,6 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/rootdir/sbin/busybox:root/sbin/busybox
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-	rild.libpath=/system/lib/libsec-ril.so \
-	rild.libpath2=/system/lib/libsec-ril-dsds.so \
 	ro.zygote=zygote32 \
 	ro.mount.fs=EXT4 \
 	ro.adb.secure=0 \

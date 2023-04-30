@@ -312,19 +312,15 @@ lib64/libSecMMCodec.so:vendor/lib64/libSecMMCodec.so
 bin/ccci_fsd:vendor/bin/ccci_fsd
 bin/ccci_mdinit:vendor/bin/ccci_mdinit
 bin/md_ctrl:vendor/bin/md_ctrl
-bin/rild:vendor/bin/hw/rild
 etc/plmn_delta.bin:vendor/etc/plmn_delta.bin
 etc/plmn_se13.bin:vendor/etc/plmn_se13.bin
 lib/libccci_util.so:vendor/lib/libccci_util.so
 lib/libfile_op.so:vendor/lib/libfile_op.so
 lib/libfloatingfeature.so:/vendor/lib/libfloatingfeature.so
 lib/libreference-ril.so:/vendor/lib/libreference-ril-sammtk.so
-lib/libril.so:/vendor/lib/libril.so
-lib/librilutils.so:/vendor/lib/librilutils.so
 lib/libsecnativefeature.so:/vendor/lib/libsecnativefeature.so
 lib/libsec-ril-dsds.so:/vendor/lib/libsec-ril-dsds.so
 lib/libsec-ril.so:/vendor/lib/libsec-ril.so
-lib/libsecril-client.so:/vendor/lib/libsecril-client.so
 
 # RIL (Configs)
 etc/apdb/APDB_MT6735_S01_alps-mp-m1.mp8.tc10sp_W16.35

@@ -9,10 +9,7 @@ media.sf.omx-plugin=libffmpeg_omx.so,libsomxcore.so
 ro.config.low_ram=true
 
 # testing, no RIL for now
-ro.radio.noril=yes
 lineage.updater.uri=https://raw.githubusercontent.com/almondnguyen/android_OTA/main/los-15-grandppltedx.json
-rild.libpath=/system/lib/libsec-ril.so
-rild.libpath2=/system/lib/libsec-ril-dsds.so
 ro.zygote=zygote32
 ro.mount.fs=EXT4
 ro.adb.secure=0
@@ -32,8 +29,8 @@ ro.mediatek.version.release=alps-mp-m1.mp8.tc10sp
 ro.mediatek.version.sdk=4
 
 ## RIL
-rild.libpath=/system/lib/libsec-ril.so
-rild.libpath2=/system/lib/libsec-ril-dsds.so
+rild.libpath=/vendor/lib/libsecril-shim.so
+rild.libpath2=/vendor/lib/libsec-ril-dsds.so
 rild.libargs=-d /dev/ttyC0
 
 ro.telephony.ril_class=grandpplteRIL

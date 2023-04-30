@@ -208,9 +208,6 @@ BOARD_GPS_LIBRARIES := true
 BOARD_MEDIATEK_USES_GPS := true
 
 # RIL
-#> accompanies https://github.com/almondnguyen/android_device_samsung_grandppltedx/commit/5eacb461d71c013e97552f122f1ee28bed8b9d01
-TARGET_BUILD_MTK_RIL := true
-BOARD_PROVIDES_RILD := true
 BOARD_PROVIDES_LIBRIL := true
 BOARD_RIL_CLASS := ../../../device/samsung/grandppltedx/ril
 #BOARD_CONNECTIVITY_MODULE := conn_soc
