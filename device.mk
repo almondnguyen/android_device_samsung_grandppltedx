@@ -46,7 +46,6 @@ PRODUCT_PACKAGES += \
 
 # Graphics
 PRODUCT_PACKAGES += \
-	libgralloc_extra \
 	libgui_ext \
 	libui_ext \
 	libshim_gui \
