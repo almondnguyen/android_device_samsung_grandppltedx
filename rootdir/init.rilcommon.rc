@@ -12,12 +12,6 @@ import /init.rilepdg.rc
 
 on boot
 
-# AT Distributor for factory test
-service at_distributor /system/bin/at_distributor
-    class late_start
-    user root
-    group radio misc log
-
 service DR-daemon /system/bin/ddexe
     class main
     user root

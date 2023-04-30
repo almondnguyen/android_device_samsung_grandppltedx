@@ -1,0 +1,20 @@
+#
+
+on post-fs-data
+
+#SeLinux
+    mkdir /data/ccci_cfg 0770 system radio
+    restorecon /data/ccci_cfg
+    restorecon_recursive /protect_f
+    restorecon_recursive /protect_s
+
+#
+#  Modem related services
+#
+
+service ccci_fsd /vendor/bin/ccci_fsd 0
+    user system
+    group radio system bluetooth
+    class core
+    oneshot
+
