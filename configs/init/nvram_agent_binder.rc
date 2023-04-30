@@ -1,5 +1,0 @@
-service NvRAMAgent /vendor/bin/nvram_agent_binder
-    class main
-    user root
-    group root
-

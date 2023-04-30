@@ -1,5 +1,0 @@
-service nvram_daemon /vendor/bin/nvram_daemon
-    class main
-    user root
-    group system radio wifi audio bluetooth media
-    oneshot

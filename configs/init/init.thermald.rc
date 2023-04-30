@@ -1,4 +1,0 @@
-service thermald /vendor/bin/thermald
-    class main
-    user system
-    group system

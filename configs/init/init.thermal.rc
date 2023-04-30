@@ -1,4 +1,0 @@
-service thermal /vendor/bin/thermal
-    class main
-    user system
-    group system

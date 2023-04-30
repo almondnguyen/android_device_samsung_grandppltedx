@@ -635,6 +635,22 @@ service vold /system/bin/vold \
     socket dir_enc_report stream 0660 root mount
 ## Samsung ODE <<<
 
+service drm /system/bin/drmserver
+    class main
+    user drm
+# [ SEC_MM_DRM
+# fix
+    group system drm inet drmrpc radio dpgp
+# org
+#    group drm system inet drmrpc
+# ]
+
+# Sensorhub service
+service sensorhubservice /system/bin/sensorhubservice
+    class main
+    user system
+    group input
+
 # for Bluetooth Tethering
 service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
     class main

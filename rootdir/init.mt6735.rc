@@ -149,6 +149,16 @@ on post-fs-data
     restorecon_recursive /nvdata
 
 # WLAN
+    chmod 0660 /data/misc/wifi/p2p_supplicant.conf
+
+    # give system access to wpa_supplicant.conf for backup and restore
+    mkdir /data/misc/wifi 0770 wifi system
+    chmod 0660 /data/misc/wifi/wpa_supplicant.conf
+    chmod 0660 /data/misc/wifi/p2p_supplicant.conf
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0775 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+
     # for WIFI TRP/TIS
     chown system root /data/.psm.info
     chmod 0664 /data/.psm.info
@@ -466,6 +476,10 @@ on post-fs-data
     chmod 0660 /dev/sw_sync
     chown system graphics /dev/sw_sync
 
+    # EM baseband file
+    chown root diag /system/bin/baseband_regdump
+    chmod 4750 /system/bin/baseband_regdump
+
     #pmu
     chown root radio /sys/devices/platform/mt-pmic/pmic_access_bank0
     chown root radio /sys/devices/platform/mt-pmic/pmic_access_bank1
@@ -642,6 +656,9 @@ on post-fs-data
     # mcDriverDaemon
     mkdir /data/app/mcRegistry 0775 system system
     mkdir /data/app/mcRegistry/TbStorage 0775 system system
+
+    # AGPS
+    mkdir /data/agps_supl 0771 gps system
 
     # Recycle stuffs
     exec /system/bin/rm -f /cache/.ipoh.img
@@ -953,6 +970,9 @@ on property:debug.MB.prdebug=1
 on property:debug.MB.prdebug=0
     write /sys/kernel/debug/dynamic_debug/control "file *mediatek* -p"
 
+service met_log_d /system/bin/met_log_d
+    class main
+
 # bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/dumpstate -d -p -B \
         -o /data/data/com.android.shell/files/bugreports/bugreport
@@ -961,8 +981,26 @@ service bugreport /system/bin/dumpstate -d -p -B \
     oneshot
     keycodes 114 115 116
 
+#on property:sys.boot_completed=1
+#    start ged_srv
+
+#service ged_srv /system/bin/ged_srv
+#    class core
+#    user system
+#    group system
+#    disabled
+
 service netdiag /system/bin/netdiag
     class main
+
+#al: a dum-dum way to get a lot more permission for the nvram stuff
+#group system
+
+service nvram_daemon /system/bin/nvram_daemon
+    class main
+    user root
+    group root system radio shell net_bt_stack audio inet
+    oneshot
 
 service meta_tst /system/bin/meta_tst
     class main
@@ -970,10 +1008,95 @@ service meta_tst /system/bin/meta_tst
     group system radio shell net_bt_stack audio inet
     oneshot
 
+service atci_service /system/bin/atci_service
+    class core
+    socket atci-service stream 660 radio system
+    socket atci-serv-fw stream 660 radio system
+    user root
+    disabled
+    group radio system
+
+service atcid-daemon-u /system/bin/atcid
+    class main
+    socket adb_atci_socket stream 660 radio system
+    user system
+    group radio system media
+    disabled
+    oneshot
+
+service atcid-daemon-e /system/bin/atcid
+    class core
+    socket adb_atci_socket stream 660 radio system
+    user root
+    group radio system
+    disabled
+    oneshot
+
+on property:ro.build.type=eng
+start atci_service
+start atcid-daemon-e
+
+on property:persist.service.atci.autostart=1
+start atci_service
+start atcid-daemon-u
+
+service audio-daemon /system/bin/audiocmdservice_atci
+    class main
+    socket atci-audio stream 660 root system
+    user root
+    disabled
+    oneshot
+
+service md_minilog_util /system/bin/md_minilog_util
+    user root
+    disabled
+    oneshot
+
 service pq /system/bin/pq
     class core
     user system
     group system graphics
+
+service aal /system/bin/aal
+    class main
+    user system
+    group system graphics
+
+# FOTA upgrade
+service rbfota /system/bin/fota1
+    class main
+    disabled
+    oneshot
+
+
+service p2p_supplicant /system/bin/wpa_supplicant \
+    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
+    -I/system/etc/wifi/wpa_supplicant_overlay.conf -N \
+    -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -e/data/misc/wifi/entropy.bin -dd \
+    -I/system/etc/wifi/p2p_supplicant_overlay.conf \
+    -O/data/misc/wifi/sockets -g@android:wpa_wlan0
+    #   we will start as root and wpa_supplicant will switch to user wifi
+    #   after setting up the capabilities required for WEXT
+    #   user wifi
+    #   group wifi inet keystore
+    class main
+    socket wpa_wlan0 dgram 660 wifi wifi
+    disabled
+    oneshot
+
+service wpa_supplicant /system/bin/wpa_supplicant \
+    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -e/data/misc/wifi/entropy.bin -dd \
+    -I/system/etc/wifi/wpa_supplicant_overlay.conf \
+    -O/data/misc/wifi/sockets -g@android:wpa_wlan0
+    #   we will start as root and wpa_supplicant will switch to user wifi
+    #   after setting up the capabilities required for WEXT
+    #   user wifi
+    #   group wifi inet keystore
+    class main
+    socket wpa_wlan0 dgram 660 wifi wifi
+    disabled
+    oneshot
+
 
 service dhcpcd_bt-pan /system/bin/dhcpcd -BK -dd
     class main
@@ -1112,6 +1235,42 @@ on property:init.svc.macloader=stopped
     chmod 0664 /data/.rev
 # end of WiFi MFG (TestMode)
 
+service DMAgent /system/bin/dm_agent_binder
+    class main
+    user system
+    group system cache
+
+service PPLAgent /system/bin/ppl_agent
+    class main
+    user system
+    group system cache
+
+
+service cmmb /system/bin/cmmbsp
+    class main
+    user root
+    group system audio camera graphics inet net_bt net_bt_admin net_bw_acct media
+    ioprio rt 4
+
+service dbus /system/bin/dbus-daemon --system --nofork
+    class main
+    socket dbus stream 660 bluetooth bluetooth
+    user bluetooth
+    group bluetooth net_bt_admin
+
+service bluetoothd /system/bin/bluetoothd -n
+    class main
+    socket bluetooth stream 660 bluetooth bluetooth
+    socket dbus_bluetooth stream 660 bluetooth bluetooth
+    # init.rc does not yet support applying capabilities, so run as root and
+    # let bluetoothd drop uid to bluetooth with the right linux capabilities
+    group bluetooth net_bt_admin misc
+    disabled
+
+#service dpfd /system/bin/dpfd
+#	user root
+#	group system media
+
 #
 #  External Modme control related services
 #
@@ -1119,6 +1278,39 @@ on property:init.svc.macloader=stopped
 #
 #  Modem related services (Begin)
 #
+service pppd_gprs /system/bin/pppd_dt /dev/ttyACM0 debug noauth refuse-eap usepeerdns nodetach
+    user root
+    group radio cache inet misc
+    disabled
+    oneshot
+
+##Add by T.Zh for ppp daemon
+#service pppd /system/bin/pppd file /data/misc/ppp/ppp_options
+#    user root
+#    disabled
+#    oneshot
+#
+##
+#
+#  Modem related services (End)
+#
+
+#service agpsdcainit /system/bin/agpscacertinit
+#    class main
+#    oneshot
+
+service agpsd /system/bin/mtk_agpsd
+    class main
+    socket agpsd stream 660 gps system
+    socket agpsd2 stream 660 gps inet
+    socket agpsd3 stream 660 gps inet
+    user gps
+    group gps radio inet sdcard_r sdcard_rw misc system
+
+service slpd /system/bin/slpd
+    class main
+    user gps
+    group gps inet
 
 service wifi2agps /system/bin/wifi2agps
     class main
@@ -1130,6 +1322,21 @@ service mnld /system/xbin/mnld
     user gps
     group gps inet misc sdcard_rw sdcard_r media_rw system radio
     socket mnld stream 660 gps system
+
+service ipod /system/bin/ipod
+    user root
+    group root
+    disabled
+
+service extmdlogger /system/bin/extmdlogger
+    class main
+    user shell
+    group shell system radio sdcard_rw inet sdcard_r media_rw
+
+service GoogleOtaAgent /system/bin/GoogleOtaBinder
+    class main
+    user root
+    group root
 
 service mdlogger /system/bin/mdlogger
     class main
@@ -1145,6 +1352,7 @@ service dualmdlogger /system/bin/dualmdlogger
     disabled
     oneshot
 
+
 #-- Disable emdlogger1 only
 #-- need to disable the related property to run md_ctrl
 
@@ -1155,16 +1363,115 @@ service dualmdlogger /system/bin/dualmdlogger
 #    disabled
 #    oneshot
 
+service emdlogger2 /system/bin/emdlogger2
+    class main
+    user shell
+    group system shell radio sdcard_rw inet sdcard_r media_rw
+    disabled
+    oneshot
+
+service emdlogger5 /system/bin/emdlogger5
+    class main
+    user shell
+    group system shell radio sdcard_rw inet sdcard_r media_rw
+    disabled
+    oneshot
+
+service emdlogger6 /system/bin/emdlogger6
+    class main
+    user shell
+    group system shell radio sdcard_rw inet sdcard_r media_rw
+    disabled
+    oneshot
+
+#
+#emsvr service (start)
+#
+on property:ro.build.type=eng
+    start emsvr
+
+on property:ro.build.type=user
+    start emsvr_user
+
+on property:ro.build.type=userdebug
+    start emsvr_user
+
+service emsvr_user /system/bin/em_svr
+    disabled
+    user system
+    group system radio diag net_bt_stack
+
+service emsvr /system/bin/em_svr
+    disabled
+    user root
+    group net_bt_stack
+
+#
+#emsvr service (end)
+#
+
 service shutdown /system/bin/shutdown
     user root
     group root
     disabled
+
+service NvRAMAgent /system/bin/nvram_agent_binder
+    class main
+    user system
+    group system
+    
+service thermal_manager /system/bin/thermal_manager
+    class main
+    user root
+    oneshot
+
+service thermal /system/bin/thermal
+    class main
+    user system
+    group system
+
+service thermald /system/bin/thermald
+    class main
+    user system
+    group system
+
+service fuelgauged /system/bin/fuelgauged
+    class main
+    user system
+    group system
 
 service sn /system/bin/sn
     class late_start
     user system
     group system sdcard_rw
     oneshot
+
+#add for power-off alarm
+service poad /system/bin/poad
+    class main
+    user system
+    group system
+    oneshot
+
+#monitor battery status
+service batterywarning /system/bin/batterywarning
+    class main
+    user shell
+    group shell
+
+service backuprestore /system/bin/br_app_data_service
+	class main
+	socket backuprestore stream 0660 root sdcard_rw
+	user root
+
+#service BGW /system/xbin/BGW
+#	user system
+#	group gps system radio
+#	class main
+service MtkCodecService /system/bin/MtkCodecService
+    class main
+    user system
+    group audio media sdcard_r
 
 # GuiExt Server init
 service guiext-server /system/bin/guiext-server
@@ -1204,10 +1511,67 @@ setprop persist.radio.reset_on_switch true
 setprop rild.mark_switchuser 0
 #end
 
+chmod 0644 /system/lib/libzteevdo-ril.so
+chomd 0644 /system/lib/zterilPara
 chown root /system/bin/pppd
 chmod 4755 /system/bin/pppd
 chown root /system/bin/chat
 chmod 4755 /system/bin/chat
+
+#
+#ril-daemon (begin)
+#
+#service ril-3gddaemon /system/bin/rild_dongle
+#    class main
+#    socket rild-dongle stream 660 root radio
+#    socket rild-dongle-debug stream 660 radio radio
+#    user root
+#    group radio cache inet misc audio log
+#    disabled
+
+#
+#ril-daemon (end)
+#
+
+# New IMS Stack
+service imsd /system/bin/imsd
+    class main
+    socket imsd stream 0660 system system
+    socket sme_socket stream 0660 system system
+    user root
+    group system radio net_raw inet net_admin
+
+#
+#usbdongled(begin)
+#
+service usbdongled /system/bin/dongled
+    class main
+	user root
+	group radio cache inet misc
+	enabled
+
+#
+#usbdongled(end)
+#
+
+#
+# add the service for call pppd(begin)
+#
+service zpppd_gprs /system/bin/init.gprs-pppd
+    user root
+	group radio cache inet misc
+	disabled
+	oneshot
+#
+# add the service for call pppd(end)
+#
+
+# Program binary service
+service program_binary /system/bin/program_binary_service
+    class late_start
+    user system
+    group graphics
+    oneshot
 
 # LPM
 on property:ro.bootmode=charger
