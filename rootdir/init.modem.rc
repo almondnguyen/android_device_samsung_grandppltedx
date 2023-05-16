@@ -6,6 +6,19 @@
    
 on post-fs-data
 
+# Define TCP buffer sizes for various networks
+#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
+    setprop net.tcp.buffersize.default 4096,87380,524288,4096,16384,524288
+    setprop net.tcp.buffersize.wifi    524288,1048576,2097152,262144,524288,1048576
+    setprop net.tcp.buffersize.lte     524288,1048576,2097152,262144,524288,1048576
+    setprop net.tcp.buffersize.umts    4094,87380,524288,4096,16384,524288
+    setprop net.tcp.buffersize.hspa    4094,87380,524288,4096,16384,524288
+    setprop net.tcp.buffersize.hsupa   4094,87380,524288,4096,16384,524288
+    setprop net.tcp.buffersize.hsdpa   4094,87380,524288,4096,16384,524288
+    setprop net.tcp.buffersize.hspap   4094,87380,1220608,4096,16384,1220608
+    setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
+    setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
+
     # Modem related device nodes
     mkdir /data/nvram/md  0770 root system
 
@@ -41,12 +54,6 @@ service md_minilog_util /system/bin/md_minilog_util
 #  Modem related services (Begin)
 #
 
-service permission_check /system/bin/permission_check
-    class main
-    user root
-    group system radio
-    oneshot
-
 service ccci_fsd /system/bin/ccci_fsd 0
     user system
     group radio system net_bt_stack
@@ -81,17 +88,3 @@ service pppd /system/bin/pppd file /data/misc/ppp/ppp_options
 #
 #  Modem related services (End)
 #
-
-#Add by hp.chen for 
-#
-#   Telephony Early Read service
-#
-service terservice /system/bin/terservice
-    class core
-    user radio
-    group radio cache inet misc
-    oneshot
-
-#on property:ril.muxreport=1
-#    start muxreport-daemon
-

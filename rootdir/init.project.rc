@@ -143,53 +143,15 @@ service fuse_usbotg /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/
     class late_start
     disabled
 
-# New IMS Stack
-service imsd /system/bin/imsd
-    class main
-    socket imsd stream 0660 system system
-    socket sme_socket stream 0660 system system
-    user root
-    group system radio net_raw inet net_admin
-
 #
 # Connectivity related services (Begin)
 #
 
-service atci_service /system/bin/atci_service
-	socket atci-service stream 660 radio system
-	socket atci-serv-fw stream 660 radio system
-	user root
-        disabled
-	group radio system
-service atcid-daemon-u /system/bin/atcid
-	user system
-	group radio system media
-	disabled
-	oneshot
-
-service atcid-daemon-e /system/bin/atcid
-	user root
-	group radio system
-	disabled
-	oneshot
-
-on early_property:ro.build.type=eng
-start atci_service
-start atcid-daemon-e
-service audio-daemon /system/bin/audiocmdservice_atci
-    class main
-    socket atci-audio stream 660 media system
-    user media
-    group nvram media system sdcard_rw
-    disabled
-    oneshot
-
 service wmtLoader /system/bin/wmt_loader
     user root
     group root
-   class core
+    class core
     oneshot
-
 
 service conn_launcher /system/bin/6620_launcher -p /system/etc/firmware/
     user system
@@ -205,12 +167,6 @@ service stp_dump /system/bin/stp_dump3
     class core
     disabled
     oneshot
-	
-#service desen_loader /system/bin/desen_loader
-#    user root
-#    group root
-#    class core
-#    oneshot
 
 #
 # Connectivity related services (End)
@@ -236,16 +192,3 @@ on property:persist.sys.storage_preload=1
 on property:persist.sys.storage_preload=0
     start umount_service
 
-# SSWAP
-#service swapon /sbin/sswap -s
-#    class core
-#    user root
-#    group root
-#    seclabel u:r:sswap:s0
-#    oneshot
-
-# deferred initcall
-#service sec-sh /system/bin/sh /system/etc/init.sec.boot.sh
-#    class main
-#    user root
-#    oneshot
