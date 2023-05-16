@@ -1052,7 +1052,7 @@ service md_minilog_util /system/bin/md_minilog_util
     disabled
     oneshot
 
-service pq /vendor/bin/pq
+service pq /system/bin/pq
     class core
     user system
     group system graphics
