@@ -20,7 +20,6 @@ $(call add-rootdir-targets, \
 	init.rilchip.rc \
 	init.rilepdg.rc \
 	init.rilcommon.rc \
-	init.volte.rc \
 	init.wifi.rc \
 	ueventd.mt6735.rc \
 	init.emdlogger1.rc \

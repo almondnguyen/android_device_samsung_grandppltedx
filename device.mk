@@ -280,7 +280,6 @@ PRODUCT_PACKAGES += \
 	init.rilcommon.rc \
 	init.rilchip.rc \
 	init.rilepdg.rc \
-	init.volte.rc \
 	init.emdlogger1.rc \
 	init.usb.configfs.rc \
 	init.wifi.rc \
