@@ -2,7 +2,7 @@
 
 ## Nougat stuff and testing
 config.disable_consumerir=true
-media.sf.omx-plugin=libffmpeg_omx.so,libsomxcore.so
+media.sf.omx-plugin=libffmpeg_omx.so
 #qemu.hw.mainkeys=0
 
 ## Oreo
