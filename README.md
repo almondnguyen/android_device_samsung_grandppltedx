@@ -1,9 +1,8 @@
 # Device Tree for Samsung Galaxy J2 Prime
 
 -----
-CURRENTLY NOT WORKING: 
-* BUILD
-* BOOT
+CURRENTLY NOT WORKING / BUGGY: 
+* Most of the device functions do not work
 
 
 DEVELOPMENT IN PROGRESS, MAY EAT YOUR CAT.
