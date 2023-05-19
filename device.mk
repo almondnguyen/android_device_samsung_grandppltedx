@@ -164,15 +164,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.android.checkjni=0 \
 	ro.telephony.ril_class=grandpplteRIL
 
-#-- FM
-MTK_FM_SUPPORT := true
-
-PRODUCT_PACKAGES += \
-	libfmjni \
-	FMRadio \
-	libfmcust \
-	radio.fm.mt6735
-
 # shim / symbols
 PRODUCT_PACKAGES += \
 	libshim_gps \
