@@ -5,9 +5,6 @@ config.disable_consumerir=true
 media.sf.omx-plugin=libffmpeg_omx.so
 #qemu.hw.mainkeys=0
 
-## Oreo
-ro.config.low_ram=true
-
 # testing, no RIL for now
 lineage.updater.uri=https://raw.githubusercontent.com/almondnguyen/android_OTA/main/los-15-grandppltedx.json
 ro.zygote=zygote32
