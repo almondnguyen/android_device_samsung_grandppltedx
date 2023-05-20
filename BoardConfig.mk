@@ -183,6 +183,7 @@ LD_PRELOADS += mtk_symbols.so
 # Audio
 BOARD_USES_MTK_AUDIO := true
 USE_XML_AUDIO_POLICY_CONF := 1
+BOARD_USES_LEGACY_MTK_AV_BLOB := true
 SUPPRESS_MTK_AUDIO_BLOB_ERR_MSG := true
 
 # Exclude AudioFx
