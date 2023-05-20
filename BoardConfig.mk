@@ -21,9 +21,8 @@ BOARD_VENDOR := samsung
 # Bootanimation
 TARGET_BOOTANIMATION_HALF_RES := true
 
-# device doesn't have /vendor partition
-# yet.
-TARGET_COPY_OUT_VENDOR := system/vendor
+# Use cache partition as vendor
+TARGET_COPY_OUT_VENDOR := vendor
 
 # assert
 TARGET_OTA_ASSERT_DEVICE := grandpplte,grandppltedx,grandpplteub,grandpplteser,grandppltedtvvj
