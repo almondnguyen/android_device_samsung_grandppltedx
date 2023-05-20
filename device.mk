@@ -182,7 +182,8 @@ PRODUCT_PACKAGES += \
 	libshim_vt \
 	libshim_xlog \
 	libshim_audio \
-	libshim_ifc
+	libshim_ifc \
+	libshim_mmsdk
 
 # Platform
 PRODUCT_PACKAGES += \
