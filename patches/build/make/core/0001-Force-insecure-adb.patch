@@ -1,0 +1,29 @@
+From fcfb1b0773517e015c6c6430fa713df017c65daa Mon Sep 17 00:00:00 2001
+From: Remilia Scarlet <remilia.1505@gmail.com>
+Date: Tue, 19 Jun 2018 06:42:36 +0000
+Subject: [PATCH] main: Force insecure adb
+
+Change-Id: I357de59dcba7761a04b217102999d137b4c432ce
+Signed-off-by: Remilia Scarlet <remilia.1505@gmail.com>
+---
+ core/main.mk | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/core/main.mk b/core/main.mk
+index 8f5e97ee5c..ea82d0611c 100644
+--- a/core/main.mk
++++ b/core/main.mk
+@@ -239,11 +239,11 @@ enable_target_debugging := true
+ tags_to_install :=
+ ifneq (,$(user_variant))
+   # Target is secure in user builds.
+-  ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=1
++  ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
+   ADDITIONAL_DEFAULT_PROPERTIES += security.perf_harden=1
+ 
+   ifeq ($(user_variant),user)
+-    ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure=1
++    ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure=0
+   endif
+ 
+   ifeq ($(user_variant),userdebug)
