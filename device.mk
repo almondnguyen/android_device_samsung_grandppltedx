@@ -30,7 +30,9 @@ VENDOR_PATH := vendor/samsung/grandppltedx
 $(call inherit-product-if-exists, vendor/samsung/grandppltedx/grandppltedx-vendor.mk)
 
 # Overlay
-DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
+DEVICE_PACKAGE_OVERLAYS += \
+    $(DEVICE_PATH)/overlay \
+    $(DEVICE_PATH)/overlay-lineage
 
 # Dexpreopt
 PRODUCT_DEXPREOPT_SPEED_APPS += \
