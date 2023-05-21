@@ -21,6 +21,10 @@ BOARD_VENDOR := samsung
 # Bootanimation
 TARGET_BOOTANIMATION_HALF_RES := true
 
+# Build Flags
+BUILD_BROKEN_DUP_RULES := true
+BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+
 # device doesn't have /vendor partition
 # yet.
 TARGET_COPY_OUT_VENDOR := system/vendor
