@@ -31,18 +31,6 @@ index 026c1023..64444d18 100644
 +    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
 +    <string name="permdesc_fakePackageSignature">Allows the app to pretend to be a different app. Malicious applications might be able to use this to access private application data. Grant this permission with caution only!</string>
  </resources>
-diff --git a/data/keyboards/Generic.kl b/data/keyboards/Generic.kl
-index 2a10bdd4..60c6443c 100644
---- a/data/keyboards/Generic.kl
-+++ b/data/keyboards/Generic.kl
-@@ -247,6 +247,7 @@ key 224   BRIGHTNESS_DOWN
- key 225   BRIGHTNESS_UP
- key 226   HEADSETHOOK
- 
-+key 254   APP_SWITCH
- key 256   BUTTON_1
- key 257   BUTTON_2
- key 258   BUTTON_3
 diff --git a/services/core/java/com/android/server/pm/PackageManagerService.java b/services/core/java/com/android/server/pm/PackageManagerService.java
 index 2e63c6c4..67e2d974 100644
 --- a/services/core/java/com/android/server/pm/PackageManagerService.java
