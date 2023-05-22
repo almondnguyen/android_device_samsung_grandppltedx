@@ -273,7 +273,6 @@ PRODUCT_PACKAGES += \
 	init.project.rc \
 	init.rilcommon.rc \
 	init.rilchip.rc \
-	init.rilepdg.rc \
 	init.emdlogger1.rc \
 	init.wifi.rc \
 	init.recovery.mt6735.rc \
