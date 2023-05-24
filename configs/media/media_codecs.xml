@@ -82,8 +82,8 @@ Only the three quirks included above are recognized at this point:
     </Settings>
 <!--
     <Include href="media_codecs_mediatek_audio.xml" />
--->
     <Include href="media_codecs_mediatek_video.xml" />
+-->
     <Decoders>
         <!-- Video Software  -->
         <MediaCodec name="OMX.SEC.h263.sw.dec" type="video/3gpp" >
@@ -117,7 +117,6 @@ Only the three quirks included above are recognized at this point:
             <Feature name="adaptive-playback" />
         </MediaCodec>
     </Decoders>
-    <Include href="media_codecs_google_audio.xml" />
     <Include href="media_codecs_google_video_le.xml" />
     <!-- sec sw hevc move behind google sw hevc   -->
     <Decoders>
@@ -127,4 +126,7 @@ Only the three quirks included above are recognized at this point:
             <Feature name="adaptive-playback" />
         </MediaCodec>
     </Decoders>
+
+    <Include href="media_codecs_google_audio.xml" />
+    <Include href="media_codecs_google_telephony.xml" />
 </MediaCodecs>
