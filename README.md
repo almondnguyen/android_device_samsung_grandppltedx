@@ -1,23 +1,19 @@
 # Device Tree for Samsung Galaxy J2 Prime (SM-G532x)
 
-TESTING:
-* Doze/Battery Life
-
 WORKING ON:
-* Cleaning up whole tree, standardize, etc~
 * SELinux
-* Proper-izing roodir stuff
+* Battery
 
 CURRENTLY NOT WORKING/BUGGY:
-* Headphone not working
-* GPS (bin runs but doesn't work)
+* 3.5" Headphone not working (change of headphone definition that old audio.primary.mt6735 don't have)
+* GPS not working (symbol error)
 * Camera: Video Recording not working
 * RadioFM not working
-* No Icon/Percentage while offline charging. (it still charges.)
 * Manually configure for 2 active SIMs.
 
 WON'T FIX:
 * VoLTE. No Samsung dev has managed to port SRIL IMS to AOSP, so I'd say 'impossible to fix'.
+* Dual-SIM manual configuration (LTE+2G). AOSP N does not support that?
 
 
 DEVELOPMENT IN PROGRESS, MAY EAT YOUR CAT.
@@ -35,6 +31,3 @@ Battery   | 2600 mAh
 Display   | 540 x 960, 16:9 ratio
 Rear Cam  | 8MP, Sony imx219
 Front Cam | 5MP, Samsung s5k5e3yx
-
-
-
