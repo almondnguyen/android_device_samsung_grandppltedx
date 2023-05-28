@@ -635,12 +635,8 @@ service vold /system/bin/vold \
 service drm /system/bin/drmserver
     class main
     user drm
-# [ SEC_MM_DRM
-# fix
-    group system drm inet drmrpc radio dpgp
-# org
-#    group drm system inet drmrpc
-# ]
+    group system drm inet drmrpc radio readproc
+
 
 # Sensorhub service
 service sensorhubservice /system/bin/sensorhubservice
