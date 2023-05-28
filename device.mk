@@ -307,8 +307,6 @@ endif
 
 #-- default.prop
 ADDITIONAL_DEFAULT_PROPERTIES += \
-	rild.libpath=/system/lib/libsec-ril.so \
-	rild.libpath2=/system/lib/libsec-ril-dsds.so \
 	ro.zygote=zygote32 \
 	ro.mount.fs=EXT4 \
 	ro.adb.secure=0 \
