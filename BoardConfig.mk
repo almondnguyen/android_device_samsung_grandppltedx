@@ -245,7 +245,7 @@ TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 SELINUX_IGNORE_NEVERALLOWS := true
 BOARD_SEPOLICY_DIRS := $(DEVICE_PATH)/sepolicy
 
-BOARD_SECCOMP_POLICY += $(DEVICE_PATH)/seccomp
+#BOARD_SECCOMP_POLICY += $(DEVICE_PATH)/seccomp
 
 # Enable Minikin text layout engine (will be the default soon)
 USE_MINIKIN := true
