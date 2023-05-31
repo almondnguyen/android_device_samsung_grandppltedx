@@ -176,8 +176,7 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.telephony.gsm.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.telephony.gsm.xml
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.kernel.android.checkjni=0 \
-	ro.telephony.ril_class=grandpplteRIL
+	ro.kernel.android.checkjni=0
 
 # shim / symbols
 PRODUCT_PACKAGES += \
