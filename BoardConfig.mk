@@ -167,7 +167,6 @@ TARGET_LD_SHIM_LIBS := \
 	/system/bin/mtk_agpsd|libshim_gps.so \
 	/system/bin/mtk_agpsd|libshim_agpsd.so \
 	/system/lib/libcam.utils.sensorlistener.so|libandroid.so \
-	/system/lib/libcam_utils.so|libshim_nv21e_camera.so \
 	/system/lib/libcam_utils.so|libshim_camera.so \
 	/system/lib/libcam_utils.so|libshim_gui.so \
 	/system/lib/libmmsdkservice.feature.so|libshim_mmsdk.so \
