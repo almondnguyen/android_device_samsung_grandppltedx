@@ -186,6 +186,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # shim / symbols
 PRODUCT_PACKAGES += \
+	libshim_agpsd \
 	libshim_gps \
 	libshim_camera \
 	libshim_nv21e_camera \
