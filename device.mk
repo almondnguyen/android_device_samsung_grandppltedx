@@ -172,6 +172,7 @@ PRODUCT_COPY_FILES += \
 SIM_COUNT := 2
 
 PRODUCT_PACKAGES += \
+	libsecril-client \
 	libsecril-shim \
 	libxml2 \
 	libprotobuf-cpp-full \
