@@ -6,9 +6,7 @@ WORKING ON:
 
 CURRENTLY NOT WORKING/BUGGY:
 * 3.5" Headphone not working (change of headphone definition that old audio.primary.mt6735 don't have)
-* GPS not working (symbol error)
 * Camera: Video Recording not working
-* RadioFM not working
 * Manually configure for 2 active SIMs.
 
 WON'T FIX:
