@@ -1,0 +1,34 @@
+From 6674e0c4fcec2ba5b814a8f222e7e1dc55dd4ba5 Mon Sep 17 00:00:00 2001
+From: Bilux <i.bilux@gmail.com>
+Date: Thu, 26 Mar 2020 11:46:21 +0100
+Subject: [PATCH] gatekeeperd:Add use software gatekeeper option
+
+---
+ gatekeeperd/gatekeeperd.cpp | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/gatekeeperd/gatekeeperd.cpp b/gatekeeperd/gatekeeperd.cpp
+index 5781765786c..d96d92bb8f7 100644
+--- a/gatekeeperd/gatekeeperd.cpp
++++ b/gatekeeperd/gatekeeperd.cpp
+@@ -43,6 +43,8 @@
+ #include <hidl/HidlSupport.h>
+ #include <android/hardware/gatekeeper/1.0/IGatekeeper.h>
+ 
++#define USE_SOFT_GATEKEEPER 1
++
+ using android::sp;
+ using android::hardware::gatekeeper::V1_0::IGatekeeper;
+ using android::hardware::gatekeeper::V1_0::GatekeeperStatusCode;
+@@ -58,7 +60,11 @@ class GateKeeperProxy : public BnGateKeeperService {
+ public:
+     GateKeeperProxy() {
+         clear_state_if_needed_done = false;
++#if USE_SOFT_GATEKEEPER
++        hw_device = nullptr;
++#else
+         hw_device = IGatekeeper::getService();
++#endif
+ 
+         if (hw_device == nullptr) {
+             ALOGW("falling back to software GateKeeper");

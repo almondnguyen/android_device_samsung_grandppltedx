@@ -1,7 +1,11 @@
 #!/bin/sh
 
 rootdirectory="$PWD"
-dirs="bionic build/make/core build/soong frameworks/av frameworks/base frameworks/native hardware/interfaces system/core system/sepolicy system/bt external/wpa_supplicant_8"
+dirs="\
+ frameworks/av frameworks/base frameworks/native \
+ hardware/interfaces \
+ system/core system/netd \
+"
 
 for dir in $dirs ; do
 	cd $rootdirectory

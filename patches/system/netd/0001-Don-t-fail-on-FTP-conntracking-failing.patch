@@ -1,0 +1,42 @@
+From 800674cf4308765e28eacd3082b8044213d26b89 Mon Sep 17 00:00:00 2001
+From: Bilux <i.bilux@gmail.com>
+Date: Sat, 11 Apr 2020 19:58:59 +0100
+Subject: [PATCH] Don't fail on FTP conntracking failing
+
+The issue has been seen on some Samsung devices.
+See phhusson/treble_experimentations#425
+
+Thanks @zamrih for pin-pointing the issue and validating fix
+
+Change-Id: I3d9c865eb5a4b421f9983210c2ceae62b4906234
+Signed-off-by: bilux <i.bilux@gmail.com>
+---
+ server/TetherController.cpp | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/server/TetherController.cpp b/server/TetherController.cpp
+index bec8b10c..019e3438 100644
+--- a/server/TetherController.cpp
++++ b/server/TetherController.cpp
+@@ -637,11 +637,17 @@ int TetherController::setForwardRules(bool add, const char *intIface, const char
+         return -1;
+     }
+ 
++     std::vector<std::string> v4Ftp = {
++            "*raw",
++            StringPrintf("%s %s -p tcp --dport 21 -i %s -j CT --helper ftp",
++                            op, LOCAL_RAW_PREROUTING, intIface),
++            "COMMIT",
++    };
++    if(iptablesRestoreFunction(V4, Join(v4Ftp, '\n'), nullptr) == -1) {
++            ALOGE("Failed adding iptables CT target on FTP.");
++    }
++
+     std::vector<std::string> v4 = {
+-        "*raw",
+-        StringPrintf("%s %s -p tcp --dport 21 -i %s -j CT --helper ftp",
+-                     op, LOCAL_RAW_PREROUTING, intIface),
+-        "COMMIT",
+         "*filter",
+         StringPrintf("%s %s -i %s -o %s -m state --state ESTABLISHED,RELATED -g %s",
+                      op, LOCAL_FORWARD, extIface, intIface, LOCAL_TETHER_COUNTERS_CHAIN),

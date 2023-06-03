@@ -1,4 +1,4 @@
-From 1b3a74a23ae6bb177aaf31bbf372d4233fbbe85c Mon Sep 17 00:00:00 2001
+From ea5c9dff2e2313a349dc7e79f9a45607b97ff4b6 Mon Sep 17 00:00:00 2001
 From: bilux <i.bilux@gmail.com>
 Date: Tue, 18 Feb 2020 11:31:29 +0100
 Subject: [PATCH] Add support of YUV color profiles
@@ -9,7 +9,7 @@ Signed-off-by: bilux <i.bilux@gmail.com>
  1 file changed, 13 insertions(+)
 
 diff --git a/headers/media_plugin/media/openmax/OMX_IVCommon.h b/headers/media_plugin/media/openmax/OMX_IVCommon.h
-index f9b6f4b..a43143f 100644
+index f83114b..0f952d6 100644
 --- a/headers/media_plugin/media/openmax/OMX_IVCommon.h
 +++ b/headers/media_plugin/media/openmax/OMX_IVCommon.h
 @@ -149,6 +149,19 @@ typedef enum OMX_COLOR_FORMATTYPE {
@@ -33,5 +33,5 @@ index f9b6f4b..a43143f 100644
       * the actual colorformat will be  relayed by the
       * Gralloc Buffers.
 -- 
-2.25.0
+2.25.1
 

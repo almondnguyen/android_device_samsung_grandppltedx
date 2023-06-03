@@ -1,0 +1,22 @@
+From 79823354fe1f9f3597f8a9454a8e3b38ec50baad Mon Sep 17 00:00:00 2001
+From: Bilux <i.bilux@gmail.com>
+Date: Thu, 26 Mar 2020 11:35:41 +0100
+Subject: [PATCH] zygote: Add ged to whitelisted paths
+
+Signed-off-by: bilux <i.bilux@gmail.com>
+---
+ core/jni/fd_utils.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/core/jni/fd_utils.cpp b/core/jni/fd_utils.cpp
+index 4ff1cacd9539..580ac2de08c7 100644
+--- a/core/jni/fd_utils.cpp
++++ b/core/jni/fd_utils.cpp
+@@ -43,6 +43,7 @@ static const char* kPathWhitelist[] = {
+   "/dev/urandom",
+   "/dev/ion",
+   "/dev/dri/renderD129", // Fixes b/31172436
++  "/proc/ged",
+ };
+ 
+ static const char kFdPath[] = "/proc/self/fd";

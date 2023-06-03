@@ -1,0 +1,27 @@
+From e90ecf2c56b695396c06333081b7e80015674089 Mon Sep 17 00:00:00 2001
+From: Bilux <i.bilux@gmail.com>
+Date: Thu, 26 Mar 2020 11:55:43 +0100
+Subject: [PATCH] Remove CAP_SYS_NICE from surfaceflinger
+
+This capability causes surfaceflinger to be treated as a secure process (AT_SECURE) and linker ignores LD_PRELOAD and LD_SHIM_LIBS but we need these!
+---
+ libcutils/fs_config.cpp | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/libcutils/fs_config.cpp b/libcutils/fs_config.cpp
+index f9fddb6d6e5..9a3fe586c35 100644
+--- a/libcutils/fs_config.cpp
++++ b/libcutils/fs_config.cpp
+@@ -190,9 +190,12 @@ static const struct fs_path_config android_files[] = {
+                                            CAP_MASK_LONG(CAP_SETGID),
+                                               "system/bin/run-as" },
+ 
++#if 0
+     // Support FIFO scheduling mode in SurfaceFlinger.
+     { 00755, AID_SYSTEM,    AID_GRAPHICS,  CAP_MASK_LONG(CAP_SYS_NICE),
+                                               "system/bin/surfaceflinger" },
++#endif
++
+     // generic defaults
+     { 00755, AID_ROOT,      AID_ROOT,      0, "bin/*" },
+     { 00640, AID_ROOT,      AID_SHELL,     0, "fstab.*" },

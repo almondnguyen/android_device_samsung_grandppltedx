@@ -1,0 +1,39 @@
+From 803d23dc73dfe465e7a9a7329f0bfa551fe70dee Mon Sep 17 00:00:00 2001
+From: Bilux <i.bilux@gmail.com>
+Date: Tue, 28 Apr 2020 13:55:03 +0100
+Subject: [PATCH] HWC2On1Adapter: Fix fence leak
+
+* GL blobs hit this leak, that ultimately results in surfaceflinger to crash and SystemUI soft-resetting every so often when under any form of stressful loads.
+* Removes the fence dump from Layer::dump, since:
+  a) It was leaking (a dup() without a close())
+  b) It's not that useful anyway since it wasn't displaying the actual fence fd
+Signed-off-by: bilux <i.bilux@gmail.com>
+---
+ .../composer/2.1/utils/hwc2on1adapter/HWC2On1Adapter.cpp   | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/graphics/composer/2.1/utils/hwc2on1adapter/HWC2On1Adapter.cpp b/graphics/composer/2.1/utils/hwc2on1adapter/HWC2On1Adapter.cpp
+index 6551a99a4..fb2e57c82 100644
+--- a/graphics/composer/2.1/utils/hwc2on1adapter/HWC2On1Adapter.cpp
++++ b/graphics/composer/2.1/utils/hwc2on1adapter/HWC2On1Adapter.cpp
+@@ -1294,7 +1294,8 @@ Error HWC2On1Adapter::Display::set(hwc_display_contents_1& hwcContents) {
+     auto& clientTargetLayer = hwcContents.hwLayers[numLayers - 1];
+     if (clientTargetLayer.compositionType == HWC_FRAMEBUFFER_TARGET) {
+         clientTargetLayer.handle = mClientTarget.getBuffer();
+-        clientTargetLayer.acquireFenceFd = mClientTarget.getFence();
++        close(mClientTarget.getFence());
++        clientTargetLayer.acquireFenceFd = -1;
+     } else {
+         ALOGE("[%" PRIu64 "] set: last HWC layer wasn't FRAMEBUFFER_TARGET",
+                 mId);
+@@ -2096,8 +2097,8 @@ std::string HWC2On1Adapter::Layer::dump() const {
+     } else if (mCompositionType == HWC2::Composition::Sideband) {
+         output << "  Handle: " << mSidebandStream << '\n';
+     } else {
+-        output << "  Buffer: " << mBuffer.getBuffer() << "/" <<
+-                mBuffer.getFence() << '\n';
++        output << "  Buffer: " << mBuffer.getBuffer() << '\n';
++
+         output << fill << "  Display frame [LTRB]: " <<
+                 rectString(mDisplayFrame) << '\n';
+         output << fill << "  Source crop: " <<

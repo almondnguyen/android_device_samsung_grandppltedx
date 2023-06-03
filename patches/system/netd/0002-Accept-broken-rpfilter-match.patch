@@ -1,0 +1,27 @@
+From 7a2bac4977c63b617b67d395bcc884c9910f2a6e Mon Sep 17 00:00:00 2001
+From: Bilux <i.bilux@gmail.com>
+Date: Sat, 11 Apr 2020 20:05:02 +0100
+Subject: [PATCH] Accept broken rpfilter match
+
+How bad a security flaw is this?
+People lived with rpfilter on IPv4 for a very long time...
+
+Change-Id: I9aa63d18e54a8254133adf97bf757c03d6b66757
+Signed-off-by: bilux <i.bilux@gmail.com>
+---
+ server/TetherController.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/server/TetherController.cpp b/server/TetherController.cpp
+index bec8b10c..7c222a84 100644
+--- a/server/TetherController.cpp
++++ b/server/TetherController.cpp
+@@ -633,7 +633,7 @@ int TetherController::setForwardRules(bool add, const char *intIface, const char
+         "*raw\n"
+         "%s %s -i %s -m rpfilter --invert ! -s fe80::/64 -j DROP\n"
+         "COMMIT\n", op, LOCAL_RAW_PREROUTING, intIface);
+-    if (iptablesRestoreFunction(V6, rpfilterCmd, nullptr) == -1 && add) {
++    if (iptablesRestoreFunction(V6, rpfilterCmd, nullptr) == -1 && add && false) {
+         return -1;
+     }
+ 

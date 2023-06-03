@@ -6,12 +6,9 @@ devicetree="device/samsung/grandppltedx"
 # ---------------------------------
 
 dirs="\
- bionic \
- build/make/core build/soong \
- frameworks/av frameworks/base frameworks/native
+ frameworks/av frameworks/base frameworks/native \
  hardware/interfaces \
- system/core system/sepolicy system/bt \
- external/wpa_supplicant_8 \
+ system/core system/netd \
 "
 
 # red + nocolor

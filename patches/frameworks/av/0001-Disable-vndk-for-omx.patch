@@ -1,0 +1,40 @@
+From dd547d70b2a38fb3ef7184f9568053530a558266 Mon Sep 17 00:00:00 2001
+From: bilux <i.bilux@gmail.com>
+Date: Sun, 22 Mar 2020 21:58:25 +0100
+Subject: [PATCH] Disable vndk for omx
+
+Co-authored-by: Dinolek <18579460+Dinolek@users.noreply.github.com>
+Signed-off-by: bilux <i.bilux@gmail.com>
+---
+ services/mediacodec/main_codecservice.cpp | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/services/mediacodec/main_codecservice.cpp b/services/mediacodec/main_codecservice.cpp
+index 51619f6..5defdf3 100644
+--- a/services/mediacodec/main_codecservice.cpp
++++ b/services/mediacodec/main_codecservice.cpp
+@@ -28,6 +28,10 @@
+ #include <media/CodecServiceRegistrant.h>
+ #include <dlfcn.h>
+ 
++#ifndef MTK_HARDWARE
++#define MTK_HARDWARE
++#endif
++
+ using namespace android;
+ 
+ // Must match location in Android.mk.
+@@ -43,8 +47,10 @@ int main(int argc __unused, char** argv)
+     signal(SIGPIPE, SIG_IGN);
+     SetUpMinijail(kSystemSeccompPolicyPath, kVendorSeccompPolicyPath);
+ 
++#ifndef MTK_HARDWARE
+     android::ProcessState::initWithDriver("/dev/vndbinder");
+     android::ProcessState::self()->startThreadPool();
++#endif
+ 
+     ::android::hardware::configureRpcThreadpool(64, false);
+ 
+-- 
+2.25.1
+
