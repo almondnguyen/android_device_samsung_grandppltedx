@@ -297,7 +297,7 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/init/rild.rc:system/etc/init/rild.rc	
 
 #-- custom logging
-BUILD_INCLUDE_CUSTOM_LOG := true
+BUILD_INCLUDE_CUSTOM_LOG := false
 ifeq ($(BUILD_INCLUDE_CUSTOM_LOG), true)
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/init/al-cust-logcat.rc:system/etc/init/cust-log.rc \
