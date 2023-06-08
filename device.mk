@@ -326,6 +326,7 @@ PRODUCT_PACKAGES += \
 	libnl_2
 
 PRODUCT_PACKAGES += SamsungServiceMode
+PRODUCT_PACKAGES += RemovePackages
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
