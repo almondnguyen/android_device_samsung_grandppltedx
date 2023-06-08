@@ -207,9 +207,7 @@ PRODUCT_COPY_FILES += \
 # Use cm/lineage images if available, aosp ones otherwise
 PRODUCT_PACKAGES += \
 	charger \
-	charger_res_images \
-	lineage_charger_res_images \
-	cm_charger_res_images
+	charger_res_images
 
 # Camera
 PRODUCT_PACKAGES += \
