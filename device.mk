@@ -101,7 +101,6 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/audio/audio_device.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/audio_device.xml \
 	$(DEVICE_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
 	$(DEVICE_PATH)/configs/audio/audio_param/AudioParamOptions.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/audio_param/AudioParamOptions.xml
-#	$(DEVICE_PATH)/configs/audio/audio_effects.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.conf \
 
 #-- Media
 PRODUCT_COPY_FILES += \
@@ -159,10 +158,6 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/wifi/wpa_supplicant.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant.conf \
 	$(DEVICE_PATH)/configs/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
 	$(DEVICE_PATH)/configs/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf
-
-# Radio
-#PRODUCT_PACKAGES += \
-#	libsecnativefeature
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.android.checkjni=0
@@ -247,13 +242,6 @@ PRODUCT_COPY_FILES += \
 
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
-PRODUCT_COPY_FILES += \
-
-# Charger
-# Use cm/lineage images if available, aosp ones otherwise
-PRODUCT_PACKAGES += \
-	lineage_charger_res_images
-
 # Camera
 PRODUCT_PACKAGES += \
 	Snap \
@@ -293,9 +281,6 @@ PRODUCT_PACKAGES += android.hardware.keymaster@3.0-impl
 # Memtrack
 PRODUCT_PACKAGES += android.hardware.memtrack@1.0-impl
 
-# Local Time
-PRODUCT_PACKAGES += local_time.default
-
 # Health HAL
 PRODUCT_PACKAGES += \
 	android.hardware.health@1.0-impl \
@@ -322,12 +307,6 @@ PRODUCT_PACKAGES += \
 	log.sh
 
 PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/samsung/grandppltedx/configs/init,$(TARGET_COPY_OUT_VENDOR)/etc/init)
-
-#-- sbin
-
-PRODUCT_COPY_FILES += \
-	$(DEVICE_PATH)/rootdir/sbin/sswap:root/sbin/sswap \
-	$(DEVICE_PATH)/rootdir/sbin/busybox:root/sbin/busybox
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	ro.zygote=zygote32 \

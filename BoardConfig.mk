@@ -31,10 +31,6 @@ TARGET_OTA_ASSERT_DEVICE := grandpplte,grandppltedx,grandpplteub,grandpplteser,g
 # Headers
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 
-# Project Configs
-MTK_PROJECT_CONFIG ?= $(DEVICE_PATH)/ProjectConfig.mk
-include $(MTK_PROJECT_CONFIG)
-
 # Display
 USE_OPENGL_RENDERER := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
@@ -47,7 +43,6 @@ OVERRIDE_RS_DRIVER := libRSDriver_mtk.so
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MT6737T
 TARGET_NO_BOOTLOADER := true
-# mt6737t
 
 # Platform
 TARGET_INIT_VENDOR_LIB := libinit_grandpplte
@@ -58,13 +53,10 @@ ARCH_ARM_HAVE_NEON := true
 
 TARGET_BOARD_PLATFORM := mt6737t
 TARGET_NO_FACTORYIMAGE := true
-TARGET_BOARD_PLATFORM_GPU := mali-T720mp2
 
-MTK_GPU_VERSION := mali midgard r18p0
 BOARD_HAS_MTK_HARDWARE := true
 BOARD_USES_MTK_HARDWARE := true
 MTK_HARDWARE := true
-BOARD_USES_MTK_MEDIA_PROFILES := true
 
 BOARD_SUPPRESS_SECURE_ERASE := true
 BOARD_NO_SECURE_DISCARD := true
@@ -86,12 +78,6 @@ TARGET_NO_SENSOR_PERMISSION_CHECK := true
 
 # Lights
 TARGET_HAS_BACKLIT_KEYS := false
-
-# Charger (borrow from herolte)
-BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
-BOARD_CHARGER_ENABLE_SUSPEND := true
-BOARD_CHARGER_SHOW_PERCENTAGE := true
-CHARGING_ENABLED_PATH := /sys/class/power_supply/battery/batt_lp_charging
 
 # Architecture
 TARGET_SOC		:= mt6737t
@@ -124,9 +110,7 @@ TARGET_USERIMAGES_USE_F2FS := true
 BOARD_CUSTOM_BOOTIMG := true
 
 BOARD_KERNEL_IMAGE_NAME := zImage
-# al: Test mainline kernel
 TARGET_KERNEL_SOURCE	:= kernel/samsung/grandppltedx
-#TARGET_KERNEL_SOURCE	:= kernel/samsung/mainline-test
 TARGET_KERNEL_CONFIG	:= mt6737t-grandpplte_defconfig
 TARGET_PREBUILT_DTB	:= $(DEVICE_PATH)/prebuilt/dt.img
 
@@ -137,12 +121,7 @@ BOARD_RAMDISK_OFFSET	:= 0x04004000
 BOARD_SECOND_OFFSET	:= 0x00f04000
 BOARD_TAGS_OFFSET	:= 0x0e004000
 BOARD_KERNEL_OFFSET	:= 0x00008000
-BOARD_DT_SIZE		:= 485376
-ifeq ($(RECOVERY_VARIANT),twrp)
 BOARD_NAME := SRPPI01A000RU
-else
-BOARD_NAME := SRPPI01A000KU
-endif
 
 BOARD_MKBOOTIMG_ARGS := \
 	--base $(BOARD_KERNEL_BASE) \
@@ -200,9 +179,7 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 # Media
 MTK_MEDIA_PROFILES := true
 BOARD_USES_MTK_MEDIA_PROFILES := true
-
 TARGET_OMX_LEGACY_RESCALING := true
-
 BOARD_CANT_REALLOCATE_OMX_BUFFERS := true
 
 # GPS
@@ -236,7 +213,6 @@ USE_CAMERA_STUB := true
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 TARGET_NEEDS_LEGACY_CAMERA_HAL1_DYN_NATIVE_HANDLE := true
 TARGET_USES_NON_TREBLE_CAMERA := true
-BOARD_USE_SAMSUNG_CAMERAFORMAT_YUV420SP := true
 
 # system properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
@@ -244,8 +220,6 @@ TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 # SEAndroid
 SELINUX_IGNORE_NEVERALLOWS := true
 BOARD_SEPOLICY_DIRS := $(DEVICE_PATH)/sepolicy
-
-#BOARD_SECCOMP_POLICY += $(DEVICE_PATH)/seccomp
 
 # Enable Minikin text layout engine (will be the default soon)
 USE_MINIKIN := true
