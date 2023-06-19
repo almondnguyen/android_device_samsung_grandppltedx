@@ -280,6 +280,13 @@ PRODUCT_PACKAGES += \
 	lights.mt6737t \
 	android.hardware.light@2.0-impl-mediatek
 
+# Keylayout config
+KEYLAYOUTS := \
+	$(DEVICE_PATH)/configs/sec_touchscreen.kl
+
+PRODUCT_COPY_FILES += \
+	$(foreach f,$(KEYLAYOUTS),$(f):system/usr/keylayout/$(notdir $(f)))
+
 # Keymaster
 PRODUCT_PACKAGES += android.hardware.keymaster@3.0-impl
 
