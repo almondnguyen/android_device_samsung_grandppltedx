@@ -6,7 +6,7 @@ media.sf.omx-plugin=libffmpeg_omx.so
 #qemu.hw.mainkeys=0
 
 # testing, no RIL for now
-lineage.updater.uri=https://raw.githubusercontent.com/almondnguyen/android_OTA/main/los-15-grandppltedx.json
+lineage.updater.uri=https://raw.githubusercontent.com/almondnguyen/android_OTA/main/grandppltedx_15.json
 ro.zygote=zygote32
 ro.mount.fs=EXT4
 ro.adb.secure=0
