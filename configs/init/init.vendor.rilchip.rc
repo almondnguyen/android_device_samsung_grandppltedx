@@ -27,7 +27,6 @@ on property:sys.boot_completed=1
     restorecon /data/data/com.android.providers.telephony/shared_prefs
 
     # restart RIL <--> modem stack to account for new locations
-    restart ril-daemon
     restart ril-daemon1
 
 on property:init.svc.ril-daemon1=restarting
