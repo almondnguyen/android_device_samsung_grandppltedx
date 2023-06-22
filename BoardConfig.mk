@@ -121,12 +121,11 @@ BOARD_SUPPRESS_SECURE_ERASE := true
 # Kernel
 BOARD_CUSTOM_BOOTIMG := true
 
-BOARD_KERNEL_IMAGE_NAME := zImage
+BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 # al: Test mainline kernel
 TARGET_KERNEL_SOURCE    := kernel/samsung/grandppltedx
 #TARGET_KERNEL_SOURCE    := kernel/samsung/mainline-test
 TARGET_KERNEL_CONFIG    := mt6737t-grandpplte_defconfig
-TARGET_PREBUILT_DTB     := $(DEVICE_PATH)/dt.img
 
 BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive
 BOARD_KERNEL_BASE     := 0x3fffc000
@@ -135,7 +134,6 @@ BOARD_RAMDISK_OFFSET  := 0x04004000
 BOARD_SECOND_OFFSET   := 0x00f04000
 BOARD_TAGS_OFFSET     := 0x0e004000
 BOARD_KERNEL_OFFSET   := 0x00008000
-BOARD_DT_SIZE         := 485376
 BOARD_NAME            := SRPPI01A000KU
 
 BOARD_MKBOOTIMG_ARGS := \
@@ -145,8 +143,7 @@ BOARD_MKBOOTIMG_ARGS := \
 	--ramdisk_offset $(BOARD_RAMDISK_OFFSET) \
 	--second_offset $(BOARD_SECOND_OFFSET) \
 	--tags_offset $(BOARD_TAGS_OFFSET) \
-	--board $(BOARD_NAME) \
-	--dt $(TARGET_PREBUILT_DTB)
+	--board $(BOARD_NAME)
 
 # CMHW
 BOARD_USES_LINEAGE_HARDWARE := true
