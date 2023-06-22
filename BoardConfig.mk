@@ -32,10 +32,6 @@ TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 # Headers
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 
-# Project Configs
-MTK_PROJECT_CONFIG ?= $(DEVICE_PATH)/ProjectConfig.mk
-include $(MTK_PROJECT_CONFIG)
-
 # Display
 USE_OPENGL_RENDERER := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
@@ -51,7 +47,6 @@ BOARD_EGL_WORKAROUND_BUG_10194508 := true
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MT6737T
 TARGET_NO_BOOTLOADER := true
-# mt6737t
 
 # Platform
 TARGET_INIT_VENDOR_LIB := libinit_grandpplte
@@ -59,9 +54,7 @@ TARGET_INIT_VENDOR_LIB := libinit_grandpplte
 ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_BOARD_PLATFORM := mt6737t
 TARGET_NO_FACTORYIMAGE := true
-TARGET_BOARD_PLATFORM_GPU := mali-T720mp2
 
-MTK_GPU_VERSION := mali midgard r18p0
 BOARD_HAS_MTK_HARDWARE := true
 BOARD_USES_MTK_HARDWARE := true
 MTK_HARDWARE := true
@@ -122,9 +115,7 @@ BOARD_SUPPRESS_SECURE_ERASE := true
 BOARD_CUSTOM_BOOTIMG := true
 
 BOARD_KERNEL_IMAGE_NAME := zImage-dtb
-# al: Test mainline kernel
 TARGET_KERNEL_SOURCE    := kernel/samsung/grandppltedx
-#TARGET_KERNEL_SOURCE    := kernel/samsung/mainline-test
 TARGET_KERNEL_CONFIG    := mt6737t-grandpplte_defconfig
 
 BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive
@@ -185,9 +176,7 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 # Media
 MTK_MEDIA_PROFILES := true
 BOARD_USES_MTK_MEDIA_PROFILES := true
-
 TARGET_OMX_LEGACY_RESCALING := true
-
 BOARD_CANT_REALLOCATE_OMX_BUFFERS := true
 
 # GPS
@@ -202,7 +191,6 @@ BOARD_PROVIDES_LIBRIL :=
 BOARD_PROVIDES_LIBREFERENCE_RIL :=
 
 BOARD_RIL_CLASS := ../../../device/samsung/grandppltedx/ril
-#BOARD_CONNECTIVITY_MODULE := conn_soc
 
 # Power HAL
 TARGET_POWERHAL_VARIANT := mtk
