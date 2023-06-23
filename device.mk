@@ -104,6 +104,7 @@ PRODUCT_COPY_FILES += $(DEVICE_PATH)/configs/carrier/old-apns-conf.xml:system/et
 SIM_COUNT := 2
 
 PRODUCT_PACKAGES += \
+	libsecril-client \
 	libxml2 \
 	libprotobuf-cpp-full \
 	libstlport
