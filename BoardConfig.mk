@@ -185,6 +185,7 @@ BOARD_MEDIATEK_USES_GPS := true
 
 # RIL
 BOARD_PROVIDES_LIBRIL := true
+BOARD_MODEM_TYPE := tss310
 
 BOARD_RIL_CLASS := ../../../device/samsung/grandppltedx/ril
 
