@@ -1,0 +1,19 @@
+on post-fs-data
+    # Thermal
+    mkdir /data/.tp/ 0775 system system 
+
+service thermal_manager /system/bin/thermal_manager
+    class main
+    user root
+    oneshot
+
+service thermal /system/bin/thermal
+    class main
+    user system
+    group system
+
+service thermald /system/bin/thermald
+    class main
+    user system
+    group system
+

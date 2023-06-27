@@ -156,13 +156,6 @@ on post-fs-data
     mkdir /data/drm/wv 0770 drm system
 
     write /sys/class/firmware/timeout 75
-    
-# GPS
-    mkdir /data/gps_mnl 0771 gps system
-    mkdir /data/misc/gps 0770 gps system
-
-    # NFC
-    mkdir /data/nfc_socket 0771 nfc radio
 
     #MD DB
     mkdir /data/misc/mddb 0711 radio system
@@ -438,10 +431,6 @@ on post-fs-data
     chmod 0660 /dev/sw_sync
     chown system graphics /dev/sw_sync
 
-    # EM baseband file
-    chown root diag /system/bin/baseband_regdump
-    chmod 4750 /system/bin/baseband_regdump
-
     #pmu
     chown root radio /sys/devices/platform/mt-pmic/pmic_access_bank0
     chown root radio /sys/devices/platform/mt-pmic/pmic_access_bank1
@@ -619,22 +608,10 @@ on post-fs-data
     mkdir /data/app/mcRegistry 0775 system system
     mkdir /data/app/mcRegistry/TbStorage 0775 system system
 
-    # AGPS
-    mkdir /data/agps_supl 0771 gps system
-
     # Recycle stuffs
     exec /system/bin/rm -f /cache/.ipoh.img
     
     chmod 0666 /dev/exm0
-
-
-    #Thermal
-    mkdir /data/.tp/ 0775 system system 
-	
-    # Blowfish service
-    mkdir /data/tee 0700 system system
-    #start tz_service
-    #setprop sys.blowfish.loaded true
 
     #create directory /data/subt for subtitle
     mkdir /mnt/subt/ 0770 media media
@@ -849,11 +826,6 @@ on boot
     chown system radio /sys/class/sensors/sensor_dev/flush
 ## Sensors permissions -- end ##
 
-#on property:ro.board.platform=mt6753
-#    chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-#    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-#    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1300000
-
 on property:sys.boot_completed=1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
     write /sys/devices/system/cpu/cpufreq/interactive/boostpulse_duration 0
@@ -876,34 +848,18 @@ on property:sys.boot_completed=1
     write /proc/hps/up_times 3
     write /proc/hps/timer_interval 30
 
-on property:vold.decrypt=trigger_reset_main
-    start stop_modem
-
 on property:vold.decrypt=trigger_restart_min_framework
-    start start_modem
     start msensord
     start permission_check
     start stp_dump
 
 on property:vold.decrypt=trigger_restart_framework
     start nvram_daemon
-    start start_modem
     start msensord
     start permission_check
 
 on property:vold.decrypt=trigger_shutdown_framework
-    start stop_modem
     stop stp_dump
-
-service stop_modem /system/bin/md_ctrl 0
-    class main
-    disabled
-    oneshot
-
-service start_modem /system/bin/md_ctrl 1
-    class main
-    disabled
-    oneshot
 
 ## mtk printk uart controller
 on property:persist.uartconsole.enable=1
@@ -926,33 +882,6 @@ service bugreport /system/bin/dumpstate -d -p -B \
 
 service netdiag /system/bin/netdiag
     class main
-
-#al: a dum-dum way to get a lot more permission for the nvram stuff
-#group system
-
-service nvram_daemon /system/bin/nvram_daemon
-    class main
-    user root
-    group root system radio shell bluetooth audio inet
-    oneshot
-
-service meta_tst /system/bin/meta_tst
-    class main
-    user radio
-    group system radio shell bluetooth audio inet
-    oneshot
-
-service audio-daemon /system/bin/audiocmdservice_atci
-    class main
-    socket atci-audio stream 660 root system
-    user root
-    disabled
-    oneshot
-
-service md_minilog_util /system/bin/md_minilog_util
-    user root
-    disabled
-    oneshot
 
 service pq /system/bin/pq
     class core
@@ -1041,17 +970,6 @@ service dhcp6c_PD /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cPD.conf" -Df
     disabled
     oneshot
 
-service pppoe_wlan0 /system/bin/launchpppoe
-    user root
-    group radio cache inet misc
-    disabled
-    oneshot
-
-on property:service.pppoe_wlan0.enable=0
-    stop pppoe_wlan0
-
-on property:service.pppoe_wlan0.enable=1
-    start pppoe_wlan0
 # write proc for test sim
     on property:gsm.sim.ril.testsim=0
     write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 0
@@ -1111,26 +1029,6 @@ on property:init.svc.macloader=stopped
     chmod 0664 /data/.rev
 # end of WiFi MFG (TestMode)
 
-service DMAgent /system/bin/dm_agent_binder
-    class main
-    user system
-    group system cache
-
-service dbus /system/bin/dbus-daemon --system --nofork
-    class main
-    socket dbus stream 660 bluetooth bluetooth
-    user bluetooth
-    group bluetooth net_bt_admin
-
-service bluetoothd /system/bin/bluetoothd -n
-    class main
-    socket bluetooth stream 660 bluetooth bluetooth
-    socket dbus_bluetooth stream 660 bluetooth bluetooth
-    # init.rc does not yet support applying capabilities, so run as root and
-    # let bluetoothd drop uid to bluetooth with the right linux capabilities
-    group bluetooth net_bt_admin misc
-    disabled
-
 #
 #  External Modme control related services
 #
@@ -1138,30 +1036,6 @@ service bluetoothd /system/bin/bluetoothd -n
 #
 #  Modem related services (Begin)
 #
-service pppd_gprs /system/bin/pppd_dt /dev/ttyACM0 debug noauth refuse-eap usepeerdns nodetach
-    user root
-    group radio cache inet misc
-    disabled
-    oneshot
-
-service agpsd /system/bin/mtk_agpsd
-    class main
-    socket agpsd stream 660 gps system
-    socket agpsd2 stream 660 gps inet
-    socket agpsd3 stream 660 gps inet
-    user gps
-    group gps radio inet sdcard_r sdcard_rw misc system
-
-service wifi2agps /system/bin/wifi2agps
-    class main
-    user wifi
-    group gps inet
-
-service mnld /system/xbin/mnld
-    class main
-    user gps
-    group gps inet misc sdcard_rw sdcard_r media_rw system radio
-    socket mnld stream 660 gps system
 
 service mdlogger /system/bin/mdlogger
     class main
@@ -1174,31 +1048,6 @@ service shutdown /system/bin/shutdown
     user root
     group root
     disabled
-
-service NvRAMAgent /system/bin/nvram_agent_binder
-    class main
-    user system
-    group system
-    
-service thermal_manager /system/bin/thermal_manager
-    class main
-    user root
-    oneshot
-
-service thermal /system/bin/thermal
-    class main
-    user system
-    group system
-
-service thermald /system/bin/thermald
-    class main
-    user system
-    group system
-
-service fuelgauged /system/bin/fuelgauged
-    class main
-    user system
-    group system
 
 # GuiExt Server init
 service guiext-server /system/bin/guiext-server
@@ -1237,8 +1086,6 @@ setprop rild.mark_switchuser 0
 
 chown root /system/bin/pppd
 chmod 4755 /system/bin/pppd
-chown root /system/bin/chat
-chmod 4755 /system/bin/chat
 
 # LPM
 on property:ro.bootmode=charger
