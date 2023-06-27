@@ -645,12 +645,6 @@ service drm /system/bin/drmserver
 #    group drm system inet drmrpc
 # ]
 
-# Sensorhub service
-service sensorhubservice /system/bin/sensorhubservice
-    class main
-    user system
-    group input
-
 # for Bluetooth Tethering
 service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
     class main

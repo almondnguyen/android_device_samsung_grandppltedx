@@ -19,64 +19,16 @@ on post-fs-data
     setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
 
-    # Modem related device nodes
-    mkdir /data/nvram/md  0770 root system
-
-#  Build-in Modified - S
-#    insmod /system/lib/modules/ccci_plat.ko
-#    insmod /system/lib/modules/ccci.ko
-#  Build-in Modified - E
-#   chown radio radio /sys/class/BOOT/BOOT/boot/md
-    chown radio radio /sys/kernel/ccci/boot
-
 #SeLinux
-    mkdir /data/ccci_cfg 0770 system radio
-    restorecon /data/ccci_cfg
-    restorecon_recursive /protect_f
-    restorecon_recursive /protect_s
-    
+
     # Encrypt phone function
     setprop vold.post_fs_data_done 1
 
 on fs
-#MIF
-    chown radio system /efs
-    chmod 0771 /efs
-
-# //> block MTK vendor RIL
-
-service md_minilog_util /system/bin/md_minilog_util
-    user radio
-    disabled
-    oneshot
 
 #
 #  Modem related services (Begin)
 #
-
-service ccci_fsd /system/bin/ccci_fsd 0
-    user system
-    group radio system bluetooth
-    class core
-    oneshot
-
-service ccci_mdinit /system/bin/ccci_mdinit 0
-    user system
-    group radio system
-    class core
-    oneshot
-
-service ccci_rpcd /system/bin/ccci_rpcd 0
-    user radio
-    group radio system
-    class core
-    oneshot
-
-service pppd_gprs /system/bin/pppd_dt /dev/ttyACM0 debug noauth refuse-eap usepeerdns nodetach
-    user root
-    group radio cache inet misc
-    disabled
-    oneshot
 
 #Add by T.Zh for ppp daemon
 service pppd /system/bin/pppd file /data/misc/ppp/ppp_options

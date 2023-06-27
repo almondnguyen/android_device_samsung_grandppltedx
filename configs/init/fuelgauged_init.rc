@@ -1,0 +1,5 @@
+service fuelgauged /system/bin/fuelgauged
+    class main
+    user system
+    group system
+
