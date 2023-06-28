@@ -1,0 +1,83 @@
+From 487abef3d342a8190ebb2918c6c83c4afaa3a458 Mon Sep 17 00:00:00 2001
+From: daniel_hk <daniel.p6800@gmail.com>
+Date: Wed, 28 Jun 2023 19:21:02 +0700
+Subject: [PATCH] libaudiohal: LEGACY_MTK_AV_BLOB support
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Set BOARD_USES_LEGACY_MTK_AV_BLOB := true to enable
+Oreo's audio_stream_in_t definition changed. Old blobs from MTK (and
+others) is not compatible. This patch would hopefully work for all old
+audio HALs and fix all the issues arised.
+1. At openInputStream(), store a copy of the struct from audio HAL to
+mIn.
+2. Assign the supported entries to halStream and assign NULL to those
+unsupported.
+3. close the mIn and free the memory at closeOutputStream()
+Note: legacy_audio_stream_in_t is defined in the overrided audio.h in
+device tree
+
+Change-Id: I5bbd3b2728614e7f66b013d346cb778816ad8489
+Signed-off-by: Nguyễn Long <hoanglong.lumi404@gmail.com>
+---
+ media/libaudiohal/2.0/DeviceHalLocal.cpp | 17 +++++++++++++++++
+ media/libaudiohal/2.0/DeviceHalLocal.h   |  4 +++-
+ 2 files changed, 20 insertions(+), 1 deletion(-)
+
+diff --git a/media/libaudiohal/2.0/DeviceHalLocal.cpp b/media/libaudiohal/2.0/DeviceHalLocal.cpp
+index ec3bf78..6d6bbc8 100644
+--- a/media/libaudiohal/2.0/DeviceHalLocal.cpp
++++ b/media/libaudiohal/2.0/DeviceHalLocal.cpp
+@@ -137,8 +137,20 @@ status_t DeviceHalLocal::openInputStream(
+             handle, devices, flags,
+             config->sample_rate, config->format, config->channel_mask,
+             address, source);
++#ifdef BOARD_USES_LEGACY_MTK_AV_BLOB
++    halStream = (audio_stream_in_t *)calloc(1, sizeof(audio_stream_in_t));
++    int openResult = mDev->open_input_stream(
++            mDev, handle, devices, config, &mIn, flags, address, source);
++    memcpy(halStream, mIn, sizeof(legacy_audio_stream_in_t));
++    halStream->get_capture_position = NULL;
++    halStream->start = NULL;
++    halStream->stop = NULL;
++    halStream->create_mmap_buffer = NULL;
++    halStream->get_mmap_position = NULL;
++#else
+     int openResult = mDev->open_input_stream(
+             mDev, handle, devices, config, &halStream, flags, address, source);
++#endif
+     if (openResult == OK) {
+         *inStream = new StreamInHalLocal(halStream, this);
+     }
+@@ -198,7 +210,12 @@ void DeviceHalLocal::closeOutputStream(struct audio_stream_out *stream_out) {
+ }
+ 
+ void DeviceHalLocal::closeInputStream(struct audio_stream_in *stream_in) {
++#ifdef BOARD_USES_LEGACY_MTK_AV_BLOB
++    mDev->close_input_stream(mDev, mIn);
++    free(stream_in);
++#else
+     mDev->close_input_stream(mDev, stream_in);
++#endif
+ }
+ 
+ } // namespace android
+diff --git a/media/libaudiohal/2.0/DeviceHalLocal.h b/media/libaudiohal/2.0/DeviceHalLocal.h
+index aec201a..143e7a4 100644
+--- a/media/libaudiohal/2.0/DeviceHalLocal.h
++++ b/media/libaudiohal/2.0/DeviceHalLocal.h
+@@ -110,7 +110,9 @@ class DeviceHalLocal : public DeviceHalInterface
+ 
+   private:
+     audio_hw_device_t *mDev;
+-
++#ifdef BOARD_USES_LEGACY_MTK_AV_BLOB
++    audio_stream_in_t *mIn;
++#endif
+     friend class DevicesFactoryHalLocal;
+ 
+     // Can not be constructed directly by clients.
+-- 
+2.34.1
+
