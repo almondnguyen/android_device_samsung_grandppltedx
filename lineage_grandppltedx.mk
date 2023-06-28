@@ -4,20 +4,23 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# Release name
-PRODUCT_RELEASE_NAME := grandppltedx
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_m.mk)
 
-# Inherit some common CM stuff.
+# Inherit some common Lineage stuff
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 # Inherit device configuration
 $(call inherit-product, device/samsung/grandppltedx/device.mk)
 
-# Display
-#-- is qhd (960 x 540)
+# Release name
+PRODUCT_RELEASE_NAME := grandppltedx
+
+# Bootanimation
 TARGET_SCREEN_HEIGHT := 960
 TARGET_SCREEN_WIDTH := 540
-DEVICE_RESOLUTION := 540x960
 
 TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true

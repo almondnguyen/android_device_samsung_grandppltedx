@@ -4,20 +4,14 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-BLOCK_BASED_OTA := true
-
-# Device is a phone
-PRODUCT_CHARACTERISTICS := phone
-
 # Define Path
 DEVICE_PATH := device/samsung/grandppltedx
 VENDOR_PATH := vendor/samsung/grandppltedx
 
-# Vendor
-$(call inherit-product-if-exists, vendor/samsung/grandppltedx/grandppltedx-vendor.mk)
+BLOCK_BASED_OTA := true
+
+# Device is a phone
+PRODUCT_CHARACTERISTICS := phone
 
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += \
@@ -31,12 +25,9 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
     SystemUI
 
 # Display
-#-- This device is hdpi.
 PRODUCT_AAPT_CONFIG := normal hdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 PRODUCT_AAPT_PREBUILT_DPI := hdpi
-TARGET_SCREEN_HEIGHT := 960
-TARGET_SCREEN_WIDTH := 540
 $(call inherit-product, frameworks/native/build/phone-hdpi-dalvik-heap.mk)
 
 PRODUCT_PACKAGES += \
@@ -54,10 +45,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.surface_flinger.max_frame_buffer_acquired_buffers=3
-
-# Locale
-PRODUCT_DEFAULT_LANGUAGE := en
-PRODUCT_DEFAULT_REGION   := US
 
 # Configs
 #-- Audio
@@ -155,10 +142,6 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
 	$(DEVICE_PATH)/configs/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf
 
-# Radio
-#PRODUCT_PACKAGES += \
-#	libsecnativefeature
-
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.android.checkjni=0
 
@@ -178,9 +161,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.telephony.gsm.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.telephony.gsm.xml
-
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.kernel.android.checkjni=0
 
 # shim / symbols
 PRODUCT_PACKAGES += \
@@ -232,7 +212,6 @@ PRODUCT_COPY_FILES += \
 
 # GPS
 PRODUCT_PACKAGES += \
-	wifi2agps \
 	libepos \
 	libcurl
 	
@@ -280,9 +259,6 @@ PRODUCT_PACKAGES += android.hardware.keymaster@3.0-impl
 
 # Memtrack
 PRODUCT_PACKAGES += android.hardware.memtrack@1.0-impl
-
-# Local Time
-PRODUCT_PACKAGES += local_time.default
 
 # Health HAL
 PRODUCT_PACKAGES += \
@@ -354,3 +330,6 @@ PRODUCT_PACKAGES += \
 	fsck.ntfs \
 	mkfs.ntfs \
 	mount.ntfs
+
+# Vendor
+$(call inherit-product-if-exists, vendor/samsung/grandppltedx/grandppltedx-vendor.mk)
