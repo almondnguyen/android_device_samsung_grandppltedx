@@ -213,10 +213,6 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.software.sip.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.software.sip.xml \
 	frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/handheld_core_hardware.xml
 
-# Recovery - twrp
-PRODUCT_COPY_FILES += \
-	$(DEVICE_PATH)/configs/recovery.fstab:recovery/root/etc/twrp.fstab
-
 # GPS
 PRODUCT_PACKAGES += \
 	libepos \
