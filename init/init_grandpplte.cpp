@@ -25,22 +25,18 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <android-base/file.h>
+#include <android-base/strings.h>
 
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
 
-#include <android-base/file.h>
-#include <android-base/logging.h>
-#include <android-base/strings.h>
 #include <android-base/properties.h>
+#include <android-base/logging.h>
 
-#include "property_service.h"
 #include "vendor_init.h"
-#include "log.h"
+#include "property_service.h"
 
-#define SERIAL_NUMBER_FILE "/efs/FactoryApp/serial_no"
 #define SIMSLOT_FILE "/proc/simslot_count"
 
 using android::base::GetProperty;
@@ -94,11 +90,8 @@ void init_single() {
 
 void vendor_load_properties() {
 	std::string bootloader = android::base::GetProperty("ro.bootloader", "");
-	std::string platform = android::base::GetProperty("ro.board.platform", "");
-	std::string device;
 
-	if (platform != ANDROID_TARGET) return;
-	int sim_count;
+	int sim_count = 0;
 
 	/* set basic device name */
 	property_override_dual("ro.product.device", "ro.vendor.product.device", "grandpplte");
@@ -107,9 +100,9 @@ void vendor_load_properties() {
 	if (access(SIMSLOT_FILE, F_OK) == 0) {
 		sim_count = read_integer(SIMSLOT_FILE);
 	}
-	
+
 	/* set model + dual sim props */
-	if (bootloader.find("G532F") != std::string::npos) {
+	if (bootloader.find("G532F") == 0) {
 		/* G532F */
 	        property_override_dual("ro.product.name", "ro.vendor.product.name", "grandpplteser");
 		if (sim_count == 1) {
@@ -121,7 +114,7 @@ void vendor_load_properties() {
 		}
 	}
 
-	if (bootloader.find("G532G") != std::string::npos) {
+	if (bootloader.find("G532G") == 0) {
 		/* G532G */
 	        property_override_dual("ro.product.name", "ro.vendor.product.name", "grandppltedx");
 		if (sim_count == 1) {
@@ -133,7 +126,7 @@ void vendor_load_properties() {
 		}
 	}
 
-	if (bootloader.find("G532M") != std::string::npos) {
+	if (bootloader.find("G532M") == 0) {
 		/* G532M */
 	        property_override_dual("ro.product.name", "ro.vendor.product.name", "grandpplteub");
 		if (sim_count == 1) {
@@ -145,7 +138,7 @@ void vendor_load_properties() {
 		}
 	}
 
-	if (bootloader.find("G532MT") != std::string::npos) {
+	if (bootloader.find("G532MT") == 0) {
 		/* G532F */
 	        property_override_dual("ro.product.name", "ro.vendor.product.name", "grandppltedtvvj");
 		if (sim_count == 1) {
