@@ -83,7 +83,7 @@ void init_single() {
 void vendor_load_properties() {
 	std::string bootloader = property_get("ro.bootloader");
 	std::string platform;
-	int sim_count;
+	int sim_count = 0;
 
 	/* set basic device name */
 	property_override("ro.product.device","grandpplte");
