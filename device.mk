@@ -14,9 +14,6 @@
 # limitations under the License.
 #
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 BLOCK_BASED_OTA := false
 
 # Define Path
@@ -33,15 +30,9 @@ DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
 PRODUCT_AAPT_CONFIG := normal hdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 PRODUCT_AAPT_PREBUILT_DPI := hdpi
-TARGET_SCREEN_HEIGHT := 960
-TARGET_SCREEN_WIDTH := 540
 
 PRODUCT_PACKAGES += \
 	libion
-
-# Locale
-PRODUCT_DEFAULT_LANGUAGE := en
-PRODUCT_DEFAULT_REGION   := US
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -84,9 +75,6 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
 	$(DEVICE_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml
 
-#PRODUCT_PROPERTY_OVERRIDES += \
-#	media.sf.omx-plugin=libffmpeg_omx.so,libsomxcore.so
-
 # BT
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
@@ -108,13 +96,6 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 	$(DEVICE_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
 	$(DEVICE_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
-
-# Radio
-#PRODUCT_PACKAGES += \
-#	libsecnativefeature
-
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.kernel.android.checkjni=0
 
 # Carrier
 PRODUCT_COPY_FILES += $(DEVICE_PATH)/configs/carrier/old-apns-conf.xml:system/etc/old-apns-conf.xml
@@ -202,12 +183,6 @@ KEYLAYOUTS := \
 
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(KEYLAYOUTS),$(f):system/usr/keylayout/$(notdir $(f)))
-
-# Charger
-# Use cm/lineage images if available, aosp ones otherwise
-PRODUCT_PACKAGES += \
-	charger \
-	charger_res_images
 
 # Camera
 PRODUCT_PACKAGES += \
