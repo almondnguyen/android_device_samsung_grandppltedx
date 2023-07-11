@@ -17,6 +17,23 @@ static int voiceRadioTechnology = -1;
 
 static RIL_Dial dial;
 
+static void onRequestAllowData(int request, void *data, size_t datalen, RIL_Token t) {
+	RLOGI("%s: got request %s (data:%p datalen:%d)\n", __FUNCTION__,
+			requestToString(request),
+			data, datalen);
+
+	const char rawHookCmd[] = { 0x09, 0x04 }; // RAW_HOOK_OEM_CMD_SWITCH_DATAPREFER
+	bool allowed = *((int *)data) == 0 ? false : true;
+
+	if (allowed) {
+		RequestInfo *pRI = (RequestInfo *)t;
+		pRI->pCI->requestNumber = RIL_REQUEST_OEM_HOOK_RAW;
+		origRilFunctions->onRequest(pRI->pCI->requestNumber, (void *)rawHookCmd, sizeof(rawHookCmd), t);
+	}
+
+	rilEnv->OnRequestComplete(t, RIL_E_SUCCESS, NULL, 0);
+}
+
 static void onRequestDial(int request, void *data, RIL_Token t) {
 	RIL_UUS_Info uusInfo;
 
@@ -125,6 +142,10 @@ static void onRequestShim(int request, void *data, size_t datalen, RIL_Token t)
 			onRequestGetRadioCapability(t);
 			RLOGI("%s: got request %s: replied with our implementation!\n", __FUNCTION__, requestToString(request));
 			return;
+		case RIL_REQUEST_ALLOW_DATA:
+			onRequestAllowData(request, data, datalen, t);
+			RLOGI("%s: got request %s: replied with our implementation!\n", __FUNCTION__, requestToString(request));
+			return;
 		/* The Samsung RIL doesn't support RIL_REQUEST_SEND_SMS_EXPECT_MORE, reply with RIL_REQUEST_SEND_SMS instead */
 		case RIL_REQUEST_SEND_SMS_EXPECT_MORE:
 			RLOGI("%s: got request %s: replied with %s!", __FUNCTION__,
@@ -141,7 +162,6 @@ static void onRequestShim(int request, void *data, size_t datalen, RIL_Token t)
 		case RIL_REQUEST_NV_WRITE_CDMA_PRL:
 		case RIL_REQUEST_NV_RESET_CONFIG:
 		case RIL_REQUEST_SET_UICC_SUBSCRIPTION:
-		case RIL_REQUEST_ALLOW_DATA:
 		case RIL_REQUEST_GET_HARDWARE_CONFIG:
 		case RIL_REQUEST_SIM_AUTHENTICATION:
 		case RIL_REQUEST_GET_DC_RT_INFO:
