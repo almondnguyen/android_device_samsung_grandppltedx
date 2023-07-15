@@ -109,7 +109,9 @@ BOARD_CUSTOM_BOOTIMG := true
 
 BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 TARGET_KERNEL_SOURCE    := kernel/samsung/grandppltedx
-TARGET_KERNEL_CONFIG    := mt6737t-grandpplte_defconfig
+TARGET_KERNEL_CONFIG := \
+    mt6737t-grandpplte_defconfig \
+    32bit-binder.config
 
 BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive
 BOARD_KERNEL_BASE     := 0x3fffc000
