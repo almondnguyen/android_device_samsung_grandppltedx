@@ -222,8 +222,8 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-	power.default \
-	power.mt6737t
+	power.default
+#	power.mt6737t
 
 # Lights
 PRODUCT_PACKAGES += \
