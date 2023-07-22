@@ -29,7 +29,7 @@
 #include <pthread.h>
 #include <hardware/hardware.h>
 #include <hardware/power.h>
-#include "power-feature.h"
+//#include "power-feature.h"
 
 #define LOG_TAG "MTK PowerHAL"
 
