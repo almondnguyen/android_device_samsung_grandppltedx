@@ -225,11 +225,11 @@ PRODUCT_PACKAGES += \
 # Power
 PRODUCT_PACKAGES += \
 	power.default \
-	power.mt6735
+	power.mt6737t
 
 # Lights
 PRODUCT_PACKAGES += \
-	lights.mt6735
+	lights.mt6737t
 
 # Sensor
 PRODUCT_PACKAGES += \
@@ -237,7 +237,7 @@ PRODUCT_PACKAGES += \
 
 # memtrack
 PRODUCT_PACKAGES += \
-	memtrack.mt6735
+	memtrack.mt6737t
 
 # Rootdir
 PRODUCT_PACKAGES += \
