@@ -135,7 +135,6 @@ PRODUCT_PACKAGES += \
 # shim / symbols
 PRODUCT_PACKAGES += \
 	mtk_symbols \
-	libshim_thermal \
 	libshim_ssl \
 	libshim_camera \
 	libshim_agpsd \
