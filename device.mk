@@ -39,7 +39,7 @@ PRODUCT_PACKAGES += \
 	audio.usb.default \
 	audio.r_submix.default \
 	audio_policy.default \
-	libaudiopolicymanagerdefault \
+	libaudiopolicymanager \
 	libaudiopolicyservice \
 	libaudiopolicyenginedefault \
 	libaudioroute \
