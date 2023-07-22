@@ -21,6 +21,5 @@ $(call add-rootdir-targets, \
 	init.rilcommon.rc \
 	init.wifi.rc \
 	ueventd.mt6735.rc \
-	init.emdlogger1.rc \
 	init.xlog.rc \
 	init.samsung.rc)

@@ -85,23 +85,9 @@ on init
     mkdir /sdcard/.audio_param system system
 
 # mount different fs start
-
-on property:persist.mediatek.fg.disable=1
-    write /sys/devices/platform/battery_meter/FG_daemon_disable 1
-
-
-on property:persist.mediatek.fg.log.enable=1
-		chmod 0666 /dev/kmsg
-    write /sys/devices/platform/battery_meter/FG_daemon_log_level 7
-    write /proc/sys/kernel/printk 8
-
 on fs
     mount_all /fstab.mt6735
     exec /system/bin/tune2fs -O has_journal -u 10010 -r 4096 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata
-
-on fs
-
-   mount iso9660 loop@/system/etc/iAmCdRom.iso /mnt/cd-rom ro
 
 on post-fs
     # Support legacy paths
@@ -158,8 +144,6 @@ on post-fs-data
 
     # create for muxd pts device node , to operate without root
     mkdir /dev/radio 0770 radio radio
-
-    mkdir /data/drm/wv 0770 drm system
 
     write /sys/class/firmware/timeout 75
     
@@ -568,7 +552,6 @@ on post-fs-data
     chmod 0660 /dev/MTK_SMI
     chown media media /dev/MTK_SMI
 
-
    #change partition permission
 
     chmod 0640 /mtd@sec_ro
@@ -621,10 +604,6 @@ on post-fs-data
     # secure memory
     chown system system /proc/secmem0
 
-    # mcDriverDaemon
-    mkdir /data/app/mcRegistry 0775 system system
-    mkdir /data/app/mcRegistry/TbStorage 0775 system system
-
     # AGPS
     mkdir /data/agps_supl 0771 gps system
 
@@ -633,14 +612,8 @@ on post-fs-data
     
     chmod 0666 /dev/exm0
 
-
     #Thermal
     mkdir /data/.tp/ 0775 system system 
-	
-    # Blowfish service
-    mkdir /data/tee 0700 system system
-    #start tz_service
-    #setprop sys.blowfish.loaded true
 
     #create directory /data/subt for subtitle
     mkdir /mnt/subt/ 0770 media media
@@ -855,11 +828,6 @@ on boot
     chown system radio /sys/class/sensors/sensor_dev/flush
 ## Sensors permissions -- end ##
 
-#on property:ro.board.platform=mt6753
-#    chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-#    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-#    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1300000
-
 on property:sys.boot_completed=1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
     write /sys/devices/system/cpu/cpufreq/interactive/boostpulse_duration 0
@@ -911,17 +879,6 @@ service start_modem /system/bin/md_ctrl 1
     disabled
     oneshot
 
-## mtk printk uart controller
-on property:persist.uartconsole.enable=1
-    write /proc/mtprintk 1
-
-# MTK PR_DEBUG SWITCH
-on property:debug.MB.prdebug=1
-    write /sys/kernel/debug/dynamic_debug/control "file *mediatek* +p"
-    write /sys/kernel/debug/dynamic_debug/control "file *gpu* -p"
-on property:debug.MB.prdebug=0
-    write /sys/kernel/debug/dynamic_debug/control "file *mediatek* -p"
-
 # bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/dumpstate -d -p -B \
         -o /data/data/com.android.shell/files/bugreports/bugreport
@@ -929,9 +886,6 @@ service bugreport /system/bin/dumpstate -d -p -B \
     disabled
     oneshot
     keycodes 114 115 116
-
-service netdiag /system/bin/netdiag
-    class main
 
 #al: a dum-dum way to get a lot more permission for the nvram stuff
 #group system
@@ -951,11 +905,6 @@ service meta_tst /system/bin/meta_tst
 service audio-daemon /system/bin/audiocmdservice_atci
     class main
     socket atci-audio stream 660 root system
-    user root
-    disabled
-    oneshot
-
-service md_minilog_util /system/bin/md_minilog_util
     user root
     disabled
     oneshot
@@ -1105,31 +1054,6 @@ on property:service.pppoe_wlan0.enable=1
     write /proc/sys/net/ipv4/tcp_rto_min 400
     write /proc/sys/net/ipv4/tcp_early_retrans 0
 
-# start for WiFi MFG (TestMode)
-
-service mfgloader /system/bin/mfgloader
-    class main
-    disabled
-    oneshot
-
-service wlandutservice /system/bin/wlandutservice
-    class main
-    user system
-    group wifi net_raw net_admin system inet
-    disabled
-    oneshot
-
-service macloader /system/bin/macloader
-    class main
-    oneshot
-
-on property:init.svc.macloader=stopped
-    chown system root /data/.cid.info
-    chmod 0664 /data/.cid.info
-    chown system root /data/.rev
-    chmod 0664 /data/.rev
-# end of WiFi MFG (TestMode)
-
 service DMAgent /system/bin/dm_agent_binder
     class main
     user system
@@ -1157,12 +1081,6 @@ service bluetoothd /system/bin/bluetoothd -n
 #
 #  Modem related services (Begin)
 #
-service pppd_gprs /system/bin/pppd_dt /dev/ttyACM0 debug noauth refuse-eap usepeerdns nodetach
-    user root
-    group radio cache inet misc
-    disabled
-    oneshot
-
 service agpsd /system/bin/mtk_agpsd
     class main
     socket agpsd stream 660 gps system
@@ -1182,13 +1100,6 @@ service mnld /system/xbin/mnld
     group gps inet misc sdcard_rw sdcard_r media_rw system radio
     socket mnld stream 660 gps system
 
-service mdlogger /system/bin/mdlogger
-    class main
-    user shell
-    group shell system radio sdcard_rw inet sdcard_r media_rw
-    disabled
-    oneshot
-
 service shutdown /system/bin/shutdown
     user root
     group root
@@ -1204,26 +1115,15 @@ service thermal_manager /system/bin/thermal_manager
     user root
     oneshot
 
-service thermal /system/bin/thermal
-    class main
-    user system
-    group system
-
-service thermald /system/bin/thermald
-    class main
-    user system
-    group system
-
 service fuelgauged /system/bin/fuelgauged
     class main
     user system
     group system
 
-# GuiExt Server init
-service guiext-server /system/bin/guiext-server
+service MtkCodecService /system/bin/MtkCodecService
     class main
     user system
-    group system graphics
+    group audio media sdcard_r
 
 ###########add for 3Gdongle
 

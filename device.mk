@@ -241,7 +241,6 @@ PRODUCT_PACKAGES += \
 
 # Rootdir
 PRODUCT_PACKAGES += \
-	enableswap.sh \
 	fstab.mt6735 \
 	init.modem.rc \
 	init.mt6735.rc \
@@ -249,7 +248,6 @@ PRODUCT_PACKAGES += \
 	init.project.rc \
 	init.rilcommon.rc \
 	init.rilchip.rc \
-	init.emdlogger1.rc \
 	init.wifi.rc \
 	init.recovery.mt6735.rc \
 	init.samsung.rc \
@@ -259,7 +257,6 @@ PRODUCT_PACKAGES += \
 
 #-- sbin
 PRODUCT_COPY_FILES += \
-	$(DEVICE_PATH)/rootdir/sbin/sswap:root/sbin/sswap \
 	$(DEVICE_PATH)/rootdir/sbin/busybox:root/sbin/busybox
 
 #-- etc/init/
