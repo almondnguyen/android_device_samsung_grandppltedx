@@ -109,12 +109,6 @@ on post-fs-data
     mkdir /data/misc/wpa_supplicant 0770 wifi wifi
     chown wifi wifi /data/misc/wifi
 
-# Permissions for System LSI NFC
-# NFC : Permissions for NFC
-	chmod 0660 /dev/sec-nfc
-# NFC : change owner
-	chown nfc nfc /dev/sec-nfc
-
 # Permissions for S.LSI ESE
 	chmod 0660 /dev/p3
 	chown system system /dev/p3
@@ -135,9 +129,7 @@ on post-fs-data
 # Connectivity related device nodes & configuration (end)
 #
 
-
     chmod 0666 /dev/exm0
-
 
 service fuse_usbotg /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/usbotg /storage/usbotg
     class late_start
@@ -178,17 +170,4 @@ service prepare_param /system/bin/prepare_param.sh /dev/block/platform/mtk-msdc.
     group root
     seclabel u:r:prepare_param:s0
     oneshot
-
-# umount service
-service umount_service /system/bin/umount -D /preload
-    disabled
-    oneshot
-
-# Support Preload install apks
-on property:persist.sys.storage_preload=1
-    mount ext4 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/hidden /preload nosuid nodev ro barrier=1
-    setprop storage.preload.complete 1
-
-on property:persist.sys.storage_preload=0
-    start umount_service
 

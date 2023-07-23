@@ -1,9 +1,6 @@
 on init
 #	fake to CDP case
 #	write /sys/module/musb_hdrc/parameters/musb_skip_charge_detect 1
-#Blowfish
-    mkdir /data/tee
-    chown root root /data/tee
 
 # 	set battery thread free
     write /sys/class/android_usb/android0/enable 0
@@ -21,13 +18,6 @@ on init
 
 # 	distinguish USB shoulde connect or not by this, CDP vs SDP
 	write /sys/devices/platform/mt_usb/cmode 2
-
-on late-init
-service tz_service /sbin/tzdaemon_recovery
-    seclabel u:r:tzdaemon:s0
-    socket tz stream 0660 system system
-    user root
-    group root
 
 on property:ro.debuggable=1
 # 	restore cmode to normal for making USB enumeration

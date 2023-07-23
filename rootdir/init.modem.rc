@@ -43,13 +43,6 @@ on fs
     chown radio system /efs
     chmod 0771 /efs
 
-# //> block MTK vendor RIL
-
-service md_minilog_util /system/bin/md_minilog_util
-    user radio
-    disabled
-    oneshot
-
 #
 #  Modem related services (Begin)
 #
@@ -70,12 +63,6 @@ service ccci_rpcd /system/bin/ccci_rpcd 0
     user radio
     group radio system
     class core
-    oneshot
-
-service pppd_gprs /system/bin/pppd_dt /dev/ttyACM0 debug noauth refuse-eap usepeerdns nodetach
-    user root
-    group radio cache inet misc
-    disabled
     oneshot
 
 #Add by T.Zh for ppp daemon

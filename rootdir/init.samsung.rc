@@ -2,9 +2,6 @@
 # so i can use stock init.rc
 
 on init
-
-    ffu
-
     # Create cgroup mount point for memory
     mount tmpfs none /sys/fs/cgroup mode=0750,uid=0,gid=1000
     mkdir /sys/fs/cgroup/memory 0750 root system
@@ -22,13 +19,7 @@ on init
     mkdir /data 0771 system system
     mkdir /cache 0770 system cache
     mkdir /config 0500 root root
-    mkdir /efs 0771 system radio    
-
-    # VaultKeeper socket
-    mkdir /dev/socket/vaultkeeper 0770 system system
-    chown system system /dev/socket/vaultkeeper
-    chmod 0770 /dev/socket/vaultkeeper
-
+    mkdir /efs 0771 system radio
 
     # Storage views to support runtime permissions
     mkdir /storage 0755 root root
@@ -123,15 +114,6 @@ on post-fs-data
     # hatp
     mkdir /data/misc/radio/hatp 0755 radio system
 
-    # Samsung Pay
-    #mkdir /efs/pfw_data 0760 spay spay
-
-    # NFC
-    #mkdir /data/nfc 0700 nfc nfc
-    #mkdir /data/nfc/param 0700 nfc nfc
-    #mkdir /data/bcmnfc 0700 nfc nfc
-    #mkdir /data/bcmnfc/param 0700 nfc nfc
-
     # h2k
     mkdir /efs/cpk 0771 radio system
     chmod 0644 /efs/redata.bin
@@ -163,33 +145,11 @@ on post-fs-data
     restorecon /data/log
     restorecon /data/anr
 
-    # mobicore
-    mkdir /data/app/mcRegistry 0775 system system
-    mkdir /data/app/mcRegistry/TbStorage 0700 system system
-    mkdir /efs/TEE  0770 radio system
-
     # [ SEC_MM_DRM
     # DRM directory creation
     mkdir /system/etc/security/.drm 0775
     chown root root /system/etc/security/.drm
     chmod 0775 /system/etc/security/.drm
-
-    # Added for Playready DRM Support
-    #mkdir /data/data/.drm 0775
-    #chown drm system /data/data/.drm
-    #chmod 0775 /data/data/.drm
-    #mkdir /data/data/.drm/.playready 0775
-    #chown drm system /data/data/.drm/.playready
-    #chmod 0775 /data/data/.drm/.playready
-
-    # Added for Playready DCM DRM Support
-    #mkdir /data/.dcmdrm 0775
-    #chown drm system /data/.dcmdrm
-    #chmod 0775 /data/.dcmdrm
-    #mkdir /data/.dcmdrm/.playready 0775
-    #chown drm system /data/.dcmdrm/.playready
-    #chmod 0775 /data/.dcmdrm/.playready
-
     # Added drm folder to copy drm plugins
     mkdir /system/lib/drm 0775
     chown root root /system/lib/drm
@@ -216,8 +176,6 @@ on boot
     chown radio system /efs/bluetooth
     chmod 0775 /efs/bluetooth
 
-
-# FRP
     # Google FRP 
     symlink /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/PERSISTENT /dev/block/persistent
 
@@ -280,7 +238,6 @@ on boot
     chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/single_cluster0_min_freq
     chmod 0660 /sys/devices/system/cpu/cpu4/cpufreq/interactive/single_cluster0_min_freq
 
-
     # Change permission for dvfshelper
     chown radio system /sys/power/cpufreq_table
     chmod 0664 /sys/power/cpufreq_table
@@ -324,24 +281,9 @@ on boot
     chmod 0664 /proc/hps/num_limit_thermal
     chmod 0664 /proc/hps/num_limit_low_battery
 
-
-# SAMSUNG
-    #MST Factory Test
-    chown system system /sys/class/mstldo/mst_drv/transmit
-    chmod 0770 /sys/class/mstldo/mst_drv/transmit
-
-    # mobicore
-    chmod 0660 /dev/s5p-smem
-    chown system system /dev/s5p-smem
-    chmod 0660 /dev/t-base-tui
-    chown system system /dev/t-base-tui
-    export MC_AUTH_TOKEN_PATH /efs
-
-
 #for factory command for camera
     chown system system /sys/class/camera/flash/rear_flash
     chown system system /sys/class/camera/flash/front_flash
-
 
 #permission for TSP, Touchkey and Wacom
     chown system radio /sys/class/sec/tsp/cmd
@@ -351,9 +293,6 @@ on boot
     chmod 0660 /sys/class/sec_touchkey/input/enabled
     chown system system /sys/class/sec/sec_touchkey/input/enabled
 	chown system radio /sys/class/sec/sec_touchkey/brightness
-	
-	chmod 0660 /sys/class/sec/sec_epen/input/enabled
-    chown system system /sys/class/sec/sec_epen/input/enabled
 
     # Define default initial receive window size in segments.
     setprop net.tcp.default_init_rwnd 60
@@ -493,7 +432,6 @@ on boot
    chown system radio /sys/class/power_supply/battery/voltage_avg
    chown system radio /sys/class/power_supply/battery/voltage_now
 
-
 # usb detect
     mkdir /dev/bus 0755 root root
     mkdir /dev/bus/usb 0755 root root
@@ -505,62 +443,6 @@ on boot
 # usb disable
     chown system usb /sys/class/usb_notify/usb_control/disable
     chmod 0664 /sys/class/usb_notify/usb_control/disable
-
-# MSP FactoryApp
-    mkdir /efs/FactoryApp 0775 system system
-
-# Sensors permissions
-# Accelerometer_sensor
-    chown system radio /sys/class/sensors/accelerometer_sensor/raw_data
-    chown system radio /sys/class/sensors/accelerometer_sensor/calibration
-    chown system radio /sys/class/sensors/accelerometer_sensor/reactive_alert
-    chown system radio /sys/class/sensors/accelerometer_sensor/selftest
-    chown system radio /sys/class/sensors/accelerometer_sensor/vendor
-    chown system radio /sys/class/sensors/accelerometer_sensor/name
-    chown system system /efs/calibration_data
-    chmod 0666 /efs/calibration_data
-# Proximity_sensor
-    chown system radio /sys/class/sensors/proximity_sensor/state
-    chown system radio /sys/class/sensors/proximity_sensor/raw_data
-    chown system radio /sys/class/sensors/proximity_sensor/prox_avg
-    chown system radio /sys/class/sensors/proximity_sensor/prox_cal
-    chown system radio /sys/class/sensors/proximity_sensor/prox_thresh
-    chown system radio /sys/class/sensors/proximity_sensor/thresh_high
-    chown system radio /sys/class/sensors/proximity_sensor/thresh_low
-    chown system radio /sys/class/sensors/proximity_sensor/vendor
-    chown system radio /sys/class/sensors/proximity_sensor/name
-# Light_sensor
-    chown system radio /sys/class/sensors/light_sensor/lux
-    chown system radio /sys/class/sensors/light_sensor/raw_data
-    chown system radio /sys/class/sensors/light_sensor/vendor
-    chown system radio /sys/class/sensors/light_sensor/name
-# Gyro_sensor
-    chown system radio /sys/class/sensors/gyro_sensor/power_on
-    chown system radio /sys/class/sensors/gyro_sensor/power_off
-    chown system radio /sys/class/sensors/gyro_sensor/temperature
-    chown system radio /sys/class/sensors/gyro_sensor/selftest
-    chown system radio /sys/class/sensors/gyro_sensor/selftest_dps
-    chown system radio /sys/class/sensors/gyro_sensor/vendor
-    chown system radio /sys/class/sensors/gyro_sensor/name
-# Magnetic_sensor
-    chown system radio /sys/class/sensors/magnetic_sensor/selftest
-    chown system radio /sys/class/sensors/magnetic_sensor/raw_data
-    chown system radio /sys/class/sensors/magnetic_sensor/adc
-    chown system radio /sys/class/sensors/magnetic_sensor/vendor
-    chown system radio /sys/class/sensors/magnetic_sensor/name
-    chown system radio /sys/class/sensors/magnetic_sensor/status
-# MPL IIO
-    chown system system /dev/invensense
-    chown system system /sys/bus/iio/devices/invensense/buffer/enable
-    chown system system /sys/bus/iio/devices/invensense/buffer/length
-    chown system system /sys/bus/iio/devices/invensense/control
-    chmod 0660 /dev/invensense
-    chmod 0664 /sys/bus/iio/devices/invensense/buffer/enable
-    chmod 0664 /sys/bus/iio/devices/invensense/buffer/length
-    chmod 0664 /sys/bus/iio/devices/invensense/control
-#Meta event
-    chown system radio /sys/class/sensors/sensor_dev/flush
-
 # usb detect
     mkdir /dev/bus 0755 root root
     mkdir /dev/bus/usb 0755 root root
@@ -596,17 +478,6 @@ on charger
     write /sys/class/power_supply/battery/batt_update_data "/efs/Battery/battery_data.dat"
     class_start charger
 
-# Activate Background Compaction
-on property:sys.sysctl.compact_memory=1
-    setprop sys.sysctl.compact_memory 0
-    start compact_memory
-
-service compact_memory /sbin/bgcompact
-    user root
-    seclabel u:r:sswap:s0
-    oneshot
-    disabled
-
 ## Daemon processes to be run by init.
 ##
 # deferred initcall
@@ -636,13 +507,6 @@ service drm /system/bin/drmserver
     class main
     user drm
     group system drm inet drmrpc radio readproc
-
-
-# Sensorhub service
-service sensorhubservice /system/bin/sensorhubservice
-    class main
-    user system
-    group input
 
 # for Bluetooth Tethering
 service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL

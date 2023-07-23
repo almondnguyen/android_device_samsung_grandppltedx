@@ -15,7 +15,6 @@ import init.wfca.rc
 import init.epdg.rc
 #import init.trustonic.rc
 import init.common_svc.rc
-import init.emdlogger1.rc
 
 # init.modem.rc must be the LAST rc file because vold.post_fs_data_done is set in it
 import init.modem.rc
@@ -85,16 +84,6 @@ on init
     mkdir /sdcard/.audio_param system system
 
 # mount different fs start
-
-on property:persist.mediatek.fg.disable=1
-    write /sys/devices/platform/battery_meter/FG_daemon_disable 1
-
-
-on property:persist.mediatek.fg.log.enable=1
-		chmod 0666 /dev/kmsg
-    write /sys/devices/platform/battery_meter/FG_daemon_log_level 7
-    write /proc/sys/kernel/printk 8
-
 on fs
     mount_all /fstab.mt6735
     exec /system/bin/tune2fs -O has_journal -u 10010 -r 4096 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata
@@ -621,10 +610,6 @@ on post-fs-data
     # secure memory
     chown system system /proc/secmem0
 
-    # mcDriverDaemon
-    mkdir /data/app/mcRegistry 0775 system system
-    mkdir /data/app/mcRegistry/TbStorage 0775 system system
-
     # AGPS
     mkdir /data/agps_supl 0771 gps system
 
@@ -633,14 +618,8 @@ on post-fs-data
     
     chmod 0666 /dev/exm0
 
-
     #Thermal
     mkdir /data/.tp/ 0775 system system 
-	
-    # Blowfish service
-    mkdir /data/tee 0700 system system
-    #start tz_service
-    #setprop sys.blowfish.loaded true
 
     #create directory /data/subt for subtitle
     mkdir /mnt/subt/ 0770 media media
@@ -855,11 +834,6 @@ on boot
     chown system radio /sys/class/sensors/sensor_dev/flush
 ## Sensors permissions -- end ##
 
-#on property:ro.board.platform=mt6753
-#    chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-#    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-#    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1300000
-
 on property:sys.boot_completed=1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
     write /sys/devices/system/cpu/cpufreq/interactive/boostpulse_duration 0
@@ -911,17 +885,6 @@ service start_modem /system/bin/md_ctrl 1
     disabled
     oneshot
 
-## mtk printk uart controller
-on property:persist.uartconsole.enable=1
-    write /proc/mtprintk 1
-
-# MTK PR_DEBUG SWITCH
-on property:debug.MB.prdebug=1
-    write /sys/kernel/debug/dynamic_debug/control "file *mediatek* +p"
-    write /sys/kernel/debug/dynamic_debug/control "file *gpu* -p"
-on property:debug.MB.prdebug=0
-    write /sys/kernel/debug/dynamic_debug/control "file *mediatek* -p"
-
 # bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/dumpstate -d -p -B \
         -o /data/data/com.android.shell/files/bugreports/bugreport
@@ -942,20 +905,9 @@ service nvram_daemon /system/bin/nvram_daemon
     group root system radio shell net_bt_stack audio inet
     oneshot
 
-service meta_tst /system/bin/meta_tst
-    class main
-    user radio
-    group system radio shell net_bt_stack audio inet
-    oneshot
-
 service audio-daemon /system/bin/audiocmdservice_atci
     class main
     socket atci-audio stream 660 root system
-    user root
-    disabled
-    oneshot
-
-service md_minilog_util /system/bin/md_minilog_util
     user root
     disabled
     oneshot
@@ -1060,17 +1012,6 @@ service dhcp6c_PD /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cPD.conf" -Df
     disabled
     oneshot
 
-service pppoe_wlan0 /system/bin/launchpppoe
-    user root
-    group radio cache inet misc
-    disabled
-    oneshot
-
-on property:service.pppoe_wlan0.enable=0
-    stop pppoe_wlan0
-
-on property:service.pppoe_wlan0.enable=1
-    start pppoe_wlan0
 # write proc for test sim
     on property:gsm.sim.ril.testsim=0
     write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 0
@@ -1157,12 +1098,6 @@ service bluetoothd /system/bin/bluetoothd -n
 #
 #  Modem related services (Begin)
 #
-service pppd_gprs /system/bin/pppd_dt /dev/ttyACM0 debug noauth refuse-eap usepeerdns nodetach
-    user root
-    group radio cache inet misc
-    disabled
-    oneshot
-
 service agpsd /system/bin/mtk_agpsd
     class main
     socket agpsd stream 660 gps system
