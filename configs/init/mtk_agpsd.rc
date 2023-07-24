@@ -6,17 +6,17 @@ on post-fs-data
     # AGPS
     mkdir /data/agps_supl 0771 gps system
 
-service agpsd /system/bin/mtk_agpsd
-    class main
-    socket agpsd stream 660 gps system
-    socket agpsd2 stream 660 gps inet
-    socket agpsd3 stream 660 gps inet
-    user gps
-    group gps radio inet sdcard_r sdcard_rw misc system
+#service agpsd /system/bin/mtk_agpsd
+#    class main
+#    socket agpsd stream 660 gps system
+#    socket agpsd2 stream 660 gps inet
+#    socket agpsd3 stream 660 gps inet
+#    user gps
+#    group gps radio inet sdcard_r sdcard_rw misc system
 
-service mnld /system/xbin/mnld
-    class main
-    user gps
-    group gps inet misc sdcard_rw sdcard_r media_rw system radio
-    socket mnld stream 660 gps system
+#service mnld /system/xbin/mnld
+#    class main
+#    user gps
+#    group gps inet misc sdcard_rw sdcard_r media_rw system radio
+#    socket mnld stream 660 gps system
 
