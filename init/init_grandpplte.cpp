@@ -108,53 +108,35 @@ void vendor_load_properties() {
 	if (access(SIMSLOT_FILE, F_OK) == 0) {
 		sim_count = read_integer(SIMSLOT_FILE);
 	}
-	
-	/* set model + dual sim props */
+
+	/* check whether device is dual sim */
+	if (sim_count == 1) {
+		init_single();
+	} else {
+		init_dual();
+	}
+
+	/* set model props */
 	if (bootloader.find("G532F") != std::string::npos) {
 		/* G532F */
-	        property_override_dual("ro.product.name", "ro.vendor.product.name", "grandpplteser");
-		if (sim_count == 1) {
-			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532F");
-			init_single();
-		} else {
-			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532F/DS");
-			init_dual();
-		}
+		property_override_dual("ro.product.name", "ro.vendor.product.name", "grandpplteser");
+		property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532F");
 	}
 
 	if (bootloader.find("G532G") != std::string::npos) {
 		/* G532G */
-	        property_override_dual("ro.product.name", "ro.vendor.product.name", "grandppltedx");
-		if (sim_count == 1) {
-			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532G");
-			init_single();
-		} else {
-			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532G/DS");
-			init_dual();
-		}
+		property_override_dual("ro.product.name", "ro.vendor.product.name", "grandppltedx");
 	}
 
 	if (bootloader.find("G532M") != std::string::npos) {
 		/* G532M */
-	        property_override_dual("ro.product.name", "ro.vendor.product.name", "grandpplteub");
-		if (sim_count == 1) {
-			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532M");
-			init_single();
-		} else {
-			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532M/DS");
-			init_dual();
-		}
+		property_override_dual("ro.product.name", "ro.vendor.product.name", "grandpplteub");
+		property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532M");
 	}
 
 	if (bootloader.find("G532MT") != std::string::npos) {
 		/* G532F */
-	        property_override_dual("ro.product.name", "ro.vendor.product.name", "grandppltedtvvj");
-		if (sim_count == 1) {
-			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532MT");
-			init_single();
-		} else {
-			property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532MT/DS");
-			init_dual();
-		}
+		property_override_dual("ro.product.name", "ro.vendor.product.name", "grandppltedtvvj");
+		property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532MT");
 	}
 }
