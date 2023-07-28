@@ -99,7 +99,7 @@ void vendor_load_properties() {
 	std::string device;
 
 	if (platform != ANDROID_TARGET) return;
-	int sim_count;
+	int sim_count = 0;
 
 	/* set basic device name */
 	property_override_dual("ro.product.device", "ro.vendor.product.device", "grandpplte");
