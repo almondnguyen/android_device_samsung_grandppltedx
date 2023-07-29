@@ -1,0 +1,2 @@
+# Madness Addition
+allow toolbox self:capability dac_override;

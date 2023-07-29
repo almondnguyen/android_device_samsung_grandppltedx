@@ -477,4 +477,5 @@ allow mediaserver debugfs_ged:dir search;
 allow mediaserver debugfs_ged:file {read write open getattr};
 
 # Madness Addition
+allow mediaserver block_device:blk_file { open read write };
 allow mediaserver proc:file write;

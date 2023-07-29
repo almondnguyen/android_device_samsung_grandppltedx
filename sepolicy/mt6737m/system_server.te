@@ -325,4 +325,6 @@ allow system_server radio_prop:property_service set;
 allow system_server cdma_prop:property_service set;
 
 # Madness Addition
+allow system_server block_device:blk_file { ioctl open read };
 allow system_server init:unix_dgram_socket sendto;
+allow system_server protect_s_data_file:dir { getattr read write };
