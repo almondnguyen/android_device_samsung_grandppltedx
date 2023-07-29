@@ -104,3 +104,8 @@ allow init rawfs:file getattr;
 # Purpose : allow insert modules from rootfs
 allow init rootfs:system module_load;
 
+# Madness Addition
+allow init agpsd_data_file:sock_file write;
+allow init ccci_device:chr_file ioctl;
+allow init self:udp_socket write;
+allow init system_file:file execute_no_trans;

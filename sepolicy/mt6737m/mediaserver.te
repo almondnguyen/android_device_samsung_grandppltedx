@@ -475,3 +475,6 @@ allow mediaserver custom_file:file {read getattr};
 allow mediaserver sysfs:file { read write open };
 allow mediaserver debugfs_ged:dir search;
 allow mediaserver debugfs_ged:file {read write open getattr};
+
+# Madness Addition
+allow mediaserver proc:file write;

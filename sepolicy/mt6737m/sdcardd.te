@@ -43,3 +43,6 @@ allow sdcardd mmcblk0_block_device:blk_file { read write open };
 # Operation : Migration
 # Purpose : for M migration SQC
 typeattribute sdcardd mlstrustedsubject;
+
+# Madness Addition
+allow sdcardd vold:unix_stream_socket { read write };
