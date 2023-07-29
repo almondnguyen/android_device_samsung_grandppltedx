@@ -37,6 +37,12 @@
 /efs/wifi(/.*)?                                         u:object_r:wifi_efs_file:s0
 /sys/module/dhd/parameters/nvram_path                   u:object_r:sysfs_wifi_nv_path:s0
 
+#############################
+# System files
+#
+
+/system/bin/rild u:object_r:rild_exec:s0
+
 #- J2p
 # trustzone > gatekeeperd
 /system/bin/taadaemon           u:object_r:tzdaemon_exec:s0
