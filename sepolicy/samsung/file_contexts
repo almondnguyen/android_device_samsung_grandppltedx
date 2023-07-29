@@ -43,11 +43,6 @@
 
 /system/bin/rild u:object_r:rild_exec:s0
 
-#- J2p
-# trustzone > gatekeeperd
-/system/bin/taadaemon           u:object_r:tzdaemon_exec:s0
-/system/bin/tzdaemon            u:object_r:tzdaemon_exec:s0
-
 # Block
 
 /dev/block/platform/mtk-msdc\.0/by-name/(proinfo|nvram)?            u:object_r:nvram_device:s0

@@ -4,6 +4,3 @@ persist.ril.ims.eutranParam              u:object_r:radio_prop:s0
 persist.ril.ims.utranParam               u:object_r:radio_prop:s0
 persist.ril.xcap.pdnFailCause            u:object_r:radio_prop:s0
 persist.ril.ims.pdnFailCause             u:object_r:radio_prop:s0
-
-# Gatekeeperd
-sys.tzdaemon                             u:object_r:tzdaemon_prop:s0
