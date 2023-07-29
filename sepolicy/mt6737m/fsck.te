@@ -12,6 +12,3 @@ allow fsck persist_block_device:blk_file rw_file_perms;
 allow fsck nvcfg_block_device:blk_file rw_file_perms;
 allow fsck odm_block_device:blk_file rw_file_perms;
 allow fsck oem_block_device:blk_file rw_file_perms;
-
-# Madness Addition
-allow fsck block_device:blk_file { ioctl open read write };

@@ -5,5 +5,4 @@ allow rild radio_data_file:lnk_file read;
 allow rild radio_prop:property_service set;
 allow rild device:chr_file ioctl;
 allow rild system_data_file:dir { add_name write };
-allow rild system_data_file:file { create setattr write };
 allow rild unlabeled:file { open read };

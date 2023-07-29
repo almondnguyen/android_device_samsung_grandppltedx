@@ -21,6 +21,3 @@ allow tune2fs block_device:dir search;
 
 # Read /proc/swaps.
 allow tune2fs proc:file r_file_perms;
-
-# Madness Addition
-allow tune2fs block_device:blk_file { ioctl open read write };
