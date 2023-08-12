@@ -188,22 +188,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
 	Snap
 
-#-- camera sensor
-CAMERA_SENSOR_TYPE_BACK := "imx219_mipi_raw"
-CAMERA_SENSOR_TYPE_FRONT := "s5k5e3yx_mipi_raw"
-
-CAMERA_SUPPORT_SIZE := 8M
-FRONT_CAMERA_SUPPORT_SIZE := 5M
-
-#-- samsung camera
-BOARD_USE_SAMSUNG_CAMERAFORMAT_YUV420SP := true
-BOARD_USE_SAMSUNG_COLORFORMAT_NV21 := true
-TARGET_HAS_LEGACY_CAMERA_HAL1 := true
-TARGET_NEEDS_LEGACY_CAMERA_HAL1_DYN_NATIVE_HANDLE := true
-
-BOARD_GLOBAL_CFLAGS += -DMETADATA_CAMERA_SOURCE
-TARGET_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_HARDWARE
-
 #-- perm
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
@@ -271,10 +255,6 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 	persist.service.acm.enable=0 \
 	persist.sys.usb.config=mtp,adb \
 	persist.sys.display.clearMotion=0
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    media.stagefright.legacyencoder=true \
-    media.stagefright.less-secure=true
 
 # Misc
 PRODUCT_PACKAGES += \
