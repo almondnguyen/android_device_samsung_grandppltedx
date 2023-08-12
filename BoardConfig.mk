@@ -137,13 +137,10 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.mt6735
 # Move symlinks here
 TARGET_LDPRELOAD += libshim_xlog.so
 LINKER_FORCED_SHIM_LIBS := \
-	/system/bin/mtk_agpsd|mtk_symbols.so \
 	/system/bin/mtk_agpsd|libshim_agpsd.so \
 	/system/lib/libcam_utils.so|libshim_camera.so \
 	/system/lib/libcam_utils.so|mtk_symbols.so \
 	/system/lib/liblog.so|libshim_xlog.so \
-	/system/lib/libui_ext.so|mtk_symbols.so \
-	/system/lib/libgui_ext.so|mtk_symbols.so \
 	/system/lib/audio.primary.mt6737t.so|mtk_symbols.so \
 	/system/bin/thermal|libshim_thermal.so \
 	/system/lib/libMtkOmxVenc.so|mtk_symbols.so
