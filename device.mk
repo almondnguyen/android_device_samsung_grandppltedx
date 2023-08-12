@@ -259,22 +259,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/rootdir/sbin/busybox:root/sbin/busybox
 
-#-- etc/init/
-PRODUCT_COPY_FILES += \
-	$(DEVICE_PATH)/configs/init/audioserver.rc:system/etc/init/audioserver.rc \
-	$(DEVICE_PATH)/configs/init/mediaserver.rc:system/etc/init/mediaserver.rc \
-	$(DEVICE_PATH)/configs/init/mediacodec.rc:system/etc/init/mediacodec.rc \
-	$(DEVICE_PATH)/configs/init/rild.rc:system/etc/init/rild.rc	
-
-#-- custom logging
-BUILD_INCLUDE_CUSTOM_LOG := false
-ifeq ($(BUILD_INCLUDE_CUSTOM_LOG), true)
-PRODUCT_COPY_FILES += \
-	$(DEVICE_PATH)/configs/init/al-cust-logcat.rc:system/etc/init/cust-log.rc \
-	$(DEVICE_PATH)/configs/init/log.sh:system/etc/init/log.sh
-
-endif
-
 #-- default.prop
 ADDITIONAL_DEFAULT_PROPERTIES += \
 	ro.zygote=zygote32 \

@@ -1,8 +1,0 @@
-# almond
-on init
-    start cust-log
-
-service cust-log /system/bin/sh /system/etc/init/log.sh
-    user root
-    disabled
-    oneshot
