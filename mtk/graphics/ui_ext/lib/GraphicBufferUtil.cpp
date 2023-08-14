@@ -17,6 +17,8 @@
 #include <GraphicBufferUtil.h>
 #include <graphics_mtk_defs.h>
 
+#include <math.h>
+
 #define ALIGN_CEIL(x,a) (((x) + (a) - 1L) & ~((a) - 1L))
 #define LOCK_FOR_SW (GRALLOC_USAGE_SW_READ_RARELY | GRALLOC_USAGE_SW_WRITE_RARELY | GRALLOC_USAGE_HW_TEXTURE)
 
