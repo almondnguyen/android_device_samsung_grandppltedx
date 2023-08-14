@@ -120,6 +120,7 @@ TARGET_KERNEL_CONFIG	:= mt6737t-grandpplte_defconfig
 TARGET_PREBUILT_DTB	:= $(DEVICE_PATH)/prebuilt/dt.img
 
 BOARD_KERNEL_CMDLINE	:= bootopt=64S3,32N2,32N2 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE	:= androidboot.fstab_name=fstab.mt6735
 BOARD_KERNEL_BASE	:= 0x3fffc000
 BOARD_KERNEL_PAGESIZE	:= 2048
 BOARD_RAMDISK_OFFSET	:= 0x04004000
