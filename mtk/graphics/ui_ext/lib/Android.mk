@@ -20,7 +20,8 @@ LOCAL_C_INCLUDES := \
 	$(TOP)/external/zlib \
 	$(TOP)/external/skia/src/images \
 	$(TOP)/external/skia/include/core \
-    $(TOP)/external/skia/include/config
+	$(TOP)/external/skia/include/config \
+	$(TOP)/external/skia/include/config/android
 
 LOCAL_SHARED_LIBRARIES := \
 	libpng \
