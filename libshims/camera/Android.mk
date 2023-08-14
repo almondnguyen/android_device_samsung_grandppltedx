@@ -30,6 +30,9 @@ LOCAL_SHARED_LIBRARIES := \
 	libui \
 	libstagefright_foundation
 
+LOCAL_C_INCLUDES := \
+	$(TOP)/frameworks/av/media/ndk/include
+
 LOCAL_MODULE := libshim_mmsdk
 
 LOCAL_MODULE_TAGS := optional
