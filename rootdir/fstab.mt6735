@@ -7,7 +7,7 @@
 
 #                       <src>                                 <mnt_point> <type> <mnt_flags and options> <fs_mgr_flags>
 
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system   /     ext4 ro,errors=panic,block_validity wait
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system   /system     ext4 ro,errors=panic,block_validity wait,first_stage_mount
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata /data       ext4 noatime,nosuid,nodev,noauto_da_alloc,discard,journal_async_commit,errors=panic wait,check,formattable
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata /data       f2fs nosuid,nodev,noatime,rw,inline_xattr wait,check,formattable
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache    /cache      ext4 noatime,nosuid,nodev,noauto_da_alloc,discard,journal_async_commit,errors=panic wait,check,formattable
