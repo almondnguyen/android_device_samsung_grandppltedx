@@ -110,7 +110,6 @@ on post-fs-data
     chown radio system /efs/mc/mc.dat
     chmod 0640 /efs/mc/mc.dat
 
-    mkdir /data/misc/audit 0775 audit system 
     # hatp
     mkdir /data/misc/radio/hatp 0755 radio system
 
@@ -149,9 +148,6 @@ on post-fs-data
     mkdir /efs/drm 0774 drm system
     chown drm system /efs/drm
     chmod 0774 /efs/drm
-
-    # Separate location for storing security policy files on data
-    mkdir /data/security 0710 system system_access
     
     restorecon_recursive -R /efs
     restorecon_recursive -R /carrier
