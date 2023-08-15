@@ -39,7 +39,7 @@ TARGET_NO_BOOTLOADER := true
 # mt6737t
 
 # Platform
-TARGET_INIT_VENDOR_LIB := libinit_grandpplte
+#TARGET_INIT_VENDOR_LIB := libinit_grandpplte
 
 ARCH_ARM_HAVE_TLS_REGISTER := true
 ARCH_ARM_HAVE_VFP := true
