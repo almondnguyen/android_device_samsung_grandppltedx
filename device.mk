@@ -281,14 +281,14 @@ PRODUCT_PACKAGES += \
 	init.rilepdg.rc \
 	init.usb.configfs.rc \
 	init.wifi.rc \
-	init.recovery.mt6735.rc \
 	init.samsung.rc \
 	ueventd.mt6735.rc \
 	init.xlog.rc \
 	log.sh
 
 PRODUCT_COPY_FILES += \
-	$(DEVICE_PATH)/rootdir/fstab.mt6735:$(TARGET_COPY_OUT_RAMDISK)/fstab.mt6735
+	$(DEVICE_PATH)/rootdir/fstab.mt6735:$(TARGET_COPY_OUT_RAMDISK)/fstab.mt6735 \
+	$(DEVICE_PATH)/rootdir/init.recovery.mt6735.rc:$(TARGET_RECOVERY_ROOT_OUT)/init.recovery.mt6735.rc
 
 PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/samsung/grandppltedx/configs/init,$(TARGET_COPY_OUT_VENDOR)/etc/init)
 
