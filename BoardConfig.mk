@@ -109,6 +109,9 @@ BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE	:= ext4
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
+# SAR
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+
 # Kernel
 BOARD_CUSTOM_BOOTIMG := true
 
@@ -120,7 +123,12 @@ TARGET_KERNEL_CONFIG	:= mt6737t-grandpplte_defconfig
 TARGET_PREBUILT_DTB	:= $(DEVICE_PATH)/prebuilt/dt.img
 
 BOARD_KERNEL_CMDLINE += bootopt=64S3,32N2,32N2 androidboot.selinux=permissive
+<<<<<<< HEAD
 BOARD_KERNEL_CMDLINE += androidboot.fstab_name=fstab.mt6735
+=======
+BOARD_KERNEL_CMDLINE += root=/dev/mmcblk0p26 init=/init rootwait ro
+BOARD_KERNEL_CMDLINE += skip_initramfs
+>>>>>>> 6d2a41e7 (grandppltedx: System-as-root bringup)
 BOARD_KERNEL_BASE	:= 0x3fffc000
 BOARD_KERNEL_PAGESIZE	:= 2048
 BOARD_RAMDISK_OFFSET	:= 0x04004000
