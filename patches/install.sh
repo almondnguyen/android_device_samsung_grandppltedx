@@ -6,6 +6,7 @@ devicetree="device/samsung/grandppltedx"
 # ---------------------------------
 
 dirs="\
+ bionic \
  frameworks/av frameworks/base frameworks/native \
  hardware/interfaces \
  system/core system/netd \

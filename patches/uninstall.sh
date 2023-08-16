@@ -2,6 +2,7 @@
 
 rootdirectory="$PWD"
 dirs="\
+ bionic \
  frameworks/av frameworks/base frameworks/native \
  hardware/interfaces \
  system/core system/netd \
