@@ -161,7 +161,6 @@ TARGET_LD_SHIM_LIBS := \
 	/system/lib/liblog.so|libshim_xlog.so \
 	/system/lib/libui_ext.so|libshim_gui.so \
 	/system/lib/libgui_ext.so|libshim_gui.so \
-	/system/lib/libaudio_param_parser.so|libshim_gps.so \
 	/system/lib/audio.primary.mt6737t.so|libshim_audio.so \
 	/system/bin/thermal|libshim_ifc.so \
 	/system/bin/libdpframework.so|libshim_xlog.so
