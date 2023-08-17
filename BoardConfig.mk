@@ -146,6 +146,7 @@ LINKER_FORCED_SHIM_LIBS := \
 	/system/lib/libMtkOmxVenc.so|mtk_symbols.so
 
 # Audio
+USE_CUSTOM_AUDIO_POLICY := 1
 BOARD_USES_MTK_AUDIO := true
 #-- Disable memcpy opt (for audio libraries)
 TARGET_CPU_MEMCPY_OPT_DISABLE := true
