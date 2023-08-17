@@ -52,7 +52,6 @@ PRODUCT_PACKAGES += \
 	libtinymix \
 	libtinyxml
 
-PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,frameworks/av/services/audiopolicy/config,system/etc)
 PRODUCT_COPY_FILES += \
 	frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
 	frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
