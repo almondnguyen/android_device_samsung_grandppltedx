@@ -252,7 +252,7 @@ PRODUCT_PACKAGES += \
 # Lights
 PRODUCT_PACKAGES += \
 	lights.mt6737t \
-	android.hardware.light@2.0-impl-mediatek
+	android.hardware.light@2.0-service.samsung
 
 # Keymaster
 PRODUCT_PACKAGES += android.hardware.keymaster@3.0-impl

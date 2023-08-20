@@ -58,20 +58,11 @@ BOARD_SUPPRESS_SECURE_ERASE := true
 BOARD_NO_SECURE_DISCARD := true
 BOARD_DISABLE_HW_ID_MATCH_CHECK := true
 
-# Liblight
-TARGET_PROVIDES_LIBLIGHT := true
-
 # Gatekeeper
 BOARD_USE_SOFT_GATEKEEPER := true
 
-# Backlight
-BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
-
 # Sensors
 TARGET_NO_SENSOR_PERMISSION_CHECK := true
-
-# Lights
-TARGET_HAS_BACKLIT_KEYS := false
 
 # Charger (borrow from herolte)
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
