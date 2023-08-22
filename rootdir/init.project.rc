@@ -9,19 +9,6 @@ on init
     mkdir /storage/usbotg 0700 root root
 	mkdir /preload 0771 system system
 
-    symlink /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/STEADY /dev/block/steady
-
-on boot
-
-# SSWAP
-    write /proc/sys/vm/swappiness 130
-
-# move to memory card - SRIB
-service extSdUFSVold /system/bin/extSDCardServiceVold
-    class main
-    user system
-    group system mount radio net_bt sdcard_rw shell media media_rw
-
 on post-fs-data
 # Permissions for audio
     chown system radio /sys/class/audio/earjack/select_jack
@@ -130,24 +117,13 @@ on post-fs-data
 #
 
 
-    chmod 0666 /dev/exm0
-
-
-service fuse_usbotg /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/usbotg /storage/usbotg
-    class late_start
-    disabled
-
-#
-# Connectivity related services (Begin)
-#
-
-service wmtLoader /system/bin/wmt_loader
+service wmtLoader /vendor/bin/wmt_loader
     user root
     group root
     class core
     oneshot
 
-service conn_launcher /system/bin/6620_launcher -p /system/etc/firmware/
+service conn_launcher /vendor/bin/6620_launcher -p /vendor/etc/firmware/
     user system
     group system
     class core
@@ -155,7 +131,7 @@ service conn_launcher /system/bin/6620_launcher -p /system/etc/firmware/
 on property:service.wcn.coredump.mode=2
 start stp_dump
 
-service stp_dump /system/bin/stp_dump3
+service stp_dump /vendor/bin/stp_dump3
     user system
     group system
     class core
@@ -166,7 +142,7 @@ service stp_dump /system/bin/stp_dump3
 # Connectivity related services (End)
 #
 
-service prepare_param /system/bin/prepare_param.sh /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/PARAM
+service prepare_param /vendor/bin/prepare_param.sh /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/PARAM
     class core
     user root
     group root

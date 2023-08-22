@@ -20,13 +20,13 @@ on post-fs-data
     chown radio system /efs
     chmod 0771 /efs
 
-service ccci_fsd /system/bin/ccci_fsd 0
+service ccci_fsd /vendor/bin/ccci_fsd 0
     user system
     group radio system bluetooth
     class core
     oneshot
 
-service ccci_mdinit /system/bin/ccci_mdinit 0
+service ccci_mdinit /vendor/bin/ccci_mdinit 0
     user system
     group radio system
     class core

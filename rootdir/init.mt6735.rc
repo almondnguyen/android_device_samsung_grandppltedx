@@ -2,20 +2,16 @@
 
 # samsung init forked out
 import /init.samsung.rc
-import /init.rilcommon.rc
 
 # normal
 import init.project.rc
 import /FWUpgradeInit.rc
 import init.xlog.rc
-import init.aee.rc
 import init.fon.rc
 import init.mal.rc
 import init.wfca.rc
 import init.epdg.rc
-#import init.trustonic.rc
 import init.common_svc.rc
-import init.emdlogger1.rc
 
 # init.modem.rc must be the LAST rc file because vold.post_fs_data_done is set in it
 import init.modem.rc
@@ -617,10 +613,6 @@ on post-fs-data
     # secure memory
     chown system system /proc/secmem0
 
-    # mcDriverDaemon
-    mkdir /data/app/mcRegistry 0775 system system
-    mkdir /data/app/mcRegistry/TbStorage 0775 system system
-
     # Recycle stuffs
     exec /system/bin/rm -f /cache/.ipoh.img
     
@@ -862,13 +854,11 @@ on property:sys.boot_completed=1
     write /proc/hps/timer_interval 30
 
 on property:vold.decrypt=trigger_restart_min_framework
-    start msensord
     start permission_check
     start stp_dump
 
 on property:vold.decrypt=trigger_restart_framework
     start nvram_daemon
-    start msensord
     start permission_check
 
 on property:vold.decrypt=trigger_shutdown_framework
@@ -893,10 +883,10 @@ service bugreport /system/bin/dumpstate -d -p -B \
     oneshot
     keycodes 114 115 116
 
-service netdiag /system/bin/netdiag
+service netdiag /vendor/bin/netdiag
     class main
 
-service pq /system/bin/pq
+service pq /vendor/bin/pq
     class core
     user system
     group system graphics
@@ -918,60 +908,60 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     disabled
     oneshot
 
-service dhcpcd_bt-pan /system/bin/dhcpcd -BK -dd
+service dhcpcd_bt-pan /vendor/bin/dhcpcd -BK -dd
     class main
     user root
     group net_admin net_raw
     disabled
     oneshot
 
-service dhcpcd_wlan0 /system/bin/dhcpcd -BK -dd
+service dhcpcd_wlan0 /vendor/bin/dhcpcd -BK -dd
     class main
     user root
     group net_admin net_raw
     disabled
     oneshot
 
-service dhcpcd_p2p /system/bin/dhcpcd -BK -dd
+service dhcpcd_p2p /vendor/bin/dhcpcd -BK -dd
     class main
     user root
     group net_admin net_raw
     disabled
     oneshot
 
-service iprenew_wlan0 /system/bin/dhcpcd -n
+service iprenew_wlan0 /vendor/bin/dhcpcd -n
     class main
     user dhcp
     group net_admin net_raw
     disabled
     oneshot
 
-service iprenew_p2p /system/bin/dhcpcd -n
+service iprenew_p2p /vendor/bin/dhcpcd -n
     class main
     user dhcp
     group net_admin net_raw
     disabled
     oneshot
 
-service dhcp_inform /system/bin/dhcpcd -s -BK -A
+service dhcp_inform /vendor/bin/dhcpcd -s -BK -A
     class main
     user root
     group system radio dhcp net_admin net_raw
     disabled
     oneshot
 
-service dhcpv6_inform /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cSIP.conf" -Dfi
+service dhcpv6_inform /vendor/bin/dhcp6c -c "/vendor/etc/wide-dhcpv6/dhcp6cSIP.conf" -Dfi
     class main
     user root
     group system radio dhcp net_admin net_raw
     disabled
     oneshot
 
-service dhcp6cDNS_wlan0 /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cDNS.conf" -Df wlan0
+service dhcp6cDNS_wlan0 /vendor/bin/dhcp6c -c "/vendor/etc/wide-dhcpv6/dhcp6cDNS.conf" -Df wlan0
     disabled
     oneshot
 
-service dhcp6c_wlan0 /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6c.conf" -Df wlan0
+service dhcp6c_wlan0 /vendor/bin/dhcp6c -c "/vendor/etc/wide-dhcpv6/dhcp6c.conf" -Df wlan0
     disabled
     oneshot
 
@@ -981,7 +971,7 @@ on property:service.dhcp6c_wlan0.enable=0
 on property:service.dhcp6c_wlan0.enable=1
     start dhcp6c_wlan0
 
-service dhcp6c_PD /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cPD.conf" -Df
+service dhcp6c_PD /vendor/bin/dhcp6c -c "/vendor/etc/wide-dhcpv6/dhcp6cPD.conf" -Df
     disabled
     oneshot
 
@@ -1021,19 +1011,19 @@ service dhcp6c_PD /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cPD.conf" -Df
 
 # start for WiFi MFG (TestMode)
 
-service mfgloader /system/bin/mfgloader
+service mfgloader /vendor/bin/mfgloader
     class main
     disabled
     oneshot
 
-service wlandutservice /system/bin/wlandutservice
+service wlandutservice /vendor/bin/wlandutservice
     class main
     user system
     group wifi net_raw net_admin system inet
     disabled
     oneshot
 
-service macloader /system/bin/macloader
+service macloader /vendor/bin/macloader
     class main
     oneshot
 
@@ -1044,63 +1034,11 @@ on property:init.svc.macloader=stopped
     chmod 0664 /data/.rev
 # end of WiFi MFG (TestMode)
 
-#
-#  External Modme control related services
-#
-
-#
-#  Modem related services (Begin)
-#
-
-service mdlogger /system/bin/mdlogger
-    class main
-    user shell
-    group shell system radio sdcard_rw inet sdcard_r media_rw
-    disabled
-    oneshot
-
-service shutdown /system/bin/shutdown
-    user root
-    group root
-    disabled
-
 # GuiExt Server init
-service guiext-server /system/bin/guiext-server
+service guiext-server /vendor/bin/guiext-server
     class main
     user system
     group system graphics
-
-###########add for 3Gdongle
-
-on boot
-#
-# change the right of ip-up ip-down scripts(begin)
-#
-chmod 777 /etc/ppp/ip-up
-chmod 777 /etc/ppp/ip-down
-#
-# change the right of ip-up ip-down scripts(end)
-#
-
-#
-# change the right of ip-up-ppp0 ip-down-ppp0 scripts(begin)
-#
-chmod 777 /etc/ppp/ip-up-ppp0
-chmod 777 /etc/ppp/ip-down-ppp0
-#
-# change the right of ip-up ip-down scripts(end)
-#
-
-#set the property of persiste.radio.reset_on_switch
-setprop persist.radio.reset_on_switch true
-#end
-
-#set the property of rild.mark_switchuser
-setprop rild.mark_switchuser 0
-#end
-
-chown root /system/bin/pppd
-chmod 4755 /system/bin/pppd
 
 # LPM
 on property:ro.bootmode=charger

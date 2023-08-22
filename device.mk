@@ -267,30 +267,22 @@ PRODUCT_PACKAGES += \
 
 # Rootdir
 PRODUCT_PACKAGES += \
-	enableswap.sh \
 	fstab.mt6735 \
 	init.modem.rc \
 	init.mt6735.rc \
 	init.mt6735.usb.rc \
 	init.project.rc \
-	init.rilcommon.rc \
-	init.rilchip.rc \
-	init.rilepdg.rc \
-	init.emdlogger1.rc \
-	init.usb.configfs.rc \
 	init.wifi.rc \
 	init.recovery.mt6735.rc \
 	init.samsung.rc \
 	ueventd.mt6735.rc \
-	init.xlog.rc \
-	log.sh
+	init.xlog.rc
 
 PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/samsung/grandppltedx/configs/init,$(TARGET_COPY_OUT_VENDOR)/etc/init)
 
 #-- sbin
 
 PRODUCT_COPY_FILES += \
-	$(DEVICE_PATH)/rootdir/sbin/sswap:root/sbin/sswap \
 	$(DEVICE_PATH)/rootdir/sbin/busybox:root/sbin/busybox
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
