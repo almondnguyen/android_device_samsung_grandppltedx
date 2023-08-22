@@ -2,17 +2,17 @@ on post-fs-data
     # Thermal
     mkdir /data/.tp/ 0775 system system 
 
-service thermal_manager /vendor/bin/thermal_manager
+service vendor.thermal_manager /vendor/bin/thermal_manager
     class main
     user root
     oneshot
 
-service thermal /vendor/bin/thermal
+service vendor.thermal /vendor/bin/thermal
     class main
     user system
     group system
 
-service thermald /vendor/bin/thermald
+service vendor.thermald /vendor/bin/thermald
     class main
     user system
     group system

@@ -117,21 +117,21 @@ on post-fs-data
 #
 
 
-service wmtLoader /vendor/bin/wmt_loader
+service vendor.wmtLoader /vendor/bin/wmt_loader
     user root
     group root
     class core
     oneshot
 
-service conn_launcher /vendor/bin/6620_launcher -p /vendor/etc/firmware/
+service vendor.conn_launcher /vendor/bin/6620_launcher -p /vendor/etc/firmware/
     user system
     group system
     class core
 
 on property:service.wcn.coredump.mode=2
-start stp_dump
+start vendor.stp_dump
 
-service stp_dump /vendor/bin/stp_dump3
+service vendor.stp_dump /vendor/bin/stp_dump3
     user system
     group system
     class core
@@ -142,7 +142,7 @@ service stp_dump /vendor/bin/stp_dump3
 # Connectivity related services (End)
 #
 
-service prepare_param /vendor/bin/prepare_param.sh /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/PARAM
+service vendor.prepare_param /vendor/bin/prepare_param.sh /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/PARAM
     class core
     user root
     group root

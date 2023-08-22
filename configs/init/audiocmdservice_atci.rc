@@ -1,4 +1,4 @@
-service audio-daemon /vendor/bin/audiocmdservice_atci
+service vendor.audio-daemon /vendor/bin/audiocmdservice_atci
     class main
     socket atci-audio stream 660 root system
     user root

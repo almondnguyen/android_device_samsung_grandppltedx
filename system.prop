@@ -26,8 +26,8 @@ ro.mediatek.version.release=alps-mp-m1.mp8.tc10sp
 ro.mediatek.version.sdk=4
 
 ## RIL
-rild.libpath=/vendor/lib/libsec-ril.so
-rild.libpath2=/vendor/lib/libsec-ril-dsds.so
+vendor.rild.libpath=/vendor/lib/libsec-ril.so
+vendor.rild.libpath2=/vendor/lib/libsec-ril-dsds.so
 rild.libargs=-d /dev/ttyC0
 
 ro.telephony.ril.socket_name=rild,rild2

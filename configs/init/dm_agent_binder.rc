@@ -1,4 +1,4 @@
-service DMAgent /vendor/bin/dm_agent_binder
+service vendor.DMAgent /vendor/bin/dm_agent_binder
     class main
     user system
     group system cache

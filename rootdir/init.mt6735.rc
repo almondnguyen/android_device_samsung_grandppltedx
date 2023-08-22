@@ -642,7 +642,7 @@ on boot
     write /sys/block/mmcblk0/queue/scheduler noop
 
     # xlog
-    start xlogboot
+    start vendor.xlogboot
 
     write /proc/sys/vm/dirty_writeback_centisecs 300
     chmod 0660 /sys/power/autosleep
@@ -855,14 +855,14 @@ on property:sys.boot_completed=1
 
 on property:vold.decrypt=trigger_restart_min_framework
     start permission_check
-    start stp_dump
+    start vendor.stp_dump
 
 on property:vold.decrypt=trigger_restart_framework
-    start nvram_daemon
+    start vendor.nvram_daemon
     start permission_check
 
 on property:vold.decrypt=trigger_shutdown_framework
-    stop stp_dump
+    stop vendor.stp_dump
 
 ## mtk printk uart controller
 on property:persist.uartconsole.enable=1
@@ -883,10 +883,10 @@ service bugreport /system/bin/dumpstate -d -p -B \
     oneshot
     keycodes 114 115 116
 
-service netdiag /vendor/bin/netdiag
+service vendor.netdiag /vendor/bin/netdiag
     class main
 
-service pq /vendor/bin/pq
+service vendor.pq /vendor/bin/pq
     class core
     user system
     group system graphics
@@ -908,70 +908,70 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     disabled
     oneshot
 
-service dhcpcd_bt-pan /vendor/bin/dhcpcd -BK -dd
+service vendor.dhcpcd_bt-pan /vendor/bin/dhcpcd -BK -dd
     class main
     user root
     group net_admin net_raw
     disabled
     oneshot
 
-service dhcpcd_wlan0 /vendor/bin/dhcpcd -BK -dd
+service vendor.dhcpcd_wlan0 /vendor/bin/dhcpcd -BK -dd
     class main
     user root
     group net_admin net_raw
     disabled
     oneshot
 
-service dhcpcd_p2p /vendor/bin/dhcpcd -BK -dd
+service vendor.dhcpcd_p2p /vendor/bin/dhcpcd -BK -dd
     class main
     user root
     group net_admin net_raw
     disabled
     oneshot
 
-service iprenew_wlan0 /vendor/bin/dhcpcd -n
+service vendor.iprenew_wlan0 /vendor/bin/dhcpcd -n
     class main
     user dhcp
     group net_admin net_raw
     disabled
     oneshot
 
-service iprenew_p2p /vendor/bin/dhcpcd -n
+service vendor.iprenew_p2p /vendor/bin/dhcpcd -n
     class main
     user dhcp
     group net_admin net_raw
     disabled
     oneshot
 
-service dhcp_inform /vendor/bin/dhcpcd -s -BK -A
+service vendor.dhcp_inform /vendor/bin/dhcpcd -s -BK -A
     class main
     user root
     group system radio dhcp net_admin net_raw
     disabled
     oneshot
 
-service dhcpv6_inform /vendor/bin/dhcp6c -c "/vendor/etc/wide-dhcpv6/dhcp6cSIP.conf" -Dfi
+service vendor.dhcpv6_inform /vendor/bin/dhcp6c -c "/vendor/etc/wide-dhcpv6/dhcp6cSIP.conf" -Dfi
     class main
     user root
     group system radio dhcp net_admin net_raw
     disabled
     oneshot
 
-service dhcp6cDNS_wlan0 /vendor/bin/dhcp6c -c "/vendor/etc/wide-dhcpv6/dhcp6cDNS.conf" -Df wlan0
+service vendor.dhcp6cDNS_wlan0 /vendor/bin/dhcp6c -c "/vendor/etc/wide-dhcpv6/dhcp6cDNS.conf" -Df wlan0
     disabled
     oneshot
 
-service dhcp6c_wlan0 /vendor/bin/dhcp6c -c "/vendor/etc/wide-dhcpv6/dhcp6c.conf" -Df wlan0
+service vendor.dhcp6c_wlan0 /vendor/bin/dhcp6c -c "/vendor/etc/wide-dhcpv6/dhcp6c.conf" -Df wlan0
     disabled
     oneshot
 
 on property:service.dhcp6c_wlan0.enable=0
-    stop dhcp6c_wlan0
+    stop vendor.dhcp6c_wlan0
 
 on property:service.dhcp6c_wlan0.enable=1
-    start dhcp6c_wlan0
+    start vendor.dhcp6c_wlan0
 
-service dhcp6c_PD /vendor/bin/dhcp6c -c "/vendor/etc/wide-dhcpv6/dhcp6cPD.conf" -Df
+service vendor.dhcp6c_PD /vendor/bin/dhcp6c -c "/vendor/etc/wide-dhcpv6/dhcp6cPD.conf" -Df
     disabled
     oneshot
 
@@ -1011,19 +1011,19 @@ service dhcp6c_PD /vendor/bin/dhcp6c -c "/vendor/etc/wide-dhcpv6/dhcp6cPD.conf" 
 
 # start for WiFi MFG (TestMode)
 
-service mfgloader /vendor/bin/mfgloader
+service vendor.mfgloader /vendor/bin/mfgloader
     class main
     disabled
     oneshot
 
-service wlandutservice /vendor/bin/wlandutservice
+service vendor.wlandutservice /vendor/bin/wlandutservice
     class main
     user system
     group wifi net_raw net_admin system inet
     disabled
     oneshot
 
-service macloader /vendor/bin/macloader
+service vendor.macloader /vendor/bin/macloader
     class main
     oneshot
 
@@ -1035,7 +1035,7 @@ on property:init.svc.macloader=stopped
 # end of WiFi MFG (TestMode)
 
 # GuiExt Server init
-service guiext-server /vendor/bin/guiext-server
+service vendor.guiext-server /vendor/bin/guiext-server
     class main
     user system
     group system graphics
@@ -1052,6 +1052,6 @@ on property:ro.bootmode=charger
 on property:ro.bootmode=charger
     class_start charger
 
-service charger /charger
+service vendor.charger /charger
     class charger
     seclabel u:r:charger:s0

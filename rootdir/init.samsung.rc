@@ -93,7 +93,7 @@ on init
     chmod 0600 /proc/reset_reason
 
 on post-fs
-    start sec-sh
+    start vendor.sec-sh
 
 on post-fs-data
     
@@ -461,7 +461,7 @@ on charger
 ## Daemon processes to be run by init.
 ##
 # deferred initcall
-service sec-sh /vendor/etc/init.sec.boot.sh
+service vendor.sec-sh /vendor/etc/init.sec.boot.sh
     class core
     user root
     oneshot
@@ -477,12 +477,12 @@ service drm /system/bin/drmserver
 # ]
 
 # for Bluetooth Tethering
-service dhcpcd_bt-pan /vendor/bin/dhcpcd -ABKL
+service vendor.dhcpcd_bt-pan /vendor/bin/dhcpcd -ABKL
     class main
     disabled
     oneshot
 
-service iprenew_bt-pan /vendor/bin/dhcpcd -n
+service vendor.iprenew_bt-pan /vendor/bin/dhcpcd -n
     class late_start
     disabled
     oneshot

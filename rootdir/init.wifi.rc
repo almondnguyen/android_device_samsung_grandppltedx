@@ -53,46 +53,46 @@ on boot
     # Pcie WiFi T-put setting
 	write /sys/class/net/wlan0/queues/rx-0/rps_cpus 00
 
-service dhcpcd_wlan0 /vendor/bin/dhcpcd -ABKL
+service vendor.dhcpcd_wlan0 /vendor/bin/dhcpcd -ABKL
     class main
     disabled
     oneshot
 
-service dhcpcd_ibss /vendor/bin/dhcpcd -BKM
+service vendor.dhcpcd_ibss /vendor/bin/dhcpcd -BKM
     class late_start
     disabled
     oneshot
 
-service dhcpcd_p2p /vendor/bin/dhcpcd -aABKL
+service vendor.dhcpcd_p2p /vendor/bin/dhcpcd -aABKL
     class main
     disabled
     oneshot
 
-service iprenew_wlan0 /vendor/bin/dhcpcd -n
+service vendor.iprenew_wlan0 /vendor/bin/dhcpcd -n
     class main
     disabled
     oneshot
 
-service iprenew_p2p /vendor/bin/dhcpcd -n
+service vendor.iprenew_p2p /vendor/bin/dhcpcd -n
     class main
     disabled
     oneshot
 
 # tiburona
 # start for WiFi MFG (TestMode)
-service mfgloader /vendor/bin/mfgloader
+service vendor.mfgloader /vendor/bin/mfgloader
     class main
     disabled
     oneshot
 
-service wlandutservice /vendor/bin/wlandutservice
+service vendor.wlandutservice /vendor/bin/wlandutservice
     class main
     user system
     group wifi net_raw net_admin system inet
     disabled
     oneshot
 
-service macloader /vendor/bin/macloader
+service vendor.macloader /vendor/bin/macloader
     class main
     disabled
     oneshot

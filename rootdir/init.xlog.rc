@@ -1,18 +1,18 @@
 #
 # XLOG service configuration
 #
-service xlogboot /vendor/bin/xlog boot
+service vendor.xlogboot /vendor/bin/xlog boot
     user root
     oneshot
     disabled
 
-service xlogdebugchanged /vendor/bin/xlog debug-changed
+service vendor.xlogdebugchanged /vendor/bin/xlog debug-changed
     user root
     oneshot
     disabled
 
 on property:init.svc.adbd=running
-    start xlogdebugchanged
+    start vendor.xlogdebugchanged
 
 on property:init.svc.adbd=stopped
-    start xlogdebugchanged
+    start vendor.xlogdebugchanged

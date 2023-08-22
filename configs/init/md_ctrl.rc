@@ -1,21 +1,21 @@
 on property:vold.decrypt=trigger_reset_main
-    start stop_modem
+    start vendor.stop_modem
 
 on property:vold.decrypt=trigger_restart_min_framework
-    start start_modem
+    start vendor.start_modem
 
 on property:vold.decrypt=trigger_restart_framework
-    start start_modem
+    start vendor.start_modem
 
 on property:vold.decrypt=trigger_shutdown_framework
-    start stop_modem
+    start vendor.stop_modem
 
-service stop_modem /vendor/bin/md_ctrl 0
+service vendor.stop_modem /vendor/bin/md_ctrl 0
     class main
     disabled
     oneshot
 
-service start_modem /vendor/bin/md_ctrl 1
+service vendor.start_modem /vendor/bin/md_ctrl 1
     class main
     disabled
     oneshot

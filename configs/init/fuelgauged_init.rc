@@ -1,4 +1,4 @@
-service fuelgauged /vendor/bin/fuelgauged
+service vendor.fuelgauged /vendor/bin/fuelgauged
     class main
     user system
     group system

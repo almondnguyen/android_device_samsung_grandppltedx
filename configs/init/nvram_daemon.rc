@@ -1,13 +1,13 @@
 #al: a dum-dum way to get a lot more permission for the nvram stuff
 #group system
 
-service nvram_daemon /vendor/bin/nvram_daemon
+service vendor.nvram_daemon /vendor/bin/nvram_daemon
     class main
     user root
     group root system radio shell bluetooth audio inet
     oneshot
 
-service NvRAMAgent /vendor/bin/nvram_agent_binder
+service vendor.NvRAMAgent /vendor/bin/nvram_agent_binder
     class main
     user system
     group system

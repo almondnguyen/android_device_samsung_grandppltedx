@@ -4,13 +4,13 @@
 # This is a common source of Android security bugs.
 #
 
-service ril-daemon /vendor/bin/hw/rild -l ${rild.libpath}
+service vendor.ril-daemon /vendor/bin/hw/rild -l ${vendor.rild.libpath}
     class main
     user radio
     group radio cache inet misc audio sdcard_r sdcard_rw log vpn system readproc wakelock oem_5432
     capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW SYS_ADMIN CHOWN DAC_READ_SEARCH
 
-service ril-daemon1 /vendor/bin/hw/rild -c 2 -l ${rild.libpath2}
+service vendor.ril-daemon1 /vendor/bin/hw/rild -c 2 -l ${vendor.rild.libpath2}
     class main
     user radio
     group radio cache inet misc audio sdcard_r sdcard_rw log vpn system readproc wakelock oem_5432
@@ -35,5 +35,5 @@ on post-fs-data
 
 on property:apn.hack.done=1
     # restart RIL <--> modem stack to account for new locations
-    restart ril-daemon
-    restart ril-daemon1
+    restart vendor.ril-daemon
+    restart vendor.ril-daemon1
