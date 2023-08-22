@@ -31,9 +31,9 @@ on post-fs-data
     restorecon /data/data/com.android.providers.telephony/databases
     restorecon /data/data/com.android.providers.telephony/shared_prefs
 
-on property:sys.boot_completed=1
-    # restart RIL <--> modem stack to account for new locations
-    restart ril-daemon1
+    setprop apn.hack.done 1
 
-on property:init.svc.ril-daemon1=restarting
+on property:apn.hack.done=1
+    # restart RIL <--> modem stack to account for new locations
     restart ril-daemon
+    restart ril-daemon1
