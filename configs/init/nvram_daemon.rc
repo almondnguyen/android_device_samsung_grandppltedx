@@ -12,3 +12,5 @@ service vendor.NvRAMAgent /vendor/bin/nvram_agent_binder
     user system
     group system
 
+on property:service.nvram_init=Ready
+    setprop vendor.service.nvram_init Ready
