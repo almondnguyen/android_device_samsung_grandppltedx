@@ -141,14 +141,6 @@ TARGET_NEEDS_NETD_DIRECT_CONNECT_RULE := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.mt6735
 
-# Move symlinks here
-TARGET_LD_SHIM_LIBS := \
-	/system/vendor/bin/mtk_agpsd|libshim_gps.so \
-	/system/vendor/bin/mtk_agpsd|libboringssl-compat.so \
-	/system/lib/liblog.so|/system/vendor/lib/libshim_xlog.so \
-
-LD_PRELOADS += mtk_symbols.so
-
 # Audio
 BOARD_USES_MTK_AUDIO := true
 USE_XML_AUDIO_POLICY_CONF := 1

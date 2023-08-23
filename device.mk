@@ -37,7 +37,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	libgui_ext \
 	libui_ext \
-	libshim_gui \
 	android.hardware.graphics.allocator@2.0-impl \
 	android.hardware.graphics.allocator@2.0-service \
 	android.hardware.graphics.mapper@2.0-impl \
@@ -154,7 +153,6 @@ SIM_COUNT := 2
 
 PRODUCT_PACKAGES += \
 	libsecril-client \
-	libsecril-shim \
 	libxml2 \
 	libprotobuf-cpp-full \
 	SamsungStk
@@ -164,8 +162,6 @@ PRODUCT_COPY_FILES += \
 
 # shim / symbols
 PRODUCT_PACKAGES += \
-	libboringssl-compat \
-	libshim_gps \
 	libshim_xlog
 
 # Platform
