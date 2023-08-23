@@ -143,18 +143,16 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.mt6735
 
 # Move symlinks here
 TARGET_LD_SHIM_LIBS := \
-	/system/bin/mtk_agpsd|libshim_gps.so \
-	/system/bin/mtk_agpsd|libboringssl-compat.so \
-	/system/lib/libcam.utils.sensorlistener.so|libandroid.so \
-	/system/lib/libcam_utils.so|libshim_camera.so \
-	/system/lib/libcam_utils.so|libshim_gui.so \
-	/system/lib/libmmsdkservice.feature.so|libshim_mmsdk.so \
-	/system/lib/liblog.so|libshim_xlog.so \
-	/system/lib/libui_ext.so|libshim_gui.so \
-	/system/lib/libgui_ext.so|libshim_gui.so \
-	/system/lib/audio.primary.mt6737t.so|libshim_audio.so \
-	/system/bin/thermal|libshim_ifc.so \
-	/system/bin/libdpframework.so|libshim_xlog.so
+	/system/vendor/bin/mtk_agpsd|libshim_gps.so \
+	/system/vendor/bin/mtk_agpsd|libboringssl-compat.so \
+	/system/vendor/lib/libcam.utils.sensorlistener.so|libandroid.so \
+	/system/vendor/lib/libcam_utils.so|libshim_camera.so \
+	/system/vendor/lib/libcam_utils.so|libshim_gui.so \
+	/system/vendor/lib/libmmsdkservice.feature.so|libshim_mmsdk.so \
+	/system/lib/liblog.so|/system/vendor/lib/libshim_xlog.so \
+	/system/vendor/lib/hw/audio.primary.mt6737t.so|libshim_audio.so \
+	/system/vendor/bin/thermal|libshim_ifc.so \
+	/system/vendor/lib/libdpframework.so|/system/vendor/lib/libshim_xlog.so
 
 LD_PRELOADS += mtk_symbols.so
 
