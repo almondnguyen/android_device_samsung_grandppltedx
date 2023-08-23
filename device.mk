@@ -166,13 +166,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
 	libboringssl-compat \
 	libshim_gps \
-	libshim_camera \
-	libshim_nv21e_camera \
-	libshim_vt \
-	libshim_xlog \
-	libshim_audio \
-	libshim_ifc \
-	libshim_mmsdk
+	libshim_xlog
 
 # Platform
 PRODUCT_PACKAGES += \
