@@ -8,6 +8,9 @@
 DEVICE_PATH := device/samsung/grandppltedx
 VENDOR_PATH := vendor/samsung/grandppltedx
 
+# Properties
+-include $(DEVICE_PATH)/vendor_prop.mk
+
 BLOCK_BASED_OTA := true
 
 # Device is a phone
@@ -42,9 +45,6 @@ PRODUCT_PACKAGES += \
 	android.hardware.graphics.allocator@2.0-service \
 	android.hardware.graphics.mapper@2.0-impl \
 	android.hardware.graphics.composer@2.1-impl
-
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.surface_flinger.max_frame_buffer_acquired_buffers=3
 
 # Configs
 #-- Audio
@@ -141,9 +141,6 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/wifi/wpa_supplicant.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant.conf \
 	$(DEVICE_PATH)/configs/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
 	$(DEVICE_PATH)/configs/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf
-
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.kernel.android.checkjni=0
 
 #-- Carrier
 PRODUCT_COPY_FILES += \
