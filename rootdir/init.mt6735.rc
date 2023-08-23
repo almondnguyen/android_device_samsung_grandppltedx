@@ -5,13 +5,7 @@ import /init.samsung.rc
 
 # normal
 import init.project.rc
-import /FWUpgradeInit.rc
 import init.xlog.rc
-import init.fon.rc
-import init.mal.rc
-import init.wfca.rc
-import init.epdg.rc
-import init.common_svc.rc
 
 # init.modem.rc must be the LAST rc file because vold.post_fs_data_done is set in it
 import init.modem.rc
@@ -868,21 +862,6 @@ on property:vold.decrypt=trigger_shutdown_framework
 on property:persist.uartconsole.enable=1
     write /proc/mtprintk 1
 
-# MTK PR_DEBUG SWITCH
-on property:debug.MB.prdebug=1
-    write /sys/kernel/debug/dynamic_debug/control "file *mediatek* +p"
-    write /sys/kernel/debug/dynamic_debug/control "file *gpu* -p"
-on property:debug.MB.prdebug=0
-    write /sys/kernel/debug/dynamic_debug/control "file *mediatek* -p"
-
-# bugreport is triggered by holding down volume down, volume up and power
-service bugreport /system/bin/dumpstate -d -p -B \
-        -o /data/data/com.android.shell/files/bugreports/bugreport
-    class main
-    disabled
-    oneshot
-    keycodes 114 115 116
-
 service vendor.netdiag /vendor/bin/netdiag
     class main
 
@@ -1010,7 +989,6 @@ service vendor.dhcp6c_PD /vendor/bin/dhcp6c -c "/vendor/etc/wide-dhcpv6/dhcp6cPD
     write /proc/sys/net/ipv4/tcp_early_retrans 0
 
 # start for WiFi MFG (TestMode)
-
 service vendor.mfgloader /vendor/bin/mfgloader
     class main
     disabled
@@ -1046,7 +1024,6 @@ on property:ro.bootmode=charger
 
 on property:ro.bootmode=charger
     wait /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/EFS
-    check_fs /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/EFS ext4
     mount ext4 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/EFS /efs nosuid nodev noatime noauto_da_alloc,discard,journal_async_commit
 
 on property:ro.bootmode=charger

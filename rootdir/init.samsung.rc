@@ -125,7 +125,6 @@ on post-fs-data
     chown system system /efs/drm/h2k
 
     # icd
-    check_icd
     chown system system /dev/icd
     chmod 0644 /dev/icd
     chown system system /dev/icdr
@@ -465,25 +464,3 @@ service vendor.sec-sh /vendor/etc/init.sec.boot.sh
     class core
     user root
     oneshot
-
-service drm /system/bin/drmserver
-    class main
-    user drm
-# [ SEC_MM_DRM
-# fix
-    group system drm inet drmrpc radio dpgp
-# org
-#    group drm system inet drmrpc
-# ]
-
-# for Bluetooth Tethering
-service vendor.dhcpcd_bt-pan /vendor/bin/dhcpcd -ABKL
-    class main
-    disabled
-    oneshot
-
-service vendor.iprenew_bt-pan /vendor/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-# end of BT
