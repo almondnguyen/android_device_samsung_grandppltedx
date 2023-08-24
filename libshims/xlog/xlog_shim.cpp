@@ -1,10 +1,11 @@
 #define LOG_TAG "xlog"
 
 #include <log/log.h>
-#include <cutils/log.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
+#include <stdio.h>
+#include <unistd.h>
 
 #define XLOG_DEVICE "/proc/xlog/setfil"
 
