@@ -33,6 +33,12 @@ LOCAL_C_INCLUDES += \
 	$(call include-path-for, libhardware_legacy)/hardware_legacy \
 	external/wpa_supplicant_8/src/drivers
 
+LOCAL_SHARED_LIBRARIES := \
+    libutils \
+    libcutils \
+    liblog \
+    libhardware
+
 LOCAL_SRC_FILES := \
 	wifi_hal.cpp \
 	rtt.cpp \

@@ -10,6 +10,8 @@
 #include <linux/errqueue.h>
 #include <errno.h>
 #include <string.h>
+#include <stdio.h>
+#include <unistd.h>
 
 #include <linux/pkt_sched.h>
 #include <netlink/object-api.h>
