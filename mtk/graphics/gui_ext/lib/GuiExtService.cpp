@@ -8,7 +8,6 @@
 #include <cutils/log.h>
 #include <cutils/properties.h>
 #include <utils/SortedVector.h>
-#include <binder/PermissionCache.h>
 
 //#include <android/native_window.h>
 #include <gui/ISurfaceComposer.h>
@@ -94,7 +93,7 @@ status_t GuiExtService::dump(int fd, const Vector<String16>& /*args*/)
 {
     String8 result;
 
-    if (!PermissionCache::checkCallingPermission(sDump)) {
+    if (checkCallingPermission(sDump) == false) {
         result.appendFormat(
                 "Permission Denial: can't dump SurfaceFlinger from pid=%d, uid=%d\n",
                 IPCThreadState::self()->getCallingPid(),
