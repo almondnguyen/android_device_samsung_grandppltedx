@@ -27,7 +27,7 @@ LOCAL_SHARED_LIBRARIES := \
     libbinder \
     libhardware \
     libhardware_legacy \
-    libgui \
+    libgui_vendor \
     liblog \
     libui \
     libdl \

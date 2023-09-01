@@ -31,6 +31,7 @@ PRODUCT_AAPT_PREBUILT_DPI := hdpi
 $(call inherit-product, frameworks/native/build/phone-hdpi-dalvik-heap.mk)
 
 PRODUCT_PACKAGES += \
+	libgui_vendor \
 	libion
 
 # Graphics
