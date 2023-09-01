@@ -1027,8 +1027,9 @@ on property:ro.bootmode=charger
     mount ext4 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/EFS /efs nosuid nodev noatime noauto_da_alloc,discard,journal_async_commit
 
 on property:ro.bootmode=charger
-    class_start charger
+    class_start sec-charger
 
-service vendor.charger /charger
-    class charger
+service vendor.lpm /vendor/bin/lpm
+    class sec-charger
     seclabel u:r:charger:s0
+    critical
