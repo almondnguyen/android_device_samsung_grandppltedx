@@ -91,9 +91,6 @@ ro.sys.usb.storage.type=mtp,mass_storage
 # USB BICR function
 ro.sys.usb.bicr=yes
 
-# USB Charge only function
-ro.sys.usb.charging.only=yes
-
 # audio
 ro.camera.sound.forced=0
 ro.audio.silent=0
