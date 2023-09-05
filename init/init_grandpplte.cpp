@@ -64,7 +64,7 @@ int read_integer(const char* filename) {
 }
 
 void vendor_load_properties() {
-	int sim_count;
+	int sim_count = 0;
 
 	/* check if the simslot count file exists */
 	if (access(SIMSLOT_FILE, F_OK) == 0) {
