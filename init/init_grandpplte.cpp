@@ -63,30 +63,8 @@ int read_integer(const char* filename) {
 	return retval;
 }
 
-void property_override(char const prop[], char const value[]) {	
-	prop_info *pi;
-
-	pi = (prop_info*) __system_property_find(prop);
-	if (pi)
-		__system_property_update(pi, value, strlen(value));
-	else
-		__system_property_add(prop, strlen(prop), value, strlen(value));
-}
-
-void property_override_dual(char const system_prop[],
-		char const vendor_prop[], char const value[])
-{
-	property_override(system_prop, value);
-	property_override(vendor_prop, value);
-}
-
 void vendor_load_properties() {
-	std::string bootloader = android::base::GetProperty("ro.bootloader", "");
-
 	int sim_count;
-
-	/* set basic device name */
-	property_override_dual("ro.product.device", "ro.vendor.product.device", "grandpplte");
 
 	/* check if the simslot count file exists */
 	if (access(SIMSLOT_FILE, F_OK) == 0) {
@@ -102,29 +80,4 @@ void vendor_load_properties() {
 		android::init::property_set("persist.radio.multisim.config", "dsds");
 	}
 	android::init::property_set("ro.multisim.set_audio_params", "true");
-
-	/* set model props */
-	if (bootloader.find("G532F") != std::string::npos) {
-		/* G532F */
-		property_override_dual("ro.product.name", "ro.vendor.product.name", "grandpplteser");
-		property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532F");
-	}
-
-	if (bootloader.find("G532G") != std::string::npos) {
-		/* G532G */
-		property_override_dual("ro.product.name", "ro.vendor.product.name", "grandppltedx");
-		property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532G");
-	}
-
-	if (bootloader.find("G532M") != std::string::npos) {
-		/* G532M */
-		property_override_dual("ro.product.name", "ro.vendor.product.name", "grandpplteub");
-		property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532M");
-	}
-
-	if (bootloader.find("G532MT") != std::string::npos) {
-		/* G532F */
-		property_override_dual("ro.product.name", "ro.vendor.product.name", "grandppltedtvvj");
-		property_override_dual("ro.product.model", "ro.vendor.product.model", "SM-G532MT");
-	}
 }
