@@ -36,6 +36,13 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 include $(BUILD_SHARED_LIBRARY)
 
+# libc shim
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := bionic/bionic_shim.cpp
+LOCAL_SHARED_LIBRARIES := libc
+LOCAL_MODULE := libshim_bionic
+include $(BUILD_SHARED_LIBRARY)
+
 include $(CLEAR_VARS)
 LOCAL_SHARED_LIBRARIES := liblog
 

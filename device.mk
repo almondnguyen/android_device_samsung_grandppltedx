@@ -139,6 +139,7 @@ PRODUCT_PACKAGES += \
 	libshim_ssl \
 	libshim_camera \
 	libshim_agpsd \
+	libshim_bionic \
 	libshim_xlog
 
 # Platform
