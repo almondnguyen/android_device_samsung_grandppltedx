@@ -166,6 +166,7 @@ PRODUCT_COPY_FILES += \
 
 # shim / symbols
 PRODUCT_PACKAGES += \
+	libshim_bionic \
 	libshim_xlog
 
 # Platform
