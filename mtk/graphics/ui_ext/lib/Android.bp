@@ -21,13 +21,13 @@ cc_library_shared {
 
     include_dirs: [
         "device/samsung/grandppltedx/mtk/graphics/gralloc_extra/include",
+        "device/samsung/grandppltedx/mtk/graphics/ui_ext/inc",
         "external/libpng",
         "external/zlib",
         "external/skia/src/images",
         "external/skia/include/core",
         "external/skia/include/config",
     ],
-    local_include_dirs: ["inc"],
 
 	soc_specific: true,
 }

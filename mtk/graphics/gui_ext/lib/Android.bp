@@ -26,9 +26,8 @@ cc_library_shared {
     ],
 
     include_dirs: [
-        "device/samsung/grandppltedx/mtk/graphics/ui_ext/inc",
+        "device/samsung/grandppltedx/mtk/graphics/gui_ext/inc",
         "device/samsung/grandppltedx/mtk/graphics/gralloc_extra/include",
-        "frameworks/base/include",
+        "device/samsung/grandppltedx/mtk/graphics/ui_ext/inc",
     ],
-	local_include_dirs: ["inc"],
 }
