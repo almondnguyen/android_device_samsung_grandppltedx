@@ -23,7 +23,7 @@ allow shell boot_logo_updater_exec:file rx_file_perms;
 allow shell bootanim_exec:file rx_file_perms;
 allow shell ccci_fsd_exec:file rx_file_perms;
 allow shell ccci_mdinit_exec:file rx_file_perms;
-allow shell clatd_exec:file rx_file_perms;
+#allow shell clatd_exec:file rx_file_perms;
 #allow shell debuggerd_exec:file rx_file_perms;
 allow shell dhcp6c_exec:file rx_file_perms;
 allow shell dhcp_exec:file rx_file_perms;
