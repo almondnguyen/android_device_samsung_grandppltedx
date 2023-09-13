@@ -1,0 +1,34 @@
+cc_library_shared {
+    name: "libgui_ext",
+    vendor: true,
+    srcs: [
+        "GuiExtClient.cpp",
+        "GuiExtClientConsumer.cpp",
+        "GuiExtClientProducer.cpp",
+        "GuiExtImpl.cpp",
+        "GuiExtService.cpp",
+        "IGuiExtService.cpp",
+    ],
+    shared_libs: [
+        "libbinder",
+        "libcutils",
+        "libdl",
+        "libgui_vendor",
+        "libgralloc_extra",
+        "libhardware_legacy",
+        "libhardware",
+        "libion",
+        "libion_mtk",
+        "liblog",
+        "libui_ext",
+        "libui",
+        "libutils",
+    ],
+
+    include_dirs: [
+        "device/samsung/grandppltedx/mtk/graphics/ui_ext/inc",
+        "device/samsung/grandppltedx/mtk/graphics/gralloc_extra/include",
+        "frameworks/base/include",
+    ],
+	local_include_dirs: ["inc"],
+}

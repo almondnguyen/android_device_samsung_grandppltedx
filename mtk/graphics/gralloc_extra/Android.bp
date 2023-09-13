@@ -1,0 +1,16 @@
+cc_library_shared {
+    name: "libgralloc_extra",
+    vendor: true,
+    srcs: [
+        "GraphicBufferExtra.cpp",
+        "GraphicBufferExtra_hal.cpp",
+    ],
+    shared_libs: [
+        "libcutils",
+        "libhardware",
+        "liblog",
+        "libutils",
+    ],
+
+	local_include_dirs: ["include"],
+}
