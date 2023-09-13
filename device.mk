@@ -237,8 +237,8 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.camera.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.xml
 
 # Init
-PRODUCT_PACKAGES += \
-	libinit_grandpplte
+#PRODUCT_PACKAGES += \
+#	libinit_grandpplte
     
 # Power
 PRODUCT_PACKAGES += \
