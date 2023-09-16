@@ -367,8 +367,8 @@
 # System files
 #
 /system/app/mcRegistry(/.*)? u:object_r:mobicore_data_file:s0
-/vendor/bin/6620_launcher u:object_r:mtk_6620_launcher_exec:s0
-/vendor/bin/stp_dump3 u:object_r:stp_dump3_exec:s0
+/(system\/vendor|vendor)/bin/6620_launcher u:object_r:mtk_6620_launcher_exec:s0
+/(system\/vendor|vendor)/bin/stp_dump3 u:object_r:stp_dump3_exec:s0
 /system/bin/aal u:object_r:aal_exec:s0
 /system/bin/aee_core_forwarder u:object_r:aee_core_forwarder_exec:s0
 /vendor/bin/akmd09911 u:object_r:akmd09911_exec:s0
@@ -385,12 +385,12 @@
 /system/bin/bmm056d u:object_r:bmm056d_exec:s0
 /vendor/bin/boot_logo_updater u:object_r:boot_logo_updater_exec:s0
 /system/bin/br_app_data_service u:object_r:br_app_data_service_exec:s0
-/vendor/bin/ccci_fsd u:object_r:ccci_fsd_exec:s0
-/vendor/bin/ccci_mdinit u:object_r:ccci_mdinit_exec:s0
-/vendor/bin/ccci_rpcd u:object_r:ccci_rpcd_exec:s0
+/(system\/vendor|vendor)/bin/ccci_fsd u:object_r:ccci_fsd_exec:s0
+/(system\/vendor|vendor)/bin/ccci_mdinit u:object_r:ccci_mdinit_exec:s0
+/(system\/vendor|vendor)/bin/ccci_rpcd u:object_r:ccci_rpcd_exec:s0
 /system/bin/custom_sn u:object_r:sn_exec:s0
 /vendor/bin/dhcp6c u:object_r:dhcp6c_exec:s0
-/vendor/bin/dm_agent_binder u:object_r:dm_agent_binder_exec:s0
+/(system\/vendor|vendor)/bin/dm_agent_binder u:object_r:dm_agent_binder_exec:s0
 /system/bin/dmlog u:object_r:dmlog_exec:s0
 /system/bin/dongled u:object_r:usbdongled_exec:s0
 /system/bin/eemcs_fsd u:object_r:eemcs_fsd_exec:s0
@@ -399,12 +399,12 @@
 /system/bin/em_svr u:object_r:em_svr_exec:s0
 /system/bin/factory u:object_r:factory_exec:s0
 /system/bin/flashlessd u:object_r:flashlessd_exec:s0
-/system/bin/ged_srv u:object_r:ged_srv_exec:s0
+/(system\/vendor|vendor)/bin/ged_srv u:object_r:ged_srv_exec:s0
 /system/bin/gas_srv    u:object_r:gas_srv_exec:s0
 /system/bin/kpoc_charger u:object_r:kpoc_charger_exec:s0
 /vendor/bin/geomagneticd u:object_r:geomagneticd_exec:s0
 /system/bin/gsm0710muxd u:object_r:gsm0710muxd_exec:s0
-/vendor/bin/guiext-server u:object_r:guiext-server_exec:s0
+/(system\/vendor|vendor)/bin/guiext-server u:object_r:guiext-server_exec:s0
 /system/bin/icusbd u:object_r:icusbd_exec:s0
 /system/bin/init.gprs-pppd u:object_r:zpppd_gprs_exec:s0
 /system/bin/ipod u:object_r:ipod_exec:s0
@@ -426,13 +426,13 @@
 /system/bin/mpud6050 u:object_r:mpud6050_exec:s0
 /system/bin/msensord u:object_r:msensord_exec:s0
 /vendor/bin/macloader u:object_r:macloader_exec:s0
-/system/bin/mtk_agpsd u:object_r:mtk_agpsd_exec:s0
+/(system\/vendor|vendor)/bin/mtk_agpsd u:object_r:mtk_agpsd_exec:s0
 /system/bin/MtkCodecService u:object_r:MtkCodecService_exec:s0
 /system/bin/mtkrild u:object_r:mtkrild_exec:s0
 /system/bin/muxreport u:object_r:muxreport_exec:s0
 /vendor/bin/netdiag u:object_r:netdiag_exec:s0
-/vendor/bin/nvram_agent_binder u:object_r:nvram_agent_binder_exec:s0
-/vendor/bin/nvram_daemon u:object_r:nvram_daemon_exec:s0
+/(system\/vendor|vendor)/bin/nvram_agent_binder u:object_r:nvram_agent_binder_exec:s0
+/(system\/vendor|vendor)/bin/nvram_daemon u:object_r:nvram_daemon_exec:s0
 /system/bin/nvram_proximity u:object_r:nvram_daemon_exec:s0
 /vendor/bin/orientationd u:object_r:orientationd_exec:s0
 /system/bin/permission_check u:object_r:permission_check_exec:s0
@@ -440,7 +440,7 @@
 /system/bin/ppl_agent u:object_r:ppl_agent_exec:s0
 /system/bin/pppd_dt u:object_r:pppd_dt_exec:s0
 /system/bin/pppd_via u:object_r:pppd_via_exec:s0
-/vendor/bin/pq u:object_r:pq_exec:s0
+/(system\/vendor|vendor)/bin/pq u:object_r:pq_exec:s0
 /system/bin/program_binary_service u:object_r:program_binary_exec:s0
 /system/bin/resize2fs  --  u:object_r:resize_exec:s0
 /system/bin/resize_ext4  --  u:object_r:resize_exec:s0
@@ -451,10 +451,10 @@
 /vendor/bin/sn u:object_r:sn_exec:s0
 /system/bin/statusd u:object_r:statusd_exec:s0
 /system/bin/terservice u:object_r:terservice_exec:s0
-/vendor/bin/thermald u:object_r:thermald_exec:s0
-/vendor/bin/thermal_manager u:object_r:thermal_manager_exec:s0
+/(system\/vendor|vendor)/bin/thermald u:object_r:thermald_exec:s0
+/(system\/vendor|vendor)/bin/thermal_manager u:object_r:thermal_manager_exec:s0
 /system/bin/thermalloadalgod u:object_r:thermalloadalgod_exec:s0  
-/vendor/bin/thermal u:object_r:thermal_exec:s0
+/(system\/vendor|vendor)/bin/thermal u:object_r:thermal_exec:s0
 /system/bin/tiny_mkswap u:object_r:tiny_mkswap_exec:s0
 /system/bin/tiny_swapon u:object_r:tiny_swapon_exec:s0
 #/system/bin/tune2fs u:object_r:tune2fs_exec:s0
@@ -464,16 +464,16 @@
 /system/bin/volte_ua u:object_r:volte_ua_exec:s0
 /system/bin/wfca u:object_r:wfca_exec:s0
 /system/bin/mtkmal u:object_r:mtkmal_exec:s0
-/vendor/bin/wifi2agps u:object_r:wifi2agps_exec:s0
-/vendor/bin/wmt_loader u:object_r:wmt_loader_exec:s0
-/system/bin/xlog u:object_r:xlog_exec:s0
+/(system\/vendor|vendor)/bin/wifi2agps u:object_r:wifi2agps_exec:s0
+/(system\/vendor|vendor)/bin/wmt_loader u:object_r:wmt_loader_exec:s0
+/(system\/vendor|vendor)/bin/xlog u:object_r:xlog_exec:s0
 /system/bin/sbchk u:object_r:sbchk_exec:s0
 /system/bin/OperaMaxSystem u:object_r:tunman_exec:s0
 /system/etc/sensor(/.*)?	u:object_r:system_sensor_data_file:s0
 /system/vendor/bin/pvrsrvctl u:object_r:pvrsrvctl_exec:s0
 /system/xbin/BGW u:object_r:BGW_exec:s0
-/system/xbin/mnld u:object_r:mnld_exec:s0
-/system/bin/md_ctrl u:object_r:md_ctrl_exec:s0
+/(system\/vendor|vendor)/bin/mnld u:object_r:mnld_exec:s0
+/(system\/vendor|vendor)/bin/md_ctrl u:object_r:md_ctrl_exec:s0
 /system/bin/cmddumper u:object_r:cmddumper_exec:s0
 /system/bin/epdg_wod u:object_r:epdg_wod_exec:s0
 /system/bin/ipsec u:object_r:ipsec_exec:s0
@@ -486,7 +486,7 @@
 /system/bin/hotknot_native_service u:object_r:hotknot_native_exec:s0
 /system/bin/teei_daemon u:object_r:teei_daemon_exec:s0
 /system/bin/init_thh u:object_r:init_thh_service_exec:s0
-/vendor/bin/md_monitor u:object_r:md_monitor_exec:s0
+/(system\/vendor|vendor)/bin/md_monitor u:object_r:md_monitor_exec:s0
 
 /(vendor|system/vendor)/bin/hw/android\.hardware\.light(@[0-9].[0-9])?-service\.samsung           u:object_r:hal_light_default_exec:s0
 /(system\/vendor|vendor)/bin/hw/vendor\.mediatek\.hardware\.gnss@1\.1-service		u:object_r:hal_gnss_default_exec:s0
