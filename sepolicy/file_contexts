@@ -489,6 +489,7 @@
 /vendor/bin/md_monitor u:object_r:md_monitor_exec:s0
 
 /(vendor|system/vendor)/bin/hw/android\.hardware\.light(@[0-9].[0-9])?-service\.samsung           u:object_r:hal_light_default_exec:s0
+/(system\/vendor|vendor)/bin/hw/vendor\.mediatek\.hardware\.gnss@1\.1-service		u:object_r:hal_gnss_default_exec:s0
 
 # Wallpaper file for smartbook
 /data/system/users/[0-9]+/smartbook_wallpaper	u:object_r:wallpaper_file:s0
