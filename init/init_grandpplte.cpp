@@ -58,16 +58,6 @@ int read_integer(const char* filename) {
 	return retval;
 }
 
-void property_override(char const prop[], char const value[]) {	
-	prop_info *pi;
-
-	pi = (prop_info*) __system_property_find(prop);
-	if (pi)
-		__system_property_update(pi, value, strlen(value));
-	else
-		__system_property_add(prop, strlen(prop), value, strlen(value));
-}
-
 void init_dual() {
     property_set("ro.multisim.set_audio_params", "true");
     property_set("ro.multisim.simslotcount", "2");
@@ -81,11 +71,7 @@ void init_single() {
 }
 
 void vendor_load_properties() {
-	std::string bootloader = property_get("ro.bootloader");
 	int sim_count = 0;
-
-	/* set basic device name */
-	property_override("ro.product.device","grandpplte");
 
 	/* check if the simslot count file exists */
 	if (access(SIMSLOT_FILE, F_OK) == 0) {
@@ -97,36 +83,5 @@ void vendor_load_properties() {
 		init_single();
 	} else {
 		init_dual();
-	}
-
-	/* set model + dual sim props */
-	if (bootloader.find("G532F") != std::string::npos) {
-		/* G532F */
-		property_override("ro.build.description", "grandpplteser-user 6.0.1 MMB29T G532FXWU1ASB1 release-keys");
-		property_override("ro.product.name", "grandpplteser");
-		property_override("ro.product.model", "SM-G532F");
-	}
-
-	if (bootloader.find("G532G") != std::string::npos) {
-		/* G532G */
-		/* SEA is grandppltedx; SWA is grandpplteins*/
-		/* no major differences actually, so just name it -dx*/
-		property_override("ro.build.description", "grandppltedx-user 6.0.1 MMB29T G532GDXU1ASA5 release-keys");
-		property_override("ro.product.name", "grandppltedx");
-		property_override("ro.product.model", "SM-G532G");
-	}
-
-	if (bootloader.find("G532M") != std::string::npos) {
-		/* G532M */
-		property_override("ro.build.description", "grandpplteub-user 6.0.1 MMB29T G532MUMU1ASA1 release-keys");
-		property_override("ro.product.name", "grandpplteub");
-		property_override("ro.product.model", "SM-G532M");
-	}
-
-	if (bootloader.find("G532MT") != std::string::npos) {
-		/* G532MT */
-		property_override("ro.build.description", "grandppltedtvvj-user 6.0.1 MMB29T G532MTVJU1ASA1 release-keys");
-		property_override("ro.product.name", "grandppltedtvvj");
-		property_override("ro.product.model", "SM-G532MT");
 	}
 }
