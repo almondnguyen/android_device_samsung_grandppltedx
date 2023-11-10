@@ -107,7 +107,7 @@ BOARD_SUPPRESS_SECURE_ERASE := true
 # Kernel
 BOARD_CUSTOM_BOOTIMG := true
 
-BOARD_KERNEL_IMAGE_NAME := zImage-dtb
+BOARD_KERNEL_IMAGE_NAME := zImage
 TARGET_KERNEL_SOURCE    := kernel/samsung/grandppltedx
 TARGET_KERNEL_CONFIG += \
     mt6737t-grandpplte_defconfig
