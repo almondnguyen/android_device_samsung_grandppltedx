@@ -246,11 +246,10 @@ PRODUCT_PACKAGES += \
 	init.mt6735.rc \
 	init.mt6735.usb.rc \
 	init.project.rc \
-	init.wifi.rc \
 	init.recovery.mt6735.rc \
 	init.samsung.rc \
+	init.wifi.rc \
 	ueventd.mt6735.rc \
-	init.xlog.rc \
 	log.sh
 
 #-- sbin

@@ -1,19 +1,9 @@
 # MTK platform .rc configure
 
-# samsung init forked out
-import /init.samsung.rc
-
-# normal
+import init.mt6735.usb.rc
 import init.project.rc
-import /FWUpgradeInit.rc
-import init.xlog.rc
-import init.aee.rc
-import init.fon.rc
-import init.mal.rc
-import init.wfca.rc
-import init.epdg.rc
-#import init.trustonic.rc
-import init.common_svc.rc
+import init.samsung.rc
+import init.wifi.rc
 
 # init.modem.rc must be the LAST rc file because vold.post_fs_data_done is set in it
 import init.modem.rc
@@ -57,39 +47,11 @@ on init
     write /proc/sys/net/core/wmem_max 2097152
     write /proc/sys/net/core/rmem_max 2097152
 
-    #cpu
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-    chmod 0444 /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
-
-    #hotplug
-    chown system system /sys/devices/system/cpu/cpu1/online
-    chown system system /sys/devices/system/cpu/cpu2/online
-    chown system system /sys/devices/system/cpu/cpu3/online
-    chown system system /proc/hps/enabled
-
-    chmod 0644 /sys/devices/system/cpu/cpu1/online
-    chmod 0644 /sys/devices/system/cpu/cpu2/online
-    chmod 0644 /sys/devices/system/cpu/cpu3/online
-
-# al: help audioparamparser
-    mkdir /sdcard/.audio_param system system
-
 # mount different fs start
+
 on fs
     mount_all /fstab.mt6735
     exec /system/bin/tune2fs -O has_journal -u 10010 -r 4096 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata
-
-on fs
-
-   mount iso9660 loop@/system/etc/iAmCdRom.iso /mnt/cd-rom ro
 
 on post-fs
     # Support legacy paths
@@ -122,9 +84,6 @@ on post-fs
     chmod 0770 /protect_s
 
 on post-fs-data
-    chown system system /persist
-    chmod 0771 /persist
-
     # create basic filesystem structure
     # mkdir /data/nvram 2770 root system
     # We chown/chmod /nvdata again so because mount is run as root + defaults
@@ -150,13 +109,10 @@ on post-fs-data
     mkdir /data/drm/wv 0770 drm system
 
     write /sys/class/firmware/timeout 75
-    
+
 # GPS
     mkdir /data/gps_mnl 0771 gps system
     mkdir /data/misc/gps 0770 gps system
-
-    # NFC
-    mkdir /data/nfc_socket 0771 nfc radio
 
     #MD DB
     mkdir /data/misc/mddb 0711 radio system
@@ -432,10 +388,6 @@ on post-fs-data
     chmod 0660 /dev/sw_sync
     chown system graphics /dev/sw_sync
 
-    # EM baseband file
-    chown root diag /system/bin/baseband_regdump
-    chmod 4750 /system/bin/baseband_regdump
-
     #pmu
     chown root radio /sys/devices/platform/mt-pmic/pmic_access_bank0
     chown root radio /sys/devices/platform/mt-pmic/pmic_access_bank1
@@ -611,9 +563,6 @@ on post-fs-data
 
     # AGPS
     mkdir /data/agps_supl 0771 gps system
-
-    # Recycle stuffs
-    exec /system/bin/rm -f /cache/.ipoh.img
     
     chmod 0666 /dev/exm0
 
@@ -642,9 +591,6 @@ on boot
     write /sys/devices/system/cpu/cpu3/online 1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor performance
     write /sys/block/mmcblk0/queue/scheduler noop
-
-    # xlog
-    start xlogboot
 
     write /proc/sys/vm/dirty_writeback_centisecs 300
     chmod 0660 /sys/power/autosleep
@@ -794,7 +740,6 @@ on boot
     chmod 660 /dev/ttyGS1
     chown system system /dev/ttyGS1
 
-
 # BT relayer mode USB VCOM
     chown bluetooth radio /dev/ttyGS2
     chmod 0660 /dev/ttyGS2
@@ -855,46 +800,6 @@ on property:sys.boot_completed=1
     write /proc/hps/up_times 3
     write /proc/hps/timer_interval 30
 
-on property:vold.decrypt=trigger_reset_main
-    start stop_modem
-
-on property:vold.decrypt=trigger_restart_min_framework
-    start start_modem
-    start msensord
-    start permission_check
-    start stp_dump
-
-on property:vold.decrypt=trigger_restart_framework
-    start nvram_daemon
-    start start_modem
-    start msensord
-    start permission_check
-
-on property:vold.decrypt=trigger_shutdown_framework
-    start stop_modem
-    stop stp_dump
-
-service stop_modem /system/bin/md_ctrl 0
-    class main
-    disabled
-    oneshot
-
-service start_modem /system/bin/md_ctrl 1
-    class main
-    disabled
-    oneshot
-
-# bugreport is triggered by holding down volume down, volume up and power
-service bugreport /system/bin/dumpstate -d -p -B \
-        -o /data/data/com.android.shell/files/bugreports/bugreport
-    class main
-    disabled
-    oneshot
-    keycodes 114 115 116
-
-service netdiag /system/bin/netdiag
-    class main
-
 #al: a dum-dum way to get a lot more permission for the nvram stuff
 #group system
 
@@ -944,73 +849,6 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     disabled
     oneshot
 
-service dhcpcd_bt-pan /system/bin/dhcpcd -BK -dd
-    class main
-    user root
-    group net_admin net_raw
-    disabled
-    oneshot
-
-service dhcpcd_wlan0 /system/bin/dhcpcd -BK -dd
-    class main
-    user root
-    group net_admin net_raw
-    disabled
-    oneshot
-
-service dhcpcd_p2p /system/bin/dhcpcd -BK -dd
-    class main
-    user root
-    group net_admin net_raw
-    disabled
-    oneshot
-
-service iprenew_wlan0 /system/bin/dhcpcd -n
-    class main
-    user dhcp
-    group net_admin net_raw
-    disabled
-    oneshot
-
-service iprenew_p2p /system/bin/dhcpcd -n
-    class main
-    user dhcp
-    group net_admin net_raw
-    disabled
-    oneshot
-
-service dhcp_inform /system/bin/dhcpcd -s -BK -A
-    class main
-    user root
-    group system radio dhcp net_admin net_raw
-    disabled
-    oneshot
-
-service dhcpv6_inform /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cSIP.conf" -Dfi
-    class main
-    user root
-    group system radio dhcp net_admin net_raw
-    disabled
-    oneshot
-
-service dhcp6cDNS_wlan0 /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cDNS.conf" -Df wlan0
-    disabled
-    oneshot
-
-service dhcp6c_wlan0 /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6c.conf" -Df wlan0
-    disabled
-    oneshot
-
-on property:service.dhcp6c_wlan0.enable=0
-    stop dhcp6c_wlan0
-
-on property:service.dhcp6c_wlan0.enable=1
-    start dhcp6c_wlan0
-
-service dhcp6c_PD /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cPD.conf" -Df
-    disabled
-    oneshot
-
 # write proc for test sim
     on property:gsm.sim.ril.testsim=0
     write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 0
@@ -1044,31 +882,6 @@ service dhcp6c_PD /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cPD.conf" -Df
     write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 1
     write /proc/sys/net/ipv4/tcp_rto_min 400
     write /proc/sys/net/ipv4/tcp_early_retrans 0
-
-# start for WiFi MFG (TestMode)
-
-service mfgloader /system/bin/mfgloader
-    class main
-    disabled
-    oneshot
-
-service wlandutservice /system/bin/wlandutservice
-    class main
-    user system
-    group wifi net_raw net_admin system inet
-    disabled
-    oneshot
-
-service macloader /system/bin/macloader
-    class main
-    oneshot
-
-on property:init.svc.macloader=stopped
-    chown system root /data/.cid.info
-    chmod 0664 /data/.cid.info
-    chown system root /data/.rev
-    chmod 0664 /data/.rev
-# end of WiFi MFG (TestMode)
 
 service DMAgent /system/bin/dm_agent_binder
     class main
@@ -1110,29 +923,17 @@ service wifi2agps /system/bin/wifi2agps
     user wifi
     group gps inet
 
-service mnld /system/xbin/mnld
+service mnld /system/bin/mnld
     class main
     user gps
     group gps inet misc sdcard_rw sdcard_r media_rw system radio
     socket mnld stream 660 gps system
 
-service mdlogger /system/bin/mdlogger
-    class main
-    user shell
-    group shell system radio sdcard_rw inet sdcard_r media_rw
-    disabled
-    oneshot
-
-service shutdown /system/bin/shutdown
-    user root
-    group root
-    disabled
-
 service NvRAMAgent /system/bin/nvram_agent_binder
     class main
     user system
     group system
-    
+
 service thermal_manager /system/bin/thermal_manager
     class main
     user root
@@ -1159,53 +960,14 @@ service guiext-server /system/bin/guiext-server
     user system
     group system graphics
 
-###########add for 3Gdongle
-
-on boot
-#
-# change the right of ip-up ip-down scripts(begin)
-#
-chmod 777 /etc/ppp/ip-up
-chmod 777 /etc/ppp/ip-down
-#
-# change the right of ip-up ip-down scripts(end)
-#
-
-#
-# change the right of ip-up-ppp0 ip-down-ppp0 scripts(begin)
-#
-chmod 777 /etc/ppp/ip-up-ppp0
-chmod 777 /etc/ppp/ip-down-ppp0
-#
-# change the right of ip-up ip-down scripts(end)
-#
-
-#set the property of persiste.radio.reset_on_switch
-setprop persist.radio.reset_on_switch true
-#end
-
-#set the property of rild.mark_switchuser
-setprop rild.mark_switchuser 0
-#end
-
-chown root /system/bin/pppd
-chmod 4755 /system/bin/pppd
-chown root /system/bin/chat
-chmod 4755 /system/bin/chat
-
 # LPM
 on property:ro.bootmode=charger
     mount ext4 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system /system support_scfs wait ro
-
-on property:ro.bootmode=charger
     wait /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/EFS
-    check_fs /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/EFS ext4
     mount ext4 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/EFS /efs nosuid nodev noatime noauto_da_alloc,discard,journal_async_commit
 
-on property:ro.bootmode=charger
     class_start sec-charger
 
 service lpm /system/bin/lpm
     class sec-charger
     critical
-

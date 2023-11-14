@@ -19,5 +19,4 @@ $(call add-rootdir-targets, \
 	init.recovery.mt6735.rc \
 	init.wifi.rc \
 	ueventd.mt6735.rc \
-	init.xlog.rc \
 	init.samsung.rc)

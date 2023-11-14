@@ -92,11 +92,8 @@ on init
     chown system system /proc/reset_reason
     chmod 0600 /proc/reset_reason
 
-on post-fs
-    start sec-sh
-
 on post-fs-data
-    
+
     # sec_efs_file
     mkdir /efs/sec_efs 0775 radio system    
 
@@ -125,7 +122,6 @@ on post-fs-data
     chown system system /efs/drm/h2k
 
     # icd
-    check_icd
     chown system system /dev/icd
     chmod 0644 /dev/icd
     chown system system /dev/icdr
@@ -134,22 +130,12 @@ on post-fs-data
     restorecon /dev/icd
     restorecon /dev/icdr
 
-    # SA, System SW, SAMSUNG 
-    # create log directory
-    mkdir /data/log 0775 system log
-    chown system log /data/log
-    mkdir /data/anr 0775 system system
-    chown system system /data/anr
-    chmod 0775 /data/log
-    chmod 0775 /data/anr
-    restorecon /data/log
-    restorecon /data/anr
-
     # [ SEC_MM_DRM
     # DRM directory creation
     mkdir /system/etc/security/.drm 0775
     chown root root /system/etc/security/.drm
     chmod 0775 /system/etc/security/.drm
+
     # Added drm folder to copy drm plugins
     mkdir /system/lib/drm 0775
     chown root root /system/lib/drm
@@ -164,8 +150,8 @@ on post-fs-data
     # Separate location for storing security policy files on data
     mkdir /data/security 0710 system system_access
     
-    restorecon -R /efs
-    restorecon -R /carrier
+    restorecon_recursive -R /efs
+    restorecon_recursive -R /carrier
     
 on boot
 
@@ -176,6 +162,8 @@ on boot
     chown radio system /efs/bluetooth
     chmod 0775 /efs/bluetooth
 
+
+# FRP
     # Google FRP 
     symlink /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/PERSISTENT /dev/block/persistent
 
@@ -238,6 +226,7 @@ on boot
     chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/single_cluster0_min_freq
     chmod 0660 /sys/devices/system/cpu/cpu4/cpufreq/interactive/single_cluster0_min_freq
 
+
     # Change permission for dvfshelper
     chown radio system /sys/power/cpufreq_table
     chmod 0664 /sys/power/cpufreq_table
@@ -281,9 +270,11 @@ on boot
     chmod 0664 /proc/hps/num_limit_thermal
     chmod 0664 /proc/hps/num_limit_low_battery
 
+
 #for factory command for camera
     chown system system /sys/class/camera/flash/rear_flash
     chown system system /sys/class/camera/flash/front_flash
+
 
 #permission for TSP, Touchkey and Wacom
     chown system radio /sys/class/sec/tsp/cmd
@@ -315,12 +306,6 @@ on boot
     chown radio system /sys/class/secgpio_check/secgpio_check_all/checked_sleepGPIO
 
 # permission for CHARGING
-   mkdir /efs/Battery 0775 radio system
-   chown radio system /efs/Battery
-   chmod 0775 /efs/Battery
-   copy /system/vendor/firmware/battery_data.dat /efs/Battery/battery_data.dat
-   chmod 0400 /efs/Battery/battery_data.dat
-   write /sys/class/power_supply/battery/batt_update_data "/efs/Battery/battery_data.dat"
    chown system radio /sys/class/power_supply/battery/batt_ext_dev_chg
    chown system radio /sys/class/power_supply/battery/batt_reset_soc
    chown system radio /sys/class/power_supply/battery/batt_slate_mode
@@ -432,24 +417,10 @@ on boot
    chown system radio /sys/class/power_supply/battery/voltage_avg
    chown system radio /sys/class/power_supply/battery/voltage_now
 
+
 # usb detect
     mkdir /dev/bus 0755 root root
     mkdir /dev/bus/usb 0755 root root
-
-# OTG Test
-    chown system radio /sys/class/host_notify/usb_otg/booster
-    chmod 0664 /sys/class/host_notify/usb_otg/booster
-
-# usb disable
-    chown system usb /sys/class/usb_notify/usb_control/disable
-    chmod 0664 /sys/class/usb_notify/usb_control/disable
-# usb detect
-    mkdir /dev/bus 0755 root root
-    mkdir /dev/bus/usb 0755 root root
-
-# OTG Test
-    chown system radio /sys/class/host_notify/usb_otg/booster
-    chmod 0664 /sys/class/host_notify/usb_otg/booster
 
 # usb disable
     chown system usb /sys/class/usb_notify/usb_control/disable
@@ -458,10 +429,7 @@ on boot
     write /sys/block/mmcblk0/queue/scheduler noop
     write /sys/block/sda/queue/scheduler noop
 
-    copy /system/etc/battery_charging_temp.data /sys/class/power_supply/battery/batt_temp_table
-
 on charger
-
     chmod 0664 /sys/class/power_supply/battery/batt_temp_table
     chown system radio /sys/class/power_supply/battery/batt_temp_table
     chmod 0664 /sys/class/power_supply/battery/batt_capacity_max
@@ -476,46 +444,3 @@ on charger
     copy /system/vendor/firmware/battery_data.dat /efs/Battery/battery_data.dat
     chmod 0400 /efs/Battery/battery_data.dat
     write /sys/class/power_supply/battery/batt_update_data "/efs/Battery/battery_data.dat"
-    class_start charger
-
-## Daemon processes to be run by init.
-##
-# deferred initcall
-service sec-sh /system/etc/init.sec.boot.sh
-    class core
-    user root
-    oneshot
-
-# vold
-service vold /system/bin/vold \
-        --blkid_context=u:r:blkid:s0 --blkid_untrusted_context=u:r:blkid_untrusted:s0 \
-        --fsck_context=u:r:fsck:s0 --fsck_untrusted_context=u:r:fsck_untrusted:s0
-    class core
-    socket vold stream 0660 root mount
-    socket cryptd stream 0660 root mount
-    ioprio be 2
-## Frigatebird
-    socket frigate stream 0660 system system
-## Knox
-    socket epm stream 0660 system system
-    socket ppm stream 0660 system system
-## Samsung ODE >>>
-    socket dir_enc_report stream 0660 root mount
-## Samsung ODE <<<
-
-service drm /system/bin/drmserver
-    class main
-    user drm
-    group system drm inet drmrpc radio readproc
-
-# for Bluetooth Tethering
-service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
-    class main
-    disabled
-    oneshot
-
-service iprenew_bt-pan /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-# end of BT
