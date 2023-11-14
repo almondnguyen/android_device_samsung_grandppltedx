@@ -28,5 +28,6 @@ on post-fs-data
     restart ril-daemon1
 
 # for Wi-Fi only models
-on property:ro.radio.noril=yes
-stop ril-daemon
+on property: ro.radio.noril=yes
+    stop ril-daemon
+    stop ril-daemon1
