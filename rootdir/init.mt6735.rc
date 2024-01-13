@@ -17,10 +17,6 @@ on early-init
     chown system /sys/kernel/debug
 
 on init
-
-    # al: start boot logging in system/etc/init/
-    start cust-log
-
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
 
