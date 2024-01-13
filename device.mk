@@ -262,7 +262,7 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/init/audioserver.rc:system/etc/init/audioserver.rc \
 	$(DEVICE_PATH)/configs/init/mediaserver.rc:system/etc/init/mediaserver.rc \
 	$(DEVICE_PATH)/configs/init/mediacodec.rc:system/etc/init/mediacodec.rc \
-	$(DEVICE_PATH)/configs/init/rild.rc:system/etc/init/rild.rc	
+	$(DEVICE_PATH)/configs/init/init.grandpplte.rild.rc:system/etc/init/init.grandpplte.rild.rc	
 
 #-- custom logging
 BUILD_INCLUDE_CUSTOM_LOG := false
