@@ -265,15 +265,6 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/init/mediacodec.rc:system/etc/init/mediacodec.rc \
 	$(DEVICE_PATH)/configs/init/init.grandpplte.rild.rc:system/etc/init/init.grandpplte.rild.rc	
 
-#-- custom logging
-BUILD_INCLUDE_CUSTOM_LOG := false
-ifeq ($(BUILD_INCLUDE_CUSTOM_LOG), true)
-PRODUCT_COPY_FILES += \
-	$(DEVICE_PATH)/configs/init/al-cust-logcat.rc:system/etc/init/cust-log.rc \
-	$(DEVICE_PATH)/configs/init/log.sh:system/etc/init/log.sh
-
-endif
-
 #-- default.prop
 ADDITIONAL_DEFAULT_PROPERTIES += \
 	ro.zygote=zygote32 \
