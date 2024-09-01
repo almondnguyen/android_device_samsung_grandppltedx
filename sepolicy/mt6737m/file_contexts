@@ -397,6 +397,7 @@
 #############################
 # System files
 #
+/(system\/vendor|vendor)/bin/6620_launcher u:object_r:mtk_wmt_launcher_exec:s0
 /(system\/vendor|vendor)/bin/wmt_launcher u:object_r:mtk_wmt_launcher_exec:s0
 /(system\/vendor|vendor)/bin/aee_core_forwarder u:object_r:aee_core_forwarder_exec:s0
 /(system\/vendor|vendor)/bin/audiocmdservice_atci u:object_r:audiocmdservice_atci_exec:s0
