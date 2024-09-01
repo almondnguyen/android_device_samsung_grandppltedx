@@ -18,6 +18,7 @@
 /system/bin/macloader                                   u:object_r:macloader_exec:s0
 
 # RIL
+/dev/umts_boot0                  u:object_r:mif_device:s0
 /data/data/com.android.providers.telephony/databases(/.*)?     u:object_r:radio_data_file:s0
 /data/data/com.android.providers.telephony/shared_prefs(/.*)?  u:object_r:radio_data_file:s0
 

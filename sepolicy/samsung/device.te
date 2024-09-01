@@ -5,3 +5,6 @@ type fm_radio_device, dev_type;
 type emmcblk_device, dev_type;
 type efsblk_device, dev_type;
 type tz_device, dev_type, mlstrustedobject;
+
+# /dev/umts_boot*
+type mif_device, dev_type;
