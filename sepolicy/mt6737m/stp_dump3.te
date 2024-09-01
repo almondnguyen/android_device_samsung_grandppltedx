@@ -7,7 +7,7 @@
 # ==============================================
 
 type stp_dump3_exec , exec_type, file_type;
-type stp_dump3 ,domain;
+type stp_dump3 ,domain, domain_deprecated;
 
 # ==============================================
 # Android Policy Rule

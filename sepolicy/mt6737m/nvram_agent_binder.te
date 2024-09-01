@@ -6,7 +6,7 @@
 # Type Declaration
 # ==============================================
 type nvram_agent_binder_exec , exec_type, file_type;
-type nvram_agent_binder ,domain;
+type nvram_agent_binder ,domain, domain_deprecated;
 
 # ==============================================
 # MTK Policy Rule

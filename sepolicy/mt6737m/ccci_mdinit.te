@@ -5,7 +5,7 @@
 # Type Declaration
 # ==============================================
 type ccci_mdinit_exec , exec_type, file_type;
-type ccci_mdinit ,domain;
+type ccci_mdinit ,domain, domain_deprecated;
 
 # ==============================================
 # MTK Policy Rule

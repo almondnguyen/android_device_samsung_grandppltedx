@@ -5,7 +5,7 @@
 # Type Declaration
 # ==============================================
 type audiocmdservice_atci_exec , exec_type, file_type;
-type audiocmdservice_atci ,domain;
+type audiocmdservice_atci ,domain, domain_deprecated;
 
 # ==============================================
 # MTK Policy Rule

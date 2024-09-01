@@ -5,7 +5,7 @@
 # ==============================================
 # Type Declaration
 # ==============================================
-type mtk_wmt_launcher ,domain;
+type mtk_wmt_launcher ,domain, domain_deprecated;
 type mtk_wmt_launcher_exec , exec_type, file_type;
 
 # ==============================================

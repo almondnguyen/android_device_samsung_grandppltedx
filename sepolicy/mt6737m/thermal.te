@@ -7,7 +7,7 @@
 # ==============================================
 
 type thermal_exec , exec_type, file_type;
-type thermal ,domain;
+type thermal ,domain, domain_deprecated;
 
 # ==============================================
 # Android Policy Rule

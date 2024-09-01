@@ -5,7 +5,7 @@
 # Type Declaration
 # ==============================================
 type mtk_agpsd_exec, exec_type, file_type;
-type mtk_agpsd, domain;
+type mtk_agpsd, domain, domain_deprecated;
 
 # ==============================================
 # MTK Policy Rule

@@ -7,7 +7,7 @@
 # ==============================================
 
 type ccci_rpcd_exec, exec_type, file_type;
-type ccci_rpcd, domain;
+type ccci_rpcd, domain, domain_deprecated;
 
 # ==============================================
 # Android Policy Rule

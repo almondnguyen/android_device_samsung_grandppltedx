@@ -7,7 +7,7 @@
 # ==============================================
 
 type dm_agent_binder_exec , exec_type, file_type;
-type dm_agent_binder ,domain;
+type dm_agent_binder ,domain, domain_deprecated;
 
 # ==============================================
 # Android Policy Rule

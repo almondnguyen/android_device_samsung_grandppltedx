@@ -7,7 +7,7 @@
 # ==============================================
 
 type pq_exec , exec_type, file_type;
-type pq ,domain;
+type pq ,domain, domain_deprecated;
 
 # ==============================================
 # Android Policy Rule
