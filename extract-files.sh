@@ -11,6 +11,9 @@ set -e
 DEVICE=grandpplte
 VENDOR=samsung
 
+PATCHELF=patchelf/patchelf-0_9
+PATCHELF_0_18=patchelf/patchelf-0_18
+
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$MY_DIR" ]]; then MY_DIR="$PWD"; fi
