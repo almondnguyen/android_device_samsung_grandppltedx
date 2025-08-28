@@ -68,5 +68,35 @@ do
     sed -i 's/\([Uu][Cc][Nn][Vv]_[A-Za-z_]*\)_55/\1_56/g' "$BLOB_ROOT/$blob"
 done
 
+# __xlog_buf_printf
+BLOBS_LIST="
+lib/hw/hwcomposer.mt6737t.so
+lib/lib3a.so
+lib/lib3a_sample.so
+lib/libJpgDecPipe.so
+lib/libMtkOmxAdpcmDec.so
+lib/libMtkOmxAdpcmEnc.so
+lib/libMtkOmxAlacDec.so
+lib/libMtkOmxFlacDec.so
+lib/libMtkOmxG711Dec.so
+lib/libMtkOmxGsmDec.so
+lib/libMtkOmxMp3Dec.so
+lib/libMtkOmxRawDec.so
+lib/libMtkOmxVdecEx.so
+lib/libMtkOmxVenc.so
+lib/libMtkOmxVorbisEnc.so
+lib/libSwJpgCodec.so
+lib/libcamalgo.so
+lib/libdngop.so
+lib/libdpframework.so
+lib/libfeatureio.so
+lib/libh264enc_sb.ca7.so
+lib/libpq_prot.so
+xbin/mnld
+"
+for blob in $BLOBS_LIST
+do
+    "$PATCHELF_0_18" --add-needed "liblog_shim.so" "$BLOB_ROOT/$blob"
+done
 
 "$MY_DIR"/setup-makefiles.sh

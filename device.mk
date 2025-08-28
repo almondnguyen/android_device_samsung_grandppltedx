@@ -141,6 +141,10 @@ PRODUCT_PACKAGES += \
 	init.samsung.rc \
 	ueventd.mt6735.rc \
 
+# Shims
+PRODUCT_PACKAGES += \
+    liblog_shim
+
 # Wifi
 PRODUCT_PACKAGES += \
 	hostapd \
