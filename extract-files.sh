@@ -68,6 +68,16 @@ do
     sed -i 's/\([Uu][Cc][Nn][Vv]_[A-Za-z_]*\)_55/\1_56/g' "$BLOB_ROOT/$blob"
 done
 
+# __pthread_gettid
+BLOBS_LIST="
+lib/libmtkjpeg.so
+lib/libvcodecdrv.so
+"
+for blob in $BLOBS_LIST
+do
+    "$PATCHELF_0_18" --add-needed "libc_shim.so" "$BLOB_ROOT/$blob"
+done
+
 # __xlog_buf_printf
 BLOBS_LIST="
 lib/hw/hwcomposer.mt6737t.so
