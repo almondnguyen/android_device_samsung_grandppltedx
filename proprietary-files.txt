@@ -345,7 +345,6 @@ lib/libsec-ril-dsds.so
 lib/libsec-ril.so
 lib/libsecnativefeature.so
 lib/libsecril-client.so
-lib/libxml2.so
 
 # Sensors
 lib/hw/sensors.mt6737t.so

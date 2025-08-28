@@ -61,7 +61,6 @@ echo "Fixing proprietary blobs"
 # ICU 55 > ICU 56
 BLOBS_LIST="
 lib/libaudio_param_parser.so
-lib/libxml2.so
 "
 for blob in $BLOBS_LIST
 do

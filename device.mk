@@ -127,6 +127,10 @@ SIM_COUNT := 2
 PRODUCT_PACKAGES += \
 	libxml2
 
+# RIL
+PRODUCT_PACKAGES += \
+    libxml2
+
 # Rootdir
 PRODUCT_PACKAGES += \
 	fstab.mt6735 \
