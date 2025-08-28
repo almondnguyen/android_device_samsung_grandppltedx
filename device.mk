@@ -144,7 +144,8 @@ PRODUCT_PACKAGES += \
 # Shims
 PRODUCT_PACKAGES += \
     libc_shim \
-    liblog_shim
+    liblog_shim \
+    libui_shim
 
 # Wifi
 PRODUCT_PACKAGES += \
