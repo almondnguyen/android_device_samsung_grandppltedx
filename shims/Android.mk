@@ -17,6 +17,14 @@ LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
+LOCAL_SRC_FILES := libssl/ssl_lib.c
+LOCAL_SHARED_LIBRARIES := libssl liblog
+LOCAL_MODULE := libssl_shim
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
 LOCAL_SRC_FILES := libui/GraphicBuffer.cpp
 LOCAL_SHARED_LIBRARIES := libui
 LOCAL_MODULE := libui_shim
