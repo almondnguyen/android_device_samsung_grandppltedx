@@ -56,7 +56,9 @@ PRODUCT_COPY_FILES += $(DEVICE_PATH)/configs/carrier/old-apns-conf.xml:$(TARGET_
 
 # Display
 PRODUCT_PACKAGES += \
-	libion
+    libgui_ext \
+    libion \
+    libui_ext
 
 # FM
 PRODUCT_PACKAGES += \

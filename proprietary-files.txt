@@ -254,11 +254,9 @@ lib/libdpframework.so
 lib/libgas.so
 lib/libged.so
 lib/libgpu_aux.so
-lib/libgralloc_extra.so
-lib/libgui_ext.so
-lib/libion_mtk.so
+-lib/libgralloc_extra.so
+-lib/libion_mtk.so
 lib/libm4u.so
-lib/libui_ext.so
 
 # Graphics (PQ)
 bin/pq
