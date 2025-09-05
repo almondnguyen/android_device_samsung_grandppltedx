@@ -38,8 +38,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/audio/audio_policy.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/audio_policy.conf \
-	$(DEVICE_PATH)/configs/audio/audio_device.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/audio_device.xml \
-	$(DEVICE_PATH)/configs/audio/audio_param/AudioParamOptions.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/audio_param/AudioParamOptions.xml
 
 # Bootanimation
 TARGET_SCREEN_HEIGHT := 960
@@ -65,12 +63,6 @@ PRODUCT_PACKAGES += \
 	libfmjni \
 	FMRadio \
 	libfmcust
-
-# GPS
-PRODUCT_COPY_FILES += \
-	$(DEVICE_PATH)/configs/gps/agps_profiles_conf2.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/agps_profiles_conf2.xml
-
-$(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 # Keylayout config
 KEYLAYOUTS := \
