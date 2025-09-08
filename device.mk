@@ -150,6 +150,7 @@ PRODUCT_PACKAGES += \
 # Shims
 PRODUCT_PACKAGES += \
     libc_shim \
+    libcamera_client_shim \
     liblog_shim \
     libssl_shim \
     libui_shim

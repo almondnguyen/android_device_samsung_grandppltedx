@@ -77,6 +77,15 @@ do
     "$PATCHELF_0_18" --add-needed "libc_shim.so" "$BLOB_ROOT/$blob"
 done
 
+# CameraParameters
+BLOBS_LIST="
+lib/libcam_utils.so
+"
+for blob in $BLOBS_LIST
+do
+    "$PATCHELF_0_18" --add-needed "libcamera_client_shim.so" "$BLOB_ROOT/$blob"
+done
+
 # __xlog_buf_printf
 BLOBS_LIST="
 lib/hw/hwcomposer.mt6737t.so
