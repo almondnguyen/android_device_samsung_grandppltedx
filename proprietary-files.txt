@@ -376,6 +376,9 @@ tee/00000001-0001-0001-0000-000000050207
 tee/startup.tzar
 
 # Wi-Fi
+lib/libwifi-service.so|b901b3b1a43365f879241e765aad66e7d878caeb
+
+# Wi-Fi
 bin/6620_launcher
 bin/macloader
 bin/wmt_loader
