@@ -108,19 +108,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
 
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.kernel.android.checkjni=0 \
-	ro.telephony.ril_class=grandpplteRIL
-
-# Disable mobile data on first boot
-PRODUCT_PROPERTY_OVERRIDES += ro.com.android.mobiledata=false
-
-# Disable Data Roaming
-PRODUCT_PROPERTY_OVERRIDES += ro.com.android.dataroaming=false
-
-# Disable SIM keyguard
-PRODUCT_PROPERTY_OVERRIDES += keyguard.no_require_sim=true
-
 # FM
 PRODUCT_PACKAGES += \
 	libfmjni \
@@ -259,23 +246,6 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/init/log.sh:system/etc/init/log.sh
 
 endif
-
-#-- default.prop
-ADDITIONAL_DEFAULT_PROPERTIES += \
-	ro.zygote=zygote32 \
-	ro.mount.fs=EXT4 \
-	ro.adb.secure=0 \
-	ro.secure=0 \
-	ro.allow.mock.location=0 \
-	ro.debuggable=1 \
-	persist.sys.dun.override=0 \
-	persist.service.acm.enable=0 \
-	persist.sys.usb.config=mtp,adb \
-	persist.sys.display.clearMotion=0
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    media.stagefright.legacyencoder=true \
-    media.stagefright.less-secure=true
 
 # Misc
 PRODUCT_PACKAGES += \
