@@ -226,11 +226,6 @@ PRODUCT_PACKAGES += \
 	init.xlog.rc \
 	log.sh
 
-#-- sbin
-PRODUCT_COPY_FILES += \
-	$(DEVICE_PATH)/rootdir/sbin/sswap:root/sbin/sswap \
-	$(DEVICE_PATH)/rootdir/sbin/busybox:root/sbin/busybox
-
 #-- etc/init/
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/init/audioserver.rc:system/etc/init/audioserver.rc \
