@@ -47,7 +47,6 @@ BOARD_USES_MTK_HARDWARE := true
 MTK_HARDWARE := true
 
 # Architecture
-TARGET_SOC          := mt6737t
 TARGET_ARCH         := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI      := armeabi-v7a
