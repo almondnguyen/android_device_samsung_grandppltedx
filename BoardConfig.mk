@@ -53,7 +53,6 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI      := armeabi-v7a
 TARGET_CPU_ABI2     := armeabi
 TARGET_CPU_VARIANT  := cortex-a53
-TARGET_CPU_SMP      := true
 
 # Block
 BOARD_BOOTIMAGE_PARTITION_SIZE        := 16777216
