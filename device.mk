@@ -58,9 +58,7 @@ PRODUCT_COPY_FILES += $(DEVICE_PATH)/configs/carrier/old-apns-conf.xml:$(TARGET_
 
 # Display
 PRODUCT_PACKAGES += \
-	libgui_ext \
-	libion \
-	libui_ext
+	libion
 
 # FM
 PRODUCT_PACKAGES += \
@@ -69,11 +67,6 @@ PRODUCT_PACKAGES += \
 	libfmcust
 
 # GPS
-PRODUCT_PACKAGES += \
-	wifi2agps \
-	libepos \
-	libcurl
-	
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/gps/agps_profiles_conf2.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/agps_profiles_conf2.xml
 
