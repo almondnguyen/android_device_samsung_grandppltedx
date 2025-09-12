@@ -61,9 +61,6 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/audio/audio_device.xml:system/etc/audio_device.xml \
 	$(DEVICE_PATH)/configs/audio/audio_param/AudioParamOptions.xml:system/etc/audio_param/AudioParamOptions.xml
 
-#al: test
-#PRODUCT_PACKAGES += libaudiosetting
-
 # Media
 PRODUCT_COPY_FILES += \
 	frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
@@ -125,8 +122,6 @@ PRODUCT_PROPERTY_OVERRIDES += ro.com.android.dataroaming=false
 PRODUCT_PROPERTY_OVERRIDES += keyguard.no_require_sim=true
 
 # FM
-MTK_FM_SUPPORT := true
-
 PRODUCT_PACKAGES += \
 	libfmjni \
 	FMRadio \
@@ -189,21 +184,8 @@ PRODUCT_PACKAGES += \
 	libxml2 \
 	Snap
 
-#-- camera sensor
-CAMERA_SENSOR_TYPE_BACK := "imx219_mipi_raw"
-CAMERA_SENSOR_TYPE_FRONT := "s5k5e3yx_mipi_raw"
-
-CAMERA_SUPPORT_SIZE := 8M
-FRONT_CAMERA_SUPPORT_SIZE := 5M
-
-#-- samsung camera
-BOARD_USE_SAMSUNG_CAMERAFORMAT_YUV420SP := true
-BOARD_USE_SAMSUNG_COLORFORMAT_NV21 := true
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 TARGET_NEEDS_LEGACY_CAMERA_HAL1_DYN_NATIVE_HANDLE := true
-
-BOARD_GLOBAL_CFLAGS += -DMETADATA_CAMERA_SOURCE
-TARGET_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_HARDWARE
 
 #-- perm
 PRODUCT_COPY_FILES += \
