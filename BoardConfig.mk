@@ -46,8 +46,6 @@ TARGET_BOARD_PLATFORM := mt6737t
 BOARD_USES_MTK_HARDWARE := true
 MTK_HARDWARE := true
 
-PRODUCT_SHIPPING_API_LEVEL := 23
-
 # Architecture
 TARGET_SOC          := mt6737t
 TARGET_ARCH         := arm
