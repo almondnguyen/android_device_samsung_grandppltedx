@@ -159,3 +159,6 @@ WIFI_DRIVER_FW_PATH_P2P := P2P
 WIFI_DRIVER_STATE_CTRL_PARAM := /dev/wmtWifi
 WIFI_DRIVER_STATE_ON := 1
 WIFI_DRIVER_STATE_OFF := 0
+
+# inherit from the proprietary version
+-include vendor/samsung/grandppltedx/BoardConfigVendor.mk
