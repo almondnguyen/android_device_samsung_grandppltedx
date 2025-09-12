@@ -158,11 +158,9 @@ PRODUCT_PACKAGES += \
 
 # Shims
 PRODUCT_PACKAGES += \
-	mtk_symbols \
-	libshim_thermal \
-	libshim_ssl \
-	libshim_camera \
 	libshim_agpsd \
+	libshim_camera \
+	libshim_thermal \
 	libshim_xlog
 
 # Wifi
