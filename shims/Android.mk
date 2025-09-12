@@ -24,6 +24,13 @@ LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
+LOCAL_SRC_FILES := libnetutils/ifc_utils.c
+LOCAL_MODULE := libnetutils_shim
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
 LOCAL_SRC_FILES := libssl/ssl_lib.c
 LOCAL_SHARED_LIBRARIES := libssl liblog
 LOCAL_MODULE := libssl_shim

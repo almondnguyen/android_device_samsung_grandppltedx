@@ -117,6 +117,15 @@ do
     "$PATCHELF_0_18" --add-needed "liblog_shim.so" "$BLOB_ROOT/$blob"
 done
 
+# ifc*
+BLOBS_LIST="
+bin/thermal
+"
+for blob in $BLOBS_LIST
+do
+    "$PATCHELF_0_18" --add-needed "libnetutils_shim.so" "$BLOB_ROOT/$blob"
+done
+
 # SSL_*
 BLOBS_LIST="
 bin/mtk_agpsd
