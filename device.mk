@@ -19,20 +19,13 @@ BLOCK_BASED_OTA := false
 # Define Path
 DEVICE_PATH := device/samsung/grandppltedx
 
-# Vendor
-$(call inherit-product-if-exists, vendor/samsung/grandppltedx/grandppltedx-vendor.mk)
-
-# Overlay
-DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
-
-# Display
-#-- This device is hdpi.
+# AAPT
 PRODUCT_AAPT_CONFIG := normal hdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 PRODUCT_AAPT_PREBUILT_DPI := hdpi
 
-PRODUCT_PACKAGES += \
-	libion
+# Apps
+PRODUCT_PACKAGES += RemovePackages
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -44,85 +37,36 @@ PRODUCT_PACKAGES += \
     libtinyxml
 
 PRODUCT_COPY_FILES += \
-	frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
-	frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
-	frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml \
 	$(DEVICE_PATH)/configs/audio/audio_policy.conf:system/etc/audio_policy.conf \
 	$(DEVICE_PATH)/configs/audio/audio_device.xml:system/etc/audio_device.xml \
 	$(DEVICE_PATH)/configs/audio/audio_param/AudioParamOptions.xml:system/etc/audio_param/AudioParamOptions.xml
 
-# Media
-PRODUCT_COPY_FILES += \
-	frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-	frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml \
-	frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
-	$(DEVICE_PATH)/configs/media/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
-	$(DEVICE_PATH)/configs/media/media_codecs_mediatek_audio.xml:system/etc/media_codecs_mediatek_audio.xml \
-	$(DEVICE_PATH)/configs/media/media_codecs_mediatek_video.xml:system/etc/media_codecs_mediatek_video.xml \
-	$(DEVICE_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
-	$(DEVICE_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml
+# Bootanimation
+TARGET_SCREEN_HEIGHT := 960
+TARGET_SCREEN_WIDTH := 540
 
-# BT
-PRODUCT_COPY_FILES += \
-	frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
-	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml
+TARGET_BOOTANIMATION_PRELOAD := true
+TARGET_BOOTANIMATION_TEXTURE_CACHE := true
+TARGET_BOOTANIMATION_HALF_RES := true
 
-# Wifi
+# Camera
 PRODUCT_PACKAGES += \
-	hostapd \
-	libwpa_client \
-	wpa_supplicant
-
-PRODUCT_COPY_FILES += \
-	$(DEVICE_PATH)/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-	$(DEVICE_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
-	$(DEVICE_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
+	Snap
 
 # Carrier
 PRODUCT_COPY_FILES += $(DEVICE_PATH)/configs/carrier/old-apns-conf.xml:system/etc/old-apns-conf.xml
 
-# RIL
-SIM_COUNT := 2
-
+# Display
 PRODUCT_PACKAGES += \
-	libxml2
-
-PRODUCT_COPY_FILES += \
-	frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
+	libgui_ext \
+	libion \
+	libui_ext
 
 # FM
 PRODUCT_PACKAGES += \
 	libfmjni \
 	FMRadio \
 	libfmcust
-
-# shim / symbols
-PRODUCT_PACKAGES += \
-	mtk_symbols \
-	libshim_thermal \
-	libshim_ssl \
-	libshim_camera \
-	libshim_agpsd \
-	libshim_xlog
-
-PRODUCT_COPY_FILES += \
-	frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
-	frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:system/etc/permissions/android.hardware.sensor.stepdetector.xml \
-	frameworks/native/data/etc/android.hardware.faketouch.xml:system/etc/permissions/android.hardware.faketouch.xml \
-	frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
-	frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
-	frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
-	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
-	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
-	frameworks/native/data/etc/android.hardware.touchscreen.xml:system/etc/permissions/android.hardware.touchscreen.xml \
-	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-	frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
-	frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
-	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-	frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
-	frameworks/native/data/etc/android.software.sip.xml:system/etc/permissions/android.software.sip.xml \
-	frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
 # GPS
 PRODUCT_PACKAGES += \
@@ -131,7 +75,6 @@ PRODUCT_PACKAGES += \
 	libcurl
 	
 PRODUCT_COPY_FILES += \
-	frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
 	$(DEVICE_PATH)/configs/gps/agps_profiles_conf2.xml:system/etc/agps_profiles_conf2.xml
 
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
@@ -143,32 +86,61 @@ KEYLAYOUTS := \
 PRODUCT_COPY_FILES += \
 	$(foreach f,$(KEYLAYOUTS),$(f):system/usr/keylayout/$(notdir $(f)))
 
-# Camera
+# Lights
 PRODUCT_PACKAGES += \
-	Snap
+	lights.mt6735
 
-TARGET_HAS_LEGACY_CAMERA_HAL1 := true
-TARGET_NEEDS_LEGACY_CAMERA_HAL1_DYN_NATIVE_HANDLE := true
-
-#-- perm
+# Media
 PRODUCT_COPY_FILES += \
-	frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
-	frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
-	frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
-	frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml
+	frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+	frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+	frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml \
+	frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
+	$(DEVICE_PATH)/configs/media/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
+	$(DEVICE_PATH)/configs/media/media_codecs_mediatek_audio.xml:system/etc/media_codecs_mediatek_audio.xml \
+	$(DEVICE_PATH)/configs/media/media_codecs_mediatek_video.xml:system/etc/media_codecs_mediatek_video.xml \
+	$(DEVICE_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
+	$(DEVICE_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml
 
-# Graphics
-PRODUCT_PACKAGES += \
-	libgui_ext \
-	libui_ext
+# Overlay
+DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
+
+# Permissions
+PRODUCT_COPY_FILES += \
+  frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
+  frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
+  frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
+  frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
+  frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+  frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+  frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
+  frameworks/native/data/etc/android.hardware.faketouch.xml:system/etc/permissions/android.hardware.faketouch.xml \
+  frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+  frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
+  frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+  frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
+  frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
+  frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
+  frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+  frameworks/native/data/etc/android.hardware.touchscreen.xml:system/etc/permissions/android.hardware.touchscreen.xml \
+  frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+  frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+  frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
+  frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+  frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml \
+  frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+  frameworks/native/data/etc/android.software.sip.xml:system/etc/permissions/android.software.sip.xml \
+  frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
 # Power
 PRODUCT_PACKAGES += \
 	power.mt6735
 
-# Lights
+# RIL
+SIM_COUNT := 2
+
 PRODUCT_PACKAGES += \
-	lights.mt6735
+	libxml2
 
 # Rootdir
 PRODUCT_PACKAGES += \
@@ -184,11 +156,32 @@ PRODUCT_PACKAGES += \
 	init.samsung.rc \
 	ueventd.mt6735.rc \
 
+# Shims
+PRODUCT_PACKAGES += \
+	mtk_symbols \
+	libshim_thermal \
+	libshim_ssl \
+	libshim_camera \
+	libshim_agpsd \
+	libshim_xlog
+
+# Wifi
+PRODUCT_PACKAGES += \
+	hostapd \
+	libwpa_client \
+	wpa_supplicant
+
+PRODUCT_COPY_FILES += \
+	$(DEVICE_PATH)/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+	$(DEVICE_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+	$(DEVICE_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
+
 #-- etc/init/
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/init/audioserver.rc:system/etc/init/audioserver.rc \
 	$(DEVICE_PATH)/configs/init/mediaserver.rc:system/etc/init/mediaserver.rc \
 	$(DEVICE_PATH)/configs/init/mediacodec.rc:system/etc/init/mediacodec.rc \
-	$(DEVICE_PATH)/configs/init/rild.rc:system/etc/init/rild.rc	
+	$(DEVICE_PATH)/configs/init/rild.rc:system/etc/init/rild.rc
 
-PRODUCT_PACKAGES += RemovePackages
+# Vendor
+$(call inherit-product-if-exists, vendor/samsung/grandppltedx/grandppltedx-vendor.mk)

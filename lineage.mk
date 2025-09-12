@@ -9,14 +9,6 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 # Inherit device configuration
 $(call inherit-product, device/samsung/grandppltedx/device.mk)
 
-# Bootanimation
-TARGET_SCREEN_HEIGHT := 960
-TARGET_SCREEN_WIDTH := 540
-
-TARGET_BOOTANIMATION_PRELOAD := true
-TARGET_BOOTANIMATION_TEXTURE_CACHE := true
-TARGET_BOOTANIMATION_HALF_RES := true
-
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := grandppltedx
 PRODUCT_NAME := lineage_grandppltedx
