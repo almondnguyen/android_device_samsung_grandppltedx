@@ -644,14 +644,4 @@ service sensorhubservice /system/bin/sensorhubservice
     user system
     group input
 
-# for Bluetooth Tethering
-service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
-    class main
-    disabled
-    oneshot
-
-service iprenew_bt-pan /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
 # end of BT
