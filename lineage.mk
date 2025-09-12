@@ -7,11 +7,11 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_m.mk)
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Inherit device configuration
-$(call inherit-product, device/samsung/grandppltedx/device.mk)
+$(call inherit-product, device/samsung/grandpplte/device.mk)
 
 # Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := grandppltedx
-PRODUCT_NAME := lineage_grandppltedx
+PRODUCT_DEVICE := grandpplte
+PRODUCT_NAME := lineage_grandpplte
 PRODUCT_BRAND := samsung
 PRODUCT_MODEL := SM-G532G
 PRODUCT_MANUFACTURER := samsung

@@ -16,5 +16,5 @@ read LOS_REPO
 echo -e "\n LOS Directory: $LOS_REPO"
 echo -e "\n Start Patching.."
 
-bash ${LOS_REPO}/device/samsung/grandppltedx/patches/oms/oms_patches.sh ${LOS_REPO}
+bash ${LOS_REPO}/device/samsung/grandpplte/patches/oms/oms_patches.sh ${LOS_REPO}
 exit 0

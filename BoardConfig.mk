@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-DEVICE_PATH := device/samsung/grandppltedx
+DEVICE_PATH := device/samsung/grandpplte
 
 # Architecture
 TARGET_ARCH         := arm
@@ -57,7 +57,7 @@ TARGET_NO_BOOTLOADER := true
 BOARD_CUSTOM_BOOTIMG := true
 
 BOARD_KERNEL_IMAGE_NAME := zImage-dtb
-TARGET_KERNEL_SOURCE    := kernel/samsung/grandppltedx
+TARGET_KERNEL_SOURCE    := kernel/samsung/grandpplte
 TARGET_KERNEL_CONFIG    := mt6737t-grandpplte_defconfig
 
 BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive
@@ -152,4 +152,4 @@ WIFI_DRIVER_STATE_ON := 1
 WIFI_DRIVER_STATE_OFF := 0
 
 # inherit from the proprietary version
--include vendor/samsung/grandppltedx/BoardConfigVendor.mk
+-include vendor/samsung/grandpplte/BoardConfigVendor.mk

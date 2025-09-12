@@ -17,7 +17,7 @@
 BLOCK_BASED_OTA := false
 
 # Define Path
-DEVICE_PATH := device/samsung/grandppltedx
+DEVICE_PATH := device/samsung/grandpplte
 
 # AAPT
 PRODUCT_AAPT_CONFIG := normal hdpi
@@ -182,4 +182,4 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/init/rild.rc:$(TARGET_COPY_OUT_SYSTEM)/etc/init/rild.rc
 
 # Vendor
-$(call inherit-product-if-exists, vendor/samsung/grandppltedx/grandppltedx-vendor.mk)
+$(call inherit-product-if-exists, vendor/samsung/grandpplte/grandpplte-vendor.mk)
