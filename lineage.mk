@@ -19,9 +19,9 @@ TARGET_BOOTANIMATION_HALF_RES := true
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := grandppltedx
 PRODUCT_NAME := lineage_grandppltedx
-PRODUCT_BRAND := Samsung
+PRODUCT_BRAND := samsung
 PRODUCT_MODEL := SM-G532G
-PRODUCT_MANUFACTURER := Samsung
+PRODUCT_MANUFACTURER := samsung
 
 PRODUCT_GMS_CLIENTID_BASE := android-samsung
 

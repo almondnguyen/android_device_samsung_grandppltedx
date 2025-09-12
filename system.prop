@@ -61,3 +61,6 @@ ro.telephony.ril_class=grandpplteRIL
 ro.ril.telephony.mqanelements=6
 ro.telephony.default_network=9
 persist.radio.sib16_support=0
+ro.multisim.set_audio_params=true
+ro.multisim.simslotcount=2
+persist.radio.multisim.config=dsds

@@ -187,10 +187,6 @@ PRODUCT_PACKAGES += \
 	libui_ext \
 	libGLES_android
 
-# Init
-PRODUCT_PACKAGES += \
-	libinit_grandpplte
-
 # Power
 PRODUCT_PACKAGES += \
 	power.default \
