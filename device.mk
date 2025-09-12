@@ -36,21 +36,12 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-	audio.usb.default \
-	audio.r_submix.default \
-	audio_policy.default \
-	libaudiopolicymanagerdefault \
-	libaudiopolicyservice \
-	libaudiopolicyenginedefault \
-	libaudioroute \
-	libaudiospdif \
-	libeffects \
-	libaudio-resampler \
-	libaudioutils \
-	libtinyalsa \
-	libtinycompress \
-	libtinymix \
-	libtinyxml
+    audio.usb.default \
+    audio.r_submix.default \
+    audio_policy.default \
+    libtinyalsa \
+    libtinycompress \
+    libtinyxml
 
 PRODUCT_COPY_FILES += \
 	frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
@@ -81,9 +72,7 @@ PRODUCT_PACKAGES += \
 	dhcpcd.conf \
 	hostapd \
 	libwpa_client \
-	wpa_supplicant \
-	wpa_supplicant.conf \
-	lib_driver_cmd_mt66xx
+	wpa_supplicant
 
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
@@ -97,9 +86,7 @@ PRODUCT_COPY_FILES += $(DEVICE_PATH)/configs/carrier/old-apns-conf.xml:system/et
 SIM_COUNT := 2
 
 PRODUCT_PACKAGES += \
-	libxml2 \
-	libprotobuf-cpp-full \
-	libstlport
+	libxml2
 
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
@@ -118,11 +105,6 @@ PRODUCT_PACKAGES += \
 	libshim_camera \
 	libshim_agpsd \
 	libshim_xlog
-
-# Platform
-PRODUCT_PACKAGES += \
-	libem_sensor_jni \
-	libstlport
 
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
@@ -164,7 +146,6 @@ PRODUCT_COPY_FILES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-	libxml2 \
 	Snap
 
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
@@ -180,25 +161,15 @@ PRODUCT_COPY_FILES += \
 # Graphics
 PRODUCT_PACKAGES += \
 	libgui_ext \
-	libui_ext \
-	libGLES_android
+	libui_ext
 
 # Power
 PRODUCT_PACKAGES += \
-	power.default \
 	power.mt6735
 
 # Lights
 PRODUCT_PACKAGES += \
 	lights.mt6735
-
-# Sensor
-PRODUCT_PACKAGES += \
-	libnvram
-
-# memtrack
-PRODUCT_PACKAGES += \
-	memtrack.mt6735
 
 # Rootdir
 PRODUCT_PACKAGES += \
@@ -221,30 +192,4 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/init/mediacodec.rc:system/etc/init/mediacodec.rc \
 	$(DEVICE_PATH)/configs/init/rild.rc:system/etc/init/rild.rc	
 
-# Misc
-PRODUCT_PACKAGES += \
-	librs_jni \
-	libnl_2
-
-PRODUCT_PACKAGES += SamsungServiceMode
 PRODUCT_PACKAGES += RemovePackages
-
-# Filesystem management tools
-PRODUCT_PACKAGES += \
-	libfs_mgr \
-	f2fstat \
-	fibmap.f2fs \
-	e2fsck \
-	fsck.f2fs \
-	mkfs.f2fs \
-	setup_fs \
-	make_ext4fs
-
-PRODUCT_PACKAGES += \
-	fsck.exfat \
-	mkfs.exfat
-
-PRODUCT_PACKAGES += \
-	fsck.ntfs \
-	mkfs.ntfs \
-	mount.ntfs
