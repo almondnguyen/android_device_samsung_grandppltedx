@@ -8,14 +8,6 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 include $(BUILD_SHARED_LIBRARY)
 
-# Parcel
-include $(CLEAR_VARS)
-LOCAL_SRC_FILES := ril/ril_shim.cpp
-LOCAL_MODULE := libshim_ril
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-include $(BUILD_SHARED_LIBRARY)
-
 # Cam and FILEPATHE
 include $(CLEAR_VARS)
 LOCAL_SHARED_LIBRARIES := libbinder liblog libgui libui libicuuc libicui18n libmedia
