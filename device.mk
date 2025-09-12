@@ -210,7 +210,6 @@ PRODUCT_PACKAGES += \
 
 # Rootdir
 PRODUCT_PACKAGES += \
-	enableswap.sh \
 	fstab.mt6735 \
 	init.modem.rc \
 	init.mt6735.rc \
@@ -218,13 +217,10 @@ PRODUCT_PACKAGES += \
 	init.project.rc \
 	init.rilcommon.rc \
 	init.rilchip.rc \
-	init.emdlogger1.rc \
 	init.wifi.rc \
 	init.recovery.mt6735.rc \
 	init.samsung.rc \
 	ueventd.mt6735.rc \
-	init.xlog.rc \
-	log.sh
 
 #-- etc/init/
 PRODUCT_COPY_FILES += \
@@ -232,15 +228,6 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PATH)/configs/init/mediaserver.rc:system/etc/init/mediaserver.rc \
 	$(DEVICE_PATH)/configs/init/mediacodec.rc:system/etc/init/mediacodec.rc \
 	$(DEVICE_PATH)/configs/init/rild.rc:system/etc/init/rild.rc	
-
-#-- custom logging
-BUILD_INCLUDE_CUSTOM_LOG := false
-ifeq ($(BUILD_INCLUDE_CUSTOM_LOG), true)
-PRODUCT_COPY_FILES += \
-	$(DEVICE_PATH)/configs/init/al-cust-logcat.rc:system/etc/init/cust-log.rc \
-	$(DEVICE_PATH)/configs/init/log.sh:system/etc/init/log.sh
-
-endif
 
 # Misc
 PRODUCT_PACKAGES += \
