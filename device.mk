@@ -156,13 +156,6 @@ PRODUCT_PACKAGES += \
 	init.samsung.rc \
 	ueventd.mt6735.rc \
 
-# Shims
-PRODUCT_PACKAGES += \
-	libshim_agpsd \
-	libshim_camera \
-	libshim_thermal \
-	libshim_xlog
-
 # Wifi
 PRODUCT_PACKAGES += \
 	hostapd \

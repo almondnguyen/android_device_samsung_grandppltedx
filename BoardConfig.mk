@@ -122,14 +122,6 @@ BOARD_SEPOLICY_DIRS := \
 	$(DEVICE_PATH)/sepolicy/samsung \
 	$(DEVICE_PATH)/sepolicy/mt6737m
 
-# Shims
-TARGET_LDPRELOAD += libshim_xlog.so
-LINKER_FORCED_SHIM_LIBS := \
-	/system/bin/mtk_agpsd|libshim_agpsd.so \
-	/system/lib/libcam_utils.so|libshim_camera.so \
-	/system/lib/liblog.so|libshim_xlog.so \
-	/system/bin/thermal|libshim_thermal.so
-
 # RIL
 BOARD_PROVIDES_RILD := true
 BOARD_PROVIDES_LIBRIL :=
