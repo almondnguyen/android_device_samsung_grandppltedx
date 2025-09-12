@@ -143,7 +143,7 @@ BOARD_PROVIDES_RILD := true
 BOARD_PROVIDES_LIBRIL :=
 BOARD_PROVIDES_LIBREFERENCE_RIL :=
 
-BOARD_RIL_CLASS := ../../../device/samsung/grandppltedx/ril
+BOARD_RIL_CLASS := ../../../$(DEVICE_PATH)/ril
 
 # Power HAL
 TARGET_POWERHAL_VARIANT := mtk
@@ -169,8 +169,8 @@ TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 
 # SEAndroid
 BOARD_SEPOLICY_DIRS := \
-	device/samsung/grandppltedx/sepolicy/samsung \
-	device/samsung/grandppltedx/sepolicy/mt6737m
+	$(DEVICE_PATH)/sepolicy/samsung \
+	$(DEVICE_PATH)/sepolicy/mt6737m
 
 BOARD_SECCOMP_POLICY := $(DEVICE_PATH)/seccomp
 

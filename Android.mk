@@ -1,7 +1,5 @@
-LOCAL_PATH := device/samsung/grandppltedx
+LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter grandppltedx,$(TARGET_DEVICE)),)
-
-include $(call all-makefiles-under,$(LOCAL_PATH))
-
+ifeq ($(TARGET_DEVICE),grandppltedx)
+include $(call all-subdir-makefiles,$(LOCAL_PATH))
 endif

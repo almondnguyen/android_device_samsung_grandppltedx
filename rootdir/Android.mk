@@ -1,4 +1,4 @@
-LOCAL_PATH := device/samsung/grandppltedx/rootdir
+LOCAL_PATH := $(call my-dir)
 
 define add-rootdir-targets
 $(foreach target,$(1), \

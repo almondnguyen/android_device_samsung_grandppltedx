@@ -36,8 +36,8 @@
 # libgui_extra.so
 # modified by daniel_hk(https://github.com/daniel_hk)
 
-LOCAL_PATH := $(call my-dir)
-GRAPHICS_DIR := device/samsung/grandppltedx/mtk/graphics
+DEVICE_PATH := device/samsung/grandppltedx
+GRAPHICS_DIR := $(DEVICE_PATH)/mtk/graphics
 
 include $(CLEAR_VARS)
 
