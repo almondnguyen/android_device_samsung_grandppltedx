@@ -878,15 +878,10 @@ on property:vold.decrypt=trigger_reset_main
 
 on property:vold.decrypt=trigger_restart_min_framework
     start start_modem
-    start msensord
-    start permission_check
-    start stp_dump
 
 on property:vold.decrypt=trigger_restart_framework
     start nvram_daemon
     start start_modem
-    start msensord
-    start permission_check
 
 on property:vold.decrypt=trigger_shutdown_framework
     start stop_modem
@@ -921,9 +916,6 @@ service bugreport /system/bin/dumpstate -d -p -B \
     oneshot
     keycodes 114 115 116
 
-service netdiag /system/bin/netdiag
-    class main
-
 #al: a dum-dum way to get a lot more permission for the nvram stuff
 #group system
 
@@ -933,20 +925,9 @@ service nvram_daemon /system/bin/nvram_daemon
     group root system radio shell net_bt_stack audio inet
     oneshot
 
-service meta_tst /system/bin/meta_tst
-    class main
-    user radio
-    group system radio shell net_bt_stack audio inet
-    oneshot
-
 service audio-daemon /system/bin/audiocmdservice_atci
     class main
     socket atci-audio stream 660 root system
-    user root
-    disabled
-    oneshot
-
-service md_minilog_util /system/bin/md_minilog_util
     user root
     disabled
     oneshot
@@ -1094,13 +1075,6 @@ service mnld /system/xbin/mnld
     user gps
     group gps inet misc sdcard_rw sdcard_r media_rw system radio
     socket mnld stream 660 gps system
-
-service mdlogger /system/bin/mdlogger
-    class main
-    user shell
-    group shell system radio sdcard_rw inet sdcard_r media_rw
-    disabled
-    oneshot
 
 service shutdown /system/bin/shutdown
     user root
