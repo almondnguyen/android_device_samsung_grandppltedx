@@ -87,8 +87,8 @@ do
 done
 
 # __xlog_buf_printf
+# hwcomposer.mt6737t, libMtkOmxVdecEx, libMtkOmxVenc depend on libdpframework
 BLOBS_LIST="
-lib/hw/hwcomposer.mt6737t.so
 lib/lib3a.so
 lib/lib3a_sample.so
 lib/libJpgDecPipe.so
@@ -100,8 +100,6 @@ lib/libMtkOmxG711Dec.so
 lib/libMtkOmxGsmDec.so
 lib/libMtkOmxMp3Dec.so
 lib/libMtkOmxRawDec.so
-lib/libMtkOmxVdecEx.so
-lib/libMtkOmxVenc.so
 lib/libMtkOmxVorbisEnc.so
 lib/libSwJpgCodec.so
 lib/libcamalgo.so
@@ -136,10 +134,9 @@ do
 done
 
 # GraphicBuffer
+# libcam.camnode, libcam.client depends on libcam_utils
 BLOBS_LIST="
 lib/libMtkOmxVenc.so
-lib/libcam.camnode.so
-lib/libcam.client.so
 lib/libcam_utils.so
 lib/libmtk_mmutils.so
 lib/libsecimaging.so
