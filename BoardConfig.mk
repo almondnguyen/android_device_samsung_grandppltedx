@@ -111,6 +111,7 @@ BOARD_KERNEL_IMAGE_NAME := zImage
 TARGET_KERNEL_SOURCE    := kernel/samsung/grandppltedx
 TARGET_KERNEL_CONFIG += \
     mt6737t-grandpplte_defconfig
+TARGET_PREBUILT_DTB     := $(DEVICE_PATH)/dt.img
 
 BOARD_KERNEL_CMDLINE  := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive
 BOARD_KERNEL_BASE     := 0x3fffc000
@@ -128,7 +129,8 @@ BOARD_MKBOOTIMG_ARGS := \
 	--ramdisk_offset $(BOARD_RAMDISK_OFFSET) \
 	--second_offset $(BOARD_SECOND_OFFSET) \
 	--tags_offset $(BOARD_TAGS_OFFSET) \
-	--board $(BOARD_NAME)
+	--board $(BOARD_NAME) \
+	--dt $(TARGET_PREBUILT_DTB)
 
 # CMHW
 BOARD_USES_LINEAGE_HARDWARE := true
