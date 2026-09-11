@@ -444,3 +444,10 @@ on charger
     copy /system/vendor/firmware/battery_data.dat /efs/Battery/battery_data.dat
     chmod 0400 /efs/Battery/battery_data.dat
     write /sys/class/power_supply/battery/batt_update_data "/efs/Battery/battery_data.dat"
+
+# MTK: re-trigger USB gadget enumeration at boot completion. When the
+# cable is connected through recovery/sideload reboots the gadget can
+# stay stuck without adb; replaying the usb config re-enumerates it.
+on property:sys.boot_completed=1
+    setprop sys.usb.config none
+    setprop sys.usb.config ${persist.sys.usb.config}
