@@ -736,3 +736,12 @@
 /system/bin/wifi2agps u:object_r:wifi2agps_exec:s0
 /system/bin/wmt_launcher u:object_r:mtk_wmt_launcher_exec:s0
 /system/bin/wmt_loader u:object_r:wmt_loader_exec:s0
+/dev/umts.* u:object_r:mif_device:s0
+/data/ahrh u:object_r:radio_data_file:s0
+/data/mgzc u:object_r:radio_data_file:s0
+/data/dakl u:object_r:radio_data_file:s0
+/data/cmdline u:object_r:radio_data_file:s0
+/dev/block/mmcblk0p10 u:object_r:mmcblk0_block_device:s0
+/dev/block/mmcblk0p11 u:object_r:nvdata_device:s0
+/dev/block/mmcblk0p27 u:object_r:cache_block_device:s0
+/dev/block/mmcblk0p29 u:object_r:userdata_block_device:s0

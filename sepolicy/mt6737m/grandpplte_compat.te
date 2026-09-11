@@ -1,0 +1,20 @@
+# grandppltedx enforcing bring-up allows.
+# Object labels for this device live in mt6737m/file_contexts:
+#   /dev/umts.*               -> mif_device (granted by samsung/rild.te)
+#   /data/{ahrh,mgzc,dakl,cmdline} -> radio_data_file (AOSP rild grant)
+#   mmcblk0p10/p11/p27/p29    -> mmcblk0_block_device/nvdata_device/
+#                                cache_block_device/userdata_block_device
+# rild: /data root dir ops (files are radio_data_file) + audioserver node
+allow rild system_data_file:dir { remove_name search };
+allow rild audioserver:file { read open getattr };
+allow rild audioserver:dir search;
+
+# zygote: ART tracing debugfs probes
+allow zygote debugfs_tracing:file { open read getattr write };
+
+# wifi2agps: /proc/net reads
+allow wifi2agps proc_net:file { open read getattr };
+
+# fsck: EFS and nvdata partitions (cache/userdata via base fsck.te)
+allow fsck mmcblk0_block_device:blk_file rw_file_perms;
+allow fsck nvdata_device:blk_file rw_file_perms;
